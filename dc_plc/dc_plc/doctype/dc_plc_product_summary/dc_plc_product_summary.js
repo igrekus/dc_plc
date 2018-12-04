@@ -14,19 +14,24 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
             }
         }
     },
-    // fire an even on property update
+    // fire an event on property update
     link_package: frm => {
-        // console.log(frm.fields_dict['link_package'].$input);
-        let value = frm.fields_dict['link_package'].value;
-        let list = frm.fields_dict['link_package'].awesomplete._list;
-        if (typeof value !== 'undefined') {
-            list.forEach( ( {description, val, label} ) => {
-                if (value === label) {
-                    console.log('found package:', label, description);
-                }
-            });
-        }
+        // // console.log(frm.fields_dict['link_package'].$input);
+        // let value = frm.fields_dict['link_package'].value;
+        // let list = frm.fields_dict['link_package'].awesomplete._list;
+        // if (typeof value !== 'undefined') {
+        //     list.forEach( ( {description, val, label} ) => {
+        //         if (value === label) {
+        //             console.log('found package:', label, description);
+        //             cur_frm.fields_dict['link_package'].$input.value = description;
+        //         }
+        //     });
+        // }
     }
+    // frappe.ui.form.on(this.frm.doctype, 'set_posting_date_and_time_read_only', function(frm) {
+    // frappe.ui.form.on(this.frm.doctype, 'set_posting_time', function(frm) {
+    // frappe.ui.form.on(this.frm.doctype + " Item", "rate", function(frm, cdt, cdn) {
+    // cur_frm.events[fieldname] = handler;
 });
 
 
