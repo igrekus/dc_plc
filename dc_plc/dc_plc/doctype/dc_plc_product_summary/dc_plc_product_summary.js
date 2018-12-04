@@ -2,7 +2,7 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('DC_PLC_Product_Summary', {
-    refresh: function(frm) {
+    refresh: frm => {
         cur_frm.fields_dict['tab_consultants'].grid.get_field('link_employee').get_query = function(doc, cut, cdn) {
             return {
                 query: 'dc_plc.controllers.queries.consultant_query'
