@@ -7,6 +7,7 @@ import frappe
 
 # search for members of consultant group (GRP00000)
 def consultant_query(doctype, txt, searchfield, start, page_len, filters):
+    
     return frappe.db.sql("""SELECT em.employee, em.employee_name
         FROM tabEmployee as em
         INNER JOIN tabDC_Employees_in_Group as gp
