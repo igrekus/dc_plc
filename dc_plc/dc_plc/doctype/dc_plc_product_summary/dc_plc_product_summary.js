@@ -34,8 +34,22 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
     // cur_frm.events[fieldname] = handler;
 });
 
-
-
+// List of Triggers
+//
+// Field Names (see the company example above)
+// setup
+// onload
+// refresh
+// validate
+// on_submit
+// onload_post_render
+// Child Table Triggers (need to be on the subtable DocType)
+//
+// fieldname_add
+// fieldname_move
+// fieldname_before_remove
+// fieldname_remove
+// these also work: https://developer.mozilla.org/en-US/docs/Web/Events
 
 // frappe.ui.form.on("Purchase Order", "refresh", function(frm) {
 //     cur_frm.set_query("supplier", function() {
