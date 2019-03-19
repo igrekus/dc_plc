@@ -19,6 +19,11 @@ def get_data():
                 },
                 {
                     "type": "doctype",
+                    "name": "DC_PLC_Product_Summary",
+                    "label": _("Product list"),
+                },
+                {
+                    "type": "doctype",
                     "name": "DC_PLC_Package",
                     "label": _("Package type"),
                 },
@@ -46,7 +51,7 @@ def get_data():
                 {
                     "type": "doctype",
                     "name": "DC_Employee_Group",
-                    "label": _("Employees group"),
+                    "label": _("Employee group"),
                 },
             ]
         }
