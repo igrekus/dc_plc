@@ -1,5 +1,6 @@
 {
   "js/dc_plc.min.js": [
-    "public/js/views/productsummaryview.js"
+    "public/js/views/productsummaryview.js",
+    "public/js/dc_plc.js"
   ]
 }
