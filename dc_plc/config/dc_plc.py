@@ -9,9 +9,11 @@ def get_data():
             "icon": "octicon octicon-briefcase",
             "items": [
                 {
-                    "type": "doctype",
-                    "name": "DC_PLC_Product_Summary",
-                    "label": _("Product summary"),
+                    "type": "report",
+                    "name": "DC Product Stats",
+                    "is_query_report": True,
+                    "doctype": "DC_PLC_Product_Summary",
+                    "label": _("Product Stats"),
                     "onboard": 1,
                 },
                 {

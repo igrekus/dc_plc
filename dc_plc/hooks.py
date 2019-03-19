@@ -16,7 +16,13 @@ app_license = "MIT"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/dc_plc/css/dc_plc.css"
-# app_include_js = "/assets/dc_plc/js/dc_plc.js"
+app_include_js = [
+    "assets/dc_plc/js/views/productsummaryview.js",
+    "/assets/dc_plc/js/dc_plc.js"
+]
+
+# prod include:
+# app_include_js = "/assets/js/dc_plc.min.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/dc_plc/css/dc_plc.css"
@@ -27,7 +33,7 @@ app_license = "MIT"
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
+# doctype_list_js = {"dc_plc_product_summary": "dc_plc_product_summary_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
