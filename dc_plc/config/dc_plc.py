@@ -28,17 +28,17 @@ def get_data():
                     # "onboard": 1,
                     # "dependencies": ["DC_PLC_Product_Summary"],
                     # "condition": getattr(frappe.local.conf, 'developer_mode', 0),
-                }
-                # {
-                #     "type": "report",
-                #     "name": "DC Product Stats",
-                #     "is_query_report": True,
-                #     "doctype": "DC_PLC_Product_Summary",
-                #     "label": _("Product MMC Depd Head Stats"),
-                #     # "onboard": 1,
-                #     "dependencies": ["DC_PLC_Product_Summary"],
-                #     # "condition": getattr(frappe.local.conf, 'developer_mode', 0),
-                # },
+                },
+                {
+                    "type": "report",
+                    "name": "DC Product Developer Stats",
+                    "is_query_report": True,
+                    "doctype": "DC_PLC_Product_Summary",
+                    "label": _("Product Developer Stats"),
+                    # "onboard": 1,
+                    "dependencies": ["DC_PLC_Product_Summary"],
+                    # "condition": getattr(frappe.local.conf, 'developer_mode', 0),
+                },
                 # {
                 #     "type": "report",
                 #     "name": "DC Product Stats",
