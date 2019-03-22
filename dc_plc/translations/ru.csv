@@ -22,6 +22,8 @@ DocType: DC_PLC_Package,Title,Наименование
 
 DC_Employees_in_Group,Full name,ФИО
 
+DC_Employee_Group,Members,Членов
+
 apps/dc_plc/dc_plc/dc_plc/report/dc_product_stats/dc_product_stats.json +843,Operator must be one of {0},Оператор должен быть одним из {0}
 
 ,DC Product Stats,Полная статистика продукции
