@@ -1,1 +1,31 @@
-DocType: DC_PLC_Product_Summary,DC PLC,ЦП управление продуктом
+DocType: DC_PLC_Product_Summary,DC PLC,УЖЦ продукции НО-8
+DocType: DC_PLC_Product_Summary,Mandatory parameters,Обязательные параметры
+DocType: DC_PLC_Product_Summary,DC_PLC_Product_Summary,Карточка продукта
+DocType: DC_PLC_Product_Summary,External Number,Внешний номер
+DocType: DC_PLC_Product_Summary,RnD Project,Наименование ОКР
+DocType: DC_PLC_Product_Summary,Employees responsible,Ответственные сотрудники
+DocType: DC_PLC_Product_Summary,Consultant,Консультанты
+DocType: DC_PLC_Product_Summary,Developers,Разработчики
+DocType: DC_PLC_Product_Summary,Assembly,Сборка
+DocType: DC_PLC_Product_Summary,Chip,Кристалл
+DocType: DC_PLC_Product_Summary,Package,Корпус
+DocType: DC_PLC_Product_Summary,Assembly board,Плата в сборке
+DocType: DC_PLC_Product_Summary,Product Type,Тип устройства
+DocType: DC_PLC_Product_Summary,Function,Функциональное назначение
+DocType: DC_PLC_Product_Summary,Application,Применение
+DocType: DC_PLC_Product_Summary,Specs,Параметры
+DocType: DC_PLC_Product_Summary,Analogs,Аналоги
+DocType: DC_PLC_Product_Summary,Opcon,ТУ
+DocType: DC_PLC_Product_Summary,Datasheet,Даташит
+
+DocType: DC_PLC_Package,Title,Наименование
+
+DC_Employees_in_Group,Full name,ФИО
+
+apps/dc_plc/dc_plc/dc_plc/report/dc_product_stats/dc_product_stats.json +843,Operator must be one of {0},Оператор должен быть одним из {0}
+
+,DC Product Stats,Полная статистика продукции
+,DC Product RND Specialist Stats,Выборка для специалиста по ОКР
+,DC Product Developer Stats,Выборка для разработчика
+,DC Product Opcon Stats,Выборка для специалиста по ТУ
+,DC Product Tech Writer Stats,Выборка для технического писателя

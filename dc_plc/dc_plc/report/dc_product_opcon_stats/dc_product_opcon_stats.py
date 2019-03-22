@@ -13,7 +13,7 @@ def execute(filters=None):
 
 
 def get_columns():
-	return ["ID:Link/DC_PLC_Product_Summary", "Ext number", "Opcon"]
+	return ["ID:Link/DC_PLC_Product_Summary", "Внешний номер", "ТУ"]
 
 
 def get_data():
