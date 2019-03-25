@@ -24,10 +24,40 @@ DC_Employees_in_Group,Full name,ФИО
 
 DC_Employee_Group,Members,Членов
 
-apps/dc_plc/dc_plc/dc_plc/report/dc_product_stats/dc_product_stats.json +843,Operator must be one of {0},Оператор должен быть одним из {0}
-
 ,DC Product Stats,Полная статистика продукции
 ,DC Product RND Specialist Stats,Выборка для специалиста по ОКР
 ,DC Product Developer Stats,Выборка для разработчика
 ,DC Product Opcon Stats,Выборка для специалиста по ТУ
 ,DC Product Tech Writer Stats,Выборка для технического писателя
+
+,DC Product Info,Статистика продукции НО-8
+,Full stats,Полная статистика
+,RND Spec query,Выборка для специалиста по ОКР
+,Developer query,Выборка для разработчика
+,Opcon spec query,Выборка для специалиста по ТУ
+,Tech writer query,Выборка для технического писателя
+,Data sources,Источники данных
+,DC Products,Продукция
+,Package type,Тип корпуса
+,Function,Функциональное назначение
+,Product type,Тип устройства
+,RND title,Наименование ОКР
+,DC Staff Data Sources,Данные о сотрудниках НО-8
+,Employee Group,Группа сотрудников
+
+,External number,Внешний номер
+,Type,Тип
+,RnD Title,ОКР
+,Consultants,Консультанты
+,Developers,Разработчики
+,Chip,Кристалл
+,Assembly board,Плата в сборке
+,Package,Корпус
+,Function,Функция
+,Application,Применение
+,Description,Описание
+,Specs,Параметры
+,Analogs,Аналоги
+,Opcon,Ту
+,Reports,Отчёты
+,Datasheet,Даташит

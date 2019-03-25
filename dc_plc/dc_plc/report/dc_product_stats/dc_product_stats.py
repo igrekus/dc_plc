@@ -3,7 +3,7 @@
 
 from __future__ import unicode_literals
 import frappe
-
+from frappe import _
 
 def execute(filters=None):
 	if not filters:
@@ -17,7 +17,25 @@ def execute(filters=None):
 
 def get_columns():
 	# return ["#:Data:50", _("Product") + ":Link/DC_PLC_Product_Summary:200", _("Type") + ":Link/PLC_Product_Type:100"]
-	return ["ID:Link/DC_PLC_Product_Summary", "Внешний №", "Тип", "ОКР", "Консультанты", "Разработчики", "Кристалл", "Плата в сборке", "Корпус", "Функция", "Применение", "Описание", "Параметры", "ТУ", "Аналоги", "Отчёты", "Даташит"]
+	return [
+		"ID:Link/DC_PLC_Product_Summary",
+		_("External number"),
+		_("Type"),
+		_("RnD Title"),
+		_("Consultants"),
+		_("Developers"),
+		_("Chip"),
+		_("Assembly board"),
+		_("Package"),
+		_("Function"),
+		_("Application"),
+		_("Description"),
+		_("Specs"),
+		_("Opcon"),
+		_("Analogs"),
+		_("Reports"),
+		_("Datasheet")
+	]
 
 
 def get_product_stats(filters):

@@ -6,7 +6,7 @@ def get_data():
 
     return [
         {
-            "label": _("Статистика продукции НО-8"),
+            "label": _("DC Product Info"),
             "icon": "octicon octicon-briefcase",
             "items": [
                 {
@@ -14,7 +14,7 @@ def get_data():
                     "name": "DC Product Stats",
                     "is_query_report": True,
                     "doctype": "DC_PLC_Product_Summary",
-                    "label": _("Полная статистика"),
+                    "label": _("Full stats"),
                     "onboard": 1,
                     # "dependencies": ["DC_PLC_Product_Summary"],
                     # "condition": getattr(frappe.local.conf, 'developer_mode', 0),
@@ -24,7 +24,7 @@ def get_data():
                     "name": "DC Product RND Specialist Stats",
                     "is_query_report": True,
                     "doctype": "DC_PLC_Product_Summary",
-                    "label": _("Выборка для специалиста по ОКР"),
+                    "label": _("RND Spec query"),
                     # "onboard": 1,
                     # "dependencies": ["DC_PLC_Product_Summary"],
                     # "condition": getattr(frappe.local.conf, 'developer_mode', 0),
@@ -34,7 +34,7 @@ def get_data():
                     "name": "DC Product Developer Stats",
                     "is_query_report": True,
                     "doctype": "DC_PLC_Product_Summary",
-                    "label": _("Выборка для разработчика"),
+                    "label": _("Developer query"),
                     # "onboard": 1,
                     # "dependencies": ["DC_PLC_Product_Summary"],
                     # "condition": getattr(frappe.local.conf, 'developer_mode', 0),
@@ -44,7 +44,7 @@ def get_data():
                     "name": "DC Product Opcon Stats",
                     "is_query_report": True,
                     "doctype": "DC_PLC_Product_Summary",
-                    "label": _("Выборка для специалиста по ТУ"),
+                    "label": _("Opcon spec query"),
                     # "onboard": 1,
                     # "dependencies": ["DC_PLC_Product_Summary"],
                     # "condition": getattr(frappe.local.conf, 'developer_mode', 0),
@@ -54,7 +54,7 @@ def get_data():
                     "name": "DC Product Tech Writer Stats",
                     "is_query_report": True,
                     "doctype": "DC_PLC_Product_Summary",
-                    "label": _("Выборка для технического писателя"),
+                    "label": _("Tech writer query"),
                     # "onboard": 1,
                     # "dependencies": ["DC_PLC_Product_Summary"],
                     # "condition": getattr(frappe.local.conf, 'developer_mode', 0),
@@ -72,44 +72,44 @@ def get_data():
             ]
         },
         {
-            "label": _("Источники данных"),
+            "label": _("Data sources"),
             "icon": "octicon octicon-briefcase",
             "items": [
                 {
                     "type": "doctype",
                     "name": "DC_PLC_Product_Summary",
-                    "label": _("Продукция"),
+                    "label": _("DC Products"),
                 },
                 {
                     "type": "doctype",
                     "name": "DC_PLC_Package",
-                    "label": _("Тип корпуса"),
+                    "label": _("Package type"),
                 },
                 {
                     "type": "doctype",
                     "name": "DC_PLC_Product_Function",
-                    "label": _("Функциональное назначение"),
+                    "label": _("Function"),
                 },
                 {
                     "type": "doctype",
                     "name": "DC_PLC_Product_Type",
-                    "label": _("Тип устройства"),
+                    "label": _("Product type"),
                 },
                 {
                     "type": "doctype",
                     "name": "DC_PLC_RND_Project",
-                    "label": _("Наименование ОКР"),
+                    "label": _("RND title"),
                 },
             ]
         },
         {
-            "label": _("Данные о сотрудниках НО-8"),
+            "label": _("DC Staff Data Sources"),
             "icon": "octicon octicon-briefcase",
             "items": [
                 {
                     "type": "doctype",
                     "name": "DC_Employee_Group",
-                    "label": _("Группа сотрудников"),
+                    "label": _("Employee Group"),
                 },
             ]
         }

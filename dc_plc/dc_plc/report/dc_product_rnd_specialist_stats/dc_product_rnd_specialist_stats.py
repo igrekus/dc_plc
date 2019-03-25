@@ -13,7 +13,12 @@ def execute(filters=None):
 
 
 def get_columns():
-	return ["ID:Link/DC_PLC_Product_Summary", "Внешний номер", "Тип", "ОКР"]
+	return [
+        "ID:Link/DC_PLC_Product_Summary",
+        _("External number"),
+        _("Type"),
+        _("RnD Title")
+    ]
 
 
 def get_data():
