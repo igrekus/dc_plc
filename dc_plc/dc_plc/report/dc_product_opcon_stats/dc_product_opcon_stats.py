@@ -3,23 +3,27 @@
 
 from __future__ import unicode_literals
 import frappe
+from frappe import _
 
 
 def execute(filters=None):
-	columns = get_columns()
-	data = get_data()
+    columns = get_columns()
+    data = get_data()
 
-	return columns, data
+    return columns, data
 
 
 def get_columns():
-	return ["ID:Link/DC_PLC_Product_Summary", "Внешний номер", "ТУ"]
+    return [
+        "ID:Link/DC_PLC_Product_Summary",
+        _("External number"),
+        _("Opcon")
+    ]
 
 
 def get_data():
-	return frappe.db.sql("""SELECT
+    return frappe.db.sql("""SELECT
   p.name as `id`
-     , p.ext_num
-     , p.opcon
+  , p.ext_num
+  , p.opcon
 FROM `_1bd3e0294da19198`.tabDC_PLC_Product_Summary AS p;""", as_list=1)
-

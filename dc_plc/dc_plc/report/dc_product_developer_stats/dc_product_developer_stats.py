@@ -3,6 +3,7 @@
 
 from __future__ import unicode_literals
 import frappe
+from frappe import _
 
 
 def execute(filters=None):
@@ -13,7 +14,19 @@ def execute(filters=None):
 
 
 def get_columns():
-	return ["ID:Link/DC_PLC_Product_Summary", "Внешний номер", "Тип", "Кристалл", "Плата в сборке", "Корпус", "Функция", "Применение", "Описание", "Параметры", "Аналоги"]
+	return [
+		"ID:Link/DC_PLC_Product_Summary",
+		_("External number"),
+		_("Type"),
+		_("Chip"),
+		_("Assembly board"),
+		_("Package"),
+		_("Function"),
+		_("Application"),
+		_("Description"),
+		_("Specs"),
+		_("Analogs"),
+	]
 
 
 def get_data():
