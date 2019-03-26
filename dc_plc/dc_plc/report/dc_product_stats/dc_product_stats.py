@@ -45,26 +45,28 @@ def get_product_stats(filters):
 		row[5] = devs[row[0]].replace(',', '<br>')
 		return row
 
+	db_name = frappe.conf.get("db_name")
+
 	devs = {res[0]: res[1] for res in frappe.db.sql(
 """SELECT t.parent,
        GROUP_CONCAT(CONCAT(emp.last_name, " ", emp.first_name, " ", emp.middle_name)) AS developers
-FROM `_1bd3e0294da19198`.`tabDC_PLC_Developers_in_Product` AS t
-INNER JOIN `_1bd3e0294da19198`.`tabEmployee` AS emp
-ON t.link_employee = emp.employee
-GROUP BY t.parent;"""
+       FROM `{}`.`tabDC_PLC_Developers_in_Product` AS t
+       INNER JOIN `{}`.`tabEmployee` AS emp
+       ON t.link_employee = emp.employee
+       GROUP BY t.parent;""".format(db_name, db_name)
 	)}
 
 	cons = {res[0]: res[1] for res in frappe.db.sql(
 """SELECT t.parent,
        GROUP_CONCAT(CONCAT(emp.last_name, " ", emp.first_name, " ", emp.middle_name)) AS developers
-FROM `_1bd3e0294da19198`.tabDC_PLC_Consulants_in_Product AS t
-INNER JOIN `_1bd3e0294da19198`.`tabEmployee` AS emp
-ON t.link_employee = emp.employee
-GROUP BY t.parent;"""
+	   FROM `{}`.tabDC_PLC_Consulants_in_Product AS t
+       INNER JOIN `{}`.`tabEmployee` AS emp
+       ON t.link_employee = emp.employee
+       GROUP BY t.parent;""".format(db_name, db_name)
 	)}
 
 	result = frappe.db.sql("""SELECT
-  p.name as `id`
+       p.name as `id`
      , p.ext_num
      , type.title
      , proj.title
@@ -81,11 +83,11 @@ GROUP BY t.parent;"""
      , p.analog
      , p.report
      , p.datasheet
-FROM `_1bd3e0294da19198`.tabDC_PLC_Product_Summary AS p
-INNER JOIN `_1bd3e0294da19198`.tabDC_PLC_Product_Type AS type,
-           `_1bd3e0294da19198`.tabDC_PLC_RND_Project AS proj,
-           `_1bd3e0294da19198`.tabDC_PLC_Package AS pak,
-           `_1bd3e0294da19198`.tabDC_PLC_Product_Function AS fun;""", as_list=1)
+FROM `{}`.tabDC_PLC_Product_Summary AS p
+INNER JOIN `{}`.tabDC_PLC_Product_Type AS type,
+           `{}`.tabDC_PLC_RND_Project AS proj,
+           `{}`.tabDC_PLC_Package AS pak,
+           `{}`.tabDC_PLC_Product_Function AS fun;""".format(db_name,db_name,db_name,db_name,db_name), as_list=1)
 
 	result = [add_devs_and_cons(row) for row in result]
 

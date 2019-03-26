@@ -22,8 +22,10 @@ def get_columns():
 
 
 def get_data():
+    db_name = frappe.conf.get("db_name")
+
     return frappe.db.sql("""SELECT
-  p.name as `id`
+    p.name as `id`
   , p.ext_num
   , p.opcon
-FROM `_1bd3e0294da19198`.tabDC_PLC_Product_Summary AS p;""", as_list=1)
+FROM `{}`.tabDC_PLC_Product_Summary AS p;""".format(db_name), as_list=1)
