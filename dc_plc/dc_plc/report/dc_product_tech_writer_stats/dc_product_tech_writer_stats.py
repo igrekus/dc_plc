@@ -16,12 +16,12 @@ def get_columns():
 	# return ["#:Data:50", _("Product") + ":Link/DC_PLC_Product_Summary:200", _("Type") + ":Link/PLC_Product_Type:100"]
 	return [
 		"ID:Link/DC_PLC_Product_Summary",
-		_("Внешний нормер"),
-		_("Описание"),
-		_("Параметры"),
-		_("Аналоаги"),
-		_("Отчёты"),
-		_("Даташит")
+		_("External number"),
+		_("Description"),
+		_("Specs"),
+		_("Analogs"),
+		_("Reports"),
+		_("Datasheet")
 	]
 
 
