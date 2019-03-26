@@ -30,8 +30,10 @@ def get_columns():
 
 
 def get_data():
+	db_name = frappe.conf.get("db_name")
+
 	return 	frappe.db.sql("""SELECT
-  p.name as `id`
+       p.name as `id`
      , p.ext_num
      , type.title
      , p.chip
@@ -42,9 +44,9 @@ def get_data():
      , p.description
      , p.specs
      , p.analog
-FROM `_1bd3e0294da19198`.tabDC_PLC_Product_Summary AS p
-INNER JOIN `_1bd3e0294da19198`.tabDC_PLC_Product_Type AS type,
-           `_1bd3e0294da19198`.tabDC_PLC_RND_Project AS proj,
-           `_1bd3e0294da19198`.tabDC_PLC_Package AS pak,
-           `_1bd3e0294da19198`.tabDC_PLC_Product_Function AS fun;""", as_list=1)
+FROM `{}`.tabDC_PLC_Product_Summary AS p
+INNER JOIN `{}`.tabDC_PLC_Product_Type AS type,
+           `{}`.tabDC_PLC_RND_Project AS proj,
+           `{}`.tabDC_PLC_Package AS pak,
+           `{}`.tabDC_PLC_Product_Function AS fun;""".format(db_name, db_name, db_name, db_name, db_name), as_list=1)
 

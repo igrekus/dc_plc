@@ -16,17 +16,19 @@ def consultant_query(doctype, txt, searchfield, start, page_len, filters):
     :param filters:
     :return:
     """
-    
+
+    db_name = frappe.conf.get("db_name")
+
     return frappe.db.sql("""SELECT em.employee, em.employee_name
-        FROM  `_1bd3e0294da19198`.tabEmployee as em
-        INNER JOIN `_1bd3e0294da19198`.tabDC_Employees_in_Group as gp
+        FROM  `{}`.tabEmployee as em
+        INNER JOIN `{}`.tabDC_Employees_in_Group as gp
         ON em.employee = gp.link_employee
         WHERE gp.parent = "GRP00001"
           AND em.status = 'Active'
           AND (em.name like %(search)s OR
                em.employee_name like %(search)s)
         ORDER BY
-            em.employee_name, em.name""",
+            em.employee_name, em.name""".format(db_name, db_name),
                          {
                              'search': '%{}%'.format(txt)
                          })
@@ -43,38 +45,50 @@ def developer_query(doctype, txt, searchfield, start, page_len, filters):
     :param filters:
     :return:
     """
+
+    db_name = frappe.conf.get("db_name")
+
     return frappe.db.sql("""SELECT em.employee, em.employee_name
-        FROM `_1bd3e0294da19198`.tabEmployee as em
-        INNER JOIN `_1bd3e0294da19198`.tabDC_Employees_in_Group as gp
+        FROM `{}`.tabEmployee as em
+        INNER JOIN `{}`.tabDC_Employees_in_Group as gp
         ON em.employee = gp.link_employee
         WHERE gp.parent = "GRP00002"
           AND status = 'Active'
           AND (em.name like %(search)s OR
                em.employee_name like %(search)s)
         ORDER BY
-            em.employee_name, em.name""",
+            em.employee_name, em.name""".format(db_name, db_name),
                          {
                              'search': '%{}%'.format(txt)
                          })
 
 
 def developers_in_product():
+
+    db_name = frappe.conf.get("db_name")
+
     return frappe.db.sql("""SELECT CONCAT(emp.last_name, " ", emp.first_name, " ", emp.middle_name) AS developers
-FROM `_1bd3e0294da19198`.`tabDC_PLC_Developers_in_Product` AS t
-INNER JOIN `_1bd3e0294da19198`.tabEmployee AS emp
+FROM `{}`.`tabDC_PLC_Developers_in_Product` AS t
+INNER JOIN `{}`.tabEmployee AS emp
 ON t.link_employee = emp.employee;
-""")
+""".format(db_name, db_name))
 
 
 def consultants_in_product():
+
+    db_name = frappe.conf.get("db_name")
+
     return frappe.db.sql("""SELECT CONCAT(emp.last_name, " ", emp.first_name, " ", emp.middle_name) AS consultants
-    FROM `_1bd3e0294da19198`.`tabDC_PLC_Consulants_in_Product` AS t
-    INNER JOIN `_1bd3e0294da19198`.tabEmployee AS emp
+    FROM `{}`.`tabDC_PLC_Consulants_in_Product` AS t
+    INNER JOIN `{}`.tabEmployee AS emp
     ON t.link_employee = emp.employee;
-    """)
+    """.format(db_name, db_name))
 
 
 def product_stats_full():
+
+    db_name = frappe.conf.get("db_name")
+
     return frappe.db.sql("""SELECT
   p.name as `id`
      , p.ext_num
@@ -93,8 +107,8 @@ def product_stats_full():
      , p.analog
      , p.report
      , p.datasheet
-FROM `_1bd3e0294da19198`.tabDC_PLC_Product_Summary AS p
-INNER JOIN `_1bd3e0294da19198`.tabDC_PLC_Product_Type AS type,
-           `_1bd3e0294da19198`.tabDC_PLC_RND_Project AS proj,
-           `_1bd3e0294da19198`.tabDC_PLC_Package AS pak,
-           `_1bd3e0294da19198`.tabDC_PLC_Product_Function AS fun;""", as_list=1)
+FROM `{}`.tabDC_PLC_Product_Summary AS p
+INNER JOIN `{}`.tabDC_PLC_Product_Type AS type,
+           `{}`.tabDC_PLC_RND_Project AS proj,
+           `{}`.tabDC_PLC_Package AS pak,
+           `{}`.tabDC_PLC_Product_Function AS fun;""".format(db_name, db_name, db_name, db_name, db_name), as_list=1)
