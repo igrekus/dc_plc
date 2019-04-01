@@ -7,7 +7,7 @@
  "doctype": "Report",
  "idx": 0,
  "is_standard": "Yes",
- "modified": "2019-03-21 16:42:08.342780",
+ "modified": "2019-04-01 14:07:30.958515",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC Product Opcon Stats",
@@ -34,6 +34,9 @@
   },
   {
    "role": "DC_PLC_Tech_Writer"
+  },
+  {
+   "role": "DC_Guest"
   }
  ]
 }

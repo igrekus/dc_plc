@@ -7,7 +7,7 @@
  "doctype": "Report",
  "idx": 0,
  "is_standard": "Yes",
- "modified": "2019-03-21 15:59:15.478996",
+ "modified": "2019-04-01 14:07:24.227636",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC Product Stats",
@@ -34,6 +34,9 @@
   },
   {
    "role": "DC_PLC_Tech_Writer"
+  },
+  {
+   "role": "DC_Guest"
   }
  ]
 }
