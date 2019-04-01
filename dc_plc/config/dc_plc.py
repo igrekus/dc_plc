@@ -20,6 +20,14 @@ def get_data():
                     "onboard": 1,
                     # "dependencies": ["DC_PLC_Product_Summary"],
                     # "condition": getattr(frappe.local.conf, 'developer_mode', 0),
+                    # 			"type": 'link',
+                    # 			"link": '#social/home',
+                    # 			"color": '#FF4136',
+                    # 			'standard': 1,
+                    # 			'idx': 15,
+                    # 			"description": "Build your profile and share posts with other users."
+                    # 			"system_manager": 1,
+                    # 					"hide_count": True
                 },
                 {
                     "type": "report",
