@@ -66,28 +66,33 @@ def get_product_stats(filters):
 	)}
 
 	result = frappe.db.sql("""SELECT
-       p.name as `id`
-     , p.ext_num
-     , type.title
-     , proj.title
+       `p`.`name` as `id`
+     , `p`.`ext_num`
+     , `type`.`title`
+     , `proj`.`title`
      , "stub"
      , "stub"
-     , p.chip
-     , p.asm_board
-     , pak.title
-     , fun.title
-     , p.application
-     , p.description
-     , p.specs
-     , p.opcon
-     , p.analog
-     , p.report
-     , p.datasheet
-FROM `{}`.tabDC_PLC_Product_Summary AS p
-INNER JOIN `{}`.tabDC_PLC_Product_Type AS type,
-           `{}`.tabDC_PLC_RND_Project AS proj,
-           `{}`.tabDC_PLC_Package AS pak,
-           `{}`.tabDC_PLC_Product_Function AS fun;""".format(db_name,db_name,db_name,db_name,db_name), as_list=1)
+     , `p`.`chip`
+     , `p`.`asm_board`
+     , `pak`.`title`
+     , `fun`.`title`
+     , `p`.`application`
+     , `p`.`description`
+     , `p`.`specs`
+     , `p`.`opcon`
+     , `p`.`analog`
+     , `p`.`report`
+     , `p`.`datasheet`
+FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
+INNER JOIN
+  `{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
+INNER JOIN
+  `{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
+INNER JOIN
+  `{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
+INNER JOIN
+  `{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;"""
+						   .format(db_name,db_name,db_name,db_name,db_name), as_list=1)
 
 	result = [add_devs_and_cons(row) for row in result]
 

@@ -30,9 +30,11 @@ def get_data():
 	     , p.ext_num
 	     , type.title
 	     , proj.title
-	FROM `{}`.tabDC_PLC_Product_Summary AS p
-	INNER JOIN `{}`.tabDC_PLC_Product_Type AS type,
-	           `{}`.tabDC_PLC_RND_Project AS proj;""".format(db_name, db_name, db_name), as_list=1)
+FROM `{}`.tabDC_PLC_Product_Summary AS p
+INNER JOIN
+  `{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
+INNER JOIN
+  `{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`;""".format(db_name, db_name, db_name), as_list=1)
 
 	return result
 
