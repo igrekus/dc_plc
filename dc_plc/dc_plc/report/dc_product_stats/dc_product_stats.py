@@ -41,8 +41,8 @@ def get_columns():
 def get_product_stats(filters):
 
 	def add_devs_and_cons(row):
-		row[4] = cons[row[0]].replace(',', '<br>')
-		row[5] = devs[row[0]].replace(',', '<br>')
+		row[4] = cons.get(row[0], '').replace(',', '<br>')
+		row[5] = devs.get(row[0], '').replace(',', '<br>')
 		return row
 
 	db_name = frappe.conf.get("db_name")
