@@ -84,13 +84,13 @@ def get_product_stats(filters):
      , `p`.`report`
      , `p`.`datasheet`
 FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
-INNER JOIN
+LEFT JOIN
   `{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
-INNER JOIN
+LEFT JOIN
   `{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
-INNER JOIN
+LEFt JOIN
   `{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
-INNER JOIN
+LEFT JOIN
   `{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;"""
 						   .format(db_name,db_name,db_name,db_name,db_name), as_list=1)
 
