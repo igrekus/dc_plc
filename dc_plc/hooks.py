@@ -18,7 +18,7 @@ app_license = "MIT"
 # app_include_css = "/assets/dc_plc/css/dc_plc.css"
 app_include_js = [
     "assets/dc_plc/js/views/productsummaryview.js",
-    "/assets/dc_plc/js/dc_plc.js"
+    "assets/dc_plc/js/dc_plc.js"
 ]
 
 # prod include:
