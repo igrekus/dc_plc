@@ -3,16 +3,16 @@
 
 frappe.ui.form.on('DC_PLC_Product_Summary', {
     refresh: frm => {
-        cur_frm.fields_dict['tab_consultants'].grid.get_field('link_employee').get_query = function(doc, cut, cdn) {
+        frm.fields_dict['tab_consultants'].grid.get_field('link_employee').get_query = function(doc, cut, cdn) {
             return {
                 query: 'dc_plc.controllers.queries.consultant_query'
             }
         };
-        cur_frm.fields_dict['tab_developers'].grid.get_field('link_employee').get_query = function(doc, cut, cdn) {
+        frm.fields_dict['tab_developers'].grid.get_field('link_employee').get_query = function(doc, cut, cdn) {
             return {
                 query: 'dc_plc.controllers.queries.developer_query'
             }
-        }
+        };
     },
     // fire an event on property update
     link_package: frm => {
