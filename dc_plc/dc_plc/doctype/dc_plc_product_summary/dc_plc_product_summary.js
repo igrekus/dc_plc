@@ -25,24 +25,34 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
         set_title('link_rnd_project');
         set_title('link_type');
     },
-    // fire an event on property update
+    link_function: frm => {
+        let title = 'link_function';
+        frappe.db.get_doc(frm.fields_dict[title].df.options, frm.fields_dict[title].value).then(result => {
+            let field = frm.fields_dict[title];
+            field.label_span.innerHTML = field._label + '&nbsp-&nbsp <b>' + result.title + '</b>';
+        });
+    },
     link_package: frm => {
-        // // console.log(frm.fields_dict['link_package'].$input);
-        // let value = frm.fields_dict['link_package'].value;
-        // let list = frm.fields_dict['link_package'].awesomplete._list;
-        // if (typeof value !== 'undefined') {
-        //     list.forEach( ( {description, val, label} ) => {
-        //         if (value === label) {
-        //             console.log('found package:', label, description);
-        //             cur_frm.fields_dict['link_package'].$input.value = description;
-        //         }
-        //     });
-        // }
+        let title = 'link_package';
+        frappe.db.get_doc(frm.fields_dict[title].df.options, frm.fields_dict[title].value).then(result => {
+            let field = frm.fields_dict[title];
+            field.label_span.innerHTML = field._label + '&nbsp-&nbsp <b>' + result.title + '</b>';
+        });
+    },
+    link_rnd_project: frm => {
+        let title = 'link_rnd_project';
+        frappe.db.get_doc(frm.fields_dict[title].df.options, frm.fields_dict[title].value).then(result => {
+            let field = frm.fields_dict[title];
+            field.label_span.innerHTML = field._label + '&nbsp-&nbsp <b>' + result.title + '</b>';
+        });
+    },
+    link_type: frm => {
+        let title = 'link_type';
+        frappe.db.get_doc(frm.fields_dict[title].df.options, frm.fields_dict[title].value).then(result => {
+            let field = frm.fields_dict[title];
+            field.label_span.innerHTML = field._label + '&nbsp-&nbsp <b>' + result.title + '</b>';
+        });
     }
-    // frappe.ui.form.on(this.frm.doctype, 'set_posting_date_and_time_read_only', function(frm) {
-    // frappe.ui.form.on(this.frm.doctype, 'set_posting_time', function(frm) {
-    // frappe.ui.form.on(this.frm.doctype + " Item", "rate", function(frm, cdt, cdn) {
-    // cur_frm.events[fieldname] = handler;
 });
 
 // List of Triggers
