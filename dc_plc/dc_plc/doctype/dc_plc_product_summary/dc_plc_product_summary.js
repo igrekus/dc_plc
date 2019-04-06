@@ -15,6 +15,8 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
         };
 
         let set_title = title => {
+            if (!frm.fields_dict[title].value)
+                return;
             frappe.db.get_doc(frm.fields_dict[title].df.options, frm.fields_dict[title].value).then(result => {
                 let field = frm.fields_dict[title];
                 field.label_span.innerHTML = field._label + '&nbsp-&nbsp <b>' + result.title + '</b>';
