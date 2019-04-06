@@ -3,10 +3,12 @@
 
 ### UI
 1. fit table rows
-2. draw title on link type fields
+2. <s>draw title on link type fields</s>
 3. forbid file attachment if not explicitly allowed
 4. <s>forbid sharing if not allowed</s>
+5. implement titles in link fields:
+   https://gist.github.com/paurosello/da635c831b0c5560c74ea8ab2a2906ad
+   https://github.com/mxmo-co/title_links
 
 ### Misc
-1. disable chat in prod
-
+1. <s>disable chat in prod</s>
