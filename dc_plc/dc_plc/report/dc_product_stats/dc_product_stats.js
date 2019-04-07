@@ -6,5 +6,12 @@ frappe.query_reports["DC Product Stats"] = {
 	// add filter to report table header
 	"filters": [
 
-	]
-}
+	],
+	get_datatable_options(options) {
+		return {
+			...options,
+            inlineFilters: true,
+            layout: 'fixed',
+            dynamicRowHeight: false,
+		}
+	}
