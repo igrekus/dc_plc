@@ -25,4 +25,25 @@ frappe.query_reports["DC Product Stats"] = {
 			els[i].style.cssText += "height: auto;";
 		}
 	},
+	// onload(report) {
+	// 	console.log("refresh");
+	//
+	// 	report.page.add_inner_button(__("Accounts Payable"), function () {
+	// 		var filters = report.get_values();
+	// 		frappe.set_route('query-report', 'Accounts Payable', {company: filters.company});
+	// 	});
+	// },
+	// get_chart_data: function (columns, result) {
+	// 	return {
+	// 		data: {
+	// 			labels: result.map(d => d[0]),
+	// 			datasets: [{
+	// 				name: 'Mins to first response',
+	// 				values: result.map(d => d[1])
+	// 			}]
+	// 		},
+	// 		type: 'line',
+	// 	}
+	// }
+
 };
