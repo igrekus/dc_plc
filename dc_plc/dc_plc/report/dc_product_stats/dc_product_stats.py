@@ -20,6 +20,7 @@ def get_columns():
 	return [
 		"ID:Link/DC_PLC_Product_Summary",
 		_("External number"),
+		_("Internal number"),
 		_("Type"),
 		_("RnD Title"),
 		_("Consultants"),
@@ -68,6 +69,7 @@ def get_product_stats(filters):
 	result = frappe.db.sql("""SELECT
        `p`.`name` as `id`
      , `p`.`ext_num`
+     , `p`.`int_num`
      , `type`.`title`
      , `proj`.`title`
      , "stub"

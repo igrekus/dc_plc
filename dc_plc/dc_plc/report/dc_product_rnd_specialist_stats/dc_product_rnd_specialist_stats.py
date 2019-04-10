@@ -17,6 +17,7 @@ def get_columns():
 	return [
         "ID:Link/DC_PLC_Product_Summary",
         _("External number"),
+        _("Internal number"),
         _("Type"),
         _("RnD Title")
     ]
@@ -28,6 +29,7 @@ def get_data():
 	result = frappe.db.sql("""SELECT
 	  p.name as `id`
 	     , p.ext_num
+	     , p.int_num
 	     , type.title
 	     , proj.title
 FROM `{}`.tabDC_PLC_Product_Summary AS p
