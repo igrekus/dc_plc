@@ -19,7 +19,7 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
                 return;
             frappe.db.get_doc(frm.fields_dict[title].df.options, frm.fields_dict[title].value).then(result => {
                 let field = frm.fields_dict[title];
-                field.label_span.innerHTML = field._label + '&nbsp-&nbsp <b>' + result.title + '</b>';
+                field.label_span.innerHTML = __(field._label) + '&nbsp-&nbsp <b>' + result.title + '</b>';
             });
         };
         set_title('link_function');
@@ -31,28 +31,28 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
         let title = 'link_function';
         frappe.db.get_doc(frm.fields_dict[title].df.options, frm.fields_dict[title].value).then(result => {
             let field = frm.fields_dict[title];
-            field.label_span.innerHTML = field._label + '&nbsp-&nbsp <b>' + result.title + '</b>';
+            field.label_span.innerHTML = __(field._label) + '&nbsp-&nbsp <b>' + result.title + '</b>';
         });
     },
     link_package: frm => {
         let title = 'link_package';
         frappe.db.get_doc(frm.fields_dict[title].df.options, frm.fields_dict[title].value).then(result => {
             let field = frm.fields_dict[title];
-            field.label_span.innerHTML = field._label + '&nbsp-&nbsp <b>' + result.title + '</b>';
+            field.label_span.innerHTML = __(field._label) + '&nbsp-&nbsp <b>' + result.title + '</b>';
         });
     },
     link_rnd_project: frm => {
         let title = 'link_rnd_project';
         frappe.db.get_doc(frm.fields_dict[title].df.options, frm.fields_dict[title].value).then(result => {
             let field = frm.fields_dict[title];
-            field.label_span.innerHTML = field._label + '&nbsp-&nbsp <b>' + result.title + '</b>';
+            field.label_span.innerHTML = __(field._label) + '&nbsp-&nbsp <b>' + result.title + '</b>';
         });
     },
     link_type: frm => {
         let title = 'link_type';
         frappe.db.get_doc(frm.fields_dict[title].df.options, frm.fields_dict[title].value).then(result => {
             let field = frm.fields_dict[title];
-            field.label_span.innerHTML = field._label + '&nbsp-&nbsp <b>' + result.title + '</b>';
+            field.label_span.innerHTML = __(field._label) + '&nbsp-&nbsp <b>' + result.title + '</b>';
         });
     }
 });
