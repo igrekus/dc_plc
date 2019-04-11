@@ -47,24 +47,29 @@ def get_product_stats(filters):
 		row[6] = devs.get(row[0], '').replace(',', '<br>')
 		return row
 
+	def add_links(row):
+		prod_id = row[0]
+		return [prod_id] + ['<a href="{}/desk#Form/DC_PLC_Product_Summary/{}">{}</a>'.format(host, prod_id, col) if col is not None else '' for col in row[1:]]
+
 	db_name = frappe.conf.get("db_name")
+	host = frappe.utils.get_url()
 
 	devs = {res[0]: res[1] for res in frappe.db.sql(
-"""SELECT t.parent,
-       GROUP_CONCAT(CONCAT(emp.last_name, " ", emp.first_name, " ", emp.middle_name)) AS developers
-       FROM `{}`.`tabDC_PLC_Developers_in_Product` AS t
-       INNER JOIN `{}`.`tabEmployee` AS emp
-       ON t.link_employee = emp.employee
-       GROUP BY t.parent;""".format(db_name, db_name)
+		"""SELECT t.parent,
+			   GROUP_CONCAT(CONCAT(emp.last_name, " ", emp.first_name, " ", emp.middle_name)) AS developers
+			   FROM `{}`.`tabDC_PLC_Developers_in_Product` AS t
+			   INNER JOIN `{}`.`tabEmployee` AS emp
+			   ON t.link_employee = emp.employee
+			   GROUP BY t.parent;""".format(db_name, db_name)
 	)}
 
 	cons = {res[0]: res[1] for res in frappe.db.sql(
-"""SELECT t.parent,
-       GROUP_CONCAT(CONCAT(emp.last_name, " ", emp.first_name, " ", emp.middle_name)) AS developers
-	   FROM `{}`.tabDC_PLC_Consulants_in_Product AS t
-       INNER JOIN `{}`.`tabEmployee` AS emp
-       ON t.link_employee = emp.employee
-       GROUP BY t.parent;""".format(db_name, db_name)
+		"""SELECT t.parent,
+			   GROUP_CONCAT(CONCAT(emp.last_name, " ", emp.first_name, " ", emp.middle_name)) AS developers
+			   FROM `{}`.tabDC_PLC_Consulants_in_Product AS t
+			   INNER JOIN `{}`.`tabEmployee` AS emp
+			   ON t.link_employee = emp.employee
+			   GROUP BY t.parent;""".format(db_name, db_name)
 	)}
 
 	result = frappe.db.sql("""SELECT
@@ -98,5 +103,6 @@ LEFT JOIN
 	                       .format(db_name, db_name, db_name, db_name, db_name), as_list=1)
 
 	result = [add_devs_and_cons(row) for row in result]
+	result = [add_links(row) for row in result]
 
 	return result

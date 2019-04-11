@@ -15,16 +15,22 @@ def execute(filters=None):
 
 def get_columns():
 	return [
-        "ID:Link/DC_PLC_Product_Summary",
-        _("External number"),
-        _("Internal number"),
-        _("Type"),
-        _("RnD Title")
-    ]
+		"ID:Link/DC_PLC_Product_Summary",
+		_("External number"),
+		_("Internal number"),
+		_("Type"),
+		_("RnD Title")
+	]
 
 
 def get_data():
+
+	def add_links(row):
+		prod_id = row[0]
+		return [prod_id] + ['<a href="{}/desk#Form/DC_PLC_Product_Summary/{}">{}</a>'.format(host, prod_id, col) if col is not None else '' for col in row[1:]]
+
 	db_name = frappe.conf.get("db_name")
+	host = frappe.utils.get_url()
 
 	result = frappe.db.sql("""SELECT
 	  p.name as `id`
@@ -38,5 +44,4 @@ LEFT JOIN
 LEFT JOIN
   `{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`;""".format(db_name, db_name, db_name), as_list=1)
 
-	return result
-
+	return [add_links(row) for row in result]

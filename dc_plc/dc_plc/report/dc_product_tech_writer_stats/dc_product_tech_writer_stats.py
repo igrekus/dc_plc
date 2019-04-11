@@ -27,7 +27,13 @@ def get_columns():
 
 
 def get_data():
+
+	def add_links(row):
+		prod_id = row[0]
+		return [prod_id] + ['<a href="{}/desk#Form/DC_PLC_Product_Summary/{}">{}</a>'.format(host, prod_id, col) if col is not None else '' for col in row[1:]]
+
 	db_name = frappe.conf.get("db_name")
+	host = frappe.utils.get_url()
 
 	result = frappe.db.sql("""SELECT
   p.name as `id`
@@ -40,4 +46,4 @@ def get_data():
      , p.datasheet
 FROM `{}`.tabDC_PLC_Product_Summary AS p;""".format(db_name), as_list=1)
 
-	return result
+	return [add_links(row) for row in result]
