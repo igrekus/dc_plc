@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 
+
 def execute(filters=None):
 	if not filters:
 		filters = {}
@@ -94,7 +95,7 @@ LEFt JOIN
   `{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
 LEFT JOIN
   `{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;"""
-						   .format(db_name,db_name,db_name,db_name,db_name), as_list=1)
+	                       .format(db_name, db_name, db_name, db_name, db_name), as_list=1)
 
 	result = [add_devs_and_cons(row) for row in result]
 
