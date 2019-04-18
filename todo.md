@@ -1,5 +1,6 @@
 ### Feats
 1. <s>add internal number field</s>
+2. <s>add 'status' and 'model' select fields</s>
 
 ### Bugs
 1. report data request query fires second time after ~1 min, main page is not generated before then (does not reproduce consistently). 
