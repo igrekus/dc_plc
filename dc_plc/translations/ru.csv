@@ -18,6 +18,16 @@ DocType: DC_PLC_Product_Summary,Specs,Параметры
 DocType: DC_PLC_Product_Summary,Analogs,Аналоги
 DocType: DC_PLC_Product_Summary,Opcon,ТУ
 DocType: DC_PLC_Product_Summary,Datasheet,Даташит
+DocType: DC_PLC_Product_Summary,Model,Литерность
+DocType: DC_PLC_Product_Summary,Single device,Моноизделие
+DocType: DC_PLC_Product_Summary,Letter,Литера
+DocType: DC_PLC_Product_Summary,Letter series,Литерный ряд
+DocType: DC_PLC_Product_Summary,Status,Перспектива
+DocType: DC_PLC_Product_Summary,No external number,Не будет внешнего номера
+DocType: DC_PLC_Product_Summary,No internal number,Не будет внутреннего номера
+DocType: DC_PLC_Product_Summary,No development,Не будет дорабатываться
+DocType: DC_PLC_Product_Summary,No shipment,Не будет поставляться
+DocType: DC_PLC_Product_Summary,Ready,Готово к поставке
 
 DocType: DC_PLC_Package,Title,Наименование
 
