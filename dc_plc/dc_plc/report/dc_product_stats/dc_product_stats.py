@@ -20,8 +20,10 @@ def get_columns():
 	# return ["#:Data:50", _("Product") + ":Link/DC_PLC_Product_Summary:200", _("Type") + ":Link/PLC_Product_Type:100"]
 	return [
 		"ID:Link/DC_PLC_Product_Summary",
+		_("Status"),
 		_("External number"),
 		_("Internal number"),
+		_("Model"),
 		_("Type"),
 		_("RnD Title"),
 		_("Consultants"),
@@ -43,8 +45,8 @@ def get_columns():
 def get_product_stats(filters):
 
 	def add_devs_and_cons(row):
-		row[5] = cons.get(row[0], '').replace(',', '<br>')
-		row[6] = devs.get(row[0], '').replace(',', '<br>')
+		row[7] = cons.get(row[0], '').replace(',', '<br>')
+		row[8] = devs.get(row[0], '').replace(',', '<br>')
 		return row
 
 	def add_links(row):
@@ -74,8 +76,10 @@ def get_product_stats(filters):
 
 	result = frappe.db.sql("""SELECT
        `p`.`name` as `id`
+     , `p`.`sel_status`
      , `p`.`ext_num`
      , `p`.`int_num`
+     , `p`.`sel_model`
      , `type`.`title`
      , `proj`.`title`
      , "stub"

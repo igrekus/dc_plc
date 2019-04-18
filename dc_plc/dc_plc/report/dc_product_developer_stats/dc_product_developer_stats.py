@@ -16,8 +16,10 @@ def execute(filters=None):
 def get_columns():
 	return [
 		"ID:Link/DC_PLC_Product_Summary",
+		_("Status"),
 		_("External number"),
 		_("Internal number"),
+		_("Model"),
 		_("Type"),
 		_("Chip"),
 		_("Assembly board"),
@@ -40,9 +42,11 @@ def get_data():
 	host = frappe.utils.get_url()
 
 	result = frappe.db.sql("""SELECT
-       p.name as `id`
-     , p.ext_num
-     , p.int_num
+       `p`.`name` as `id`
+     , `p`.`sel_status`
+     , `p`.`ext_num`
+     , `p`.`int_num`
+     , `p`.`sel_model`
      , type.title
      , p.chip
      , p.asm_board
