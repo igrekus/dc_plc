@@ -22,10 +22,18 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
                 field.label_span.innerHTML = __(field._label) + '&nbsp-&nbsp <b>' + result.title + '</b>';
             });
         };
+        set_title('link_bkvp_num');
         set_title('link_function');
         set_title('link_package');
         set_title('link_rnd_project');
         set_title('link_type');
+    },
+    link_bkvp_number: frm => {
+        let title = 'link_bkvp_num';
+        frappe.db.get_doc(frm.fields_dict[title].df.options, frm.fields_dict[title].value).then(result => {
+            let field = frm.fields_dict[title];
+            field.label_span.innerHTML = __(field._label) + '&nbsp-&nbsp <b>' + result.title + '</b>';
+        });
     },
     link_function: frm => {
         let title = 'link_function';

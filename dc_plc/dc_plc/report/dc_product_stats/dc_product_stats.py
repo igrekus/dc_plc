@@ -23,6 +23,7 @@ def get_columns():
 		_("Status"),
 		_("External number"),
 		_("Internal number"),
+		_("BKVP Number"),
 		_("Model"),
 		_("Type"),
 		_("RnD Title"),
@@ -79,6 +80,7 @@ def get_product_stats(filters):
      , `p`.`sel_status`
      , `p`.`ext_num`
      , `p`.`int_num`
+     , bkvp.`title`
      , `p`.`sel_model`
      , `type`.`title`
      , `proj`.`title`
@@ -97,6 +99,8 @@ def get_product_stats(filters):
      , `p`.`datasheet`
 FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 LEFT JOIN
+  `{}`.`tabDC_PLC_BKVP_Number` AS `bkvp` ON `p`.`link_bkvp_num` = `bkvp`.`name`
+LEFT JOIN
   `{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
 LEFT JOIN
   `{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
@@ -104,7 +108,7 @@ LEFt JOIN
   `{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
 LEFT JOIN
   `{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;"""
-	                       .format(db_name, db_name, db_name, db_name, db_name), as_list=1)
+	                       .format(db_name, db_name, db_name, db_name, db_name, db_name), as_list=1)
 
 	result = [add_devs_and_cons(row) for row in result]
 	result = [add_links(row) for row in result]
