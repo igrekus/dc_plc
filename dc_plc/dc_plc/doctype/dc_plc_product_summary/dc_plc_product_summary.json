@@ -10,7 +10,7 @@
   "sec_mandatory",
   "ext_num",
   "int_num",
-  "link_bkvp_number",
+  "link_bkvp_num",
   "column_break_1",
   "link_rnd_project",
   "sel_status",
@@ -215,16 +215,6 @@
    "permlevel": 4
   },
   {
-   "allow_in_quick_entry": 1,
-   "fieldname": "link_bkvp_number",
-   "fieldtype": "Link",
-   "in_global_search": 1,
-   "in_standard_filter": 1,
-   "label": "BKPV Number",
-   "options": "DC_PLC_BKVP_Number",
-   "permlevel": 2
-  },
-  {
    "collapsible": 1,
    "fieldname": "sec_nnotes",
    "fieldtype": "Section Break",
@@ -240,9 +230,19 @@
    "fieldname": "economy_note",
    "fieldtype": "Small Text",
    "label": "Economy Note"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "link_bkvp_num",
+   "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_standard_filter": 1,
+   "label": "BKPV Number",
+   "options": "DC_PLC_BKVP_Number",
+   "permlevel": 2
   }
  ],
- "modified": "2019-05-22 17:55:34.346288",
+ "modified": "2019-05-22 18:13:23.742754",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",
