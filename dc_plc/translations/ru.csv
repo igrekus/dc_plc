@@ -29,6 +29,8 @@ DocType: DC_PLC_Product_Summary,No development,Не будет дорабаты�
 DocType: DC_PLC_Product_Summary,No shipment,Не будет поставляться
 DocType: DC_PLC_Product_Summary,Ready,Готово к поставке
 
+DocType: DC_PLC_BKVP_Number,Title,Наименование
+
 DocType: DC_PLC_Package,Title,Наименование
 
 DC_Employees_in_Group,Full name,ФИО
@@ -58,6 +60,7 @@ DC_Employee_Group,Members,Членов
 
 ,External number,Внешний номер
 ,Internal number,Внутренний номер
+,BKVP Number, Номер БКВП
 ,Type,Тип
 ,RnD Title,ОКР
 ,Consultants,Консультанты
