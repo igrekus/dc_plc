@@ -46,8 +46,8 @@ def get_columns():
 def get_product_stats(filters):
 
 	def add_devs_and_cons(row):
-		row[7] = cons.get(row[0], '').replace(',', '<br>')
-		row[8] = devs.get(row[0], '').replace(',', '<br>')
+		row[8] = cons.get(row[0], '').replace(',', '<br>')
+		row[9] = devs.get(row[0], '').replace(',', '<br>')
 		return row
 
 	def add_links(row):
