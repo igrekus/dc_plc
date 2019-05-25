@@ -1,10 +1,11 @@
 ### Feats
 1. <s>add internal number field</s>
 2. <s>add 'status' and 'model' select fields</s>
-3. add dict field BKVP chip number
-4. add economy note field
-5. add tech note field
-6. add referemnce to device cost when consting is complete
+3. <s>add dict field BKVP chip number</s> -- added, needs refinement
+4. <s>add economy note field</s>
+5. <s>add tech note field</s>
+6. add reference to device cost when costing is complete
+7. add design documentation data field
 
 ### Bugs
 1. report data request query fires second time after ~1 min, main page is not generated before then (does not reproduce consistently). 
