@@ -34,6 +34,7 @@
   "tech_note",
   "economy_note",
   "sec_docs",
+  "desdoc_num",
   "opcon",
   "report",
   "datasheet"
@@ -235,14 +236,23 @@
    "allow_in_quick_entry": 1,
    "fieldname": "link_bkvp_num",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_global_search": 1,
    "in_standard_filter": 1,
    "label": "BKPV Number",
    "options": "DC_PLC_BKVP_Number",
    "permlevel": 2
+  },
+  {
+   "fieldname": "desdoc_num",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Desdoc Number"
   }
  ],
- "modified": "2019-05-22 18:13:23.742754",
+ "modified": "2019-05-25 16:03:50.579876",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",
