@@ -28,6 +28,7 @@ DocType: DC_PLC_Product_Summary,No internal number,Не будет внутре�
 DocType: DC_PLC_Product_Summary,No development,Не будет дорабатываться
 DocType: DC_PLC_Product_Summary,No shipment,Не будет поставляться
 DocType: DC_PLC_Product_Summary,Ready,Готово к поставке
+DocType: DC_PLC_Product_Summary,Desdoc Number,Номер КД
 
 DocType: DC_PLC_BKVP_Number,Title,Наименование
 
@@ -74,5 +75,6 @@ DC_Employee_Group,Members,Членов
 ,Specs,Параметры
 ,Analogs,Аналоги
 ,Opcon,ТУ
+,Desdoc number,Номер КД
 ,Reports,Отчёты
 ,Datasheet,Даташит
