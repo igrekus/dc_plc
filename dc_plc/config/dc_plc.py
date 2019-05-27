@@ -109,10 +109,6 @@ def get_data():
                     "type": "doctype",
                     "name": "DC_PLC_RND_Project",
                     "label": _("RND title"),
-                },                {
-                    "type": "doctype",
-                    "name": "DC_PLC_BKVP_Number",
-                    "label": _("BKVP Number"),
                 },
             ]
         },
