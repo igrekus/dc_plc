@@ -5,6 +5,8 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 
+from dc_plc.dc_plc.custom.utils import add_translation, add_links
+
 
 def execute(filters=None):
 	columns = get_columns()
@@ -33,11 +35,6 @@ def get_columns():
 
 
 def get_data():
-
-	def add_links(row):
-		prod_id = row[0]
-		return [prod_id] + ['<a href="{}/desk#Form/DC_PLC_Product_Summary/{}">{}</a>'.format(host, prod_id, col) if col is not None else '' for col in row[1:]]
-
 	db_name = frappe.conf.get("db_name")
 	host = frappe.utils.get_url()
 
