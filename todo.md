@@ -22,3 +22,7 @@
 
 ### Misc
 1. <s>disable chat in prod</s>
+2. import live data
+
+### Guidelines
+1. Strip users of most hand-entry possibilities to avoid inconsistencies
