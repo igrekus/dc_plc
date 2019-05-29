@@ -24,5 +24,8 @@
 1. <s>disable chat in prod</s>
 2. import live data
 
+# Low priority
+1. write install scripts to create appropriate employee groups, roles and permissions
+
 ### Guidelines
 1. Strip users of most hand-entry possibilities to avoid inconsistencies
