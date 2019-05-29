@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 
-from dc_plc.dc_plc.custom.utils import add_translation, add_links
+from dc_plc.custom.utils import add_links, add_translation
 
 
 def execute(filters=None):
