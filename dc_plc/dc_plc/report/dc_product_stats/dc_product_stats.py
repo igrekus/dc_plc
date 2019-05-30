@@ -106,8 +106,6 @@ LEFT JOIN
   `{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;"""
 	                       .format(db_name, db_name, db_name, db_name, db_name), as_list=1)
 
-	result = [add_devs_and_cons(row) for row in result]
-	result = [add_translation(row) for row in result]
-	result = [add_links(row, host) for row in result]
+	result = [add_links(add_translation(add_devs_and_cons(row)), host) for row in result]
 
 	return result
