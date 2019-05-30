@@ -46,4 +46,4 @@ LEFT JOIN
 LEFT JOIN
   `{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`;""".format(db_name, db_name, db_name), as_list=1)
 
-	return [add_links(add_translation(row)) for row in result]
+	return [add_links(add_translation(row), host) for row in result]

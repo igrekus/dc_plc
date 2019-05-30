@@ -63,4 +63,4 @@ LEFT JOIN
 LEFT JOIN
   `{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;""".format(db_name, db_name, db_name, db_name, db_name), as_list=1)
 
-	return [add_links(add_translation(row)) for row in result]
+	return [add_links(add_translation(row), host) for row in result]
