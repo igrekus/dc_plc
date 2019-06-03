@@ -50,13 +50,19 @@ DC_Employee_Group,Members,Членов
 ,Developer query,Выборка для разработчика
 ,Opcon spec query,Выборка для специалиста по ТУ
 ,Tech writer query,Выборка для технического писателя
-,Data sources,Источники данных
+
+,Product filters,Фильтры выборки
+,By RND project,По наименованию ОКРа
+,By type,По типу продукции
+,By function,По функционалу продукции
+,By package,По наименованию корпуса
+
+,Module settings,Настройки модуля
 ,DC Products,Продукция
 ,Package type,Тип корпуса
 ,Function,Функциональное назначение
 ,Product type,Тип устройства
 ,RND title,Наименование ОКР
-,DC Staff Data Sources,Данные о сотрудниках НО-8
 ,Employee Group,Группа сотрудников
 
 ,External number,Внешний номер
@@ -78,3 +84,4 @@ DC_Employee_Group,Members,Членов
 ,Desdoc number,Номер КД
 ,Reports,Отчёты
 ,Datasheet,Даташит
+,Number of products,Количество продуктов
