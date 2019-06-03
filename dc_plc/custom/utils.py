@@ -1,4 +1,3 @@
-import frappe
 from frappe import _
 
 
@@ -11,6 +10,11 @@ def add_translation(row):
 	return new_row
 
 
-def add_links(row, host):
+def add_product_summary_links(row, host):
 	prod_id = row[0]
 	return [prod_id] + ['<a href="{}/desk#Form/DC_PLC_Product_Summary/{}">{}</a>'.format(host, prod_id, col) if col is not None else '' for col in row[1:]]
+
+
+def prepare_function_filter_row(data, host):
+	id_, title, number = data
+	return ['<a href="{}/desk#query-report/DC%20Product%20Stats/Report?link_function={}">{}</a>'.format(host, id_, title), number]
