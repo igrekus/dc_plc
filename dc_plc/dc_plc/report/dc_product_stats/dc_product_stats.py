@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 
-from dc_plc.custom.utils import add_links, add_translation
+from dc_plc.custom.utils import add_product_summary_links, add_translation
 
 
 def execute(filters=None):
@@ -144,6 +144,6 @@ AND
 		frappe.msgprint(str(filters))
 		frappe.msgprint(sql)
 	result = frappe.db.sql(sql + ';', as_list=1)
-	result = [add_links(add_translation(add_devs_and_cons(row)), host) for row in result]
+	result = [add_product_summary_links(add_translation(add_devs_and_cons(row)), host) for row in result]
 
 	return result
