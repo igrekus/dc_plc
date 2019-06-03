@@ -141,8 +141,6 @@ AND
 AND
 {} 
 """.format(proj_clause, type_clause, model_clause, func_clause, status_clause, pack_clause)
-		frappe.msgprint(str(filters))
-		frappe.msgprint(sql)
 	result = frappe.db.sql(sql + ';', as_list=1)
 	result = [add_product_summary_links(add_translation(add_devs_and_cons(row)), host) for row in result]
 
