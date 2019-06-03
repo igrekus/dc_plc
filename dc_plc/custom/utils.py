@@ -9,6 +9,13 @@ def add_translation(row):
 	new_row[4] = _(model) if model is not None else None
 	return new_row
 
+def add_translation_to_col_num(row, cols):
+	new_row = list(row)
+	for col in cols:
+		tmp = row[col]
+		new_row[col] = _(tmp) if tmp is not None else None
+	return new_row
+
 
 def add_product_summary_links(row, host):
 	prod_id = row[0]
@@ -33,4 +40,8 @@ def prepare_product_type_filter_row(data, host):
 def prepare_product_package_filter_row(data, host):
 	id_, title, number = data
 	return ['<a href="{}/desk#query-report/DC%20Product%20Stats/Report?link_package={}">{}</a>'.format(host, id_, title), number]
+
+def prepare_model_filter_row(data, host):
+	id_, title, number = data
+	return ['<a href="{}/desk#query-report/DC%20Product%20Stats/Report?sel_model={}">{}</a>'.format(host, id_, title), number]
 

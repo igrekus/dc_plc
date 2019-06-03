@@ -56,6 +56,8 @@ DC_Employee_Group,Members,Членов
 ,By type,По типу устройства
 ,By function,По функции устройства
 ,By package,По типу корпуса
+,By letter,По литерности
+,By status,По перспективе
 
 ,Module settings,Настройки модуля
 ,DC Products,Продукция
