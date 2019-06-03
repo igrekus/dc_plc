@@ -53,9 +53,9 @@ DC_Employee_Group,Members,Членов
 
 ,Product filters,Фильтры выборки
 ,By RND project,По наименованию ОКРа
-,By type,По типу продукции
-,By function,По функционалу продукции
-,By package,По наименованию корпуса
+,By type,По типу устройства
+,By function,По функции устройства
+,By package,По типу корпуса
 
 ,Module settings,Настройки модуля
 ,DC Products,Продукция
