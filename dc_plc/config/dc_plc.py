@@ -111,8 +111,12 @@ def get_data():
                     "name": "DC Product Filter Model",
                     "is_query_report": True,
                     "label": _("By letter"),
-                    # "doctype": "DC_PLC_Package",
-                    "label": _("By letter"),
+                },
+                {
+                    "type": "report",
+                    "name": "DC Product Filter Status",
+                    "is_query_report": True,
+                    "label": _("By status"),
                 },
                 # {
                 #     "type": "page",
