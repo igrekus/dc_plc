@@ -69,20 +69,23 @@ def get_data():
                     # "dependencies": ["DC_PLC_Product_Summary"],
                     # "condition": getattr(frappe.local.conf, 'developer_mode', 0),
                 },
-                # {
-                #     "type": "report",
-                #     "name": "DC Product Stats",
-                #     "is_query_report": True,
-                #     "doctype": "DC_PLC_Product_Summary",
-                #     "label": _("Product Tech Writer Stats"),
-                #     # "onboard": 1,
-                #     "dependencies": ["DC_PLC_Product_Summary"],
-                #     # "condition": getattr(frappe.local.conf, 'developer_mode', 0),
-                # },
             ]
         },
         {
-            "label": _("Data sources"),
+            "label": _("Filters"),
+            "icon": "octicon octicon-briefcase",
+            "items": [
+                {
+                    "type": "report",
+                    "name": "DC Product Filter Function",
+                    "is_query_report": True,
+                    "doctype": "DC_PLC_Product_Function",
+                    "label": _("By Function"),
+                },
+            ]
+        },
+        {
+            "label": _("Settings"),
             "icon": "octicon octicon-briefcase",
             "items": [
                 {
@@ -110,17 +113,11 @@ def get_data():
                     "name": "DC_PLC_RND_Project",
                     "label": _("RND title"),
                 },
-            ]
-        },
-        {
-            "label": _("DC Staff Data Sources"),
-            "icon": "octicon octicon-briefcase",
-            "items": [
                 {
                     "type": "doctype",
                     "name": "DC_Employee_Group",
                     "label": _("Employee Group"),
                 },
             ]
-        }
+        },
     ]
