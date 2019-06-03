@@ -10,7 +10,6 @@ from dc_plc.custom.utils import prepare_rnd_project_filter_row
 
 
 def execute(filters=None):
-	# frappe.msgprint(str(frappe.request.url))
 	columns = get_columns()
 	data = get_data()
 	return columns, data
