@@ -5,6 +5,42 @@
 frappe.query_reports["DC Product Stats"] = {
 	// add filter to report table header
 	"filters": [
+		{
+			"label": __("RND Project"),
+			"fieldname": "link_rnd_project",
+			"fieldtype": "Link",
+			"options": "DC_PLC_RND_Project"
+		},
+		{
+			"label": __("Type"),
+			"fieldname": "link_type",
+			"fieldtype": "Link",
+			"options": "DC_PLC_Product_Type"
+		},
+		{
+			"label": __("Function"),
+			"fieldname": "link_function",
+			"fieldtype": "Link",
+			"options": "DC_PLC_Product_Function"
+		},
+		{
+			"label": __("Package"),
+			"fieldname": "link_package",
+			"fieldtype": "Link",
+			"options": "DC_PLC_Package"
+		},
+		{
+			"label": __("Status"),
+			"fieldname": "sel_status",
+			"fieldtype": "Select",
+			"options": ["No external number", "No internal number", "No development", "No shipment", "Ready"]
+		},
+		{
+			"label": __("Model"),
+			"fieldname": "sel_model",
+			"fieldtype": "Select",
+			"options": ["Single device", "Letter", "Letter series"]
+		},
 
 	],
 	get_datatable_options(options) {
