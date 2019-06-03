@@ -77,11 +77,41 @@ def get_data():
             "items": [
                 {
                     "type": "report",
+                    "name": "DC Product Filter RND Project",
+                    "is_query_report": True,
+                    "doctype": "DC_PLC_RND_Project",
+                    "label": _("By RND project"),
+                },
+                {
+                    "type": "report",
+                    "name": "DC Product Filter Product Type",
+                    "is_query_report": True,
+                    "doctype": "DC_PLC_Product_Type",
+                    "label": _("By type"),
+                },
+                {
+                    "type": "report",
                     "name": "DC Product Filter Function",
                     "is_query_report": True,
                     "doctype": "DC_PLC_Product_Function",
-                    "label": _("By Function"),
+                    "label": _("By function"),
+                    # "onboard": 1,
+                    # "dependencies": ["DC_PLC_Product_Summary"],
+                    # "condition": getattr(frappe.local.conf, 'developer_mode', 0),
                 },
+                {
+                    "type": "report",
+                    "name": "DC Product Filter Package",
+                    "is_query_report": True,
+                    "doctype": "DC_PLC_Package",
+                    "label": _("By package"),
+                },
+                # {
+                #     "type": "page",
+                #     "label": _("Activity"),
+                #     "name": "activity",
+                #     "description": _("Activity log of all users."),
+                # },
             ]
         },
         {
