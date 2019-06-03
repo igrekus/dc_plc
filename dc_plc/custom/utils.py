@@ -9,6 +9,13 @@ def add_translation(row):
 	new_row[4] = _(model) if model is not None else None
 	return new_row
 
+def add_translation_to_col_num(row, cols):
+	new_row = list(row)
+	for col in cols:
+		tmp = row[col]
+		new_row[col] = _(tmp) if tmp is not None else None
+	return new_row
+
 
 def add_product_summary_links(row, host):
 	prod_id = row[0]
