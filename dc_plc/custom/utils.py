@@ -23,3 +23,7 @@ def prepare_function_filter_row(data, host):
 def prepare_rnd_project_filter_row(data, host):
 	id_, title, number = data
 	return ['<a href="{}/desk#query-report/DC%20Product%20Stats/Report?link_rnd_project={}">{}</a>'.format(host, id_, title), number]
+
+def prepare_product_type_filter_row(data, host):
+	id_, title, number = data
+	return ['<a href="{}/desk#query-report/DC%20Product%20Stats/Report?link_type={}">{}</a>'.format(host, id_, title), number]
