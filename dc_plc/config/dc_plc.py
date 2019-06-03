@@ -72,7 +72,7 @@ def get_data():
             ]
         },
         {
-            "label": _("Filters"),
+            "label": _("Product filters"),
             "icon": "octicon octicon-briefcase",
             "items": [
                 {
@@ -115,7 +115,7 @@ def get_data():
             ]
         },
         {
-            "label": _("Settings"),
+            "label": _("Module settings"),
             "icon": "octicon octicon-briefcase",
             "items": [
                 {
