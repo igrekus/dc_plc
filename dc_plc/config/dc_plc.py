@@ -4,7 +4,13 @@ from __future__ import unicode_literals
 from frappe import _
 import frappe
 
+
 def get_data():
+
+    # add 'Analytics' role
+    allowed_roles = ['System Manager', 'Administrator']
+    user_roles = frappe.get_roles(frappe.session.user)
+    is_allowed = bool(set(user_roles).intersection(set(allowed_roles)))
 
     return [
         {
@@ -160,6 +166,7 @@ def get_data():
                     "name": "DC_Employee_Group",
                     "label": _("Employee Group"),
                 },
-            ]
+            ],
+            "condition": is_allowed,
         },
     ]
