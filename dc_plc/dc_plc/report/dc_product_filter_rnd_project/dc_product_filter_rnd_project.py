@@ -43,7 +43,8 @@ def get_data():
 	FROM `{}`.`tabDC_PLC_RND_Project` AS `prj`
 	LEFT JOIN `{}`.`tabDC_PLC_Product_Summary` AS `prod`
 		ON (`prod`.`link_rnd_project` = `prj`.`name`)
-	GROUP BY `prj`.`name`;""".format(db_name, db_name), as_list=1)
+	GROUP BY `prj`.`name`
+	ORDER BY `prj`.`title` ASC;""".format(db_name, db_name), as_list=1)
 
 	result = [prepare_rnd_project_filter_row(row, host) for row in raw_result]
 

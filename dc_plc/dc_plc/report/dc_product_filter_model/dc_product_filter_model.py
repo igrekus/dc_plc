@@ -42,7 +42,8 @@ def get_data():
 		, COUNT(`p`.`name`) AS `prod_num`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	WHERE `p`.sel_model IS NOT NULL
-	GROUP BY `p`.`sel_model`;""".format(db_name, db_name), as_list=1)
+	GROUP BY `p`.`sel_model`
+	ORDER BY `title` ASC;""".format(db_name, db_name), as_list=1)
 
 	result = [prepare_model_filter_row(add_translation_to_col_num(row, [0]), host) for row in raw_result]
 

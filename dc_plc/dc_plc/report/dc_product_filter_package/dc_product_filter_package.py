@@ -43,7 +43,8 @@ def get_data():
 	FROM `{}`.`tabDC_PLC_Package` AS `p`
 	LEFT JOIN `{}`.`tabDC_PLC_Product_Summary` AS `prod`
 		ON (`prod`.`link_package` = `p`.`name`)
-	GROUP BY `p`.`name`;""".format(db_name, db_name), as_list=1)
+	GROUP BY `p`.`name`
+	ORDER BY `p`.`title` ASC;""".format(db_name, db_name), as_list=1)
 
 	result = [prepare_product_package_filter_row(row, host) for row in raw_result]
 
