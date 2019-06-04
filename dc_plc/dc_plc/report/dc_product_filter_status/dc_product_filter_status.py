@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 
-from dc_plc.custom.utils import prepare_model_filter_row, add_translation_to_col_num
+from dc_plc.custom.utils import prepare_status_filter_row, add_translation_to_col_num
 
 
 def execute(filters=None):
@@ -44,6 +44,6 @@ def get_data():
 	WHERE `p`.sel_status IS NOT NULL
 	GROUP BY `p`.`sel_status`;""".format(db_name, db_name), as_list=1)
 
-	result = [add_translation_to_col_num(prepare_model_filter_row(row, host), [0]) for row in raw_result]
+	result = [prepare_status_filter_row(add_translation_to_col_num(row, [0]), host) for row in raw_result]
 
 	return result
