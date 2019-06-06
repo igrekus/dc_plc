@@ -30,6 +30,7 @@
   "description",
   "specs",
   "analog",
+  "process_map",
   "sec_nnotes",
   "tech_note",
   "economy_note",
@@ -50,14 +51,14 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "External Number",
-   "permlevel": 2
+   "permlevel": 4
   },
   {
    "fieldname": "int_num",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Internal Number",
-   "permlevel": 2,
+   "permlevel": 7,
    "reqd": 1
   },
   {
@@ -78,13 +79,14 @@
    "fieldtype": "Select",
    "label": "Status",
    "options": "No external number\nNo internal number\nNo development\nNo shipment\nReady",
-   "permlevel": 2
+   "permlevel": 1
   },
   {
    "fieldname": "sel_model",
    "fieldtype": "Select",
    "label": "Model",
-   "options": "Single device\nLetter\nLetter series"
+   "options": "Single device\nLetter\nLetter series",
+   "permlevel": 3
   },
   {
    "collapsible": 1,
@@ -150,7 +152,7 @@
    "fieldtype": "Link",
    "label": "Product Type",
    "options": "DC_PLC_Product_Type",
-   "permlevel": 2
+   "permlevel": 3
   },
   {
    "fieldname": "link_function",
@@ -158,20 +160,21 @@
    "in_list_view": 1,
    "label": "Function",
    "options": "DC_PLC_Product_Function",
-   "permlevel": 2
+   "permlevel": 3
   },
   {
    "fieldname": "application",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Application",
-   "permlevel": 4
+   "permlevel": 6
   },
   {
    "fieldname": "description",
    "fieldtype": "Small Text",
    "in_list_view": 1,
-   "label": "Description"
+   "label": "Description",
+   "permlevel": 3
   },
   {
    "fieldname": "specs",
@@ -199,7 +202,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Opcon",
-   "permlevel": 5
+   "permlevel": 4
   },
   {
    "fieldname": "report",
@@ -213,7 +216,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Datasheet",
-   "permlevel": 4
+   "permlevel": 6
   },
   {
    "collapsible": 1,
@@ -249,10 +252,17 @@
    "in_global_search": 1,
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Desdoc Number"
+   "label": "Desdoc Number",
+   "permlevel": 7
+  },
+  {
+   "fieldname": "process_map",
+   "fieldtype": "Small Text",
+   "label": "Process Map",
+   "permlevel": 5
   }
  ],
- "modified": "2019-05-25 16:03:50.579876",
+ "modified": "2019-06-06 16:53:22.997376",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",
