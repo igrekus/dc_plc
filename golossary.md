@@ -1,10 +1,12 @@
 |Русский термин|Перевод|Тип|Примечание|
 |---|---|---|---|
-|Начальник|DC_PLC_MMIC_Dept_Head|роль| - |
-|Специалист по ОКР|DC_PLC_RND_Specialist|роль| - |
-|Разработчик|DC_PLC_Developer|роль|-|
-|Технический писатель|DC_PLC_Tech_Writer|роль|-|
-|Специалист по ТУ|DC_PLC_Opcon_Specialist|роль|-|
+|Начальник|DC_PLC_MMIC_Dept_Head|роль|1 ур|
+|Специалист по ОКР|DC_PLC_RND_Specialist|роль|2|
+|Разработчик|DC_PLC_Developer|роль|3|
+|Специалист по ТУ|DC_PLC_Opcon_Specialist|роль|4|
+|Специалист по ТК|DC_PLC_Process_Map_Specialist|роль|5|
+|Технический писатель|DC_PLC_Tech_Writer|роль|6|
+|Специалист по КД|DC_PLC_Desdoc_Specialist|роль|7|
 |Гость\Аудитор|DC_PLC_Guest|роль|-|
 |Описание изделия|DC_PLC_Product_Summary|сущность|-|
 |Разработчик|DC_PLC_Developer|атрибут|-|
