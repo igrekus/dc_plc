@@ -78,14 +78,14 @@
    "fieldname": "sel_status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "No external number\nNo internal number\nNo development\nNo shipment\nReady",
+   "options": "\nNo external number\nNo internal number\nNo development\nNo shipment\nReady",
    "permlevel": 1
   },
   {
    "fieldname": "sel_model",
    "fieldtype": "Select",
    "label": "Model",
-   "options": "Single device\nLetter\nLetter series",
+   "options": "\nSingle device\nLetter\nLetter series",
    "permlevel": 3
   },
   {
