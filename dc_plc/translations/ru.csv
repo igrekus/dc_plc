@@ -44,14 +44,14 @@ DC_Employee_Group,Members,Членов
 ,DC Product Opcon Stats,Выборка для специалиста по ТУ
 ,DC Product Tech Writer Stats,Выборка для технического писателя
 
-,DC Product Info,Статистика продукции НО-8
+,DC Product Info,Справочник продукции НО-8
 ,Full stats,Полная статистика
 ,RND Spec query,Выборка для специалиста по ОКР
 ,Developer query,Выборка для разработчика
 ,Opcon spec query,Выборка для специалиста по ТУ
 ,Tech writer query,Выборка для технического писателя
 
-,Product filters,Фильтры выборки
+,Product filters,Фильтры справочника
 ,By RND project,По наименованию ОКРа
 ,By type,По типу устройства
 ,By function,По функции устройства
