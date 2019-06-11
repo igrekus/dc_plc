@@ -1,0 +1,25 @@
+{
+ "content": null,
+ "creation": "2019-06-10 17:46:35.732556",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "icon-play",
+ "idx": 0,
+ "modified": "2019-06-10 17:47:53.979385",
+ "modified_by": "Administrator",
+ "module": "DC PLC",
+ "name": "dc_product_dashboard",
+ "owner": "Administrator",
+ "page_name": "DC_Product_Dashboard",
+ "restrict_to_domain": "Design Center",
+ "roles": [
+  {
+   "role": "All"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "Product dashboard"
+}
