@@ -52,3 +52,10 @@ def prepare_status_filter_row(data, host):
 	id_, title, number = data
 	return ['<a href="{}/desk#query-report/DC%20Product%20Stats/Report?sel_status={}">{}</a>'.format(host, id_, title), number]
 
+
+def count_filled_fields(row, indexes):
+	total = 0
+	for index in indexes:
+		if row[index]:
+			total += 1
+	return total, len(row)
