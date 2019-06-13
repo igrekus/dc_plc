@@ -223,7 +223,9 @@ ORDER BY `dev` ASC;""".format(db_name, db_name, db_name))
 
     temp = defaultdict(list)
     for row in res:
-        name, emp_id, *data = row
+        name = row[0]
+        emp_id = row[1]
+        data = row[2:]
         temp[name].append(count_filled_fields(data, range(len(data))))
 
     output = dict()
