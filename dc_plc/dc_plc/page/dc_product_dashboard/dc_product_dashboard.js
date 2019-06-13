@@ -6,7 +6,8 @@ frappe.pages["dc_product_dashboard"].on_page_load = (wrapper) => {
 		parent: wrapper,
 		title: "Product dashboard",
 		single_column: true,
-		role_completeness: []
+		role_completeness: [],
+		developer_completeness: []
 	});
 
 	frappe.dc_plc.show_dashboard(this.page);
@@ -44,12 +45,25 @@ frappe.pages['dc_product_dashboard'].on_page_show = () => {
 	frappe.breadcrumbs.add("DC PLC");
 };
 
+// TODO refactor callback hell
 get_role_completeness_stats = (page) => {
 	frappe.call({
 		method: "dc_plc.controllers.queries.role_completeness_stats",
 		callback: (r) => {
 			if (r.message) {
 				page.role_completeness = r.message;
+				get_developer_completeness_stats(page);
+			}
+		}
+	});
+};
+
+get_developer_completeness_stats = (page) => {
+	frappe.call({
+		method: "dc_plc.controllers.queries.developer_completeness_stats",
+		callback: (r) => {
+			if (r.message) {
+				page.developer_completeness = r.message;
 				frappe.dc_plc.render_dashboard(page);
 			}
 		}
@@ -58,9 +72,14 @@ get_role_completeness_stats = (page) => {
 
 frappe.dc_plc.show_dashboard = (page) => {
 	get_role_completeness_stats(page);
+	// get_developer_completeness_stats(page);
 };
 
 frappe.dc_plc.render_dashboard = (page) => {
 	page.title = __("Product info completeness statistics");
+	// console.log(page.main);
+	// console.log($("role-comp-container"));
+	// console.log(frappe.render_template("dc_product_dashboard", page));
 	$(frappe.render_template("dc_product_dashboard", page)).prependTo(page.main);
+	// $("#role-comp-container").append(frappe.render_template("dc_product_dashboard", page));
 };

@@ -2,6 +2,9 @@
 # License: GNU General Public License v3. See license.txt
 
 from __future__ import unicode_literals, division
+
+from collections import defaultdict
+
 import frappe
 from dc_plc.custom.utils import count_filled_fields
 
@@ -141,7 +144,6 @@ def role_completeness_stats():
      , `p`.`process_map`     
      , `p`.`application`
      , `p`.`datasheet`
-     
      , `p`.`int_num`
      , `p`.`desdoc_num`
 FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
@@ -192,3 +194,39 @@ GROUP BY `p`.`name`;
         {"name": "Desdoc specialist", "progress": desdoc},
         {"name": "Total", "progress": total}
     ]
+
+
+@frappe.whitelist(allow_guest=True)
+def developer_completeness_stats():
+    # TODO refactor this
+
+    db_name = frappe.conf.get("db_name")
+
+    res = frappe.db.sql("""SELECT CONCAT(`emps`.last_name, ' ', `emps`.first_name, ' '     , `emps`.middle_name) AS `dev`
+     , `devs`.`link_employee`
+     , `p`.`link_type`
+     , `p`.`sel_model`
+     , `p`.`link_function`
+     , `p`.`chip`
+     , `p`.`asm_board`
+     , `p`.`link_package`
+     , `p`.`description`
+     , `p`.`specs`
+     , `p`.`report`
+     , `p`.`analog`
+FROM `{}`.tabDC_PLC_Product_Summary AS p
+INNER JOIN `{}`.tabDC_PLC_Developers_in_Product AS `devs` ON `devs`.parent = `p`.`name`
+INNER JOIN `{}`.tabEmployee AS `emps` ON `devs`.link_employee = `emps`.`name`
+ORDER BY `dev` ASC;""".format(db_name, db_name, db_name))
+
+    temp = defaultdict(list)
+    for row in res:
+        name, emp_id, *data = row
+        temp[name].append(count_filled_fields(data, range(len(data))))
+
+    output = dict()
+    for name, stats in temp.items():
+        s = [int(round(row[0] / row[1], 2) * 100) for row in stats]
+        output[name] = int(sum(s) / len(s))
+
+    return sorted([{'name': k, "progress": v} for k, v in output.items()], key=lambda e: e['name'])
