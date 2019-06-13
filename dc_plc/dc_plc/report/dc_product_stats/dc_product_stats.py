@@ -13,10 +13,7 @@ def execute(filters=None):
 	if not filters:
 		filters = {}
 
-	columns = get_columns()
-	data = get_data(filters)
-
-	return columns, data
+	return get_columns(), get_data(filters)
 
 
 def get_columns():
