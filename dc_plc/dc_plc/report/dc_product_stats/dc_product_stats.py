@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 
-from dc_plc.custom.utils import add_product_summary_links, add_translation
+from dc_plc.custom.utils import add_product_summary_links, add_translation, add_completeness
 from dc_plc.controllers.stats_query import get_full_stats, get_developers_for_product, get_consultants_for_product
 
 
@@ -19,6 +19,7 @@ def execute(filters=None):
 def get_columns():
 	return [
 		"ID:Link/DC_PLC_Product_Summary",
+		_("Progress"),
 		_("Status"),
 		_("External number"),
 		_("Internal number"),
@@ -53,5 +54,5 @@ def get_data(filters):
 	devs = get_developers_for_product()
 	cons = get_consultants_for_product()
 
-	return [add_product_summary_links(add_translation(add_devs_and_cons(row)),
-									  host=frappe.utils.get_url()) for row in get_full_stats(filters)]
+	return [add_product_summary_links(add_translation(add_completeness(add_devs_and_cons(row))),
+	                                  host=frappe.utils.get_url()) for row in get_full_stats(filters)]

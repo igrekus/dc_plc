@@ -8,8 +8,8 @@
         </tr>
         {% for item in role_completeness %}
             <tr class="list-row">
-                <td>{{ item.name }}</td>
-                <td>{{ item.progress }}%</td>
+                <td><a href="{{ item.url }}">{{ item.name }}</a></td>
+                <td><a href="{{ item.url }}">{{ item.progress }}%</a></td>
             </tr>
         {% endfor %}
     </table>

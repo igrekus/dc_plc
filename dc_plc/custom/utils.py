@@ -1,3 +1,4 @@
+from __future__ import division
 from frappe import _
 
 
@@ -16,6 +17,16 @@ def add_translation_to_col_num(row, cols):
 		tmp = row[col]
 		new_row[col] = _(tmp) if tmp is not None else None
 	return new_row
+
+
+def add_completeness(row):
+	new_row = list(row)
+	filled, total = count_filled_fields(row, range(len(row)))
+	return [new_row[0]] + [calc_percent(filled, total)] + new_row[1:]
+
+
+def calc_percent(value, total):
+	return int(round(value / total, 2) * 100)
 
 
 def add_product_summary_links(row, host):

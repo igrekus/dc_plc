@@ -184,6 +184,8 @@ GROUP BY `p`.`name`;
     desdoc = [int(round(row[0]/row[1], 2) * 100) for row in desdoc]
     desdoc = int(sum(desdoc)/len(desdoc))
 
+    host = frappe.utils.get_url()
+
     return [
         {"name": "Department head", "progress": dept_head},
         {"name": "RND specialist", "progress": rnd_spec},
@@ -192,7 +194,7 @@ GROUP BY `p`.`name`;
         {"name": "Process specialist", "progress": process},
         {"name": "Tech writer", "progress": tech_writer},
         {"name": "Desdoc specialist", "progress": desdoc},
-        {"name": "Total", "progress": total}
+        {"name": "Total", "progress": total, "url": '{}/desk#query-report/DC%20Product%20Stats'.format(host)}
     ]
 
 
