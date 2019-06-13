@@ -11,7 +11,7 @@ from dc_plc.controllers.stats_query import get_full_stats, get_developers_for_pr
 
 def execute(filters=None):
 	if not filters:
-		filters = {}
+		filters = dict()
 
 	return get_columns(), get_data(filters)
 
