@@ -22,7 +22,7 @@ def add_translation_to_col_num(row, cols):
 def add_completeness(row):
 	new_row = list(row)
 	filled, total = count_filled_fields(row, range(len(row)))
-	return [new_row[0]] + [calc_percent(filled, total)] + new_row[1:]
+	return [new_row[0]] + [str(calc_percent(filled, total)) + "%"] + new_row[1:]
 
 
 def calc_percent(value, total):
