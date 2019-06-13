@@ -183,12 +183,12 @@ GROUP BY `p`.`name`;
     desdoc = int(sum(desdoc)/len(desdoc))
 
     return [
-        {"name": "Department head", "progress": '{}%'.format(dept_head)},
-        {"name": "RND specialist", "progress": '{}%'.format(rnd_spec)},
-        {"name": "Developer", "progress": '{}%'.format(developer)},
-        {"name": "Opcon specialist", "progress": '{}%'.format(opcon)},
-        {"name": "Process specialist", "progress": '{}%'.format(process)},
-        {"name": "Tech writer", "progress": '{}%'.format(tech_writer)},
-        {"name": "Desdoc specialist", "progress": '{}%'.format(desdoc)},
-        {"name": "Total", "progress": '{}%'.format(total)}
+        {"name": "Department head", "progress": dept_head},
+        {"name": "RND specialist", "progress": rnd_spec},
+        {"name": "Developer", "progress": developer},
+        {"name": "Opcon specialist", "progress": opcon},
+        {"name": "Process specialist", "progress": process},
+        {"name": "Tech writer", "progress": tech_writer},
+        {"name": "Desdoc specialist", "progress": desdoc},
+        {"name": "Total", "progress": total}
     ]
