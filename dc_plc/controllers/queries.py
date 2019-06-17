@@ -127,8 +127,8 @@ def role_completeness_stats():
     res = frappe.db.sql("""SELECT 
        `p`.`sel_status`
      , COUNT(`cons`.`link_employee`) AS `con_num`
-     , COUNT(`devs`.`link_employee`) AS `dev_num`    
-     , `p`.`link_rnd_project`     
+     , COUNT(`devs`.`link_employee`) AS `dev_num`
+     , `p`.`link_rnd_project`
      , `p`.`link_type`
      , `p`.`sel_model`
      , `p`.`link_function`
@@ -141,7 +141,7 @@ def role_completeness_stats():
      , `p`.`analog`     
      , `p`.`ext_num`
      , `p`.`opcon`
-     , `p`.`process_map`     
+     , `p`.`process_map`
      , `p`.`application`
      , `p`.`datasheet`
      , `p`.`int_num`
@@ -156,7 +156,7 @@ GROUP BY `p`.`name`;
     total = [int(round(row[0]/row[1], 2) * 100) for row in total]
     total = int(sum(total)/len(total))
 
-    dept_head = [count_filled_fields(row, range(3)) for row in res]
+    dept_head = [count_filled_fields(row, [0, 1, 2]) for row in res]
     dept_head = [int(round(row[0]/row[1], 2) * 100) for row in dept_head]
     dept_head = int(sum(dept_head)/len(dept_head))
 
@@ -164,7 +164,7 @@ GROUP BY `p`.`name`;
     rnd_spec = [int(round(row[0]/row[1], 2) * 100) for row in rnd_spec]
     rnd_spec = int(sum(rnd_spec)/len(rnd_spec))
 
-    developer = [count_filled_fields(row, range(4, 14)) for row in res]
+    developer = [count_filled_fields(row, [4, 5, 6, 7, 8, 9, 10, 11, 12, 13]) for row in res]
     developer = [int(round(row[0]/row[1], 2) * 100) for row in developer]
     developer = int(sum(developer)/len(developer))
 
@@ -180,7 +180,8 @@ GROUP BY `p`.`name`;
     tech_writer = [int(round(row[0]/row[1], 2) * 100) for row in tech_writer]
     tech_writer = int(sum(tech_writer)/len(tech_writer))
 
-    desdoc = [count_filled_fields(row, [17, 18]) for row in res]
+    desdoc = [count_filled_fields(row, [19, 20]) for row in res]
+    frappe.msgprint(str(desdoc))
     desdoc = [int(round(row[0]/row[1], 2) * 100) for row in desdoc]
     desdoc = int(sum(desdoc)/len(desdoc))
 
