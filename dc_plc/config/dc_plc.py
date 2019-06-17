@@ -55,9 +55,6 @@ def get_data():
 					"is_query_report": True,
 					"doctype": "DC_PLC_Product_Summary",
 					"label": _("RND Spec query"),
-					# "onboard": 1,
-					# "dependencies": ["DC_PLC_Product_Summary"],
-					# "condition": getattr(frappe.local.conf, 'developer_mode', 0),
 				},
 				{
 					"type": "report",
@@ -65,9 +62,6 @@ def get_data():
 					"is_query_report": True,
 					"doctype": "DC_PLC_Product_Summary",
 					"label": _("Developer query"),
-					# "onboard": 1,
-					# "dependencies": ["DC_PLC_Product_Summary"],
-					# "condition": getattr(frappe.local.conf, 'developer_mode', 0),
 				},
 				{
 					"type": "report",
@@ -75,9 +69,6 @@ def get_data():
 					"is_query_report": True,
 					"doctype": "DC_PLC_Product_Summary",
 					"label": _("Opcon spec query"),
-					# "onboard": 1,
-					# "dependencies": ["DC_PLC_Product_Summary"],
-					# "condition": getattr(frappe.local.conf, 'developer_mode', 0),
 				},
 				{
 					"type": "report",
@@ -85,9 +76,6 @@ def get_data():
 					"is_query_report": True,
 					"doctype": "DC_PLC_Product_Summary",
 					"label": _("Tech writer query"),
-					# "onboard": 1,
-					# "dependencies": ["DC_PLC_Product_Summary"],
-					# "condition": getattr(frappe.local.conf, 'developer_mode', 0),
 				},
 			]
 		},
