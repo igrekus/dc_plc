@@ -213,3 +213,27 @@ def get_procmap_stats(filters):
 
 	return frappe.db.sql(sql + ";", as_list=1)
 
+
+def get_tech_writer_stats(filters):
+	db_name = frappe.conf.get("db_name")
+
+	sql = """SELECT
+	`p`.`name` AS `id`
+	, `fun`.`title`
+	, `pack`.`title`
+	, `p`.`description`
+	, `p`.`specs`
+	, `p`.`report`
+	, `p`.`analog`
+	, `p`.`ext_num`
+	, `p`.`int_num`
+	, `p`.`application`
+	, `p`.`datasheet`
+	FROM `{}`.tabDC_PLC_Product_Summary AS p
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
+	LEFt JOIN
+		`{}`.`tabDC_PLC_Package` AS `pack` ON `p`.`link_package` = `pack`.`name`;""".format(db_name, db_name, db_name)
+
+	return frappe.db.sql(sql + ";", as_list=1)
+
