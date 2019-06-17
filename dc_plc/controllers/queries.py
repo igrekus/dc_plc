@@ -181,7 +181,6 @@ GROUP BY `p`.`name`;
     tech_writer = int(sum(tech_writer)/len(tech_writer))
 
     desdoc = [count_filled_fields(row, [19, 20]) for row in res]
-    frappe.msgprint(str(desdoc))
     desdoc = [int(round(row[0]/row[1], 2) * 100) for row in desdoc]
     desdoc = int(sum(desdoc)/len(desdoc))
 
