@@ -237,3 +237,26 @@ def get_tech_writer_stats(filters):
 
 	return frappe.db.sql(sql + ";", as_list=1)
 
+
+def get_desdoc_stats(filters):
+	db_name = frappe.conf.get("db_name")
+
+	sql = """SELECT
+	`p`.`name` AS `id`
+	, `proj`.`title`
+	, `type`.`title`
+	, `fun`.`title`
+	, `p`.`ext_num`
+	, `p`.`opcon`
+	, `p`.`int_num`
+	, `p`.`desdoc_num`
+	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.`link_rnd_project` = `proj`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;""".format(db_name, db_name, db_name, db_name)
+
+	return frappe.db.sql(sql + ";", as_list=1)
+

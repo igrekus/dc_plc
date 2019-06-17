@@ -193,7 +193,7 @@ GROUP BY `p`.`name`;
         {"name": "Opcon specialist", "progress": opcon, "url": "{}/desk#query-report/DC Product Opcon Stats".format(host)},
         {"name": "Process specialist", "progress": process, "url": "{}/desk#query-report/DC Product Procmap Stats".format(host)},
         {"name": "Tech writer", "progress": tech_writer, "url": "{}/desk#query-report/DC Product Tech Writer Stats".format(host)},
-        {"name": "Desdoc specialist", "progress": desdoc},
+        {"name": "Desdoc specialist", "progress": desdoc, "url": "{}/desk#query-report/DC Product Desdoc Stats".format(host)},
         {"name": "Total", "progress": total, "url": "{}/desk#query-report/DC%20Product%20Stats".format(host)}
     ]
 

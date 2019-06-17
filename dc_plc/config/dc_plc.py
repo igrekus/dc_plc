@@ -84,6 +84,13 @@ def get_data():
 					"doctype": "DC_PLC_Product_Summary",
 					"label": _("Tech writer query"),
 				},
+				{
+					"type": "report",
+					"name": "DC Product Desdoc Stats",
+					"is_query_report": True,
+					"doctype": "DC_PLC_Product_Summary",
+					"label": _("Design doc specialist query"),
+				},
 			]
 		},
 		{
