@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 
-from dc_plc.custom.utils import add_product_summary_links, add_translation
+from dc_plc.custom.utils import add_product_summary_links, add_translation, add_completeness
 
 
 def execute(filters=None):
@@ -18,19 +18,20 @@ def execute(filters=None):
 def get_columns():
 	return [
 		"ID:Link/DC_PLC_Product_Summary",
-		_("Status"),
-		_("External number"),
-		_("Internal number"),
-		_("Model"),
+		_("Progress"),
+		_("RnD Title"),
 		_("Type"),
+		_("Model"),
+		_("Function"),
 		_("Chip"),
 		_("Assembly board"),
 		_("Package"),
-		_("Function"),
-		_("Application"),
 		_("Description"),
 		_("Specs"),
+		_("Report"),
 		_("Analogs"),
+		_("External number"),
+		_("Internal number"),
 	]
 
 
@@ -40,19 +41,21 @@ def get_data():
 
 	result = frappe.db.sql("""SELECT
        `p`.`name` as `id`
-     , `p`.`sel_status`
+     , `proj`.`title`
+
+     , `type`.`title`
+     , `p`.`sel_model`
+     , `fun`.`title`
+     , `p`.`chip`
+     , `p`.`asm_board`
+     , `pak`.`title`
+     , `p`.`description`
+     , `p`.`specs`
+     , `p`.`report`
+     , `p`.`analog`
+     
      , `p`.`ext_num`
      , `p`.`int_num`
-     , `p`.`sel_model`
-     , type.title
-     , p.chip
-     , p.asm_board
-     , pak.title
-     , fun.title
-     , p.application
-     , p.description
-     , p.specs
-     , p.analog
 FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 LEFT JOIN
   `{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
@@ -63,4 +66,4 @@ LEFT JOIN
 LEFT JOIN
   `{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;""".format(db_name, db_name, db_name, db_name, db_name), as_list=1)
 
-	return [add_product_summary_links(add_translation(row), host) for row in result]
+	return [add_product_summary_links(add_translation(add_completeness(row, range(2, 12))), host) for row in result]
