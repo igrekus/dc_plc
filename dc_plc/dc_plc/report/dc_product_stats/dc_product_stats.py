@@ -45,7 +45,7 @@ def get_columns():
 
 def get_data(filters):
 	# TODO sanitize filters
-
+	# TODO refactor hardcoded indexes
 	def add_devs_and_cons(row):
 		row[7] = cons.get(row[0], '').replace(',', '<br>')
 		row[8] = devs.get(row[0], '').replace(',', '<br>')

@@ -117,3 +117,23 @@ def get_dept_head_stats(filters):
 		.format(db_name, db_name, db_name)
 
 	return frappe.db.sql(sql + ";", as_list=1)
+
+
+def get_rnd_spec_stats(filters):
+	db_name = frappe.conf.get("db_name")
+
+	sql = """SELECT
+	`p`.`name` as `id`
+	, `p`.`sel_status`
+	, `proj`.`title`
+	, `p`.`sel_model`
+	, `func`.`title`
+	, `p`.`ext_num`
+	, `p`.`int_num`
+FROM `{}`.tabDC_PLC_Product_Summary AS p
+LEFT JOIN
+  `{}`.`tabDC_PLC_Product_Function` AS `func` ON `p`.`link_function` = `func`.`name`
+LEFT JOIN
+  `{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`;""".format(db_name, db_name, db_name)
+
+	return frappe.db.sql(sql + ";", as_list=1)
