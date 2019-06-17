@@ -187,14 +187,14 @@ GROUP BY `p`.`name`;
     host = frappe.utils.get_url()
 
     return [
-        {"name": "Department head", "progress": dept_head},
+        {"name": "Department head", "progress": dept_head, "url": "{}/desk#query-report/DC Product MMIC Dept Head Stats".format(host)},
         {"name": "RND specialist", "progress": rnd_spec},
         {"name": "Developer", "progress": developer},
         {"name": "Opcon specialist", "progress": opcon},
         {"name": "Process specialist", "progress": process},
         {"name": "Tech writer", "progress": tech_writer},
         {"name": "Desdoc specialist", "progress": desdoc},
-        {"name": "Total", "progress": total, "url": '{}/desk#query-report/DC%20Product%20Stats'.format(host)}
+        {"name": "Total", "progress": total, "url": "{}/desk#query-report/DC%20Product%20Stats".format(host)}
     ]
 
 

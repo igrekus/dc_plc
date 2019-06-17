@@ -94,3 +94,26 @@ INNER JOIN `{}`.`tabEmployee` AS emp
 ON t.link_employee = emp.employee
 GROUP BY t.parent;""".format(db_name, db_name)
 	return {res[0]: res[1] for res in frappe.db.sql(sql, as_list=1)}
+
+
+def get_dept_head_stats(filters):
+	db_name = frappe.conf.get("db_name")
+
+	sql = """SELECT
+		   `p`.`name` as `id`
+		, `p`.`sel_status`
+		 , `proj`.`title`
+		 , "stub"
+		 , "stub"
+		 , `fun`.`title`
+		 , `p`.`description`
+		 , `p`.`ext_num`
+		 , `p`.`int_num` 
+		FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
+		LEFT JOIN
+		  `{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
+		LEFT JOIN
+		  `{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`""" \
+		.format(db_name, db_name, db_name)
+
+	return frappe.db.sql(sql + ";", as_list=1)
