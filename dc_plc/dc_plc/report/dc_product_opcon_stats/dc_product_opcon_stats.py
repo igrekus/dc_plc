@@ -5,34 +5,32 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 
-from dc_plc.custom.utils import add_product_summary_links
+from dc_plc.custom.utils import add_product_summary_links, add_translation, add_completeness
+from dc_plc.controllers.stats_query import get_opcon_stats
+
 
 def execute(filters=None):
 	columns = get_columns()
-	data = get_data()
-
+	data = get_data(filters)
 	return columns, data
 
 
 def get_columns():
 	return [
 		"ID:Link/DC_PLC_Product_Summary",
+		_("Progress"),
+		_("RnD Title"),
+		_("Type"),
+		_("Model"),
+		_("Function"),
 		_("External number"),
-		_("Internal number"),
-		_("Opcon")
+		_("Opcon"),
+		_("Internal number")
 	]
 
 
-def get_data():
-
-	db_name = frappe.conf.get("db_name")
+def get_data(filters):
+	result = get_opcon_stats(filters)
 	host = frappe.utils.get_url()
-
-	result = frappe.db.sql("""SELECT
-    p.name as `id`
-  , p.ext_num
-  , p.int_num
-  , p.opcon
-FROM `{}`.tabDC_PLC_Product_Summary AS p;""".format(db_name), as_list=1)
-
-	return [add_product_summary_links(row, host) for row in result]
+	return [add_product_summary_links(add_translation(add_completeness(row, [5, 6])),
+										host=host) for row in result]
