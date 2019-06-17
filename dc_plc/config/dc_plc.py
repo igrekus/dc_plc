@@ -47,7 +47,7 @@ def get_data():
 					"name": "DC Product MMIC Dept Head Stats",
 					"is_query_report": True,
 					"doctype": "DC_PLC_Product_Summary",
-					"label": _("Department head"),
+					"label": _("Department head query"),
 				},
 				{
 					"type": "report",
