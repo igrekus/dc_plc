@@ -19,9 +19,9 @@ def add_translation_to_col_num(row, cols):
 	return new_row
 
 
-def add_completeness(row):
+def add_completeness(row, rows):
 	new_row = list(row)
-	filled, total = count_filled_fields(row, range(len(row)))
+	filled, total = count_filled_fields(row, rows)
 	return [new_row[0]] + [str(calc_percent(filled, total)) + "%"] + new_row[1:]
 
 
@@ -69,4 +69,4 @@ def count_filled_fields(row, indexes):
 	for index in indexes:
 		if row[index]:
 			total += 1
-	return total, len(row)
+	return total, len(indexes)

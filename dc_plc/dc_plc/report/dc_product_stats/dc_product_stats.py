@@ -54,5 +54,5 @@ def get_data(filters):
 	devs = get_developers_for_product()
 	cons = get_consultants_for_product()
 
-	return [add_product_summary_links(add_translation(add_completeness(add_devs_and_cons(row))),
+	return [add_product_summary_links(add_translation(add_completeness(add_devs_and_cons(row), range(len(row)))),
 	                                  host=frappe.utils.get_url()) for row in get_full_stats(filters)]
