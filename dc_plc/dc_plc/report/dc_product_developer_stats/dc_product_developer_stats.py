@@ -6,11 +6,12 @@ import frappe
 from frappe import _
 
 from dc_plc.custom.utils import add_product_summary_links, add_translation, add_completeness
+from dc_plc.controllers.stats_query import get_developer_stats
 
 
 def execute(filters=None):
 	columns = get_columns()
-	data = get_data()
+	data = get_data(filters)
 
 	return columns, data
 
@@ -35,35 +36,7 @@ def get_columns():
 	]
 
 
-def get_data():
-	db_name = frappe.conf.get("db_name")
+def get_data(filters):
 	host = frappe.utils.get_url()
-
-	result = frappe.db.sql("""SELECT
-       `p`.`name` as `id`
-     , `proj`.`title`
-
-     , `type`.`title`
-     , `p`.`sel_model`
-     , `fun`.`title`
-     , `p`.`chip`
-     , `p`.`asm_board`
-     , `pak`.`title`
-     , `p`.`description`
-     , `p`.`specs`
-     , `p`.`report`
-     , `p`.`analog`
-     
-     , `p`.`ext_num`
-     , `p`.`int_num`
-FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
-LEFT JOIN
-  `{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
-LEFT JOIN
-  `{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
-LEFT JOIN
-  `{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
-LEFT JOIN
-  `{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;""".format(db_name, db_name, db_name, db_name, db_name), as_list=1)
-
+	result = get_developer_stats(filters)
 	return [add_product_summary_links(add_translation(add_completeness(row, range(2, 12))), host) for row in result]
