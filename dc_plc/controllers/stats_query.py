@@ -173,14 +173,14 @@ def get_opcon_stats(filters):
 	db_name = frappe.conf.get("db_name")
 
 	sql = """SELECT
-	p.name as `id`
+	`p`.`name` as `id`
 	, `proj`.`title`
 	, `type`.`title`
 	, `p`.`sel_model`
 	, `fun`.`title`
-	, p.ext_num
-	, p.opcon
-	, p.int_num
+	, `p`.`ext_num`
+	, `p`.`opcon`
+	, `p`.`int_num`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
