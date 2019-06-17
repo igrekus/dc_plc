@@ -5,36 +5,36 @@ def get_full_stats(filters):
 	db_name = frappe.conf.get("db_name")
 
 	sql = """SELECT
-	   `p`.`name` as `id`
-	 , `p`.`sel_status`
-	 , `p`.`ext_num`
-	 , `p`.`int_num`
-	 , `p`.`sel_model`
-	 , `type`.`title`
-	 , `proj`.`title`
-	 , "stub"
-	 , "stub"
-	 , `p`.`chip`
-	 , `p`.`asm_board`
-	 , `pak`.`title`
-	 , `fun`.`title`
-	 , `p`.`application`
-	 , `p`.`description`
-	 , `p`.`specs`
-	 , `p`.`analog`
-	 , `p`.`desdoc_num`
-	 , `p`.`opcon`
-	 , `p`.`report`
-	 , `p`.`datasheet`
+	`p`.`name` as `id`
+	, `p`.`sel_status`
+	, `p`.`ext_num`
+	, `p`.`int_num`
+	, `p`.`sel_model`
+	, `type`.`title`
+	, `proj`.`title`
+	, "stub"
+	, "stub"
+	, `p`.`chip`
+	, `p`.`asm_board`
+	, `pak`.`title`
+	, `fun`.`title`
+	, `p`.`application`
+	, `p`.`description`
+	, `p`.`specs`
+	, `p`.`analog`
+	, `p`.`desdoc_num`
+	, `p`.`opcon`
+	, `p`.`report`
+	, `p`.`datasheet`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
-	  `{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
+		`{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
 	LEFT JOIN
-	  `{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
+		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
 	LEFt JOIN
-	  `{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
+		`{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
 	LEFT JOIN
-	  `{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`""" \
+		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`""" \
 		.format(db_name, db_name, db_name, db_name, db_name)
 
 	if filters:
@@ -100,21 +100,20 @@ def get_dept_head_stats(filters):
 	db_name = frappe.conf.get("db_name")
 
 	sql = """SELECT
-		   `p`.`name` as `id`
-		, `p`.`sel_status`
-		 , `proj`.`title`
-		 , "stub"
-		 , "stub"
-		 , `fun`.`title`
-		 , `p`.`description`
-		 , `p`.`ext_num`
-		 , `p`.`int_num` 
-		FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
-		LEFT JOIN
-		  `{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
-		LEFT JOIN
-		  `{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`""" \
-		.format(db_name, db_name, db_name)
+	`p`.`name` as `id`
+	, `p`.`sel_status`
+	, `proj`.`title`
+	, "stub"
+	, "stub"
+	, `fun`.`title`
+	, `p`.`description`
+	, `p`.`ext_num`
+	, `p`.`int_num` 
+	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`""".format(db_name, db_name, db_name)
 
 	return frappe.db.sql(sql + ";", as_list=1)
 
@@ -130,10 +129,134 @@ def get_rnd_spec_stats(filters):
 	, `func`.`title`
 	, `p`.`ext_num`
 	, `p`.`int_num`
-FROM `{}`.tabDC_PLC_Product_Summary AS p
-LEFT JOIN
-  `{}`.`tabDC_PLC_Product_Function` AS `func` ON `p`.`link_function` = `func`.`name`
-LEFT JOIN
-  `{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`;""".format(db_name, db_name, db_name)
+	FROM `{}`.tabDC_PLC_Product_Summary AS p
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Function` AS `func` ON `p`.`link_function` = `func`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`;""".format(db_name, db_name, db_name)
 
 	return frappe.db.sql(sql + ";", as_list=1)
+
+
+def get_developer_stats(filters):
+	db_name = frappe.conf.get("db_name")
+
+	sql = """SELECT
+	`p`.`name` as `id`
+	, `proj`.`title`
+	, `type`.`title`
+	, `p`.`sel_model`
+	, `fun`.`title`
+	, `p`.`chip`
+	, `p`.`asm_board`
+	, `pak`.`title`
+	, `p`.`description`
+	, `p`.`specs`
+	, `p`.`report`
+	, `p`.`analog`
+	, `p`.`ext_num`
+	, `p`.`int_num`
+	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;""".format(db_name, db_name, db_name, db_name, db_name)
+
+	return frappe.db.sql(sql + ";", as_list=1)
+
+
+def get_opcon_stats(filters):
+	db_name = frappe.conf.get("db_name")
+
+	sql = """SELECT
+	`p`.`name` as `id`
+	, `proj`.`title`
+	, `type`.`title`
+	, `p`.`sel_model`
+	, `fun`.`title`
+	, `p`.`ext_num`
+	, `p`.`opcon`
+	, `p`.`int_num`
+	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;""".format(db_name, db_name, db_name, db_name, db_name)
+
+	return frappe.db.sql(sql + ";", as_list=1)
+
+
+def get_procmap_stats(filters):
+	db_name = frappe.conf.get("db_name")
+
+	sql = """SELECT
+	`p`.`name` as `id`
+	, `proj`.`title`
+	, `fun`.`title`
+	, `p`.`ext_num`
+	, `p`.`process_map`
+	, `p`.`opcon`
+	, `p`.`int_num`
+	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;""".format(db_name, db_name, db_name)
+
+	return frappe.db.sql(sql + ";", as_list=1)
+
+
+def get_tech_writer_stats(filters):
+	db_name = frappe.conf.get("db_name")
+
+	sql = """SELECT
+	`p`.`name` AS `id`
+	, `fun`.`title`
+	, `pack`.`title`
+	, `p`.`description`
+	, `p`.`specs`
+	, `p`.`report`
+	, `p`.`analog`
+	, `p`.`ext_num`
+	, `p`.`int_num`
+	, `p`.`application`
+	, `p`.`datasheet`
+	FROM `{}`.tabDC_PLC_Product_Summary AS p
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
+	LEFt JOIN
+		`{}`.`tabDC_PLC_Package` AS `pack` ON `p`.`link_package` = `pack`.`name`;""".format(db_name, db_name, db_name)
+
+	return frappe.db.sql(sql + ";", as_list=1)
+
+
+def get_desdoc_stats(filters):
+	db_name = frappe.conf.get("db_name")
+
+	sql = """SELECT
+	`p`.`name` AS `id`
+	, `proj`.`title`
+	, `type`.`title`
+	, `fun`.`title`
+	, `p`.`ext_num`
+	, `p`.`opcon`
+	, `p`.`int_num`
+	, `p`.`desdoc_num`
+	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.`link_rnd_project` = `proj`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;""".format(db_name, db_name, db_name, db_name)
+
+	return frappe.db.sql(sql + ";", as_list=1)
+

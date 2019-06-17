@@ -6,7 +6,7 @@ import frappe
 from frappe import _
 
 from dc_plc.custom.utils import add_product_summary_links, add_translation, add_completeness
-from dc_plc.controllers.stats_query import get_opcon_stats
+from dc_plc.controllers.stats_query import get_procmap_stats
 
 
 def execute(filters=None):
@@ -20,17 +20,15 @@ def get_columns():
 		"ID:Link/DC_PLC_Product_Summary",
 		_("Progress"),
 		_("RnD Title"),
-		_("Type"),
-		_("Model"),
 		_("Function"),
 		_("External number"),
-		_("Opcon"),
+		_("Process map"),
 		_("Internal number")
 	]
 
 
 def get_data(filters):
-	result = get_opcon_stats(filters)
+	result = get_procmap_stats(filters)
 	host = frappe.utils.get_url()
-	return [add_product_summary_links(add_translation(add_completeness(row, [5, 6])),
+	return [add_product_summary_links(add_translation(add_completeness(row, [4])),
 										host=host) for row in result]

@@ -6,7 +6,7 @@ import frappe
 from frappe import _
 
 from dc_plc.custom.utils import add_product_summary_links, add_translation, add_completeness
-from dc_plc.controllers.stats_query import get_opcon_stats
+from dc_plc.controllers.stats_query import get_desdoc_stats
 
 
 def execute(filters=None):
@@ -21,16 +21,15 @@ def get_columns():
 		_("Progress"),
 		_("RnD Title"),
 		_("Type"),
-		_("Model"),
 		_("Function"),
 		_("External number"),
 		_("Opcon"),
-		_("Internal number")
+		_("Internal number"),
+		_("Desdoc number")
 	]
 
 
 def get_data(filters):
-	result = get_opcon_stats(filters)
 	host = frappe.utils.get_url()
-	return [add_product_summary_links(add_translation(add_completeness(row, [5, 6])),
-										host=host) for row in result]
+	result = get_desdoc_stats(filters)
+	return [add_product_summary_links(add_translation(add_completeness(row, [6, 7])), host) for row in result]
