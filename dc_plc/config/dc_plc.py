@@ -72,6 +72,13 @@ def get_data():
 				},
 				{
 					"type": "report",
+					"name": "DC Product Procmap Stats",
+					"is_query_report": True,
+					"doctype": "DC_PLC_Product_Summary",
+					"label": _("Process spec query"),
+				},
+				{
+					"type": "report",
 					"name": "DC Product Tech Writer Stats",
 					"is_query_report": True,
 					"doctype": "DC_PLC_Product_Summary",

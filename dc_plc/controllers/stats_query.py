@@ -192,3 +192,24 @@ def get_opcon_stats(filters):
 		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;""".format(db_name, db_name, db_name, db_name, db_name)
 
 	return frappe.db.sql(sql + ";", as_list=1)
+
+
+def get_procmap_stats(filters):
+	db_name = frappe.conf.get("db_name")
+
+	sql = """SELECT
+	`p`.`name` as `id`
+	, `proj`.`title`
+	, `fun`.`title`
+	, `p`.`ext_num`
+	, `p`.`process_map`
+	, `p`.`opcon`
+	, `p`.`int_num`
+	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;""".format(db_name, db_name, db_name)
+
+	return frappe.db.sql(sql + ";", as_list=1)
+
