@@ -67,6 +67,7 @@ DC_Employee_Group,Members,Членов
 ,RND title,Наименование ОКР
 ,Employee Group,Группа сотрудников
 
+,ID,ID
 ,External number,Внешний номер
 ,Internal number,Внутренний номер
 ,BKVP Number, Номер БКВП
