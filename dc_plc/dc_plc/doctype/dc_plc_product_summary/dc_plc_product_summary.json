@@ -7,70 +7,70 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "sec_mandatory",
-  "ext_num",
-  "int_num",
-  "link_bkvp_num",
-  "column_break_1",
-  "link_rnd_project",
+  "sec_info",
+  "info_ext_num",
+  "info_int_num",
+  "col_info",
+  "info_rnd_proj",
+  "info_sel_model",
+  "sec_dept_head",
   "sel_status",
-  "sel_model",
-  "sec_optional",
   "tab_consultants",
   "tab_developers",
-  "sec_assembly",
+  "sec_rnd_spec",
+  "link_rnd_project",
+  "sec_developer",
+  "link_type",
+  "sel_model",
+  "link_function",
+  "description",
+  "analog",
+  "col_dev",
   "chip",
   "asm_board",
-  "column_break_3",
   "link_package",
-  "spec_description",
-  "link_type",
-  "link_function",
-  "application",
-  "description",
   "specs",
-  "analog",
-  "process_map",
-  "sec_nnotes",
-  "tech_note",
-  "economy_note",
-  "sec_docs",
-  "desdoc_num",
-  "opcon",
   "report",
-  "datasheet"
+  "sec_opcon",
+  "ext_num",
+  "col_opcon",
+  "opcon",
+  "sec_procmap",
+  "process_map",
+  "sec_tech_writer",
+  "application",
+  "col_tech_writer",
+  "datasheet",
+  "sec_desdoc",
+  "int_num",
+  "col_desdoc",
+  "desdoc_num",
+  "sec_notes",
+  "link_bkvp_num",
+  "tech_note",
+  "economy_note"
  ],
  "fields": [
-  {
-   "fieldname": "sec_mandatory",
-   "fieldtype": "Section Break",
-   "label": "Mandatory parameters"
-  },
   {
    "fieldname": "ext_num",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "External Number",
+   "label": "External number",
    "permlevel": 4
   },
   {
    "fieldname": "int_num",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Internal Number",
-   "permlevel": 7,
-   "reqd": 1
-  },
-  {
-   "fieldname": "column_break_1",
-   "fieldtype": "Column Break"
+   "label": "Internal number",
+   "permlevel": 7
   },
   {
    "fieldname": "link_rnd_project",
    "fieldtype": "Link",
    "in_global_search": 1,
    "in_standard_filter": 1,
-   "label": "RnD Project",
+   "label": "RnD project",
    "options": "DC_PLC_RND_Project",
    "permlevel": 2
   },
@@ -89,15 +89,9 @@
    "permlevel": 3
   },
   {
-   "collapsible": 1,
-   "fieldname": "sec_optional",
-   "fieldtype": "Section Break",
-   "label": "Employees responsible"
-  },
-  {
    "fieldname": "tab_consultants",
    "fieldtype": "Table",
-   "label": "Consultant",
+   "label": "Consultants",
    "options": "DC_PLC_Consulants_in_Product",
    "permlevel": 1
   },
@@ -107,12 +101,6 @@
    "label": "Developers",
    "options": "DC_PLC_Developers_in_Product",
    "permlevel": 1
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "sec_assembly",
-   "fieldtype": "Section Break",
-   "label": "Assembly"
   },
   {
    "fieldname": "chip",
@@ -129,10 +117,6 @@
    "permlevel": 3
   },
   {
-   "fieldname": "column_break_3",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "link_package",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -141,16 +125,9 @@
    "permlevel": 3
   },
   {
-   "collapsible": 1,
-   "fieldname": "spec_description",
-   "fieldtype": "Section Break",
-   "label": "Description",
-   "permlevel": 3
-  },
-  {
    "fieldname": "link_type",
    "fieldtype": "Link",
-   "label": "Product Type",
+   "label": "Product type",
    "options": "DC_PLC_Product_Type",
    "permlevel": 3
   },
@@ -191,13 +168,6 @@
    "permlevel": 3
   },
   {
-   "collapsible": 1,
-   "fieldname": "sec_docs",
-   "fieldtype": "Section Break",
-   "label": "Documents",
-   "read_only": 1
-  },
-  {
    "fieldname": "opcon",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -219,21 +189,14 @@
    "permlevel": 6
   },
   {
-   "collapsible": 1,
-   "fieldname": "sec_nnotes",
-   "fieldtype": "Section Break",
-   "label": "Notes",
-   "read_only": 1
-  },
-  {
    "fieldname": "tech_note",
    "fieldtype": "Small Text",
-   "label": "Tech Note"
+   "label": "Tech note"
   },
   {
    "fieldname": "economy_note",
    "fieldtype": "Small Text",
-   "label": "Economy Note"
+   "label": "Economy note"
   },
   {
    "allow_in_quick_entry": 1,
@@ -242,7 +205,7 @@
    "hidden": 1,
    "in_global_search": 1,
    "in_standard_filter": 1,
-   "label": "BKPV Number",
+   "label": "BKPV number",
    "options": "DC_PLC_BKVP_Number",
    "permlevel": 2
   },
@@ -252,17 +215,120 @@
    "in_global_search": 1,
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Desdoc Number",
+   "label": "Desdoc number",
    "permlevel": 7
   },
   {
    "fieldname": "process_map",
    "fieldtype": "Small Text",
-   "label": "Process Map",
+   "label": "Process map",
    "permlevel": 5
+  },
+  {
+   "fieldname": "sec_info",
+   "fieldtype": "Section Break",
+   "label": "Product info"
+  },
+  {
+   "fieldname": "info_ext_num",
+   "fieldtype": "Read Only",
+   "label": "External number",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "doc.int_num",
+   "fieldname": "info_int_num",
+   "fieldtype": "Read Only",
+   "label": "Internal number",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "link_rnd_project.title",
+   "fieldname": "info_rnd_proj",
+   "fieldtype": "Read Only",
+   "label": "RnD project",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "DC_PLC_Product_Summary.sel_model",
+   "fieldname": "info_sel_model",
+   "fieldtype": "Read Only",
+   "label": "Model",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sec_dept_head",
+   "fieldtype": "Section Break",
+   "label": "Responsible: dept head"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sec_rnd_spec",
+   "fieldtype": "Section Break",
+   "label": "Responsible: RnD specialist"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sec_developer",
+   "fieldtype": "Section Break",
+   "label": "Responsible: developer"
+  },
+  {
+   "fieldname": "col_info",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "col_dev",
+   "fieldtype": "Column Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sec_opcon",
+   "fieldtype": "Section Break",
+   "label": "Responsible: opcon spec",
+   "permlevel": 3
+  },
+  {
+   "fieldname": "col_opcon",
+   "fieldtype": "Column Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sec_procmap",
+   "fieldtype": "Section Break",
+   "label": "Responsible: procmap spec",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sec_tech_writer",
+   "fieldtype": "Section Break",
+   "label": "Responsible: tech writer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "col_tech_writer",
+   "fieldtype": "Column Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sec_desdoc",
+   "fieldtype": "Section Break",
+   "label": "Responsible: desdoc spec"
+  },
+  {
+   "fieldname": "col_desdoc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sec_notes",
+   "fieldtype": "Section Break",
+   "label": "Notes"
   }
  ],
- "modified": "2019-06-06 17:45:03.942040",
+ "modified": "2019-06-18 18:40:44.636062",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",
