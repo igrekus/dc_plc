@@ -27,7 +27,15 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
         set_title('link_package');
         set_title('link_rnd_project');
         set_title('link_type');
+
+        // console.log(frm.get_field('ext_num').value);
+        frm.set_value('info_ext_num', frm.get_field('ext_num').value);
+        frm.set_value('info_int_num', frm.get_field('int_num').value);
+        frm.set_value('info_sel_model', frm.get_field('sel_model').value);
     },
+    ext_num: frm => frm.set_value('info_ext_num', frm.get_field('ext_num').value),
+    int_num: frm => frm.set_value('info_int_num', frm.get_field('int_num').value),
+    sel_model: frm => frm.set_value('info_sel_model', frm.get_field('sel_model').value),
     link_bkvp_number: frm => {
         let title = 'link_bkvp_num';
         frappe.db.get_doc(frm.fields_dict[title].df.options, frm.fields_dict[title].value).then(result => {
