@@ -28,7 +28,7 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
         set_title('link_type');
 
         frm.fields_dict['info_ext_num'].wrapper.innerHTML = '<span class="text-muted">Внешний номер</span><br/><span>' + frm.get_field('ext_num').value + '</span>';
-        frm.fields_dict['info_int_num'].wrapper.innerHTML = '<span class="text-muted">Внутренний номер</span><br/><span>' + frm.get_field('ext_num').value + '</span>';
+        frm.fields_dict['info_int_num'].wrapper.innerHTML = '<span class="text-muted">Внутренний номер</span><br/><span>' + frm.get_field('int_num').value + '</span>';
         frm.fields_dict['info_function'].wrapper.innerHTML = '<span class="text-muted">Функция</span><br/><span>' + frm.get_field('link_function').value + '</span>';
         frm.fields_dict['info_rnd_project'].wrapper.innerHTML = '<span class="text-muted">Наименование ОКР</span><br/><span>' + frm.get_field('link_rnd_project').value + '</span>';
         frm.fields_dict['info_description'].wrapper.innerHTML = '<span class="text-muted">Описание</span><br/><span>' + frm.get_field('description').value.split('\n').join('<br>') + '</span>';
