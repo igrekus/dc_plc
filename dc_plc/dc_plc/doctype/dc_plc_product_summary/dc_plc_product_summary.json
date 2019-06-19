@@ -8,44 +8,61 @@
  "engine": "InnoDB",
  "field_order": [
   "sec_info",
+  "info_dummy",
   "info_ext_num",
   "info_int_num",
   "info_description",
   "col_info",
+  "info_rel_total",
   "info_rnd_project",
   "info_function",
   "info_specs",
   "sec_dept_head",
-  "sel_status",
+  "rel_check_dept_head",
+  "rel_date_dept_head",
   "tab_consultants",
   "tab_developers",
+  "sel_status",
   "sec_rnd_spec",
+  "rel_check_rnd_spec",
   "link_rnd_project",
+  "col_rnd_spec",
+  "rel_date_rnd_spec",
   "sec_developer",
+  "rel_check_developer",
   "link_type",
   "sel_model",
   "link_function",
   "description",
   "analog",
   "col_dev",
+  "rel_date_developer",
   "chip",
   "asm_board",
   "link_package",
   "specs",
   "report",
   "sec_opcon",
+  "rel_check_opcon",
   "ext_num",
   "col_opcon",
+  "rel_date_opcon",
   "opcon",
   "sec_procmap",
+  "rel_check_procmap",
+  "rel_date_procmap",
   "process_map",
   "sec_tech_writer",
+  "rel_check_tech_writer",
   "application",
   "col_tech_writer",
+  "rel_date_tech_writer",
   "datasheet",
   "sec_desdoc",
+  "rel_check_desdoc",
   "int_num",
   "col_desdoc",
+  "rel_date_desdoc",
   "desdoc_num",
   "sec_notes",
   "link_bkvp_num",
@@ -337,9 +354,110 @@
    "fieldtype": "HTML",
    "label": "RnD project",
    "read_only": 1
+  },
+  {
+   "default": "2019-01-01",
+   "fieldname": "rel_date_dept_head",
+   "fieldtype": "Date",
+   "label": "Relevant date",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "rel_check_dept_head",
+   "fieldtype": "Check",
+   "label": "Relevant check"
+  },
+  {
+   "default": "0",
+   "fieldname": "rel_check_rnd_spec",
+   "fieldtype": "Check",
+   "label": "Relevant check"
+  },
+  {
+   "fieldname": "col_rnd_spec",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "2019-01-01",
+   "fieldname": "rel_date_rnd_spec",
+   "fieldtype": "Date",
+   "label": "Relevant date",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "rel_check_developer",
+   "fieldtype": "Check",
+   "label": "Relevant check"
+  },
+  {
+   "fieldname": "rel_date_developer",
+   "fieldtype": "Date",
+   "label": "Relevant date",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "rel_check_opcon",
+   "fieldtype": "Check",
+   "label": "Relevant check"
+  },
+  {
+   "fieldname": "rel_date_opcon",
+   "fieldtype": "Date",
+   "label": "Relevant date",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "rel_check_procmap",
+   "fieldtype": "Check",
+   "label": "Relevant check"
+  },
+  {
+   "fieldname": "rel_date_procmap",
+   "fieldtype": "Date",
+   "label": "Relevant date",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "rel_check_tech_writer",
+   "fieldtype": "Check",
+   "label": "Relevant check"
+  },
+  {
+   "fieldname": "rel_date_tech_writer",
+   "fieldtype": "Date",
+   "label": "Relevant date",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "rel_check_desdoc",
+   "fieldtype": "Check",
+   "label": "Relevant check"
+  },
+  {
+   "fieldname": "rel_date_desdoc",
+   "fieldtype": "Date",
+   "label": "Relevant date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "info_rel_total",
+   "fieldtype": "HTML",
+   "label": "Relevant total",
+   "options": "<br>"
+  },
+  {
+   "fieldname": "info_dummy",
+   "fieldtype": "HTML",
+   "options": "<br>"
   }
  ],
- "modified": "2019-06-18 19:21:21.047643",
+ "modified": "2019-06-19 18:13:48.663952",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",
