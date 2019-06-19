@@ -10,9 +10,11 @@
   "sec_info",
   "info_ext_num",
   "info_int_num",
+  "info_description",
   "col_info",
-  "info_rnd_proj",
-  "info_sel_model",
+  "info_rnd_project",
+  "info_function",
+  "info_specs",
   "sec_dept_head",
   "sel_status",
   "tab_consultants",
@@ -231,29 +233,15 @@
   },
   {
    "fieldname": "info_ext_num",
-   "fieldtype": "Read Only",
+   "fieldtype": "HTML",
    "label": "External number",
    "read_only": 1
   },
   {
    "fetch_from": "doc.int_num",
    "fieldname": "info_int_num",
-   "fieldtype": "Read Only",
+   "fieldtype": "HTML",
    "label": "Internal number",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "link_rnd_project.title",
-   "fieldname": "info_rnd_proj",
-   "fieldtype": "Read Only",
-   "label": "RnD project",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "DC_PLC_Product_Summary.sel_model",
-   "fieldname": "info_sel_model",
-   "fieldtype": "Read Only",
-   "label": "Model",
    "read_only": 1
   },
   {
@@ -326,9 +314,32 @@
    "fieldname": "sec_notes",
    "fieldtype": "Section Break",
    "label": "Notes"
+  },
+  {
+   "fetch_from": "link_function.title",
+   "fieldname": "info_function",
+   "fieldtype": "HTML",
+   "label": "Funtcion"
+  },
+  {
+   "fieldname": "info_description",
+   "fieldtype": "HTML",
+   "label": "Description"
+  },
+  {
+   "fieldname": "info_specs",
+   "fieldtype": "HTML",
+   "label": "Specs"
+  },
+  {
+   "fetch_from": "link_rnd_project.title",
+   "fieldname": "info_rnd_project",
+   "fieldtype": "HTML",
+   "label": "RnD project",
+   "read_only": 1
   }
  ],
- "modified": "2019-06-18 18:40:44.636062",
+ "modified": "2019-06-18 19:21:21.047643",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",

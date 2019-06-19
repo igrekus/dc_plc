@@ -22,32 +22,26 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
                 field.label_span.innerHTML = __(field._label) + '&nbsp-&nbsp <b>' + result.title + '</b>';
             });
         };
-        set_title('link_bkvp_num');
         set_title('link_function');
         set_title('link_package');
         set_title('link_rnd_project');
         set_title('link_type');
 
-        // console.log(frm.get_field('ext_num').value);
-        frm.set_value('info_ext_num', frm.get_field('ext_num').value);
-        frm.set_value('info_int_num', frm.get_field('int_num').value);
-        frm.set_value('info_sel_model', frm.get_field('sel_model').value);
+        frm.fields_dict['info_ext_num'].wrapper.innerHTML = '<span class="text-muted">Внешний номер</span><br/><span>' + frm.get_field('ext_num').value + '</span>';
+        frm.fields_dict['info_int_num'].wrapper.innerHTML = '<span class="text-muted">Внутренний номер</span><br/><span>' + frm.get_field('ext_num').value + '</span>';
+        frm.fields_dict['info_function'].wrapper.innerHTML = '<span class="text-muted">Функция</span><br/><span>' + frm.get_field('link_function').value + '</span>';
+        frm.fields_dict['info_rnd_project'].wrapper.innerHTML = '<span class="text-muted">Наименование ОКР</span><br/><span>' + frm.get_field('link_rnd_project').value + '</span>';
+        frm.fields_dict['info_description'].wrapper.innerHTML = '<span class="text-muted">Описание</span><br/><span>' + frm.get_field('description').value.split('\n').join('<br>') + '</span>';
+        frm.fields_dict['info_specs'].wrapper.innerHTML = '<span class="text-muted">Параметры</span><br/><span>' + frm.get_field('specs').value.split('\n').join('<br>') + '</span>';
     },
-    ext_num: frm => frm.set_value('info_ext_num', frm.get_field('ext_num').value),
-    int_num: frm => frm.set_value('info_int_num', frm.get_field('int_num').value),
-    sel_model: frm => frm.set_value('info_sel_model', frm.get_field('sel_model').value),
-    link_bkvp_number: frm => {
-        let title = 'link_bkvp_num';
-        frappe.db.get_doc(frm.fields_dict[title].df.options, frm.fields_dict[title].value).then(result => {
-            let field = frm.fields_dict[title];
-            field.label_span.innerHTML = __(field._label) + '&nbsp-&nbsp <b>' + result.title + '</b>';
-        });
-    },
+    ext_num: frm => frm.fields_dict['info_ext_num'].wrapper.innerHTML = '<span class="text-muted">Внешний номер</span><br/><span>' + frm.get_field('ext_num').value + '</span>',
+    int_num: frm => frm.fields_dict['info_int_num'].wrapper.innerHTML = '<span class="text-muted">Внутренний номер</span><br/><span>' + frm.get_field('int_num').value + '</span>',
     link_function: frm => {
         let title = 'link_function';
         frappe.db.get_doc(frm.fields_dict[title].df.options, frm.fields_dict[title].value).then(result => {
             let field = frm.fields_dict[title];
             field.label_span.innerHTML = __(field._label) + '&nbsp-&nbsp <b>' + result.title + '</b>';
+            frm.fields_dict['info_function'].wrapper.innerHTML = '<span class="text-muted">Функция</span><br/><span>' + result.title + '</span>';
         });
     },
     link_package: frm => {
@@ -62,6 +56,7 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
         frappe.db.get_doc(frm.fields_dict[title].df.options, frm.fields_dict[title].value).then(result => {
             let field = frm.fields_dict[title];
             field.label_span.innerHTML = __(field._label) + '&nbsp-&nbsp <b>' + result.title + '</b>';
+            frm.fields_dict['info_rnd_project'].wrapper.innerHTML = '<span class="text-muted">Наименование ОКР</span><br/><span>' + result.title + '</span>';
         });
     },
     link_type: frm => {
@@ -70,6 +65,12 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
             let field = frm.fields_dict[title];
             field.label_span.innerHTML = __(field._label) + '&nbsp-&nbsp <b>' + result.title + '</b>';
         });
+    },
+    description: frm => {
+        frm.fields_dict['info_description'].wrapper.innerHTML = '<span class="text-muted">Описание</span><br/><span>' + frm.get_field('description').value.split('\n').join('<br>') + '</span>';
+    },
+    specs: frm => {
+        frm.fields_dict['info_specs'].wrapper.innerHTML = '<span class="text-muted">Параметры</span><br/><span>' + frm.get_field('specs').value.split('\n').join('<br>') + '</span>';
     }
 });
 
