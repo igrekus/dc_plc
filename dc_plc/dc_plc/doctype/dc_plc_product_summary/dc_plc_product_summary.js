@@ -56,6 +56,8 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
             '<span>' + value_or_none(frm.get_field('specs').value).split('\n').join('<br>') + '</span>';
         set_info('link_function', 'Функция');
         set_info('link_rnd_project', 'Наименование ОКР');
+
+        frm.fields_dict['info_rel_total'].wrapper.innerHTML = '<span class="text-muted">Актуально:</span>&nbsp;<span style="color: #0E9A00">100%</span>';
     },
     ext_num: frm => frm.fields_dict['info_ext_num'].wrapper.innerHTML =
         '<span class="text-muted">Внешний номер</span><br/>' +
@@ -108,7 +110,59 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
         frm.fields_dict['info_specs'].wrapper.innerHTML =
             '<span class="text-muted">Параметры</span><br/>' +
             '<span>' + value_or_none(frm.get_field('specs').value).split('\n').join('<br>') + '</span>';
-    }
+    },
+    // relevance checks
+    rel_check_dept_head: frm => {
+        if (frm.fields_dict['rel_check_dept_head'].value) {
+            frm.set_value('rel_date_dept_head', frappe.datetime.now_date());
+        } else {
+            frm.set_value('rel_date_dept_head', '0001-01-01');
+        }
+    },
+    rel_check_rnd_spec: frm => {
+        if (frm.fields_dict['rel_check_rnd_spec'].value) {
+            frm.set_value('rel_date_rnd_spec', frappe.datetime.now_date());
+        } else {
+            frm.set_value('rel_date_rnd_spec', '0001-01-01');
+        }
+    },
+    rel_check_developer: frm => {
+        if (frm.fields_dict['rel_check_developer'].value) {
+            frm.set_value('rel_date_developer', frappe.datetime.now_date());
+        } else {
+            frm.set_value('rel_date_developer', '0001-01-01');
+        }
+    },
+    rel_check_opcon: frm => {
+        if (frm.fields_dict['rel_check_opcon'].value) {
+            frm.set_value('rel_date_opcon', frappe.datetime.now_date());
+        } else {
+            frm.set_value('rel_date_opcon', '0001-01-01');
+        }
+    },
+    rel_check_procmap: frm => {
+        if (frm.fields_dict['rel_check_procmap'].value) {
+            frm.set_value('rel_date_procmap', frappe.datetime.now_date());
+        } else {
+            frm.set_value('rel_date_procmap', '0001-01-01');
+        }
+    },
+    rel_check_tech_writer: frm => {
+        if (frm.fields_dict['rel_check_tech_writer'].value) {
+            frm.set_value('rel_date_tech_writer', frappe.datetime.now_date());
+        } else {
+            frm.set_value('rel_date_tech_writer', '0001-01-01');
+        }
+    },
+    rel_check_desdoc: frm => {
+        if (frm.fields_dict['rel_check_desdoc'].value) {
+            frm.set_value('rel_date_desdoc', frappe.datetime.now_date());
+        } else {
+            frm.set_value('rel_date_desdoc', '0001-01-01');
+        }
+    },
+
+
 });
 
 // List of Triggers
