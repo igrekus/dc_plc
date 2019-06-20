@@ -57,7 +57,20 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
         set_info('link_function', 'Функция');
         set_info('link_rnd_project', 'Наименование ОКР');
 
-        frm.fields_dict['info_rel_total'].wrapper.innerHTML = '<span class="text-muted">Актуально:</span>&nbsp;<span style="color: #0E9A00">100%</span>';
+        // fields by section: 1 - 3, 2 - 1, 3 - 10, 4 - 2, 5 - 1, 6 - 2, 7 - 2
+        let relevant = 0;
+        let total = 21;
+
+        relevant += frm.doc.rel_check_dept_head ? 3 : 0;
+        relevant += frm.doc.rel_check_rnd_spec ? 1 : 0;
+        relevant += frm.doc.rel_check_developer ? 10 : 0;
+        relevant += frm.doc.rel_check_opcon ? 2 : 0;
+        relevant += frm.doc.rel_check_procmap ? 1 : 0;
+        relevant += frm.doc.rel_check_tech_writer ? 2 : 0;
+        relevant += frm.doc.rel_check_desdoc ? 2 : 0;
+        let percent = Math.round((relevant / total) * 100);
+
+        frm.fields_dict['info_rel_total'].wrapper.innerHTML = '<span class="text-muted">Актуально:</span>&nbsp;<span>' + percent + '%</span>';
     },
     ext_num: frm => frm.fields_dict['info_ext_num'].wrapper.innerHTML =
         '<span class="text-muted">Внешний номер</span><br/>' +
