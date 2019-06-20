@@ -45,7 +45,7 @@ DC_Employees_in_Group,Full name,ФИО
 
 DC_Employee_Group,Members,Членов
 
-,DC Product Stats,Полный перечень продукции
+,DC Product Stats,Полный справочник продукции
 ,DC Product RND Specialist Stats,Выборка для специалиста по ОКР
 ,DC Product Developer Stats,Выборка для разработчика
 ,DC Product Opcon Stats,Выборка для специалиста по ТУ
@@ -53,7 +53,7 @@ DC_Employee_Group,Members,Членов
 
 ,DC Product Info,Справочник продукции НО-8
 ,Product dashboard,Статистика
-,Full stats,Полный перечень
+,Full stats,Полный справочник
 ,Department head query,Выборка для руководителя отделения
 ,RnD spec query,Выборка для специалиста по ОКР
 ,Developer query,Выборка для разработчика
