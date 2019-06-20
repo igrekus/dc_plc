@@ -4,10 +4,10 @@ from frappe import _
 
 def add_translation(row):
 	new_row = list(row)
-	status = row[1]
-	model = row[4]
-	new_row[1] = _(status) if status is not None else None
-	new_row[4] = _(model) if model is not None else None
+	status = row[2]
+	model = row[5]
+	new_row[2] = _(status) if status is not None else None
+	new_row[5] = _(model) if model is not None else None
 	return new_row
 
 
