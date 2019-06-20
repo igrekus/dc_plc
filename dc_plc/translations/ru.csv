@@ -105,5 +105,12 @@ DC_Employee_Group,Members,Членов
 ,Datasheet,Даташит
 ,Number of products,Количество продуктов
 
-,Product dashboard,Дашборд НО-8
 ,Product info completeness statistics,Статистика по продукции НО-8
+,Dept head,Руководитель НО-8
+,RnD spec,Специалист по ОКР
+,Developer,Разработчик
+,Opcon spec,Специалист по ТУ
+,Procmap spec,Специалист по ТК
+,Tech writer,Технический писатель
+,Desdoc spec,Специалист по КД
+,Total,Итого
