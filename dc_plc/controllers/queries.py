@@ -6,6 +6,8 @@ from __future__ import unicode_literals, division, unicode_literals
 from collections import defaultdict
 
 import frappe
+from frappe import as_unicode
+
 from dc_plc.custom.utils import count_filled_fields
 
 
@@ -187,14 +189,14 @@ GROUP BY `p`.`name`;
     host = frappe.utils.get_url()
 
     return [
-        {"name": u"Руководитель НО-8 head", "progress": dept_head, "url": "{}/desk#query-report/DC Product MMIC Dept Head Stats".format(host)},
-        {"name": u"Специалист по ОКР", "progress": rnd_spec, "url": "{}/desk#query-report/DC Product RND Specialist Stats".format(host)},
-        {"name": u"Разработчик", "progress": developer, "url": "{}/desk#query-report/DC Product Developer Stats".format(host)},
-        {"name": u"Специалист по ТУ", "progress": opcon, "url": "{}/desk#query-report/DC Product Opcon Stats".format(host)},
-        {"name": u"Специалист по ТК", "progress": process, "url": "{}/desk#query-report/DC Product Procmap Stats".format(host)},
-        {"name": u"Технический писатель", "progress": tech_writer, "url": "{}/desk#query-report/DC Product Tech Writer Stats".format(host)},
-        {"name": u"Специалист по КД", "progress": desdoc, "url": "{}/desk#query-report/DC Product Desdoc Stats".format(host)},
-        {"name": u"Итого", "progress": total, "url": "{}/desk#query-report/DC%20Product%20Stats".format(host)}
+        {"name": as_unicode("Руководитель НО-8"), "progress": dept_head, "url": "{}/desk#query-report/DC Product MMIC Dept Head Stats".format(host)},
+        {"name": as_unicode("Специалист по ОКР"), "progress": rnd_spec, "url": "{}/desk#query-report/DC Product RND Specialist Stats".format(host)},
+        {"name": as_unicode("Разработчик"), "progress": developer, "url": "{}/desk#query-report/DC Product Developer Stats".format(host)},
+        {"name": as_unicode("Специалист по ТУ"), "progress": opcon, "url": "{}/desk#query-report/DC Product Opcon Stats".format(host)},
+        {"name": as_unicode("Специалист по ТК"), "progress": process, "url": "{}/desk#query-report/DC Product Procmap Stats".format(host)},
+        {"name": as_unicode("Технический писатель"), "progress": tech_writer, "url": "{}/desk#query-report/DC Product Tech Writer Stats".format(host)},
+        {"name": as_unicode("Специалист по КД"), "progress": desdoc, "url": "{}/desk#query-report/DC Product Desdoc Stats".format(host)},
+        {"name": as_unicode("Итого"), "progress": total, "url": "{}/desk#query-report/DC%20Product%20Stats".format(host)}
     ]
 
 
