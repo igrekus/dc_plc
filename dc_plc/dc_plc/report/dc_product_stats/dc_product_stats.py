@@ -6,7 +6,7 @@ import frappe
 from frappe import _
 
 from dc_plc.custom.utils import add_product_summary_links, add_translation, add_completeness
-from dc_plc.controllers.stats_query import get_full_stats, get_developers_for_product, get_consultants_for_product, get_full_stats_relevance
+from dc_plc.controllers.stats_query import get_full_stats, get_developers_for_product, get_consultants_for_product
 
 
 def execute(filters=None):
