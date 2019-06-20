@@ -3,7 +3,7 @@ DocType: DC_PLC_Product_Summary,Mandatory parameters,Обязательные п
 DocType: DC_PLC_Product_Summary,DC_PLC_Product_Summary,[НО-8] Описание изделия
 DocType: DC_PLC_Product_Summary,External Number,Внешний номер
 DocType: DC_PLC_Product_Summary,Internal Number,Внутренний номер
-DocType: DC_PLC_Product_Summary,RnD Project,Наименование ОКР
+DocType: DC_PLC_Product_Summary,RnD project,Наименование ОКР
 DocType: DC_PLC_Product_Summary,Employees responsible,Ответственные сотрудники
 DocType: DC_PLC_Product_Summary,Consultant,Консультанты
 DocType: DC_PLC_Product_Summary,Developers,Разработчики
@@ -21,6 +21,21 @@ DocType: DC_PLC_Product_Summary,Datasheet,Даташит
 DocType: DC_PLC_Product_Summary,Model,Литерность
 DocType: DC_PLC_Product_Summary,Status,Перспектива
 DocType: DC_PLC_Product_Summary,Desdoc Number,Номер КД
+DocType: DC_PLC_Product_Summary,Relevant check,Актуально
+DocType: DC_PLC_Product_Summary,Relevant date,Актуально на
+DocType: DC_PLC_Product_Summary,Product info,Информация об изделии
+DocType: DC_PLC_Product_Summary,Responsible: dept head,Ответственный: руководитель отделения
+DocType: DC_PLC_Product_Summary,Responsible: RnD specialist,Ответственный: специалист по ОКР
+DocType: DC_PLC_Product_Summary,Responsible: developer,Ответственный: разработчик
+DocType: DC_PLC_Product_Summary,Responsible: opcon spec,Ответственный: специалист по ТУ
+DocType: DC_PLC_Product_Summary,Responsible: procmap spec,Ответственный: специалист по ТК
+DocType: DC_PLC_Product_Summary,Responsible: tech writer,Ответственный: технический писатель
+DocType: DC_PLC_Product_Summary,Responsible: desdoc spec,Ответственный: специалист по КД
+DocType: DC_PLC_Product_Summary,Notes,Примечания
+DocType: DC_PLC_Product_Summary,Tech note,Примечание технического специалиста
+DocType: DC_PLC_Product_Summary,Economy note,Примечание экономиста
+DocType: DC_PLC_Product_Summary,Report,Отчёт
+DocType: DC_PLC_Product_Summary,Process map,Технологическая карта
 
 DocType: DC_PLC_BKVP_Number,Title,Наименование
 
