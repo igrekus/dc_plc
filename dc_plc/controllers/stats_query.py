@@ -26,6 +26,13 @@ def get_full_stats(filters):
 	, `p`.`opcon`
 	, `p`.`report`
 	, `p`.`datasheet`
+	, `p`.`rel_check_dept_head`
+	, `p`.`rel_check_rnd_spec`
+	, `p`.`rel_check_developer`
+	, `p`.`rel_check_opcon`
+	, `p`.`rel_check_procmap`
+	, `p`.`rel_check_tech_writer`
+	, `p`.`rel_check_desdoc`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
