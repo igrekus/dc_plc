@@ -187,14 +187,14 @@ GROUP BY `p`.`name`;
     host = frappe.utils.get_url()
 
     return [
-        {"name": "Department head", "progress": dept_head, "url": "{}/desk#query-report/DC Product MMIC Dept Head Stats".format(host)},
-        {"name": "RND specialist", "progress": rnd_spec, "url": "{}/desk#query-report/DC Product RND Specialist Stats".format(host)},
-        {"name": "Developer", "progress": developer, "url": "{}/desk#query-report/DC Product Developer Stats".format(host)},
-        {"name": "Opcon specialist", "progress": opcon, "url": "{}/desk#query-report/DC Product Opcon Stats".format(host)},
-        {"name": "Process specialist", "progress": process, "url": "{}/desk#query-report/DC Product Procmap Stats".format(host)},
-        {"name": "Tech writer", "progress": tech_writer, "url": "{}/desk#query-report/DC Product Tech Writer Stats".format(host)},
-        {"name": "Desdoc specialist", "progress": desdoc, "url": "{}/desk#query-report/DC Product Desdoc Stats".format(host)},
-        {"name": "Total", "progress": total, "url": "{}/desk#query-report/DC%20Product%20Stats".format(host)}
+        {"name": "Руководитель НО-8 head", "progress": dept_head, "url": "{}/desk#query-report/DC Product MMIC Dept Head Stats".format(host)},
+        {"name": "Специалист по ОКР", "progress": rnd_spec, "url": "{}/desk#query-report/DC Product RND Specialist Stats".format(host)},
+        {"name": "Разработчик", "progress": developer, "url": "{}/desk#query-report/DC Product Developer Stats".format(host)},
+        {"name": "Специалист по ТУ", "progress": opcon, "url": "{}/desk#query-report/DC Product Opcon Stats".format(host)},
+        {"name": "Специалист по ТК", "progress": process, "url": "{}/desk#query-report/DC Product Procmap Stats".format(host)},
+        {"name": "Технический писатель", "progress": tech_writer, "url": "{}/desk#query-report/DC Product Tech Writer Stats".format(host)},
+        {"name": "Специалист по КД", "progress": desdoc, "url": "{}/desk#query-report/DC Product Desdoc Stats".format(host)},
+        {"name": "Итого", "progress": total, "url": "{}/desk#query-report/DC%20Product%20Stats".format(host)}
     ]
 
 
