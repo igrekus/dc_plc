@@ -54,7 +54,7 @@ def get_data():
 					"name": "DC Product RND Specialist Stats",
 					"is_query_report": True,
 					"doctype": "DC_PLC_Product_Summary",
-					"label": _("RND Spec query"),
+					"label": _("RnD spec query"),
 				},
 				{
 					"type": "report",
@@ -89,7 +89,7 @@ def get_data():
 					"name": "DC Product Desdoc Stats",
 					"is_query_report": True,
 					"doctype": "DC_PLC_Product_Summary",
-					"label": _("Design doc specialist query"),
+					"label": _("Design doc spec query"),
 				},
 			]
 		},

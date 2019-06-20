@@ -45,11 +45,15 @@ DC_Employee_Group,Members,Членов
 ,DC Product Tech Writer Stats,Выборка для технического писателя
 
 ,DC Product Info,Справочник продукции НО-8
-,Full stats,Полная статистика
-,RND Spec query,Выборка для специалиста по ОКР
+,Product dashboard,Статистика
+,Full stats,Полный перечень
+,Department head query,Выборка для руководителя отделения
+,RnD spec query,Выборка для специалиста по ОКР
 ,Developer query,Выборка для разработчика
 ,Opcon spec query,Выборка для специалиста по ТУ
+,Process spec query,Выборка для специалиста по ТК
 ,Tech writer query,Выборка для технического писателя
+,Design doc spec query,Выборка для специалиста по КД
 
 ,Product filters,Фильтры справочника
 ,By RND project,По наименованию ОКРа
