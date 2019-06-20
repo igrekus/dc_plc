@@ -4,7 +4,7 @@ frappe.pages["dc_product_dashboard"].on_page_load = (wrapper) => {
 
 	this.page = frappe.ui.make_app_page({
 		parent: wrapper,
-		title: "Дашборд НО-8",
+		title: "Статистика продукции НО-8",
 		single_column: true,
 		role_completeness: [],
 		developer_completeness: []
