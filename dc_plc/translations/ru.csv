@@ -46,21 +46,23 @@ DC_Employees_in_Group,Full name,ФИО
 DC_Employee_Group,Members,Членов
 
 ,DC Product Stats,Полный справочник продукции
-,DC Product RND Specialist Stats,Выборка для специалиста по ОКР
-,DC Product Developer Stats,Выборка для разработчика
-,DC Product Opcon Stats,Выборка для специалиста по ТУ
-,DC Product Tech Writer Stats,Выборка для технического писателя
+,DC Product RND Specialist Stats,Выборка столбцов для специалиста по ОКР
+,DC Product Developer Stats,Выборка столбцов для разработчика
+,DC Product Opcon Stats,Выборка столбцов для специалиста по ТУ
+,DC Product Tech Writer Stats,Выборка столбцов для технического писателя
 
 ,DC Product Info,Справочник продукции НО-8
 ,Product dashboard,Статистика
 ,Full stats,Полный справочник
-,Department head query,Выборка для руководителя отделения
-,RnD spec query,Выборка для специалиста по ОКР
-,Developer query,Выборка для разработчика
-,Opcon spec query,Выборка для специалиста по ТУ
-,Process spec query,Выборка для специалиста по ТК
-,Tech writer query,Выборка для технического писателя
-,Design doc spec query,Выборка для специалиста по КД
+,Department head query,Выборка столбцов для руководителя отделения
+,RnD spec query,Выборка столбцов для специалиста по ОКР
+,Developer query,Выборка столбцов для разработчика
+,Opcon spec query,Выборка столбцов для специалиста по ТУ
+,Process spec query,Выборка столбцов для специалиста по ТК
+,Tech writer query,Выборка столбцов для технического писателя
+,Design doc spec query,Выборка столбцов для специалиста по КД
+,DC Product Procmap Stats,Выборка столбцов для специалиста по ТК
+,DC Product MMIC Dept Head Stats,Выборка столбцов для руководителя отделения
 
 ,Product filters,Фильтры справочника
 ,By RND project,По наименованию ОКРа
@@ -79,6 +81,8 @@ DC_Employee_Group,Members,Членов
 ,Employee Group,Группа сотрудников
 
 ,ID,ID
+,Relevance,Актуальность
+,Progress,Заполненность
 ,External number,Внешний номер
 ,Internal number,Внутренний номер
 ,BKVP Number, Номер БКВП
