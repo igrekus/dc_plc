@@ -4,7 +4,7 @@ frappe.pages["dc_product_dashboard"].on_page_load = (wrapper) => {
 
 	this.page = frappe.ui.make_app_page({
 		parent: wrapper,
-		title: "Product dashboard",
+		title: "Дашборд НО-8",
 		single_column: true,
 		role_completeness: [],
 		developer_completeness: []
@@ -76,7 +76,7 @@ frappe.dc_plc.show_dashboard = (page) => {
 };
 
 frappe.dc_plc.render_dashboard = (page) => {
-	page.title = __("Product info completeness statistics");
+	page.title = "";
 	// console.log(page.main);
 	// console.log($("role-comp-container"));
 	// console.log(frappe.render_template("dc_product_dashboard", page));
