@@ -45,7 +45,7 @@ def set_developer_relevant(name, relevant):
 	doc.rel_date_developer = date
 	doc.save()
 
-	return '{}'.format(date)
+	return {'date': date, 'check': relevant}
 
 
 @frappe.whitelist()

@@ -12,7 +12,9 @@ let check_handle = (o) => {
 			relevant: relevant ? 1 : 0,
 		},
 		callback: r => {
-			$('.rel_label_' + name)[0].innerHTML = "&nbsp;&nbsp;" + r.message;
+			let { date, check } = r.message;
+			$('.rel_label_' + name)[0].innerHTML = "&nbsp;&nbsp;" + date;
+			o.checked = !!check;
 		}
 	});
 };
