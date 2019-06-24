@@ -116,6 +116,8 @@ def get_dept_head_stats(filters):
 	, `p`.`description`
 	, `p`.`ext_num`
 	, `p`.`int_num` 
+	, `p`.`rel_check_dept_head`
+	, `p`.`rel_date_dept_head`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
