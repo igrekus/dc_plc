@@ -70,3 +70,14 @@ def set_procmap_relevant(name, relevant):
 	doc.save()
 
 	return '{}'.format(date)
+
+@frappe.whitelist()
+def set_tech_writer_relevant(name, relevant):
+	relevant = int(relevant)
+	date = today() if relevant else '0001-01-01'
+	doc = frappe.get_doc('DC_PLC_Product_Summary', name)
+	doc.rel_check_tech_writer = relevant
+	doc.rel_date_tech_writer = date
+	doc.save()
+
+	return '{}'.format(date)

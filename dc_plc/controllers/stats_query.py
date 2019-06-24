@@ -246,7 +246,8 @@ def get_tech_writer_stats(filters):
 	, `p`.`int_num`
 	, `p`.`application`
 	, `p`.`datasheet`
-
+	, `p`.`rel_check_tech_writer`
+	, `p`.`rel_date_tech_writer`
 	FROM `{}`.tabDC_PLC_Product_Summary AS p
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
