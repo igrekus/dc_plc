@@ -2,6 +2,7 @@
 // For license information, please see license.txt
 /* eslint-disable */
 
+// TODO DRY this crap from all queries
 let check_handle = (o) => {
 	let relevant = o.checked;
 	let name = o.id;

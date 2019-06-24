@@ -138,6 +138,8 @@ def get_rnd_spec_stats(filters):
 	, `func`.`title`
 	, `p`.`ext_num`
 	, `p`.`int_num`
+	, `p`.`rel_check_rnd_spec`
+	, `p`.`rel_date_rnd_spec`
 	FROM `{}`.tabDC_PLC_Product_Summary AS p
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Function` AS `func` ON `p`.`link_function` = `func`.`name`
