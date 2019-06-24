@@ -46,3 +46,14 @@ def set_developer_relevant(name, relevant):
 	doc.save()
 
 	return '{}'.format(date)
+
+@frappe.whitelist()
+def set_opcon_relevant(name, relevant):
+	relevant = int(relevant)
+	date = today() if relevant else '0001-01-01'
+	doc = frappe.get_doc('DC_PLC_Product_Summary', name)
+	doc.rel_check_opcon = relevant
+	doc.rel_date_opcon = date
+	doc.save()
+
+	return '{}'.format(date)

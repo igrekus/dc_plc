@@ -194,6 +194,8 @@ def get_opcon_stats(filters):
 	, `p`.`ext_num`
 	, `p`.`opcon`
 	, `p`.`int_num`
+	, `p`.`rel_check_opcon`
+	, `p`.`rel_date_opcon`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
