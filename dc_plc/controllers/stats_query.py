@@ -116,6 +116,8 @@ def get_dept_head_stats(filters):
 	, `p`.`description`
 	, `p`.`ext_num`
 	, `p`.`int_num` 
+	, `p`.`rel_check_dept_head`
+	, `p`.`rel_date_dept_head`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
@@ -136,6 +138,8 @@ def get_rnd_spec_stats(filters):
 	, `func`.`title`
 	, `p`.`ext_num`
 	, `p`.`int_num`
+	, `p`.`rel_check_rnd_spec`
+	, `p`.`rel_date_rnd_spec`
 	FROM `{}`.tabDC_PLC_Product_Summary AS p
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Function` AS `func` ON `p`.`link_function` = `func`.`name`
@@ -163,6 +167,8 @@ def get_developer_stats(filters):
 	, `p`.`analog`
 	, `p`.`ext_num`
 	, `p`.`int_num`
+	, `p`.`rel_check_developer`
+	, `p`.`rel_date_developer`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
@@ -188,6 +194,8 @@ def get_opcon_stats(filters):
 	, `p`.`ext_num`
 	, `p`.`opcon`
 	, `p`.`int_num`
+	, `p`.`rel_check_opcon`
+	, `p`.`rel_date_opcon`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
@@ -212,6 +220,8 @@ def get_procmap_stats(filters):
 	, `p`.`process_map`
 	, `p`.`opcon`
 	, `p`.`int_num`
+	, `p`.`rel_check_procmap`
+	, `p`.`rel_date_procmap`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
@@ -236,6 +246,8 @@ def get_tech_writer_stats(filters):
 	, `p`.`int_num`
 	, `p`.`application`
 	, `p`.`datasheet`
+	, `p`.`rel_check_tech_writer`
+	, `p`.`rel_date_tech_writer`
 	FROM `{}`.tabDC_PLC_Product_Summary AS p
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
@@ -257,6 +269,8 @@ def get_desdoc_stats(filters):
 	, `p`.`opcon`
 	, `p`.`int_num`
 	, `p`.`desdoc_num`
+	, `p`.`rel_check_desdoc`
+	, `p`.`rel_date_desdoc`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.`link_rnd_project` = `proj`.`name`

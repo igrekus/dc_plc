@@ -5,19 +5,21 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 
-from dc_plc.custom.utils import add_product_summary_links, add_translation, add_completeness
+from dc_plc.custom.utils import add_product_summary_links, add_completeness, add_query_relevance
 from dc_plc.controllers.stats_query import get_tech_writer_stats
 
 
 def execute(filters=None):
 	columns = get_columns()
 	data = get_data(filters)
+
 	return columns, data
 
 
 def get_columns():
 	return [
 		"ID:Link/DC_PLC_Product_Summary",
+		_("Relevance"),
 		_("Progress"),
 		_("Function"),
 		_("Package"),
@@ -34,5 +36,9 @@ def get_columns():
 
 def get_data(filters):
 	host = frappe.utils.get_url()
-	result = get_tech_writer_stats(filters)
-	return [add_product_summary_links(add_translation(add_completeness(row, [9, 10])), host) for row in result]
+	res = get_tech_writer_stats(filters)
+	res = [add_completeness(row, [9, 10]) for row in res]
+	res = [add_query_relevance(row) for row in res]
+	res = [add_product_summary_links(row, host) for row in res]
+
+	return res

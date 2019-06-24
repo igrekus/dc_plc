@@ -7,7 +7,7 @@ import frappe
 
 from frappe import _
 
-from dc_plc.custom.utils import add_product_summary_links, add_translation, add_completeness
+from dc_plc.custom.utils import add_product_summary_links, add_translation, add_completeness, add_query_relevance
 from dc_plc.controllers.stats_query import get_dept_head_stats, get_developers_for_product, get_consultants_for_product
 
 
@@ -20,6 +20,7 @@ def execute(filters=None):
 def get_columns():
 	return [
 		"ID:Link/DC_PLC_Product_Summary",
+		_("Relevance"),
 		_("Progress"),
 		_("Status"),
 		_("RnD Title"),
@@ -42,7 +43,10 @@ def get_data(filters):
 	cons = get_consultants_for_product()
 
 	res = get_dept_head_stats(filters)
+	res = [add_devs_and_cons(row) for row in res]
+	res = [add_completeness(row, [1, 4, 5]) for row in res]
+	res = [add_query_relevance(row) for row in res]
+	res = [add_product_summary_links(row, host=frappe.utils.get_url()) for row in res]
 
 	# TODO calc stats by appointed fields
-	return [add_product_summary_links(add_translation(add_completeness(add_devs_and_cons(row), [1, 4, 5])),
-									host=frappe.utils.get_url()) for row in res]
+	return res
