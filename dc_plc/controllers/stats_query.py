@@ -269,6 +269,8 @@ def get_desdoc_stats(filters):
 	, `p`.`opcon`
 	, `p`.`int_num`
 	, `p`.`desdoc_num`
+	, `p`.`rel_check_desdoc`
+	, `p`.`rel_date_desdoc`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.`link_rnd_project` = `proj`.`name`
