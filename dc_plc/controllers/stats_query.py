@@ -167,6 +167,8 @@ def get_developer_stats(filters):
 	, `p`.`analog`
 	, `p`.`ext_num`
 	, `p`.`int_num`
+	, `p`.`rel_check_developer`
+	, `p`.`rel_date_developer`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`

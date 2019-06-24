@@ -34,3 +34,15 @@ def set_rnd_spec_relevant(name, relevant):
 	doc.save()
 
 	return '{}'.format(date)
+
+
+@frappe.whitelist()
+def set_developer_relevant(name, relevant):
+	relevant = int(relevant)
+	date = today() if relevant else '0001-01-01'
+	doc = frappe.get_doc('DC_PLC_Product_Summary', name)
+	doc.rel_check_developer = relevant
+	doc.rel_date_developer = date
+	doc.save()
+
+	return '{}'.format(date)
