@@ -220,6 +220,8 @@ def get_procmap_stats(filters):
 	, `p`.`process_map`
 	, `p`.`opcon`
 	, `p`.`int_num`
+	, `p`.`rel_check_procmap`
+	, `p`.`rel_date_procmap`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
@@ -244,6 +246,7 @@ def get_tech_writer_stats(filters):
 	, `p`.`int_num`
 	, `p`.`application`
 	, `p`.`datasheet`
+
 	FROM `{}`.tabDC_PLC_Product_Summary AS p
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
