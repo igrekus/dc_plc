@@ -23,4 +23,4 @@ frappe.query_reports["DC Product Developer Stats"] = {
 	"filters": [
 
 	]
-}
+};
