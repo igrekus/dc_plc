@@ -33,8 +33,10 @@ def get_columns():
 def get_data(filters):
 	host = frappe.utils.get_url()
 	res = get_rnd_spec_stats(filters)
+	has_perms = frappe.has_permission(doctype='DC_PLC_Product_Summary', ptype='write', throw=False, verbose=False)
+
 	res = [add_completeness(row, [2]) for row in res]
-	res = [add_query_relevance(row) for row in res]
+	res = [add_query_relevance(row, has_perms) for row in res]
 	res = [add_product_summary_links(row, host) for row in res]
 
 	return res
