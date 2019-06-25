@@ -27,12 +27,16 @@ def add_completeness(row, rows):
 
 
 # TODO move page-specific function to respective file
-def add_query_relevance(row):
+def add_query_relevance(row, has_perms=True):
 	relevant = True if row[-2] == 1 else False
 	date = row[-1] if row[-1] else '0001-01-01'
-	control = '<input type="checkbox" id="{id_}" onchange="check_handle(this)" {check}/>' \
-		'<label style="vertical-align: top; padding-top: 3px" class="rel_label_{id_}" for="{id_}">&nbsp&nbsp{date}</label>' \
-		.format(id_=row[0], date=date, check='checked' if relevant else '')
+	if has_perms:
+		control = '<input type="checkbox" id="{id_}" onchange="check_handle(this)" {check}/>' \
+			'<label style="vertical-align: top; padding-top: 3px" class="rel_label_{id_}" for="{id_}">&nbsp&nbsp{date}</label>' \
+			.format(id_=row[0], date=date, check='checked' if relevant else '')
+	else:
+		# TODO add link with a add-link-for-col function
+		control = date
 	return [row[0]] + [control] + row[1:-2]
 
 
@@ -40,6 +44,7 @@ def calc_percent(value, total):
 	return int(round(value / total, 2) * 100)
 
 
+# TODO make add link for col function
 def add_product_summary_links(row, host):
 	prod_id = row[0]
 	relevance_control = row[1]
