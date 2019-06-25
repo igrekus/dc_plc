@@ -262,7 +262,7 @@ def developer_completeness_stats():
 
     db_name = frappe.conf.get("db_name")
 
-    res = frappe.db.sql("""SELECT CONCAT(`emps`.last_name, ' ', `emps`.first_name, ' '     , `emps`.middle_name) AS `dev`
+    res = frappe.db.sql("""SELECT CONCAT(`emps`.last_name, ' ', `emps`.first_name, ' ', `emps`.middle_name) AS `dev`
      , `devs`.`link_employee`
      , `p`.`link_type`
      , `p`.`sel_model`
