@@ -235,4 +235,6 @@ ORDER BY `dev` ASC;""".format(db_name, db_name, db_name))
         s = [int(round(row[0] / row[1], 2) * 100) for row in stats]
         output[name] = int(sum(s) / len(s))
 
+    # frappe.model.meta.trim_tables(doctype='DC_PLC_Product_Summary')
+
     return sorted([{'name': k, "progress": v} for k, v in output.items()], key=lambda e: e['name'])
