@@ -66,12 +66,18 @@ DC_Employee_Group,Members,Членов
 ,DC Product MMIC Dept Head Stats,Выборка столбцов для руководителя отделения
 
 ,Product filters,Фильтры справочника
-,By RND project,По наименованию ОКРа
+,By RND project,По наименованию ОКР
 ,By type,По типу устройства
 ,By function,По функции устройства
 ,By package,По типу корпуса
 ,By letter,По литерности
 ,By status,По перспективе
+,DC Product Filter RND Project, По наименованию ОКР
+,DC Product Filter Product Type,По типу устройства
+,DC Product Filter Function,По функции устройства
+,DC Product Filter Package,По типу корпуса
+,DC Product Filter Model,По литерности
+,DC Product Filter Status,По перспективе
 
 ,Module settings,Настройки модуля
 ,DC Products,Продукция

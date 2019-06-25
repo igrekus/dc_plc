@@ -148,6 +148,13 @@ def role_completeness_stats():
      , `p`.`datasheet`
      , `p`.`int_num`
      , `p`.`desdoc_num`
+     , `p`.`rel_check_dept_head`
+     , `p`.`rel_check_rnd_spec`
+     , `p`.`rel_check_developer`
+     , `p`.`rel_check_opcon`
+     , `p`.`rel_check_procmap`
+     , `p`.`rel_check_tech_writer`
+     , `p`.`rel_check_desdoc`
 FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 LEFT JOIN `{}`.`tabDC_PLC_Consulants_in_Product` AS `cons` ON `cons`.parent = `p`.`name`
 LEFT JOIN `{}`.`tabDC_PLC_Developers_in_Product` AS `devs` ON `devs`.parent = `p`.`name`
@@ -186,17 +193,66 @@ GROUP BY `p`.`name`;
     desdoc = [int(round(row[0]/row[1], 2) * 100) for row in desdoc]
     desdoc = int(sum(desdoc)/len(desdoc))
 
+    rel_check_dept_head = round((sum([row[21] for row in res]) / len(res)) * 100)
+    rel_check_rnd_spec = round((sum([row[22] for row in res]) / len(res)) * 100)
+    rel_check_developer = round((sum([row[23] for row in res]) / len(res)) * 100)
+    rel_check_opcon = round((sum([row[24] for row in res]) / len(res)) * 100)
+    rel_check_procmap = round((sum([row[25] for row in res]) / len(res)) * 100)
+    rel_check_tech_writer = round((sum([row[26] for row in res]) / len(res)) * 100)
+    rel_check_desdoc = round((sum([row[27] for row in res]) / len(res)) * 100)
+
     host = frappe.utils.get_url()
 
     return [
-        {"name": _("Dept head"), "progress": dept_head, "url": "{}/desk#query-report/DC Product MMIC Dept Head Stats".format(host)},
-        {"name": _("RnD spec"), "progress": rnd_spec, "url": "{}/desk#query-report/DC Product RND Specialist Stats".format(host)},
-        {"name": _("Developer"), "progress": developer, "url": "{}/desk#query-report/DC Product Developer Stats".format(host)},
-        {"name": _("Opcon spec"), "progress": opcon, "url": "{}/desk#query-report/DC Product Opcon Stats".format(host)},
-        {"name": _("Procmap spec"), "progress": process, "url": "{}/desk#query-report/DC Product Procmap Stats".format(host)},
-        {"name": _("Tech writer"), "progress": tech_writer, "url": "{}/desk#query-report/DC Product Tech Writer Stats".format(host)},
-        {"name": _("Desdoc spec"), "progress": desdoc, "url": "{}/desk#query-report/DC Product Desdoc Stats".format(host)},
-        {"name": _("Total"), "progress": total, "url": "{}/desk#query-report/DC%20Product%20Stats".format(host)}
+        {
+            "name": _("Dept head"),
+            "progress": dept_head,
+            "relevant": rel_check_dept_head,
+            "url": "{}/desk#query-report/DC Product MMIC Dept Head Stats".format(host)
+         },
+        {
+            "name": _("RnD spec"),
+            "progress": rnd_spec,
+            "relevant": rel_check_rnd_spec,
+            "url": "{}/desk#query-report/DC Product RND Specialist Stats".format(host)
+        },
+        {
+            "name": _("Developer"),
+            "progress": developer,
+            "relevant": rel_check_developer,
+            "url": "{}/desk#query-report/DC Product Developer Stats".format(host)
+        },
+        {
+            "name": _("Opcon spec"),
+            "progress": opcon,
+            "relevant": rel_check_opcon,
+            "url": "{}/desk#query-report/DC Product Opcon Stats".format(host)
+        },
+        {
+            "name": _("Procmap spec"),
+            "progress": process,
+            "relevant": rel_check_procmap,
+            "url": "{}/desk#query-report/DC Product Procmap Stats".format(host)
+        },
+        {
+            "name": _("Tech writer"),
+            "progress": tech_writer,
+            "relevant": rel_check_tech_writer,
+            "url": "{}/desk#query-report/DC Product Tech Writer Stats".format(host)
+        },
+        {
+            "name": _("Desdoc spec"),
+            "progress": desdoc,
+            "relevant": rel_check_desdoc,
+            "url": "{}/desk#query-report/DC Product Desdoc Stats".format(host)
+        },
+        {
+            "name": _("Total"),
+            "progress": total,
+            "relevant": sum([rel_check_dept_head, rel_check_rnd_spec, rel_check_developer,
+                             rel_check_opcon, rel_check_procmap, rel_check_tech_writer, rel_check_desdoc]) / 7,
+            "url": "{}/desk#query-report/DC%20Product%20Stats".format(host)
+        }
     ]
 
 
@@ -206,7 +262,7 @@ def developer_completeness_stats():
 
     db_name = frappe.conf.get("db_name")
 
-    res = frappe.db.sql("""SELECT CONCAT(`emps`.last_name, ' ', `emps`.first_name, ' '     , `emps`.middle_name) AS `dev`
+    res = frappe.db.sql("""SELECT CONCAT(`emps`.last_name, ' ', `emps`.first_name, ' ', `emps`.middle_name) AS `dev`
      , `devs`.`link_employee`
      , `p`.`link_type`
      , `p`.`sel_model`
@@ -218,6 +274,13 @@ def developer_completeness_stats():
      , `p`.`specs`
      , `p`.`report`
      , `p`.`analog`
+     , `p`.`rel_check_dept_head`     
+     , `p`.`rel_check_rnd_spec`      
+     , `p`.`rel_check_developer`     
+     , `p`.`rel_check_opcon`         
+     , `p`.`rel_check_procmap`       
+     , `p`.`rel_check_tech_writer`   
+     , `p`.`rel_check_desdoc`        
 FROM `{}`.tabDC_PLC_Product_Summary AS p
 INNER JOIN `{}`.tabDC_PLC_Developers_in_Product AS `devs` ON `devs`.parent = `p`.`name`
 INNER JOIN `{}`.tabEmployee AS `emps` ON `devs`.link_employee = `emps`.`name`
@@ -227,14 +290,19 @@ ORDER BY `dev` ASC;""".format(db_name, db_name, db_name))
     for row in res:
         name = row[0]
         emp_id = row[1]
-        data = row[2:]
-        temp[name].append(count_filled_fields(data, range(len(data))))
+        data = row[2:12]
+        rel = row[13:]
+        temp[name].append([count_filled_fields(data, range(len(data))), int(round(sum(rel) / 7 * 100))])
 
     output = dict()
-    for name, stats in temp.items():
-        s = [int(round(row[0] / row[1], 2) * 100) for row in stats]
-        output[name] = int(sum(s) / len(s))
+    for name, data in temp.items():
+        s_list = list()
+        rel_list = list()
+        for row, rel in data:
+            s_list.append(int(round(row[0] / row[1], 2) * 100))
+            rel_list.append(rel)
+        output[name] = [int(sum(s_list) / len(s_list)), int(sum(rel_list) / len(rel_list))]
 
     # frappe.model.meta.trim_tables(doctype='DC_PLC_Product_Summary')
 
-    return sorted([{'name': k, "progress": v} for k, v in output.items()], key=lambda e: e['name'])
+    return sorted([{'name': k, "progress": v[0], "relevant": v[1]} for k, v in output.items()], key=lambda e: e['name'])

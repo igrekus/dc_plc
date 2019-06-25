@@ -5,21 +5,28 @@
         <tr class="list-row list-row-head text-muted" style="width: 100%">
             <th>Роль</th>
             <th>Заполненность</th>
+            <th>Актуальность</th>
         </tr>
         {% for item in role_completeness %}
             <tr class="list-row">
                 <td><a href="{{ item.url }}">{{ item.name }}</a></td>
                 <td><a href="{{ item.url }}">{{ item.progress }}%</a></td>
+                <td><a href="{{ item.url }}">{{ item.relevant }}%</a></td>
             </tr>
         {% endfor %}
     </table>
     <br/>
     <table id="developer-completeness" width="50%">
-        <tr class="list-row list-row-head text-muted" style="width: 100%"><th>Разработчик</th><th>Заполненность</th></tr>
+        <tr class="list-row list-row-head text-muted" style="width: 100%">
+            <th>Разработчик</th>
+            <th>Заполненность</th>
+            <th>Актуальность</th>
+        </tr>
         {% for item in developer_completeness %}
             <tr class="list-row">
             <td>{{ item.name }}</td>
             <td>{{ item.progress }}%</td>
+            <td>{{ item.relevant }}%</td>
             </tr>
         {% endfor %}
     </table>
