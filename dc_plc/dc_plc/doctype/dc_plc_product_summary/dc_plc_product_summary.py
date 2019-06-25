@@ -22,7 +22,7 @@ def set_dept_head_relevant(name, relevant):
 	doc.rel_date_dept_head = date
 	doc.save()
 
-	return '{};{}'.format(date, relevant)
+	return {'date': date, 'check': relevant}
 
 
 @frappe.whitelist()
@@ -34,7 +34,7 @@ def set_rnd_spec_relevant(name, relevant):
 	doc.rel_date_rnd_spec = date
 	doc.save()
 
-	return '{};{}'.format(date, relevant)
+	return {'date': date, 'check': relevant}
 
 
 @frappe.whitelist()
@@ -58,7 +58,7 @@ def set_opcon_relevant(name, relevant):
 	doc.rel_date_opcon = date
 	doc.save()
 
-	return '{};{}'.format(date, relevant)
+	return {'date': date, 'check': relevant}
 
 
 @frappe.whitelist()
@@ -70,7 +70,7 @@ def set_procmap_relevant(name, relevant):
 	doc.rel_date_procmap = date
 	doc.save()
 
-	return '{};{}'.format(date, relevant)
+	return {'date': date, 'check': relevant}
 
 
 @frappe.whitelist()
@@ -82,7 +82,7 @@ def set_tech_writer_relevant(name, relevant):
 	doc.rel_date_tech_writer = date
 	doc.save()
 
-	return '{};{}'.format(date, relevant)
+	return {'date': date, 'check': relevant}
 
 
 @frappe.whitelist()
@@ -94,4 +94,4 @@ def set_desdoc_relevant(name, relevant):
 	doc.rel_date_desdoc = date
 	doc.save()
 
-	return '{};{}'.format(date, relevant)
+	return {'date': date, 'check': relevant}
