@@ -148,6 +148,13 @@ def role_completeness_stats():
      , `p`.`datasheet`
      , `p`.`int_num`
      , `p`.`desdoc_num`
+     , `p`.`rel_check_dept_head`
+     , `p`.`rel_check_rnd_spec`
+     , `p`.`rel_check_developer`
+     , `p`.`rel_check_opcon`
+     , `p`.`rel_check_procmap`
+     , `p`.`rel_check_tech_writer`
+     , `p`.`rel_check_desdoc`
 FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 LEFT JOIN `{}`.`tabDC_PLC_Consulants_in_Product` AS `cons` ON `cons`.parent = `p`.`name`
 LEFT JOIN `{}`.`tabDC_PLC_Developers_in_Product` AS `devs` ON `devs`.parent = `p`.`name`
@@ -186,17 +193,66 @@ GROUP BY `p`.`name`;
     desdoc = [int(round(row[0]/row[1], 2) * 100) for row in desdoc]
     desdoc = int(sum(desdoc)/len(desdoc))
 
+    rel_check_dept_head = round((sum([row[21] for row in res]) / len(res)) * 100)
+    rel_check_rnd_spec = round((sum([row[22] for row in res]) / len(res)) * 100)
+    rel_check_developer = round((sum([row[23] for row in res]) / len(res)) * 100)
+    rel_check_opcon = round((sum([row[24] for row in res]) / len(res)) * 100)
+    rel_check_procmap = round((sum([row[25] for row in res]) / len(res)) * 100)
+    rel_check_tech_writer = round((sum([row[26] for row in res]) / len(res)) * 100)
+    rel_check_desdoc = round((sum([row[27] for row in res]) / len(res)) * 100)
+
     host = frappe.utils.get_url()
 
     return [
-        {"name": _("Dept head"), "progress": dept_head, "url": "{}/desk#query-report/DC Product MMIC Dept Head Stats".format(host)},
-        {"name": _("RnD spec"), "progress": rnd_spec, "url": "{}/desk#query-report/DC Product RND Specialist Stats".format(host)},
-        {"name": _("Developer"), "progress": developer, "url": "{}/desk#query-report/DC Product Developer Stats".format(host)},
-        {"name": _("Opcon spec"), "progress": opcon, "url": "{}/desk#query-report/DC Product Opcon Stats".format(host)},
-        {"name": _("Procmap spec"), "progress": process, "url": "{}/desk#query-report/DC Product Procmap Stats".format(host)},
-        {"name": _("Tech writer"), "progress": tech_writer, "url": "{}/desk#query-report/DC Product Tech Writer Stats".format(host)},
-        {"name": _("Desdoc spec"), "progress": desdoc, "url": "{}/desk#query-report/DC Product Desdoc Stats".format(host)},
-        {"name": _("Total"), "progress": total, "url": "{}/desk#query-report/DC%20Product%20Stats".format(host)}
+        {
+            "name": _("Dept head"),
+            "progress": dept_head,
+            "relevant": rel_check_dept_head,
+            "url": "{}/desk#query-report/DC Product MMIC Dept Head Stats".format(host)
+         },
+        {
+            "name": _("RnD spec"),
+            "progress": rnd_spec,
+            "relevant": rel_check_rnd_spec,
+            "url": "{}/desk#query-report/DC Product RND Specialist Stats".format(host)
+        },
+        {
+            "name": _("Developer"),
+            "progress": developer,
+            "relevant": rel_check_developer,
+            "url": "{}/desk#query-report/DC Product Developer Stats".format(host)
+        },
+        {
+            "name": _("Opcon spec"),
+            "progress": opcon,
+            "relevant": rel_check_opcon,
+            "url": "{}/desk#query-report/DC Product Opcon Stats".format(host)
+        },
+        {
+            "name": _("Procmap spec"),
+            "progress": process,
+            "relevant": rel_check_procmap,
+            "url": "{}/desk#query-report/DC Product Procmap Stats".format(host)
+        },
+        {
+            "name": _("Tech writer"),
+            "progress": tech_writer,
+            "relevant": rel_check_tech_writer,
+            "url": "{}/desk#query-report/DC Product Tech Writer Stats".format(host)
+        },
+        {
+            "name": _("Desdoc spec"),
+            "progress": desdoc,
+            "relevant": rel_check_desdoc,
+            "url": "{}/desk#query-report/DC Product Desdoc Stats".format(host)
+        },
+        {
+            "name": _("Total"),
+            "progress": total,
+            "relevant": sum([rel_check_dept_head, rel_check_rnd_spec, rel_check_developer,
+                             rel_check_opcon, rel_check_procmap, rel_check_tech_writer, rel_check_desdoc]) / 7,
+            "url": "{}/desk#query-report/DC%20Product%20Stats".format(host)
+        }
     ]
 
 
