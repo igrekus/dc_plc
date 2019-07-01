@@ -8,7 +8,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "json": "{\"add_total_row\": 0}",
- "modified": "2019-05-30 17:19:56.025347",
+ "modified": "2019-07-01 14:38:38.905804",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC Product Filter Function",
@@ -38,6 +38,12 @@
   },
   {
    "role": "DC_Guest"
+  },
+  {
+   "role": "DC_PLC_Process_Map_Specialist"
+  },
+  {
+   "role": "DC_PLC_Desdoc_Specialist"
   }
  ]
 }

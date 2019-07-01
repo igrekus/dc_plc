@@ -7,7 +7,7 @@
  "doctype": "Report",
  "idx": 0,
  "is_standard": "Yes",
- "modified": "2019-04-01 14:07:07.269513",
+ "modified": "2019-07-01 14:39:46.479269",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC Product Developer Stats",
@@ -37,6 +37,12 @@
   },
   {
    "role": "DC_Guest"
+  },
+  {
+   "role": "DC_PLC_Process_Map_Specialist"
+  },
+  {
+   "role": "DC_PLC_Desdoc_Specialist"
   }
  ]
 }

@@ -360,19 +360,22 @@
    "fieldname": "rel_date_dept_head",
    "fieldtype": "Date",
    "label": "Relevant date",
+   "permlevel": 1,
    "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "rel_check_dept_head",
    "fieldtype": "Check",
-   "label": "Relevant check"
+   "label": "Relevant check",
+   "permlevel": 1
   },
   {
    "default": "0",
    "fieldname": "rel_check_rnd_spec",
    "fieldtype": "Check",
-   "label": "Relevant check"
+   "label": "Relevant check",
+   "permlevel": 2
   },
   {
    "fieldname": "col_rnd_spec",
@@ -383,66 +386,77 @@
    "fieldname": "rel_date_rnd_spec",
    "fieldtype": "Date",
    "label": "Relevant date",
+   "permlevel": 2,
    "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "rel_check_developer",
    "fieldtype": "Check",
-   "label": "Relevant check"
+   "label": "Relevant check",
+   "permlevel": 3
   },
   {
    "fieldname": "rel_date_developer",
    "fieldtype": "Date",
    "label": "Relevant date",
+   "permlevel": 3,
    "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "rel_check_opcon",
    "fieldtype": "Check",
-   "label": "Relevant check"
+   "label": "Relevant check",
+   "permlevel": 4
   },
   {
    "fieldname": "rel_date_opcon",
    "fieldtype": "Date",
    "label": "Relevant date",
+   "permlevel": 4,
    "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "rel_check_procmap",
    "fieldtype": "Check",
-   "label": "Relevant check"
+   "label": "Relevant check",
+   "permlevel": 5
   },
   {
    "fieldname": "rel_date_procmap",
    "fieldtype": "Date",
    "label": "Relevant date",
+   "permlevel": 5,
    "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "rel_check_tech_writer",
    "fieldtype": "Check",
-   "label": "Relevant check"
+   "label": "Relevant check",
+   "permlevel": 6
   },
   {
    "fieldname": "rel_date_tech_writer",
    "fieldtype": "Date",
    "label": "Relevant date",
+   "permlevel": 6,
    "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "rel_check_desdoc",
    "fieldtype": "Check",
-   "label": "Relevant check"
+   "label": "Relevant check",
+   "permlevel": 7
   },
   {
    "fieldname": "rel_date_desdoc",
    "fieldtype": "Date",
    "label": "Relevant date",
+   "permlevel": 7,
    "read_only": 1
   },
   {
@@ -457,7 +471,7 @@
    "options": "<br>"
   }
  ],
- "modified": "2019-06-20 14:24:18.842367",
+ "modified": "2019-07-01 14:32:03.130357",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",

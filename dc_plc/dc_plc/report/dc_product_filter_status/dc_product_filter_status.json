@@ -7,7 +7,7 @@
  "doctype": "Report",
  "idx": 0,
  "is_standard": "Yes",
- "modified": "2019-06-03 17:46:24.673746",
+ "modified": "2019-07-01 14:37:01.823259",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC Product Filter Status",
@@ -37,6 +37,12 @@
   },
   {
    "role": "DC_Guest"
+  },
+  {
+   "role": "DC_PLC_Process_Map_Specialist"
+  },
+  {
+   "role": "DC_PLC_Desdoc_Specialist"
   }
  ]
 }
