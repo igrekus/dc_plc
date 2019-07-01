@@ -39,7 +39,8 @@ def get_columns():
 
 def get_data(filters):
 	host = frappe.utils.get_url()
-	has_perms = frappe.has_permission(doctype='DC_PLC_Product_Summary', ptype='write', throw=False, verbose=False)
+
+	has_perms = 'DC_PLC_Developer' in frappe.get_roles(frappe.session.user)
 
 	res = get_developer_stats(filters)
 	res = [add_completeness(row, range(2, 12)) for row in res]

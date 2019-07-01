@@ -41,7 +41,9 @@ def get_data(filters):
 
 	devs = get_developers_for_product()
 	cons = get_consultants_for_product()
-	has_perms = frappe.has_permission(doctype='DC_PLC_Product_Summary', ptype='write', throw=False, verbose=False)
+
+	# TODO use frappe API to determine perms
+	has_perms = 'DC_PLC_MMIC_Dept_Head' in frappe.get_roles(frappe.session.user)
 
 	res = get_dept_head_stats(filters)
 	res = [add_devs_and_cons(row) for row in res]
