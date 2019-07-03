@@ -6,7 +6,7 @@ def get_full_stats(filters):
 
 	sql = """SELECT
 	`p`.`name` as `id`
-	, `p`.`sel_status`
+	, `status`.`title` AS `status`
 	, `p`.`ext_num`
 	, `p`.`int_num`
 	, `p`.`sel_model`
@@ -35,6 +35,8 @@ def get_full_stats(filters):
 	, `p`.`rel_check_desdoc`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
+	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
@@ -42,7 +44,7 @@ def get_full_stats(filters):
 		`{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`""" \
-		.format(db_name, db_name, db_name, db_name, db_name)
+		.format(db_name, db_name, db_name, db_name, db_name, db_name)
 
 	if filters:
 		proj = filters.get('link_rnd_project', '%')
@@ -57,8 +59,8 @@ def get_full_stats(filters):
 		func = filters.get('link_function', '%')
 		func_clause = "(`fun`.`name` LIKE '%' OR `fun`.`name` IS NULL)" if func == '%' else "`fun`.`name` LIKE '{}'".format(func)
 
-		status = filters.get('sel_status', '%')
-		status_clause = "(`p`.`sel_status` LIKE '%' OR `p`.sel_status IS NULL)" if status == '%' else "`p`.`sel_status` LIKE '{}'".format(status)
+		status = filters.get('link_status', '%')
+		status_clause = "(`p`.`link_status` LIKE '%' OR `p`.link_status IS NULL)" if status == '%' else "`p`.`link_status` LIKE '{}'".format(status)
 
 		pack = filters.get('link_package', '%')
 		pack_clause = "(`pak`.`name` LIKE '%' OR `pak`.`name` IS NULL)" if pack == '%' else "`pak`.`name` LIKE '{}'".format(pack)
@@ -108,7 +110,7 @@ def get_dept_head_stats(filters):
 
 	sql = """SELECT
 	`p`.`name` as `id`
-	, `p`.`sel_status`
+	, `status`.`title` AS `status`
 	, `proj`.`title` AS `project`
 	, "stub" AS `cons`
 	, "stub" AS `devs`
@@ -120,9 +122,11 @@ def get_dept_head_stats(filters):
 	, `p`.`rel_date_dept_head`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
+	LEFT JOIN
 		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`""".format(db_name, db_name, db_name)
+		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`""".format(db_name, db_name, db_name, db_name)
 
 	return frappe.db.sql(sql + ";", as_list=1)
 
@@ -132,7 +136,7 @@ def get_rnd_spec_stats(filters):
 
 	sql = """SELECT
 	`p`.`name` AS `id`
-	, `p`.`sel_status`
+	, `status`.`title` AS `status`
 	, `proj`.`title` AS `project`
 	, `p`.`sel_model`
 	, `func`.`title` AS `function`
@@ -142,9 +146,11 @@ def get_rnd_spec_stats(filters):
 	, `p`.`rel_date_rnd_spec`
 	FROM `{}`.tabDC_PLC_Product_Summary AS p
 	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
+	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Function` AS `func` ON `p`.`link_function` = `func`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`;""".format(db_name, db_name, db_name)
+		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`;""".format(db_name, db_name, db_name, db_name)
 
 	return frappe.db.sql(sql + ";", as_list=1)
 

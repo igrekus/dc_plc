@@ -79,11 +79,6 @@ def prepare_model_filter_row(data, host):
 	return ['<a href="{}/desk#query-report/DC%20Product%20Stats/Report?sel_model={}">{}</a>'.format(host, id_, title), number]
 
 
-def prepare_status_filter_row(data, host):
-	id_, title, number = data
-	return ['<a href="{}/desk#query-report/DC%20Product%20Stats/Report?sel_status={}">{}</a>'.format(host, id_, title), number]
-
-
 def count_filled_fields(row, indexes):
 	total = 0
 	for index in indexes:

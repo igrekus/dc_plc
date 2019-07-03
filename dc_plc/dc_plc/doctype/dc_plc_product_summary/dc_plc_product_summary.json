@@ -22,7 +22,7 @@
   "rel_date_dept_head",
   "tab_consultants",
   "tab_developers",
-  "sel_status",
+  "link_status",
   "sec_rnd_spec",
   "rel_check_rnd_spec",
   "link_rnd_project",
@@ -31,7 +31,7 @@
   "sec_developer",
   "rel_check_developer",
   "link_type",
-  "sel_model",
+  "link_letter",
   "link_function",
   "description",
   "analog",
@@ -92,20 +92,6 @@
    "label": "RnD project",
    "options": "DC_PLC_RND_Project",
    "permlevel": 2
-  },
-  {
-   "fieldname": "sel_status",
-   "fieldtype": "Select",
-   "label": "Status",
-   "options": "\n\u041d\u0435 \u0431\u0443\u0434\u0435\u0442 \u0432\u043d\u0435\u0448\u043d\u0435\u0433\u043e \u043d\u043e\u043c\u0435\u0440\u0430\n\u041d\u0435 \u0431\u0443\u0434\u0435\u0442 \u0432\u043d\u0443\u0442\u0440\u0435\u043d\u043d\u0435\u0433\u043e \u043d\u043e\u043c\u0435\u0440\u0430\n\u041d\u0435 \u0431\u0443\u0434\u0435\u0442 \u0434\u043e\u0440\u0430\u0431\u0430\u0442\u044b\u0432\u0430\u0442\u044c\u0441\u044f\n\u041d\u0435 \u0431\u0443\u0434\u0435\u0442 \u043f\u043e\u0441\u0442\u0430\u0432\u043b\u044f\u0442\u044c\u0441\u044f\n\u0413\u043e\u0442\u043e\u0432\u043e \u043a \u043f\u043e\u0441\u0442\u0430\u0432\u043a\u0435",
-   "permlevel": 1
-  },
-  {
-   "fieldname": "sel_model",
-   "fieldtype": "Select",
-   "label": "Model",
-   "options": "\n\u041c\u043e\u043d\u043e\u0438\u0437\u0434\u0435\u043b\u0438\u0435\n\u041b\u0438\u0442\u0435\u0440\u0430\n\u041b\u0438\u0442\u0435\u0440\u043d\u044b\u0439 \u0440\u044f\u0434",
-   "permlevel": 3
   },
   {
    "fieldname": "tab_consultants",
@@ -469,9 +455,30 @@
    "fieldname": "info_dummy",
    "fieldtype": "HTML",
    "options": "<br>"
+  },
+  {
+   "default": "STAT001",
+   "fieldname": "link_status",
+   "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "DC_PLC_Product_Status",
+   "permlevel": 1
+  },
+  {
+   "default": "LET001",
+   "fieldname": "link_letter",
+   "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Letter",
+   "options": "DC_PLC_Product_Letter",
+   "permlevel": 3
   }
  ],
- "modified": "2019-07-01 14:32:03.130357",
+ "modified": "2019-07-03 17:50:07.567381",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",

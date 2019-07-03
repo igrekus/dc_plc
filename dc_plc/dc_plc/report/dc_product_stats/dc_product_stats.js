@@ -31,9 +31,9 @@ frappe.query_reports["DC Product Stats"] = {
 		},
 		{
 			"label": __("Status"),
-			"fieldname": "sel_status",
-			"fieldtype": "Select",
-			"options": ["", "Не будет внешнего номера", "Не будет внутреннего номера", "Не будет дорабатываться", "Не будет поставляться", "Готово к поставке"]
+			"fieldname": "link_status",
+			"fieldtype": "Link",
+			"options": "DC_PLC_Product_Status"
 		},
 		{
 			"label": __("Model"),
