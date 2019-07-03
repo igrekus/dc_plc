@@ -35,13 +35,14 @@ def get_data():
 
 	raw_result = frappe.db.sql("""
 	SELECT
-		`p`.`sel_status` AS `name`
-		, `p`.`sel_status` AS `title`
-		, COUNT(`p`.`name`) AS `prod_num`
+		`status`.`name` AS `name`
+		,`status`.`title` AS `title`
+		, COUNT(`status`.`name`) AS `prod_num`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
-	WHERE `p`.sel_status IS NOT NULL
-	GROUP BY `p`.`sel_status`
-	ORDER BY `title` ASC;""".format(db_name, db_name), as_list=1)
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
+	GROUP BY `status`.`name`
+	ORDER BY `status`.`title` ASC;""".format(db_name, db_name), as_list=1)
 
 	result = [prepare_status_filter_row(row, host) for row in raw_result]
 
