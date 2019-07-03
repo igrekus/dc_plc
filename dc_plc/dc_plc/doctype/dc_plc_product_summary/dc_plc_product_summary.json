@@ -464,6 +464,7 @@
    "options": "<br>"
   },
   {
+   "default": "STAT001",
    "fieldname": "link_status",
    "fieldtype": "Link",
    "in_global_search": 1,
@@ -473,7 +474,7 @@
    "permlevel": 1
   }
  ],
- "modified": "2019-07-03 16:08:19.835696",
+ "modified": "2019-07-03 17:41:31.551553",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",
