@@ -127,7 +127,7 @@ def role_completeness_stats():
     db_name = frappe.conf.get("db_name")
 
     res = frappe.db.sql("""SELECT 
-       `p`.`sel_status`
+       `p`.`link_status`
      , COUNT(`cons`.`link_employee`) AS `con_num`
      , COUNT(`devs`.`link_employee`) AS `dev_num`
      , `p`.`link_rnd_project`
@@ -274,13 +274,13 @@ def developer_completeness_stats():
      , `p`.`specs`
      , `p`.`report`
      , `p`.`analog`
-     , `p`.`rel_check_dept_head`     
-     , `p`.`rel_check_rnd_spec`      
-     , `p`.`rel_check_developer`     
-     , `p`.`rel_check_opcon`         
-     , `p`.`rel_check_procmap`       
-     , `p`.`rel_check_tech_writer`   
-     , `p`.`rel_check_desdoc`        
+     , `p`.`rel_check_dept_head`
+     , `p`.`rel_check_rnd_spec`
+     , `p`.`rel_check_developer`
+     , `p`.`rel_check_opcon`
+     , `p`.`rel_check_procmap`
+     , `p`.`rel_check_tech_writer`
+     , `p`.`rel_check_desdoc`
 FROM `{}`.tabDC_PLC_Product_Summary AS p
 INNER JOIN `{}`.tabDC_PLC_Developers_in_Product AS `devs` ON `devs`.parent = `p`.`name`
 INNER JOIN `{}`.tabEmployee AS `emps` ON `devs`.link_employee = `emps`.`name`
