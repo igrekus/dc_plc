@@ -10,14 +10,14 @@ def get_full_stats(filters):
 	, `p`.`ext_num`
 	, `p`.`int_num`
 	, `p`.`sel_model`
-	, `type`.`title`
-	, `proj`.`title`
-	, "stub"
-	, "stub"
+	, `type`.`title` AS `type`
+	, `proj`.`title` AS `project`
+	, "stub" AS `cons`
+	, "stub" AS `devs`
 	, `p`.`chip`
 	, `p`.`asm_board`
-	, `pak`.`title`
-	, `fun`.`title`
+	, `pak`.`title` AS `package`
+	, `fun`.`title` AS `function`
 	, `p`.`application`
 	, `p`.`description`
 	, `p`.`specs`
@@ -109,10 +109,10 @@ def get_dept_head_stats(filters):
 	sql = """SELECT
 	`p`.`name` as `id`
 	, `p`.`sel_status`
-	, `proj`.`title`
-	, "stub"
-	, "stub"
-	, `fun`.`title`
+	, `proj`.`title` AS `project`
+	, "stub" AS `cons`
+	, "stub" AS `devs`
+	, `fun`.`title` AS `function`
 	, `p`.`description`
 	, `p`.`ext_num`
 	, `p`.`int_num` 
@@ -131,11 +131,11 @@ def get_rnd_spec_stats(filters):
 	db_name = frappe.conf.get("db_name")
 
 	sql = """SELECT
-	`p`.`name` as `id`
+	`p`.`name` AS `id`
 	, `p`.`sel_status`
-	, `proj`.`title`
+	, `proj`.`title` AS `project`
 	, `p`.`sel_model`
-	, `func`.`title`
+	, `func`.`title` AS `function`
 	, `p`.`ext_num`
 	, `p`.`int_num`
 	, `p`.`rel_check_rnd_spec`
@@ -154,13 +154,13 @@ def get_developer_stats(filters):
 
 	sql = """SELECT
 	`p`.`name` as `id`
-	, `proj`.`title`
-	, `type`.`title`
+	, `proj`.`title` AS `project`
+	, `type`.`title` AS `type`
 	, `p`.`sel_model`
-	, `fun`.`title`
+	, `fun`.`title` AS `function`
 	, `p`.`chip`
 	, `p`.`asm_board`
-	, `pak`.`title`
+	, `pak`.`title` AS `package`
 	, `p`.`description`
 	, `p`.`specs`
 	, `p`.`report`
@@ -187,10 +187,10 @@ def get_opcon_stats(filters):
 
 	sql = """SELECT
 	`p`.`name` as `id`
-	, `proj`.`title`
-	, `type`.`title`
+	, `proj`.`title` AS `project`
+	, `type`.`title` AS `type`
 	, `p`.`sel_model`
-	, `fun`.`title`
+	, `fun`.`title` AS `function`
 	, `p`.`ext_num`
 	, `p`.`opcon`
 	, `p`.`int_num`
@@ -214,8 +214,8 @@ def get_procmap_stats(filters):
 
 	sql = """SELECT
 	`p`.`name` as `id`
-	, `proj`.`title`
-	, `fun`.`title`
+	, `proj`.`title` AS `project`
+	, `fun`.`title` AS `function`
 	, `p`.`ext_num`
 	, `p`.`process_map`
 	, `p`.`opcon`
@@ -236,8 +236,8 @@ def get_tech_writer_stats(filters):
 
 	sql = """SELECT
 	`p`.`name` AS `id`
-	, `fun`.`title`
-	, `pack`.`title`
+	, `fun`.`title` AS `function`
+	, `pack`.`title` AS `package`
 	, `p`.`description`
 	, `p`.`specs`
 	, `p`.`report`
@@ -262,9 +262,9 @@ def get_desdoc_stats(filters):
 
 	sql = """SELECT
 	`p`.`name` AS `id`
-	, `proj`.`title`
-	, `type`.`title`
-	, `fun`.`title`
+	, `proj`.`title` AS `porject`
+	, `type`.`title` AS `type`
+	, `fun`.`title` AS `function`
 	, `p`.`ext_num`
 	, `p`.`opcon`
 	, `p`.`int_num`
