@@ -41,6 +41,7 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
         set_title('link_package');
         set_title('link_rnd_project');
         set_title('link_type');
+        set_title('link_status');
 
         frm.fields_dict['info_ext_num'].wrapper.innerHTML =
             '<span class="text-muted">Внешний номер</span><br/>' +
@@ -109,6 +110,13 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
     },
     link_type: frm => {
         let title = 'link_type';
+        frappe.db.get_doc(frm.fields_dict[title].df.options, frm.fields_dict[title].value).then(result => {
+            let field = frm.fields_dict[title];
+            field.label_span.innerHTML = __(field._label) + '&nbsp-&nbsp <b>' + value_or_none(result.title) + '</b>';
+        });
+    },
+    link_status: frm => {
+        let title = 'link_status';
         frappe.db.get_doc(frm.fields_dict[title].df.options, frm.fields_dict[title].value).then(result => {
             let field = frm.fields_dict[title];
             field.label_span.innerHTML = __(field._label) + '&nbsp-&nbsp <b>' + value_or_none(result.title) + '</b>';
