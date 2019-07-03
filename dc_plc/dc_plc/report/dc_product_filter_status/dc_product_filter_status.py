@@ -6,8 +6,6 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 
-from dc_plc.custom.utils import prepare_status_filter_row, add_translation_to_col_num
-
 
 def execute(filters=None):
 	columns = get_columns()
@@ -45,6 +43,11 @@ def get_data():
 	GROUP BY `p`.`sel_status`
 	ORDER BY `title` ASC;""".format(db_name, db_name), as_list=1)
 
-	result = [prepare_status_filter_row(add_translation_to_col_num(row, [0]), host) for row in raw_result]
+	result = [prepare_status_filter_row(row, host) for row in raw_result]
 
 	return result
+
+
+def prepare_status_filter_row(data, host):
+	id_, title, number = data
+	return ['<a href="{}/desk#query-report/DC%20Product%20Stats/Report?link_status={}">{}</a>'.format(host, id_, title), number]
