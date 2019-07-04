@@ -140,7 +140,7 @@ def get_rnd_spec_stats(filters):
 	`p`.`name` AS `id`
 	, `status`.`title` AS `status`
 	, `proj`.`title` AS `project`
-	, `p`.`sel_model`
+	, `letter`.`title` AS `letter`
 	, `func`.`title` AS `function`
 	, `p`.`ext_num`
 	, `p`.`int_num`
@@ -152,7 +152,9 @@ def get_rnd_spec_stats(filters):
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Function` AS `func` ON `p`.`link_function` = `func`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`;""".format(db_name, db_name, db_name, db_name)
+		`{}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`;""".format(db_name, db_name, db_name, db_name, db_name)
 
 	return frappe.db.sql(sql + ";", as_list=1)
 
@@ -164,7 +166,7 @@ def get_developer_stats(filters):
 	`p`.`name` as `id`
 	, `proj`.`title` AS `project`
 	, `type`.`title` AS `type`
-	, `p`.`sel_model`
+	, `letter`.`title` AS `letter`
 	, `fun`.`title` AS `function`
 	, `p`.`chip`
 	, `p`.`asm_board`
@@ -183,9 +185,11 @@ def get_developer_stats(filters):
 	LEFT JOIN
 		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
 	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
+	LEFT JOIN
 		`{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;""".format(db_name, db_name, db_name, db_name, db_name)
+		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;""".format(db_name, db_name, db_name, db_name, db_name, db_name)
 
 	return frappe.db.sql(sql + ";", as_list=1)
 
@@ -197,7 +201,7 @@ def get_opcon_stats(filters):
 	`p`.`name` as `id`
 	, `proj`.`title` AS `project`
 	, `type`.`title` AS `type`
-	, `p`.`sel_model`
+	, `letter`.`title` AS `letter`
 	, `fun`.`title` AS `function`
 	, `p`.`ext_num`
 	, `p`.`opcon`
@@ -210,9 +214,11 @@ def get_opcon_stats(filters):
 	LEFT JOIN
 		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
 	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
+	LEFT JOIN
 		`{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;""".format(db_name, db_name, db_name, db_name, db_name)
+		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;""".format(db_name, db_name, db_name, db_name, db_name, db_name)
 
 	return frappe.db.sql(sql + ";", as_list=1)
 
