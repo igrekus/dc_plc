@@ -24,7 +24,7 @@ def get_columns():
 		_("Status"),
 		_("External number"),
 		_("Internal number"),
-		_("Model"),
+		_("Letter"),
 		_("Type"),
 		_("RnD Title"),
 		_("Consultants"),

@@ -19,6 +19,7 @@ DocType: DC_PLC_Product_Summary,Analogs,Аналоги
 DocType: DC_PLC_Product_Summary,Opcon,ТУ
 DocType: DC_PLC_Product_Summary,Datasheet,Даташит
 DocType: DC_PLC_Product_Summary,Model,Литерность
+DocType: DC_PLC_Product_Summary,Letter,Литерность
 DocType: DC_PLC_Product_Summary,Status,Перспектива
 DocType: DC_PLC_Product_Summary,Desdoc Number,Номер КД
 DocType: DC_PLC_Product_Summary,Relevant check,Актуально
@@ -94,6 +95,7 @@ DC_Employee_Group,Members,Членов
 ,Internal number,Внутренний номер
 ,BKVP Number, Номер БКВП
 ,Type,Тип
+,Letter,Литерность
 ,RnD Title,ОКР
 ,Consultants,Консультанты
 ,Developers,Разработчики

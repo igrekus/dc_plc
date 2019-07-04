@@ -184,6 +184,11 @@ def get_data():
 				},
 				{
 					"type": "doctype",
+					"name": "DC_PLC_Product_Letter",
+					"label": _("Letter"),
+				},
+				{
+					"type": "doctype",
 					"name": "DC_Employee_Group",
 					"label": _("Employee Group"),
 				},

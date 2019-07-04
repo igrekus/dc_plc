@@ -6,8 +6,6 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 
-from dc_plc.custom.utils import prepare_model_filter_row, add_translation_to_col_num
-
 
 def execute(filters=None):
 	columns = get_columns()
@@ -37,14 +35,20 @@ def get_data():
 
 	raw_result = frappe.db.sql("""
 	SELECT
-		`p`.`sel_model` AS `name`
-		, `p`.`sel_model` AS `title`
-		, COUNT(`p`.`name`) AS `prod_num`
+		`letter`.`name` AS `name`
+		, `letter`.`title` AS `title`
+		, COUNT(`letter`.`name`) AS `prod_num`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
-	WHERE `p`.sel_model IS NOT NULL
-	GROUP BY `p`.`sel_model`
-	ORDER BY `title` ASC;""".format(db_name, db_name), as_list=1)
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
+	GROUP BY `letter`.`name`
+	ORDER BY `letter`.`title` ASC;""".format(db_name, db_name), as_list=1)
 
-	result = [prepare_model_filter_row(add_translation_to_col_num(row, [0]), host) for row in raw_result]
+	result = [prepare_letter_filter_row(row, host) for row in raw_result]
 
 	return result
+
+
+def prepare_letter_filter_row(data, host):
+	id_, title, number = data
+	return ['<a href="{}/desk#query-report/DC%20Product%20Stats/Report?link_letter={}">{}</a>'.format(host, id_, title), number]

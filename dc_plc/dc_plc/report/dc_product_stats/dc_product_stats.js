@@ -36,10 +36,10 @@ frappe.query_reports["DC Product Stats"] = {
 			"options": "DC_PLC_Product_Status"
 		},
 		{
-			"label": __("Model"),
-			"fieldname": "sel_model",
-			"fieldtype": "Select",
-			"options": ["", "Моноизделие", "Литера", "Литерный ряд"]
+			"label": __("Letter"),
+			"fieldname": "link_letter",
+			"fieldtype": "Link",
+			"options": "DC_PLC_Product_Letter"
 		},
 
 	],

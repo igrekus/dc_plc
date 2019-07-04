@@ -23,7 +23,7 @@ def get_columns():
 		_("Progress"),
 		_("RnD Title"),
 		_("Type"),
-		_("Model"),
+		_("Letter"),
 		_("Function"),
 		_("External number"),
 		_("Opcon"),
