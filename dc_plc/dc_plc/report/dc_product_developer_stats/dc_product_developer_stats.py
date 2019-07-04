@@ -25,7 +25,7 @@ def get_columns():
 		_("Consultants"),
 		_("Developers"),
 		_("Type"),
-		_("Model"),
+		_("Letter"),
 		_("Function"),
 		_("Chip"),
 		_("Assembly board"),
