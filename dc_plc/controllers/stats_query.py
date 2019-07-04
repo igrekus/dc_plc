@@ -165,6 +165,8 @@ def get_developer_stats(filters):
 	sql = """SELECT
 	`p`.`name` as `id`
 	, `proj`.`title` AS `project`
+	, "stub"
+	, "stub"
 	, `type`.`title` AS `type`
 	, `letter`.`title` AS `letter`
 	, `fun`.`title` AS `function`
