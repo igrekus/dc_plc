@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 
-from dc_plc.custom.utils import add_product_summary_links, add_completeness, add_query_relevance
+from dc_plc.custom.utils import add_completeness, add_query_relevance
 from dc_plc.controllers.stats_query import get_tech_writer_stats
 
 
@@ -35,13 +35,11 @@ def get_columns():
 
 
 def get_data(filters):
-	host = frappe.utils.get_url()
 	res = get_tech_writer_stats(filters)
 
 	has_perms = 'DC_PLC_Tech_Writer' in frappe.get_roles(frappe.session.user)
 
 	res = [add_completeness(row, [9, 10]) for row in res]
 	res = [add_query_relevance(row, has_perms) for row in res]
-	res = [add_product_summary_links(row, host) for row in res]
 
 	return res

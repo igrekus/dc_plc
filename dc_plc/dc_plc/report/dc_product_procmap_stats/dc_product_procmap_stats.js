@@ -22,5 +22,6 @@ let check_handle = (o) => {
 frappe.query_reports["DC Product Procmap Stats"] = {
 	"filters": [
 
-	]
+	],
+	formatter: frappe.dc_plc.product_link_formatter,
 };

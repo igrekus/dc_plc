@@ -27,6 +27,7 @@ let check_handle = (o) => {
 
 frappe.query_reports["DC Product MMIC Dept Head Stats"] = {
 	filters: [],
+	formatter: frappe.dc_plc.product_link_formatter,
 	// formatter: (value, row, column, row_data, format) => {
 	//     let new_value = '';
 	//

@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 
-from dc_plc.custom.utils import add_product_summary_links, add_completeness, add_query_relevance
+from dc_plc.custom.utils import add_completeness, add_query_relevance
 from dc_plc.controllers.stats_query import get_procmap_stats
 
 
@@ -30,13 +30,11 @@ def get_columns():
 
 
 def get_data(filters):
-	host = frappe.utils.get_url()
 	res = get_procmap_stats(filters)
 
 	has_perms = 'DC_PLC_Process_Map_Specialist' in frappe.get_roles(frappe.session.user)
 
 	res = [add_completeness(row, [4]) for row in res]
 	res = [add_query_relevance(row, has_perms) for row in res]
-	res = [add_product_summary_links(row, host=host) for row in res]
 
 	return res
