@@ -54,7 +54,6 @@ DC_Employee_Group,Members,Членов
 ,DC Product Desdoc Stats,Выборка столбцов для специалиста по КД
 
 ,DC Product Info,Справочник продукции НО-8
-,Product dashboard,Статистика
 ,Full stats,Полный справочник
 ,Department head query,Выборка столбцов для руководителя отделения
 ,RnD spec query,Выборка столбцов для специалиста по ОКР
@@ -87,6 +86,9 @@ DC_Employee_Group,Members,Членов
 ,Product type,Тип устройства
 ,RND title,Наименование ОКР
 ,Employee Group,Группа сотрудников
+
+,Statistics,Статистика
+,Product dashboard,Статистика заполненности и актуальности
 
 ,ID,ID
 ,Relevance,Актуальность

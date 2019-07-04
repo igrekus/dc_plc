@@ -18,13 +18,6 @@ def get_data():
 			"icon": "octicon octicon-briefcase",
 			"items": [
 				{
-					"type": "page",
-					"label": _("Product dashboard"),
-					"name": "dc_product_dashboard",
-					"description": _("Totals for DC Products"),
-					"onboard": 1
-				},
-				{
 					"type": "report",
 					"name": "DC Product Stats",
 					"is_query_report": True,
@@ -195,4 +188,17 @@ def get_data():
 			],
 			"condition": is_allowed,
 		},
+		{
+			"label": _("Statistics"),
+			"icon": "octicon octicon-briefcase",
+			"items": [
+				{
+					"type": "page",
+					"label": _("Product dashboard"),
+					"name": "dc_product_dashboard",
+					"description": _("Totals for DC Products"),
+					"onboard": 1
+				},
+			]
+		}
 	]
