@@ -132,7 +132,7 @@ def role_completeness_stats():
      , COUNT(`devs`.`link_employee`) AS `dev_num`
      , `p`.`link_rnd_project`
      , `p`.`link_type`
-     , `p`.`sel_model`
+     , `p`.`link_letter`
      , `p`.`link_function`
      , `p`.`chip`
      , `p`.`asm_board`
@@ -265,7 +265,7 @@ def developer_completeness_stats():
     res = frappe.db.sql("""SELECT CONCAT(`emps`.last_name, ' ', `emps`.first_name, ' ', `emps`.middle_name) AS `dev`
      , `devs`.`link_employee`
      , `p`.`link_type`
-     , `p`.`sel_model`
+     , `p`.`link_letter`
      , `p`.`link_function`
      , `p`.`chip`
      , `p`.`asm_board`
