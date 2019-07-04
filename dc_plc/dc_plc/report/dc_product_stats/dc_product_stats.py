@@ -5,7 +5,7 @@ from __future__ import unicode_literals, division
 import frappe
 from frappe import _
 
-from dc_plc.custom.utils import add_product_summary_links, add_translation, add_completeness
+from dc_plc.custom.utils import add_translation, add_completeness
 from dc_plc.controllers.stats_query import get_full_stats, get_developers_for_product, get_consultants_for_product
 
 
@@ -80,6 +80,5 @@ def get_data(filters):
 	result = [add_devs_and_cons(row) for row in result]
 	result = [add_completeness(row, range(21)) for row in result]
 	result = [add_relevance(row) for row in result]
-	result = [add_product_summary_links(row, host=frappe.utils.get_url()) for row in result]
 
 	return result

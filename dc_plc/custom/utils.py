@@ -44,16 +44,6 @@ def calc_percent(value, total):
 	return int(round(value / total, 2) * 100)
 
 
-# TODO make add link for col function
-def add_product_summary_links(row, host):
-	prod_id = row[0]
-	relevance_control = row[1]
-	return [prod_id] + [relevance_control] + [
-		'<a href="{}/desk#Form/DC_PLC_Product_Summary/{}">{}</a>'.format(host, prod_id, col) if col is not None else ''
-		for col in row[2:]
-	]
-
-
 def prepare_function_filter_row(data, host):
 	id_, title, number = data
 	return ['<a href="{}/desk#query-report/DC%20Product%20Stats/Report?link_function={}">{}</a>'.format(host, id_, title), number]

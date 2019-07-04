@@ -1,6 +1,7 @@
 // Copyright (c) 2016, igrekus and contributors
 // For license information, please see license.txt
 /* eslint-disable */
+frappe.provide("frappe.dc_plc");
 
 frappe.query_reports["DC Product Stats"] = {
 	// add filter to report table header
@@ -43,6 +44,7 @@ frappe.query_reports["DC Product Stats"] = {
 		},
 
 	],
+	formatter: frappe.dc_plc.product_link_formatter,
 	get_datatable_options(options) {
 		return {
 			...options,

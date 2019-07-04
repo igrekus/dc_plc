@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 
-from dc_plc.custom.utils import add_product_summary_links, add_translation, add_completeness, add_query_relevance
+from dc_plc.custom.utils import add_translation, add_completeness, add_query_relevance
 from dc_plc.controllers.stats_query import get_rnd_spec_stats
 
 
@@ -31,7 +31,6 @@ def get_columns():
 
 
 def get_data(filters):
-	host = frappe.utils.get_url()
 	res = get_rnd_spec_stats(filters)
 
 	# TODO use frappe API to determine perms
@@ -39,6 +38,5 @@ def get_data(filters):
 
 	res = [add_completeness(row, [2]) for row in res]
 	res = [add_query_relevance(row, has_perms) for row in res]
-	res = [add_product_summary_links(row, host) for row in res]
 
 	return res
