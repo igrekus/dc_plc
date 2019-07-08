@@ -45,8 +45,10 @@ def get_full_stats(filters):
 	LEFt JOIN
 		`{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`""" \
-		.format(db_name, db_name, db_name, db_name, db_name, db_name, db_name)
+		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
+	LEFT OUTER JOIN
+		`{}`.`tabDC_PLC_Developers_in_Product` AS `dev` ON `p`.`name` = `dev`.`parent`""" \
+		.format(db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name)
 
 	if filters:
 		proj = filters.get('link_rnd_project', '%')
@@ -67,6 +69,9 @@ def get_full_stats(filters):
 		pack = filters.get('link_package', '%')
 		pack_clause = "(`pak`.`name` LIKE '%' OR `pak`.`name` IS NULL)" if pack == '%' else "`pak`.`name` LIKE '{}'".format(pack)
 
+		dev = filters.get('developer', '%')
+		dev_clause = "(`dev`.`link_employee` LIKE '%' OR `dev`.`link_employee` IS NULL)" if dev == '%' else "`dev`.`link_employee` LIKE '{}'".format(dev)
+
 		sql += """
 	WHERE
 	{}
@@ -79,8 +84,12 @@ def get_full_stats(filters):
 	AND
 	{}
 	AND
-	{} 
-	""".format(proj_clause, type_clause, model_clause, func_clause, status_clause, pack_clause)
+	{}
+	AND
+	{}
+	""".format(proj_clause, type_clause, model_clause, func_clause, status_clause, pack_clause, dev_clause)
+
+	sql += "ORDER BY `id`"
 
 	return frappe.db.sql(sql + ';', as_list=1)
 

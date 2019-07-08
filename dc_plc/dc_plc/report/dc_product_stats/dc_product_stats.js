@@ -42,7 +42,17 @@ frappe.query_reports["DC Product Stats"] = {
 			"fieldtype": "Link",
 			"options": "DC_PLC_Product_Letter"
 		},
-
+		{
+			label: __("Developer"),
+			fieldname: "developer",
+			fieldtype: "Link",
+			options: "Employee",
+			get_query: (doc, cut, cdn) => {
+				return {
+					query: 'dc_plc.controllers.queries.developer_query'
+				}
+			}
+		},
 	],
 	formatter: frappe.dc_plc.product_link_formatter,
 	get_datatable_options(options) {
