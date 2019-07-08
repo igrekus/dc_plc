@@ -49,7 +49,7 @@ frappe.query_reports["DC Product Stats"] = {
 			options: "Employee",
 			get_query: (doc, cut, cdn) => {
 				return {
-					query: 'dc_plc.controllers.queries.developer_query'
+					query: 'dc_plc.controllers.queries.developer_query_with_empty_developer'
 				}
 			}
 		},

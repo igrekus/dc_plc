@@ -70,7 +70,10 @@ def get_full_stats(filters):
 		pack_clause = "(`pak`.`name` LIKE '%' OR `pak`.`name` IS NULL)" if pack == '%' else "`pak`.`name` LIKE '{}'".format(pack)
 
 		dev = filters.get('developer', '%')
-		dev_clause = "(`dev`.`link_employee` LIKE '%' OR `dev`.`link_employee` IS NULL)" if dev == '%' else "`dev`.`link_employee` LIKE '{}'".format(dev)
+		if dev == 'HR-EMP-00094':
+			dev_clause = "`dev`.`link_employee` IS NULL"
+		else:
+			dev_clause = "(`dev`.`link_employee` LIKE '%' OR `dev`.`link_employee` IS NULL)" if dev == '%' else "`dev`.`link_employee` LIKE '{}'".format(dev)
 
 		sql += """
 	WHERE

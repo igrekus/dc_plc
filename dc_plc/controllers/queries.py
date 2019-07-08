@@ -70,6 +70,39 @@ def developer_query(doctype, txt, searchfield, start, page_len, filters):
                          })
 
 
+@frappe.whitelist(allow_guest=True)
+def developer_query_with_empty_developer(doctype, txt, searchfield, start, page_len, filters):
+    """
+    Search for members of the developer group (GRP00002)
+    :param doctype:
+    :param txt:
+    :param searchfield:
+    :param start:
+    :param page_len:
+    :param filters:
+    :return:
+    """
+
+    db_name = frappe.conf.get("db_name")
+
+    res = frappe.db.sql("""SELECT em.employee, em.employee_name
+        FROM `{}`.tabEmployee as em
+        INNER JOIN `{}`.tabDC_Employees_in_Group as gp
+        ON em.employee = gp.link_employee
+        WHERE gp.parent = "GRP00002"
+          AND status = 'Active'
+          AND (em.name like %(search)s OR
+               em.employee_name like %(search)s)
+        ORDER BY
+            em.employee_name, em.name""".format(db_name, db_name),
+                         {
+                             'search': '%{}%'.format(txt)
+                         }, as_list=1)
+
+    # FIXME HACK to handle empty developers in products case
+    return [['HR-EMP-00094', '-']] + res
+
+
 def developers_in_product():
 
     db_name = frappe.conf.get("db_name")
