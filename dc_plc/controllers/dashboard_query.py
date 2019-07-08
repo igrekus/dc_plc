@@ -173,13 +173,13 @@ def developer_completeness_stats():
      , `p`.`rel_check_tech_writer`
      , `p`.`rel_check_desdoc`
 FROM `{}`.tabDC_PLC_Product_Summary AS p
-INNER JOIN `{}`.tabDC_PLC_Developers_in_Product AS `devs` ON `devs`.parent = `p`.`name`
-INNER JOIN `{}`.tabEmployee AS `emps` ON `devs`.link_employee = `emps`.`name`
+LEFT OUTER JOIN `{}`.tabDC_PLC_Developers_in_Product AS `devs` ON `devs`.parent = `p`.`name`
+LEFT OUTER JOIN `{}`.tabEmployee AS `emps` ON `devs`.link_employee = `emps`.`name`
 ORDER BY `dev` ASC;""".format(db_name, db_name, db_name))
 
     temp = defaultdict(list)
     for row in res:
-        name = row[0]
+        name = row[0] if row[0] else '--'
         emp_id = row[1]
         data = row[2:12]
         rel = row[13:]
