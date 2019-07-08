@@ -195,7 +195,7 @@ ORDER BY `dev` ASC;""".format(db_name, db_name, db_name))
         for row, rel in data:
             s_list.append(int(round(row[0] / row[1], 2) * 100))
             rel_list.append(rel)
-        output[name] = [int(sum(s_list) / len(s_list)), int(sum(rel_list) / len(rel_list))]
+        output[name] = [int(sum(s_list) / len(s_list)), int(sum(rel_list) / len(rel_list)), len(s_list)]
 
     # frappe.model.meta.trim_tables(doctype='DC_PLC_Product_Summary')
 
@@ -206,6 +206,7 @@ ORDER BY `dev` ASC;""".format(db_name, db_name, db_name))
             'name': k,
             "progress": v[0],
             "relevant": v[1],
+            "product_count": v[2],
             "url": "{}/desk#query-report/DC%20Product%20Stats/Report?developer={}".format(host, ids[k])
         } for k, v in output.items()],
         key=itemgetter('name'))
