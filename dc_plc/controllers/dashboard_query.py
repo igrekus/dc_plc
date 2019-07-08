@@ -4,6 +4,7 @@
 from __future__ import unicode_literals, division
 
 from collections import defaultdict
+from operator import itemgetter
 
 import frappe
 from frappe import _
@@ -178,11 +179,13 @@ LEFT OUTER JOIN `{}`.tabEmployee AS `emps` ON `devs`.link_employee = `emps`.`nam
 ORDER BY `dev` ASC;""".format(db_name, db_name, db_name))
 
     temp = defaultdict(list)
+    ids = dict()
     for row in res:
         name = row[0] if row[0] else '--'
         emp_id = row[1]
         data = row[2:12]
         rel = row[13:]
+        ids[name] = emp_id
         temp[name].append([count_filled_fields(data, range(len(data))), int(round(sum(rel) / 7 * 100))])
 
     output = dict()
@@ -196,4 +199,13 @@ ORDER BY `dev` ASC;""".format(db_name, db_name, db_name))
 
     # frappe.model.meta.trim_tables(doctype='DC_PLC_Product_Summary')
 
-    return sorted([{'name': k, "progress": v[0], "relevant": v[1]} for k, v in output.items()], key=lambda e: e['name'])
+    host = frappe.utils.get_url()
+
+    return sorted(
+        [{
+            'name': k,
+            "progress": v[0],
+            "relevant": v[1],
+            "url": "{}/desk#query-report/DC%20Product%20Stats/Report?developer={}".format(host, ids[k])
+        } for k, v in output.items()],
+        key=itemgetter('name'))
