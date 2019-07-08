@@ -64,6 +64,7 @@ get_developer_completeness_stats = (page) => {
 		callback: (r) => {
 			if (r.message) {
 				page.developer_completeness = r.message;
+				page.developer_completeness[0].url = `http://${window.location.host}/desk#query-report/DC%20Product%20Stats/Report`;
 				frappe.dc_plc.render_dashboard(page);
 			}
 		}
