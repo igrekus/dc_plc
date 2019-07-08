@@ -67,6 +67,6 @@ def prepare_product_package_filter_row(data, host):
 def count_filled_fields(row, indexes):
 	total = 0
 	for index in indexes:
-		if row[index]:
+		if row[index] and row[index] != '-':
 			total += 1
 	return total, len(indexes)
