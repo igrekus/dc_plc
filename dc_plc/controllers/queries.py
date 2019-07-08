@@ -40,6 +40,7 @@ def consultant_query(doctype, txt, searchfield, start, page_len, filters):
                          })
 
 
+@frappe.whitelist(allow_guest=True)
 def developer_query(doctype, txt, searchfield, start, page_len, filters):
     """
     Search for members of the developer group (GRP00002)
