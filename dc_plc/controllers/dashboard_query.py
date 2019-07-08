@@ -201,7 +201,7 @@ ORDER BY `dev` ASC;""".format(db_name, db_name, db_name, db_name, db_name, db_na
 	temp = defaultdict(list)
 	ids = dict()
 	for row in res:
-		name = row[0] if row[0] else '--'
+		name = row[0] if row[0] else '-'
 		emp_id = row[1]
 		data = row[2:12]
 		rel = row[13:]
