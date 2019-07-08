@@ -21,12 +21,14 @@
             <th>Разработчик</th>
             <th>Заполненность</th>
             <th>Актуальность</th>
+            <th>Количество</th>
         </tr>
         {% for item in developer_completeness %}
             <tr class="list-row">
                 <td><a href="{{ item.url }}">{{ item.name }}</a></td>
                 <td><a href="{{ item.url }}">{{ item.progress }}%</a></td>
                 <td><a href="{{ item.url }}">{{ item.relevant }}%</a></td>
+                <td><a href="{{ item.url }}">{{ item.product_count }}</a></td>
             </tr>
         {% endfor %}
     </table>
