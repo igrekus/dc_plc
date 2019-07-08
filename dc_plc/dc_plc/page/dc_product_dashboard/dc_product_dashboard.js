@@ -48,7 +48,7 @@ frappe.pages['dc_product_dashboard'].on_page_show = () => {
 // TODO refactor callback hell
 get_role_completeness_stats = (page) => {
 	frappe.call({
-		method: "dc_plc.controllers.queries.role_completeness_stats",
+		method: "dc_plc.controllers.dashboard_query.role_completeness_stats",
 		callback: (r) => {
 			if (r.message) {
 				page.role_completeness = r.message;
@@ -60,7 +60,7 @@ get_role_completeness_stats = (page) => {
 
 get_developer_completeness_stats = (page) => {
 	frappe.call({
-		method: "dc_plc.controllers.queries.developer_completeness_stats",
+		method: "dc_plc.controllers.dashboard_query.developer_completeness_stats",
 		callback: (r) => {
 			if (r.message) {
 				page.developer_completeness = r.message;
