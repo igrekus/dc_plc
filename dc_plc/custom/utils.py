@@ -30,13 +30,7 @@ def add_completeness(row, rows):
 def add_query_relevance(row, has_perms=True):
 	relevant = True if row[-2] == 1 else False
 	date = row[-1] if row[-1] else '0001-01-01'
-	if has_perms:
-		control = '<input type="checkbox" id="{id_}" onchange="check_handle(this)" {check}/>' \
-			'<label style="vertical-align: top; padding-top: 3px" class="rel_label_{id_}" for="{id_}">&nbsp&nbsp{date}</label>' \
-			.format(id_=row[0], date=date, check='checked' if relevant else '')
-	else:
-		# TODO add link with a add-link-for-col function
-		control = date
+	control = '{};{};{}'.format(date, int(relevant), int(has_perms))
 	return [row[0]] + [control] + row[1:-2]
 
 
