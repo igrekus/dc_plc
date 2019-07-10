@@ -27,7 +27,7 @@ let check_handle = (o) => {
 
 frappe.query_reports["DC Product MMIC Dept Head Stats"] = {
 	filters: [],
-	formatter: frappe.dc_plc.product_link_formatter,
+	formatter: frappe.dc_plc.utils.product_link_formatter,
 	// formatter: (value, row, column, row_data, format) => {
 	//     let new_value = '';
 	//
@@ -44,12 +44,11 @@ frappe.query_reports["DC Product MMIC Dept Head Stats"] = {
 	//
 	//     return new_value;
 	// },
-	// onload: report => {
-	//     // TODO hack, use API to highlight cols
-	//     setTimeout(() => {
-	//         higlight_column(4);
-	//         higlight_column(6);
-	//         higlight_column(7);
-	//     }, 1500);
-	// }
+	onload: report => {
+		let highlight_cols = [4, 6, 7];
+		let sheet = window.document.styleSheets[0];
+		highlight_cols.forEach((el) => {
+			sheet.insertRule(`.dt-instance-1 .dt-cell--col-${el} { background-color: rgba(255, 252, 29, 0.27); }`, sheet.cssRules.length);
+		});
+	}
 };
