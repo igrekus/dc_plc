@@ -23,9 +23,6 @@ frappe.query_reports["DC Product Developer Stats"] = {
 	"filters": [
 
 	],
-<<<<<<< Updated upstream
-	formatter: frappe.dc_plc.product_link_formatter,
-=======
 	formatter: frappe.dc_plc.utils.product_link_formatter,
 	onload: report => {
 		let highlight_cols = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16];

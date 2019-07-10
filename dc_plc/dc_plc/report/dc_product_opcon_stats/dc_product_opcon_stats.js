@@ -23,9 +23,6 @@ frappe.query_reports["DC Product Opcon Stats"] = {
 	"filters": [
 
 	],
-<<<<<<< Updated upstream
-	formatter: frappe.dc_plc.product_link_formatter,
-=======
 	formatter: frappe.dc_plc.utils.product_link_formatter,
 	onload: report => {
 		let highlight_cols = [8, 9];
