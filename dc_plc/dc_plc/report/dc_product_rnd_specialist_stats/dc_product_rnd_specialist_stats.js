@@ -23,5 +23,5 @@ frappe.query_reports["DC Product RND Specialist Stats"] = {
 	"filters": [
 
 	],
-	formatter: frappe.dc_plc.product_link_formatter,
+	formatter: frappe.dc_plc.utils.product_link_formatter,
 };
