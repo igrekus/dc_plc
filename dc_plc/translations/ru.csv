@@ -83,6 +83,7 @@ DC_Employee_Group,Members,Членов
 ,DC Products,Продукция
 ,Package type,Тип корпуса
 ,Function,Функциональное назначение
+,Function group,Категория функции
 ,Product type,Тип устройства
 ,RND title,Наименование ОКР
 ,Employee Group,Группа сотрудников
