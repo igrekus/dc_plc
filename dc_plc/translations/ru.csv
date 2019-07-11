@@ -83,7 +83,7 @@ DC_Employee_Group,Members,Членов
 ,DC Products,Продукция
 ,Package type,Тип корпуса
 ,Function,Функциональное назначение
-,Function group,Категория функции
+,Function group,Группа функций
 ,Product type,Тип устройства
 ,RND title,Наименование ОКР
 ,Employee Group,Группа сотрудников
@@ -114,7 +114,8 @@ DC_Employee_Group,Members,Членов
 ,Desdoc number,Номер КД
 ,Reports,Отчёты
 ,Datasheet,Даташит
-,Number of products,Количество продуктов
+,Function title,Функция
+,Number of products,Количество изделий
 ,Reference,Источник
 
 ,Product info completeness statistics,Статистика заполненности и актуальности
