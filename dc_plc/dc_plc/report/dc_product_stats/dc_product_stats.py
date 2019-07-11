@@ -39,6 +39,7 @@ def get_columns():
 		_("Analogs"),
 		_("Desdoc number"),
 		_("Opcon"),
+		_("Process map"),
 		_("Reports"),
 		_("Datasheet")
 	]
@@ -66,7 +67,7 @@ def get_data(filters):
 	def add_relevance(row):
 		done = 0
 		total = 21
-		flags = row[22:]
+		flags = row[23:]
 		for index, flag in enumerate(flags):
 			if flag:
 				done += relevance_values[index]
