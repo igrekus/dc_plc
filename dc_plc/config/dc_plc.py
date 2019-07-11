@@ -157,6 +157,11 @@ def get_data():
 				},
 				{
 					"type": "doctype",
+					"name": "DC_PLC_Product_Function_Group",
+					"label": _("Function group"),
+				},
+				{
+					"type": "doctype",
 					"name": "DC_PLC_Product_Function",
 					"label": _("Function"),
 				},
