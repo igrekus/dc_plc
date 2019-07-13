@@ -3,7 +3,7 @@ let product_link_formatter = (value, row, column, row_data, format) => {
 		value = '-';
 	}
 
-	if (column.id === __('Relevance')) {
+	if (column.colIndex === 2) {   // Relevance column
 		let id = row[1].content;
 		let [date, check, perms] = value.split(';');
 		let check_str = parseInt(check) ? 'checked' : '';
@@ -20,8 +20,8 @@ let full_stat_formatter = (value, row, column, row_data, format) => {
 		value = '-';
 	}
 
-	if (column.id === __('ID')) {
-		let array_str = row_data.Relevance.split('|')[0];
+	if (column.colIndex === 2) {   // Relevance column
+		let [array_str, percent] = value.split('|');
 		let index_str = array_str.slice(1, array_str.length - 1);
 		if (index_str) {
 			let columns_to_highlight = index_str.split(', ').map(el => {
@@ -31,13 +31,9 @@ let full_stat_formatter = (value, row, column, row_data, format) => {
 			let row_index = row.meta.rowIndex;
 			columns_to_highlight.forEach(col_index => {
 				sheet.insertRule(`.dt-instance-1 .dt-cell--${col_index}-${row_index} { background-color: rgba(37,220,2,0.2); }`, sheet.cssRules.length);
-				let col = '<p style="background-color: rgba(37,220,2,0.2)"></p>'
 			});
 		}
-	}
-
-	if (column.id === __('Relevance')) {
-		value = row_data.Relevance.split('|')[1];
+		value = percent;
 	}
 	return `<a href="http://${window.location.host}/desk#Form/DC_PLC_Product_Summary/${row_data.ID}">${value}</a>`;
 };
@@ -47,7 +43,7 @@ let function_link_formatter = (value, row, column, row_data, format) => {
 		value = '-';
 	}
 	let [id, title] = row[2].content.split('|');
-	if (column.id === __('title')) {
+	if (column.colIndex === 2) {   // Title column
 		value = title;
 	}
 	return `<a href="http://${window.location.host}/desk#query-report/DC%20Product%20Stats/Report?link_function=${id}">${value}</a>`;
