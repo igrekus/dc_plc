@@ -3,7 +3,7 @@ let product_link_formatter = (value, row, column, row_data, format) => {
 		value = '-';
 	}
 
-	if (column.id === __('Relevance')) {
+	if (column.colIndex === 2) {   // Relevance column
 		let id = row[1].content;
 		let [date, check, perms] = value.split(';');
 		let check_str = parseInt(check) ? 'checked' : '';
@@ -43,7 +43,7 @@ let function_link_formatter = (value, row, column, row_data, format) => {
 		value = '-';
 	}
 	let [id, title] = row[2].content.split('|');
-	if (column.id === __('title')) {
+	if (column.colIndex === 2) {   // Title column
 		value = title;
 	}
 	return `<a href="http://${window.location.host}/desk#query-report/DC%20Product%20Stats/Report?link_function=${id}">${value}</a>`;
