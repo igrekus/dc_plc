@@ -31,7 +31,6 @@ let full_stat_formatter = (value, row, column, row_data, format) => {
 			let row_index = row.meta.rowIndex;
 			columns_to_highlight.forEach(col_index => {
 				sheet.insertRule(`.dt-instance-1 .dt-cell--${col_index}-${row_index} { background-color: rgba(37,220,2,0.2); }`, sheet.cssRules.length);
-				let col = '<p style="background-color: rgba(37,220,2,0.2)"></p>'
 			});
 		}
 	}
