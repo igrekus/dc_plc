@@ -20,8 +20,8 @@ let full_stat_formatter = (value, row, column, row_data, format) => {
 		value = '-';
 	}
 
-	if (column.id === __('ID')) {
-		let array_str = row_data.Relevance.split('|')[0];
+	if (column.colIndex === 2) {   // Relevance column
+		let [array_str, percent] = value.split('|');
 		let index_str = array_str.slice(1, array_str.length - 1);
 		if (index_str) {
 			let columns_to_highlight = index_str.split(', ').map(el => {
@@ -33,10 +33,7 @@ let full_stat_formatter = (value, row, column, row_data, format) => {
 				sheet.insertRule(`.dt-instance-1 .dt-cell--${col_index}-${row_index} { background-color: rgba(37,220,2,0.2); }`, sheet.cssRules.length);
 			});
 		}
-	}
-
-	if (column.id === __('Relevance')) {
-		value = row_data.Relevance.split('|')[1];
+		value = percent;
 	}
 	return `<a href="http://${window.location.host}/desk#Form/DC_PLC_Product_Summary/${row_data.ID}">${value}</a>`;
 };
