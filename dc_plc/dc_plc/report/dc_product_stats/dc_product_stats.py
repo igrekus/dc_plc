@@ -39,6 +39,7 @@ def get_columns():
 		_("Analogs"),
 		_("Desdoc number"),
 		_("Opcon"),
+		_("Process map"),
 		_("Reports"),
 		_("Datasheet")
 	]
@@ -57,6 +58,15 @@ def get_data(filters):
 		5: 2,
 		6: 2
 	}
+	cell_groups = {
+		0: [4, 10, 11],
+		1: [9],
+		2: [8, 7, 15, 12, 13, 14, 17, 18, 23, 19],
+		3: [5, 21],
+		4: [22],
+		5: [16, 24],
+		6: [6, 20],
+	}
 
 	def add_devs_and_cons(row):
 		row[7] = cons.get(row[0], '').replace(',', '<br>')
@@ -66,12 +76,14 @@ def get_data(filters):
 	def add_relevance(row):
 		done = 0
 		total = 21
-		flags = row[22:]
+		flags = row[23:]
+		cells_to_highlight = list()
 		for index, flag in enumerate(flags):
 			if flag:
 				done += relevance_values[index]
+				cells_to_highlight += cell_groups[index]
 		percent = int((done/total) * 100)
-		return [row[0]] + [str(percent) + '%'] + row[1:]
+		return [row[0]] + ['{}|{}%'.format(cells_to_highlight, percent)] + row[1:]
 
 	devs = get_developers_for_product()
 	cons = get_consultants_for_product()

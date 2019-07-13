@@ -24,6 +24,7 @@ def get_full_stats(filters):
 	, `p`.`analog`
 	, `p`.`desdoc_num`
 	, `p`.`opcon`
+	, `p`.`process_map`
 	, `p`.`report`
 	, `p`.`datasheet`
 	, `p`.`rel_check_dept_head`
