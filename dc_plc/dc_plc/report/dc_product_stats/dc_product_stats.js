@@ -54,13 +54,13 @@ frappe.query_reports["DC Product Stats"] = {
 			}
 		},
 	],
-	formatter: frappe.dc_plc.utils.product_link_formatter,
+	formatter: frappe.dc_plc.utils.full_stat_formatter,
 	get_datatable_options(options) {
 		return {
 			...options,
-            inlineFilters: true,
-            layout: 'fixed',
-            dynamicRowHeight: false,
+			inlineFilters: true,
+			layout: 'fixed',
+			dynamicRowHeight: false,
 		}
 	},
 	after_datatable_render: function (datatable_obj) {
