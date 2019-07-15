@@ -6,8 +6,6 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 
-from dc_plc.custom.utils import prepare_rnd_project_filter_row
-
 
 def execute(filters=None):
 	columns = get_columns()
@@ -33,8 +31,6 @@ def get_columns():
 def get_data():
 	db_name = frappe.conf.get("db_name")
 
-	host = frappe.utils.get_url()
-
 	raw_result = frappe.db.sql("""
 	SELECT
 		`prj`.`name`
@@ -46,6 +42,11 @@ def get_data():
 	GROUP BY `prj`.`name`
 	ORDER BY `prj`.`title` ASC;""".format(db_name, db_name), as_list=1)
 
-	result = [prepare_rnd_project_filter_row(row, host) for row in raw_result]
+	result = [prepare_rnd_project_filter_row(row) for row in raw_result]
 
 	return result
+
+
+def prepare_rnd_project_filter_row(data):
+	id_, title, number = data
+	return ['{}|{}'.format(title, id_), number]
