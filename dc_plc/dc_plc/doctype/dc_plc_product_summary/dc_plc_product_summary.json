@@ -71,6 +71,7 @@
  ],
  "fields": [
   {
+   "default": "-",
    "fieldname": "ext_num",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -78,6 +79,7 @@
    "permlevel": 4
   },
   {
+   "default": "-",
    "fieldname": "int_num",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -108,6 +110,7 @@
    "permlevel": 1
   },
   {
+   "default": "-",
    "fieldname": "chip",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -115,6 +118,7 @@
    "permlevel": 3
   },
   {
+   "default": "-",
    "fieldname": "asm_board",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -145,6 +149,7 @@
    "permlevel": 3
   },
   {
+   "default": "-",
    "fieldname": "application",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -152,6 +157,7 @@
    "permlevel": 6
   },
   {
+   "default": "-",
    "fieldname": "description",
    "fieldtype": "Small Text",
    "in_list_view": 1,
@@ -159,6 +165,7 @@
    "permlevel": 3
   },
   {
+   "default": "-",
    "fieldname": "specs",
    "fieldtype": "Small Text",
    "in_list_view": 1,
@@ -166,6 +173,7 @@
    "permlevel": 3
   },
   {
+   "default": "-",
    "fieldname": "analog",
    "fieldtype": "Small Text",
    "in_list_view": 1,
@@ -173,6 +181,7 @@
    "permlevel": 3
   },
   {
+   "default": "-",
    "fieldname": "opcon",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -180,6 +189,7 @@
    "permlevel": 4
   },
   {
+   "default": "-",
    "fieldname": "report",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -187,6 +197,7 @@
    "permlevel": 3
   },
   {
+   "default": "-",
    "fieldname": "datasheet",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -194,11 +205,13 @@
    "permlevel": 6
   },
   {
+   "default": "-",
    "fieldname": "tech_note",
    "fieldtype": "Small Text",
    "label": "Tech note"
   },
   {
+   "default": "-",
    "fieldname": "economy_note",
    "fieldtype": "Small Text",
    "label": "Economy note"
@@ -215,6 +228,7 @@
    "permlevel": 2
   },
   {
+   "default": "-",
    "fieldname": "desdoc_num",
    "fieldtype": "Data",
    "in_global_search": 1,
@@ -224,6 +238,7 @@
    "permlevel": 7
   },
   {
+   "default": "-",
    "fieldname": "process_map",
    "fieldtype": "Small Text",
    "label": "Process map",
@@ -478,7 +493,7 @@
    "permlevel": 3
   }
  ],
- "modified": "2019-07-03 17:50:07.567381",
+ "modified": "2019-07-15 14:26:45.477695",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",
