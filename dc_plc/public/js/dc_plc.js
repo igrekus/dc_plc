@@ -6,6 +6,7 @@
 		frappe.dc_plc.utils.function_link_formatter = function_link_formatter;
 		frappe.dc_plc.utils.full_stat_formatter = full_stat_formatter;
 		frappe.dc_plc.utils.rnd_project_link_formatter = rnd_project_link_formatter;
+		frappe.dc_plc.utils.product_type_link_formatter = product_type_link_formatter;
 	});
 
 	console.log('>>> DC PLC init finished <<<');

@@ -59,3 +59,14 @@ let rnd_project_link_formatter = (value, row, column, row_data, format) => {
 	}
 	return `<a href="http://${window.location.host}/desk#query-report/DC%20Product%20Stats/Report?link_rnd_project=${id}">${value}</a>`;
 };
+
+let product_type_link_formatter = (value, row, column, row_data, format) => {
+	if (!value) {
+		value = '-';
+	}
+	let [title, id] = row[1].content.split('|');
+	if (column.colIndex === 1) {   // Title column
+		value = title;
+	}
+	return `<a href="http://${window.location.host}/desk#query-report/DC%20Product%20Stats/Report?link_type=${id}">${value}</a>`;
+};
