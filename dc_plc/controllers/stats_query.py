@@ -27,6 +27,7 @@ def get_full_stats(filters):
 	, `p`.`process_map`
 	, `p`.`report`
 	, `p`.`datasheet`
+	, `p`.`final_description`
 	, `p`.`rel_check_dept_head`
 	, `p`.`rel_check_rnd_spec`
 	, `p`.`rel_check_developer`
@@ -291,6 +292,7 @@ def get_tech_writer_stats(filters):
 	, `p`.`int_num`
 	, `p`.`application`
 	, `p`.`datasheet`
+	, `p`.`final_description`
 	, `p`.`rel_check_tech_writer`
 	, `p`.`rel_date_tech_writer`
 	FROM `{}`.tabDC_PLC_Product_Summary AS p

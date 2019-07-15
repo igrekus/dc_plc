@@ -30,7 +30,8 @@ def get_columns():
 		_("External number"),
 		_("Internal number"),
 		_("Application"),
-		_("Datasheet")
+		_("Datasheet"),
+		_("Final description")
 	]
 
 
@@ -39,7 +40,7 @@ def get_data(filters):
 
 	has_perms = 'DC_PLC_Tech_Writer' in frappe.get_roles(frappe.session.user)
 
-	res = [add_completeness(row, [9, 10]) for row in res]
+	res = [add_completeness(row, [9, 10, 11]) for row in res]
 	res = [add_query_relevance(row, has_perms) for row in res]
 
 	return res

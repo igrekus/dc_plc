@@ -38,6 +38,7 @@ def role_completeness_stats():
 	, `p`.`process_map`
 	, `p`.`application`
 	, `p`.`datasheet`
+	, `p`.`final_description`
 	, `p`.`int_num`
 	, `p`.`desdoc_num`
 	, `p`.`rel_check_dept_head`
@@ -89,21 +90,21 @@ GROUP BY `p`.`name`;
 	process = [int(round(row[0]/row[1], 2) * 100) for row in process]
 	process = int(sum(process)/len(process))
 
-	tech_writer = [count_filled_fields(row, [17, 18]) for row in res]
+	tech_writer = [count_filled_fields(row, [17, 18, 19]) for row in res]
 	tech_writer = [int(round(row[0]/row[1], 2) * 100) for row in tech_writer]
 	tech_writer = int(sum(tech_writer)/len(tech_writer))
 
-	desdoc = [count_filled_fields(row, [19, 20]) for row in res]
+	desdoc = [count_filled_fields(row, [20, 21]) for row in res]
 	desdoc = [int(round(row[0]/row[1], 2) * 100) for row in desdoc]
 	desdoc = int(sum(desdoc)/len(desdoc))
 
-	rel_check_dept_head = round((sum([row[21] for row in res]) / len(res)) * 100)
-	rel_check_rnd_spec = round((sum([row[22] for row in res]) / len(res)) * 100)
-	rel_check_developer = round((sum([row[23] for row in res]) / len(res)) * 100)
-	rel_check_opcon = round((sum([row[24] for row in res]) / len(res)) * 100)
-	rel_check_procmap = round((sum([row[25] for row in res]) / len(res)) * 100)
-	rel_check_tech_writer = round((sum([row[26] for row in res]) / len(res)) * 100)
-	rel_check_desdoc = round((sum([row[27] for row in res]) / len(res)) * 100)
+	rel_check_dept_head = round((sum([row[22] for row in res]) / len(res)) * 100)
+	rel_check_rnd_spec = round((sum([row[23] for row in res]) / len(res)) * 100)
+	rel_check_developer = round((sum([row[24] for row in res]) / len(res)) * 100)
+	rel_check_opcon = round((sum([row[25] for row in res]) / len(res)) * 100)
+	rel_check_procmap = round((sum([row[26] for row in res]) / len(res)) * 100)
+	rel_check_tech_writer = round((sum([row[27] for row in res]) / len(res)) * 100)
+	rel_check_desdoc = round((sum([row[28] for row in res]) / len(res)) * 100)
 
 	host = frappe.utils.get_url()
 
@@ -154,7 +155,7 @@ GROUP BY `p`.`name`;
 			"name": _("Total"),
 			"progress": total,
 			"relevant": sum([rel_check_dept_head, rel_check_rnd_spec, rel_check_developer,
-			                 rel_check_opcon, rel_check_procmap, rel_check_tech_writer, rel_check_desdoc]) / 7,
+							rel_check_opcon, rel_check_procmap, rel_check_tech_writer, rel_check_desdoc]) / 7,
 			"url": "{}/desk#query-report/DC%20Product%20Stats".format(host)
 		}
 	]

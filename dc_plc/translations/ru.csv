@@ -37,6 +37,7 @@ DocType: DC_PLC_Product_Summary,Tech note,Примечание техничес�
 DocType: DC_PLC_Product_Summary,Economy note,Примечание экономиста
 DocType: DC_PLC_Product_Summary,Report,Отчёт
 DocType: DC_PLC_Product_Summary,Process map,Технологическая карта
+DocType: DC_PLC_Product_Summary,Final description,Финальное описание
 
 DocType: DC_PLC_BKVP_Number,Title,Наименование
 
@@ -107,7 +108,7 @@ DC_Employee_Group,Members,Членов
 ,Package,Корпус
 ,Function,Функция
 ,Application,Применение
-,Description,Описание
+,Description,Техническое описание
 ,Specs,Параметры
 ,Analogs,Аналоги
 ,Opcon,ТУ
@@ -118,6 +119,7 @@ DC_Employee_Group,Members,Членов
 ,Number of products,Количество изделий
 ,Reference,Источник
 ,Process map,Технологическая карта
+,Final description,Финальное оисание
 
 ,Product info completeness statistics,Статистика заполненности и актуальности
 ,Dept head,Руководитель НО-8
