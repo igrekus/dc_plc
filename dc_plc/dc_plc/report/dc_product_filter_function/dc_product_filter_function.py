@@ -62,4 +62,4 @@ def get_data():
 
 def prepare_function_filter_row(data):
 	id_, title, number, group, ref = data
-	return [group, '{}|{}'.format(id_,title), number, ref]
+	return [group, '{}|{}'.format(title,id_), number, ref]
