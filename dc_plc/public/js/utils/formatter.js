@@ -42,7 +42,7 @@ let function_link_formatter = (value, row, column, row_data, format) => {
 	if (!value) {
 		value = '-';
 	}
-	let [id, title] = row[2].content.split('|');
+	let [title, id] = row[2].content.split('|');
 	if (column.colIndex === 2) {   // Title column
 		value = title;
 	}
