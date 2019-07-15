@@ -41,7 +41,8 @@ def get_columns():
 		_("Opcon"),
 		_("Process map"),
 		_("Reports"),
-		_("Datasheet")
+		_("Datasheet"),
+		_("Final description")
 	]
 
 
@@ -55,7 +56,7 @@ def get_data(filters):
 		2: 10,
 		3: 2,
 		4: 1,
-		5: 2,
+		5: 3,
 		6: 2
 	}
 	cell_groups = {
@@ -64,7 +65,7 @@ def get_data(filters):
 		2: [8, 7, 15, 12, 13, 14, 17, 18, 23, 19],
 		3: [5, 21],
 		4: [22],
-		5: [16, 24],
+		5: [16, 24, 25],
 		6: [6, 20],
 	}
 
@@ -75,8 +76,8 @@ def get_data(filters):
 
 	def add_relevance(row):
 		done = 0
-		total = 21
-		flags = row[23:]
+		total = 22
+		flags = row[24:]
 		cells_to_highlight = list()
 		for index, flag in enumerate(flags):
 			if flag:

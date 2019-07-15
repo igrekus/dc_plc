@@ -27,6 +27,7 @@ def get_full_stats(filters):
 	, `p`.`process_map`
 	, `p`.`report`
 	, `p`.`datasheet`
+	, `p`.`final_description`
 	, `p`.`rel_check_dept_head`
 	, `p`.`rel_check_rnd_spec`
 	, `p`.`rel_check_developer`

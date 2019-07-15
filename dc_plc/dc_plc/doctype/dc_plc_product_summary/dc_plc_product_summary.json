@@ -55,6 +55,7 @@
   "sec_tech_writer",
   "rel_check_tech_writer",
   "application",
+  "final_description",
   "col_tech_writer",
   "rel_date_tech_writer",
   "datasheet",
@@ -491,9 +492,16 @@
    "label": "Letter",
    "options": "DC_PLC_Product_Letter",
    "permlevel": 3
+  },
+  {
+   "default": "-",
+   "fieldname": "final_description",
+   "fieldtype": "Small Text",
+   "label": "Final description",
+   "permlevel": 6
   }
  ],
- "modified": "2019-07-15 14:26:45.477695",
+ "modified": "2019-07-15 17:19:50.627692",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",
