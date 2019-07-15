@@ -38,11 +38,6 @@ def calc_percent(value, total):
 	return int(round(value / total, 2) * 100)
 
 
-def prepare_product_package_filter_row(data, host):
-	id_, title, number = data
-	return ['<a href="{}/desk#query-report/DC%20Product%20Stats/Report?link_package={}">{}</a>'.format(host, id_, title), number]
-
-
 def count_filled_fields(row, indexes):
 	total = 0
 	for index in indexes:
