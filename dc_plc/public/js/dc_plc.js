@@ -9,6 +9,7 @@
 		frappe.dc_plc.utils.product_type_link_formatter = product_type_link_formatter;
 		frappe.dc_plc.utils.package_link_formatter = package_link_formatter;
 		frappe.dc_plc.utils.letter_link_formatter = letter_link_formatter;
+		frappe.dc_plc.utils.status_link_formatter = status_link_formatter;
 	});
 
 	console.log('>>> DC PLC init finished <<<');

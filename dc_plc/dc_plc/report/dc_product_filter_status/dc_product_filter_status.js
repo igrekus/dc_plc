@@ -4,6 +4,6 @@
 
 frappe.query_reports["DC Product Filter Status"] = {
 	"filters": [
-
-	]
+	],
+	formatter: frappe.dc_plc.utils.status_link_formatter,
 };

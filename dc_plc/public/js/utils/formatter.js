@@ -92,3 +92,14 @@ let letter_link_formatter = (value, row, column, row_data, format) => {
 	}
 	return `<a href="http://${window.location.host}/desk#query-report/DC%20Product%20Stats/Report?link_letter=${id}">${value}</a>`;
 };
+
+let status_link_formatter = (value, row, column, row_data, format) => {
+	if (!value) {
+		value = '-';
+	}
+	let [title, id] = row[1].content.split('|');
+	if (column.colIndex === 1) {   // Title column
+		value = title;
+	}
+	return `<a href="http://${window.location.host}/desk#query-report/DC%20Product%20Stats/Report?link_status=${id}">${value}</a>`;
+};
