@@ -204,7 +204,23 @@ def get_developer_stats(filters):
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`;""".format(db_name, db_name, db_name, db_name, db_name, db_name)
+		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
+	LEFT OUTER JOIN
+		`{}`.`tabDC_PLC_Developers_in_Product` AS `dev` ON `p`.`name` = `dev`.`parent`""".format(db_name, db_name, db_name, db_name, db_name, db_name, db_name)
+
+	if filters:
+		dev = filters.get('developer', '%')
+		if dev == 'HR-EMP-00094':
+			dev_clause = "`dev`.`link_employee` IS NULL"
+		else:
+			dev_clause = "(`dev`.`link_employee` LIKE '%' OR `dev`.`link_employee` IS NULL)" if dev == '%' else "`dev`.`link_employee` LIKE '{}'".format(dev)
+
+		sql += """
+	WHERE
+	{}
+	""".format(dev_clause)
+
+	sql += "ORDER BY `id`"
 
 	return frappe.db.sql(sql + ";", as_list=1)
 

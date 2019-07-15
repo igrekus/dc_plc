@@ -21,7 +21,17 @@ let check_handle = (o) => {
 
 frappe.query_reports["DC Product Developer Stats"] = {
 	"filters": [
-
+		{
+			label: __("Developer"),
+			fieldname: "developer",
+			fieldtype: "Link",
+			options: "Employee",
+			get_query: (doc, cut, cdn) => {
+				return {
+					query: 'dc_plc.controllers.queries.developer_query_with_empty_developer'
+				}
+			}
+		},
 	],
 	formatter: frappe.dc_plc.utils.product_link_formatter,
 	onload: report => {
