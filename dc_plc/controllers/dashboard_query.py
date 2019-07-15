@@ -227,6 +227,6 @@ ORDER BY `dev` ASC;""".format(db_name, db_name, db_name, db_name, db_name, db_na
 			"progress": v[0],
 			"relevant": v[1],
 			"product_count": v[2],
-			"url": "{}/desk#query-report/DC%20Product%20Stats/Report?developer={}".format(host, ids[k])
+			"url": "{}/desk#query-report/DC%20Product%20Developer%20Stats/Report?developer={}".format(host, ids[k])
 		} for k, v in output.items()],
 		key=itemgetter('name'))
