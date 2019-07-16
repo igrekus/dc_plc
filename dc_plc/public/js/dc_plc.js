@@ -5,8 +5,6 @@
 	frappe.provide('frappe.dc_plc.utils.formatters');
 
 	frappe.require('assets/dc_plc/js/utils/formatter.js', () => {
-		frappe.dc_plc.utils.product_link_formatter = product_link_formatter;
-
 		frappe.dc_plc.utils.formatters.mmic_dept_head_formatter = mmic_dept_head_formatter;
 		frappe.dc_plc.utils.formatters.rnd_spec_formatter = rnd_spec_formatter;
 		frappe.dc_plc.utils.formatters.developer_formatter = developer_formatter;
