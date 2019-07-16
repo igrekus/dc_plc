@@ -23,124 +23,15 @@
 		frappe.dc_plc.utils.formatters.status_link_formatter = status_link_formatter;
 	});
 
-	frappe.dc_plc.utils.handlers.mmic_dept_head_handler = (o) => {
-		let relevant = o.checked;
-		let name = o.id;
-		frappe.call({
-			method: "dc_plc.dc_plc.doctype.dc_plc_product_summary.dc_plc_product_summary.set_dept_head_relevant",
-			args: {
-				name: name,
-				relevant: relevant ? 1 : 0,
-			},
-			callback: r => {
-				let {date, check} = r.message;
-				$('.rel_label_' + name)[0].innerHTML = "&nbsp;&nbsp;" + date;
-				o.checked = !!check;
-			}
-		});
-	};
-
-	frappe.dc_plc.utils.handlers.rnd_spec_handler = (o) => {
-		let relevant = o.checked;
-		let name = o.id;
-		frappe.call({
-			method: "dc_plc.dc_plc.doctype.dc_plc_product_summary.dc_plc_product_summary.set_rnd_spec_relevant",
-			args: {
-				name: name,
-				relevant: relevant ? 1 : 0,
-			},
-			callback: r => {
-				let {date, check} = r.message;
-				$('.rel_label_' + name)[0].innerHTML = "&nbsp;&nbsp;" + date;
-				o.checked = !!check;
-			}
-		});
-	};
-
-	frappe.dc_plc.utils.handlers.developer_handler = (o) => {
-		let relevant = o.checked;
-		let name = o.id;
-		frappe.call({
-			method: "dc_plc.dc_plc.doctype.dc_plc_product_summary.dc_plc_product_summary.set_developer_relevant",
-			args: {
-				name: name,
-				relevant: relevant ? 1 : 0,
-			},
-			callback: r => {
-				let {date, check} = r.message;
-				$('.rel_label_' + name)[0].innerHTML = "&nbsp;&nbsp;" + date;
-				o.checked = !!check;
-			}
-		});
-	};
-
-	frappe.dc_plc.utils.handlers.opcon_spec_handler = (o) => {
-		let relevant = o.checked;
-		let name = o.id;
-		frappe.call({
-			method: "dc_plc.dc_plc.doctype.dc_plc_product_summary.dc_plc_product_summary.set_opcon_relevant",
-			args: {
-				name: name,
-				relevant: relevant ? 1 : 0,
-			},
-			callback: r => {
-				let {date, check} = r.message;
-				$('.rel_label_' + name)[0].innerHTML = "&nbsp;&nbsp;" + date;
-				o.checked = !!check;
-			}
-		});
-	};
-
-	frappe.dc_plc.utils.handlers.procmap_spec_handler = (o) => {
-		let relevant = o.checked;
-		let name = o.id;
-		frappe.call({
-			method: "dc_plc.dc_plc.doctype.dc_plc_product_summary.dc_plc_product_summary.set_procmap_relevant",
-			args: {
-				name: name,
-				relevant: relevant ? 1 : 0,
-			},
-			callback: r => {
-				let {date, check} = r.message;
-				$('.rel_label_' + name)[0].innerHTML = "&nbsp;&nbsp;" + date;
-				o.checked = !!check;
-			}
-		});
-	};
-
-	frappe.dc_plc.utils.handlers.desdoc_spec_handler = (o) => {
-		let relevant = o.checked;
-		let name = o.id;
-		frappe.call({
-			method: "dc_plc.dc_plc.doctype.dc_plc_product_summary.dc_plc_product_summary.set_desdoc_relevant",
-			args: {
-				name: name,
-				relevant: relevant ? 1 : 0,
-			},
-			callback: r => {
-				let {date, check} = r.message;
-				$('.rel_label_' + name)[0].innerHTML = "&nbsp;&nbsp;" + date;
-				o.checked = !!check;
-			}
-		});
-	};
-
-	frappe.dc_plc.utils.handlers.tech_writer_handler = (o) => {
-		let relevant = o.checked;
-		let name = o.id;
-		frappe.call({
-			method: "dc_plc.dc_plc.doctype.dc_plc_product_summary.dc_plc_product_summary.set_tech_writer_relevant",
-			args: {
-				name: name,
-				relevant: relevant ? 1 : 0,
-			},
-			callback: r => {
-				let {date, check} = r.message;
-				$('.rel_label_' + name)[0].innerHTML = "&nbsp;&nbsp;" + date;
-				o.checked = !!check;
-			}
-		});
-	};
+	frappe.require('assets/dc_plc/js/utils/handler.js', () => {
+		frappe.dc_plc.utils.handlers.mmic_dept_head_handler = mmic_dept_head_handler;
+		frappe.dc_plc.utils.handlers.rnd_spec_handler = rnd_spec_handler;
+		frappe.dc_plc.utils.handlers.developer_handler = developer_handler;
+		frappe.dc_plc.utils.handlers.opcon_spec_handler = opcon_spec_handler;
+		frappe.dc_plc.utils.handlers.procmap_spec_handler = procmap_spec_handler;
+		frappe.dc_plc.utils.handlers.desdoc_spec_handler = desdoc_spec_handler;
+		frappe.dc_plc.utils.handlers.tech_writer_handler = tech_writer_handler;
+	});
 
 	console.log('>>> DC PLC init finished <<<');
 })();
