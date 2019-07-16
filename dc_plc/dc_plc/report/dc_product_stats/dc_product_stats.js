@@ -54,7 +54,7 @@ frappe.query_reports["DC Product Stats"] = {
 			}
 		},
 	],
-	formatter: frappe.dc_plc.utils.full_stat_formatter,
+	formatter: frappe.dc_plc.utils.formatters.full_stat_formatter,
 	get_datatable_options(options) {
 		return {
 			...options,
