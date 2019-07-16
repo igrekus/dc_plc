@@ -20,30 +20,9 @@ let check_handle = (o) => {
 	});
 };
 
-// let higlight_column = (col_num) => {
-//     let relevant_color = '#f2f4f6';
-//     $('.dt-cell__content.dt-cell__content--col-' + String(col_num)).css('backgroundColor', relevant_color);
-// };
-
 frappe.query_reports["DC Product MMIC Dept Head Stats"] = {
 	filters: [],
 	formatter: frappe.dc_plc.utils.product_link_formatter,
-	// formatter: (value, row, column, row_data, format) => {
-	//     let new_value = '';
-	//
-	//     console.log(column);
-	//
-	//     if (!value) {
-	//         return new_value;
-	//     }
-	//     if (column.id === __('Relevance')) {
-	//         return value;
-	//     }
-	//
-	//     new_value = `<a href="${window.location.host}/desk#Form/DC_PLC_Product_Summary/${row_data.ID}">${value}</a>`;
-	//
-	//     return new_value;
-	// },
 	onload: report => {
 		let highlight_cols = [4, 6, 7];
 		let sheet = window.document.styleSheets[0];
