@@ -164,25 +164,25 @@ let template_formatter = (filter, title_col, value, row, column, row_data, forma
 };
 
 let function_link_formatter = (...args) => {
-	return template_formatter('link_function', 2, ...args);
+	return template_link_formatter('link_function', 2, ...args);
 };
 
 let rnd_project_link_formatter = (...args) => {
-	return template_formatter('link_rnd_project', 1, ...args);
+	return template_link_formatter('link_rnd_project', 1, ...args);
 };
 
 let product_type_link_formatter = (...args) => {
-	return template_formatter('link_type', 1, ...args);
+	return template_link_formatter('link_type', 1, ...args);
 };
 
 let package_link_formatter = (...args) => {
-	return template_formatter('link_package', 1, ...args);
+	return template_link_formatter('link_package', 1, ...args);
 };
 
 let letter_link_formatter = (...args) => {
-	return template_formatter('link_letter', 1, ...args);
+	return template_link_formatter('link_letter', 1, ...args);
 };
 
 let status_link_formatter = (...args) => {
-	return template_formatter('link_status', 1, ...args);
+	return template_link_formatter('link_status', 1, ...args);
 };
