@@ -63,16 +63,6 @@ frappe.query_reports["DC Product Stats"] = {
 			dynamicRowHeight: false,
 		}
 	},
-	after_datatable_render: function (datatable_obj) {
-		let els = $(datatable_obj.wrapper).find(".dt-row");
-		for (let i = 2; i < els.length; ++i) {
-			els[i].style = {
-				position: "",
-				top: "",
-			};
-			els[i].style.cssText += "height: auto;";
-		}
-	},
 	// onload(report) {
 	// 	console.log("refresh");
 	//
