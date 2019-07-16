@@ -1,20 +1,3 @@
-let product_link_formatter = (value, row, column, row_data, format) => {
-	if (!value) {
-		value = '-';
-	}
-
-	if (column.colIndex === 2) {   // Relevance column
-		let id = row[1].content;
-		let [date, check, perms] = value.split(';');
-		let check_str = parseInt(check) ? 'checked' : '';
-		if (parseInt(perms)) {
-			return `<input type="checkbox" id="${id}" onchange="check_handle(this)" ${check_str}/><label style="vertical-align: top; padding-top: 3px;" class="rel_label_${id}" for="${id}">&nbsp&nbsp${date}</label>`
-		}
-		value = date;
-	}
-	return `<a href="http://${window.location.host}/desk#Form/DC_PLC_Product_Summary/${row_data.ID}">${value}</a>`;
-};
-
 let full_stat_formatter = (value, row, column, row_data, format) => {
 	if (!value) {
 		value = '-';
@@ -38,6 +21,137 @@ let full_stat_formatter = (value, row, column, row_data, format) => {
 	return `<a href="http://${window.location.host}/desk#Form/DC_PLC_Product_Summary/${row_data.ID}">${value}</a>`;
 };
 
+let product_link_formatter = (value, row, column, row_data, format) => {
+	if (!value) {
+		value = '-';
+	}
+
+	if (column.colIndex === 2) {   // Relevance column
+		let id = row[1].content;
+		let [date, check, perms] = value.split(';');
+		let check_str = parseInt(check) ? 'checked' : '';
+		if (parseInt(perms)) {
+			return `<input type="checkbox" id="${id}" onchange="frappe.dc_plc.utils.handlers.mmic_dept_head_handler(this)" ${check_str}/><label style="vertical-align: top; padding-top: 3px;" class="rel_label_${id}" for="${id}">&nbsp&nbsp${date}</label>`
+		}
+		value = date;
+	}
+	return `<a href="http://${window.location.host}/desk#Form/DC_PLC_Product_Summary/${row_data.ID}">${value}</a>`;
+};
+
+// Role query formatters
+let mmic_dept_head_formatter = (value, row, column, row_data, format) => {
+	if (!value) {
+		value = '-';
+	}
+	if (column.colIndex === 2) {   // Relevance column
+		let id = row_data.ID;
+		let [date, check, perms] = value.split(';');
+		let check_str = parseInt(check) ? 'checked' : '';
+		if (parseInt(perms)) {
+			return `<input type="checkbox" id="${id}" onchange="frappe.dc_plc.utils.handlers.mmic_dept_head_handler(this)" ${check_str}/><label style="vertical-align: top; padding-top: 3px;" class="rel_label_${id}" for="${id}">&nbsp&nbsp${date}</label>`
+		}
+		value = date;
+	}
+	return `<a href="http://${window.location.host}/desk#Form/DC_PLC_Product_Summary/${row_data.ID}">${value}</a>`;
+};
+
+let rnd_spec_formatter = (value, row, column, row_data, format) => {
+	if (!value) {
+		value = '-';
+	}
+	if (column.colIndex === 2) {   // Relevance column
+		let id = row_data.ID;
+		let [date, check, perms] = value.split(';');
+		let check_str = parseInt(check) ? 'checked' : '';
+		if (parseInt(perms)) {
+			return `<input type="checkbox" id="${id}" onchange="frappe.dc_plc.utils.handlers.rnd_spec_handler(this)" ${check_str}/><label style="vertical-align: top; padding-top: 3px;" class="rel_label_${id}" for="${id}">&nbsp&nbsp${date}</label>`
+		}
+		value = date;
+	}
+	return `<a href="http://${window.location.host}/desk#Form/DC_PLC_Product_Summary/${row_data.ID}">${value}</a>`;
+};
+
+let developer_formatter = (value, row, column, row_data, format) => {
+	if (!value) {
+		value = '-';
+	}
+	if (column.colIndex === 2) {   // Relevance column
+		let id = row_data.ID;
+		let [date, check, perms] = value.split(';');
+		let check_str = parseInt(check) ? 'checked' : '';
+		if (parseInt(perms)) {
+			return `<input type="checkbox" id="${id}" onchange="frappe.dc_plc.utils.handlers.developer_handler(this)" ${check_str}/><label style="vertical-align: top; padding-top: 3px;" class="rel_label_${id}" for="${id}">&nbsp&nbsp${date}</label>`
+		}
+		value = date;
+	}
+	return `<a href="http://${window.location.host}/desk#Form/DC_PLC_Product_Summary/${row_data.ID}">${value}</a>`;
+};
+
+let opcon_spec_formatter = (value, row, column, row_data, format) => {
+	if (!value) {
+		value = '-';
+	}
+	if (column.colIndex === 2) {   // Relevance column
+		let id = row_data.ID;
+		let [date, check, perms] = value.split(';');
+		let check_str = parseInt(check) ? 'checked' : '';
+		if (parseInt(perms)) {
+			return `<input type="checkbox" id="${id}" onchange="frappe.dc_plc.utils.handlers.opcon_spec_handler(this)" ${check_str}/><label style="vertical-align: top; padding-top: 3px;" class="rel_label_${id}" for="${id}">&nbsp&nbsp${date}</label>`
+		}
+		value = date;
+	}
+	return `<a href="http://${window.location.host}/desk#Form/DC_PLC_Product_Summary/${row_data.ID}">${value}</a>`;
+};
+
+let procmap_spec_formatter = (value, row, column, row_data, format) => {
+	if (!value) {
+		value = '-';
+	}
+	if (column.colIndex === 2) {   // Relevance column
+		let id = row_data.ID;
+		let [date, check, perms] = value.split(';');
+		let check_str = parseInt(check) ? 'checked' : '';
+		if (parseInt(perms)) {
+			return `<input type="checkbox" id="${id}" onchange="frappe.dc_plc.utils.handlers.procmap_spec_handler(this)" ${check_str}/><label style="vertical-align: top; padding-top: 3px;" class="rel_label_${id}" for="${id}">&nbsp&nbsp${date}</label>`
+		}
+		value = date;
+	}
+	return `<a href="http://${window.location.host}/desk#Form/DC_PLC_Product_Summary/${row_data.ID}">${value}</a>`;
+};
+
+let desdoc_spec_formatter = (value, row, column, row_data, format) => {
+	if (!value) {
+		value = '-';
+	}
+	if (column.colIndex === 2) {   // Relevance column
+		let id = row_data.ID;
+		let [date, check, perms] = value.split(';');
+		let check_str = parseInt(check) ? 'checked' : '';
+		if (parseInt(perms)) {
+			return `<input type="checkbox" id="${id}" onchange="frappe.dc_plc.utils.handlers.desdoc_spec_handler(this)" ${check_str}/><label style="vertical-align: top; padding-top: 3px;" class="rel_label_${id}" for="${id}">&nbsp&nbsp${date}</label>`
+		}
+		value = date;
+	}
+	return `<a href="http://${window.location.host}/desk#Form/DC_PLC_Product_Summary/${row_data.ID}">${value}</a>`;
+};
+
+let tech_writer_formatter = (value, row, column, row_data, format) => {
+	if (!value) {
+		value = '-';
+	}
+	if (column.colIndex === 2) {   // Relevance column
+		let id = row_data.ID;
+		let [date, check, perms] = value.split(';');
+		let check_str = parseInt(check) ? 'checked' : '';
+		if (parseInt(perms)) {
+			return `<input type="checkbox" id="${id}" onchange="frappe.dc_plc.utils.handlers.tech_writer_handler(this)" ${check_str}/><label style="vertical-align: top; padding-top: 3px;" class="rel_label_${id}" for="${id}">&nbsp&nbsp${date}</label>`
+		}
+		value = date;
+	}
+	return `<a href="http://${window.location.host}/desk#Form/DC_PLC_Product_Summary/${row_data.ID}">${value}</a>`;
+};
+
+// Filter query formatters
 let template_formatter = (filter, title_col, value, row, column, row_data, format) => {
 	if (!value) {
 		value = '-';
