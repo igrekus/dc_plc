@@ -38,68 +38,37 @@ let full_stat_formatter = (value, row, column, row_data, format) => {
 	return `<a href="http://${window.location.host}/desk#Form/DC_PLC_Product_Summary/${row_data.ID}">${value}</a>`;
 };
 
-let function_link_formatter = (value, row, column, row_data, format) => {
+let template_formatter = (filter, title_col, value, row, column, row_data, format) => {
 	if (!value) {
 		value = '-';
 	}
-	let [title, id] = row[2].content.split('|');
-	if (column.colIndex === 2) {   // Title column
+	let [title, id] = row[title_col].content.split('|');
+	if (column.colIndex === title_col) {   // Title column
 		value = title;
 	}
-	return `<a href="http://${window.location.host}/desk#query-report/DC%20Product%20Stats/Report?link_function=${id}">${value}</a>`;
+	return `<a href="http://${window.location.host}/desk#query-report/DC%20Product%20Stats/Report?${filter}=${id}">${value}</a>`;
 };
 
-let rnd_project_link_formatter = (value, row, column, row_data, format) => {
-	if (!value) {
-		value = '-';
-	}
-	let [title, id] = row[1].content.split('|');
-	if (column.colIndex === 1) {   // Title column
-		value = title;
-	}
-	return `<a href="http://${window.location.host}/desk#query-report/DC%20Product%20Stats/Report?link_rnd_project=${id}">${value}</a>`;
+let function_link_formatter = (...args) => {
+	return template_formatter('link_function', 2, ...args);
 };
 
-let product_type_link_formatter = (value, row, column, row_data, format) => {
-	if (!value) {
-		value = '-';
-	}
-	let [title, id] = row[1].content.split('|');
-	if (column.colIndex === 1) {   // Title column
-		value = title;
-	}
-	return `<a href="http://${window.location.host}/desk#query-report/DC%20Product%20Stats/Report?link_type=${id}">${value}</a>`;
+let rnd_project_link_formatter = (...args) => {
+	return template_formatter('link_rnd_project', 1, ...args);
 };
 
-let package_link_formatter = (value, row, column, row_data, format) => {
-	if (!value) {
-		value = '-';
-	}
-	let [title, id] = row[1].content.split('|');
-	if (column.colIndex === 1) {   // Title column
-		value = title;
-	}
-	return `<a href="http://${window.location.host}/desk#query-report/DC%20Product%20Stats/Report?link_package=${id}">${value}</a>`;
+let product_type_link_formatter = (...args) => {
+	return template_formatter('link_type', 1, ...args);
 };
 
-let letter_link_formatter = (value, row, column, row_data, format) => {
-	if (!value) {
-		value = '-';
-	}
-	let [title, id] = row[1].content.split('|');
-	if (column.colIndex === 1) {   // Title column
-		value = title;
-	}
-	return `<a href="http://${window.location.host}/desk#query-report/DC%20Product%20Stats/Report?link_letter=${id}">${value}</a>`;
+let package_link_formatter = (...args) => {
+	return template_formatter('link_package', 1, ...args);
 };
 
-let status_link_formatter = (value, row, column, row_data, format) => {
-	if (!value) {
-		value = '-';
-	}
-	let [title, id] = row[1].content.split('|');
-	if (column.colIndex === 1) {   // Title column
-		value = title;
-	}
-	return `<a href="http://${window.location.host}/desk#query-report/DC%20Product%20Stats/Report?link_status=${id}">${value}</a>`;
+let letter_link_formatter = (...args) => {
+	return template_formatter('link_letter', 1, ...args);
+};
+
+let status_link_formatter = (...args) => {
+	return template_formatter('link_status', 1, ...args);
 };

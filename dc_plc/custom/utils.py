@@ -1,4 +1,4 @@
-from __future__ import division
+from __future__ import division, unicode_literals
 from frappe import _
 import frappe
 
@@ -10,6 +10,10 @@ def add_translation(row):
 	new_row[2] = _(status) if status is not None else None
 	new_row[5] = _(model) if model is not None else None
 	return new_row
+
+
+def add_newline(row):
+	return [col.strip().replace('\n', '<br>') if isinstance(col, str) else col for col in row]
 
 
 def add_translation_to_col_num(row, cols):

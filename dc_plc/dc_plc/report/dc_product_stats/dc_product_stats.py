@@ -5,7 +5,7 @@ from __future__ import unicode_literals, division
 import frappe
 from frappe import _
 
-from dc_plc.custom.utils import add_translation, add_completeness
+from dc_plc.custom.utils import add_translation, add_completeness, add_newline
 from dc_plc.controllers.stats_query import get_full_stats, get_developers_for_product, get_consultants_for_product
 
 
@@ -33,16 +33,41 @@ def get_columns():
 		_("Assembly board"),
 		_("Package"),
 		_("Function"),
-		_("Application"),
-		_("Description"),
-		_("Specs"),
-		_("Analogs"),
+		{
+			"label": _("Application"),
+			"fieldtype": "Data",
+			"fieldname": "application",
+			"width": 200
+		},
+		{
+			"label": _("Description"),
+			"fieldtype": "Data",
+			"fieldname": "description",
+			"width": 300
+		},
+		{
+			"label": _("Specs"),
+			"fieldtype": "Data",
+			"fieldname": "specs",
+			"width": 300
+		},
+		{
+			"label": _("Analogs"),
+			"fieldtype": "Data",
+			"fieldname": "analogs",
+			"width": 200
+		},
 		_("Desdoc number"),
 		_("Opcon"),
 		_("Process map"),
 		_("Reports"),
 		_("Datasheet"),
-		_("Final description")
+		{
+			"label": _("Final description"),
+			"fieldtype": "Data",
+			"fieldname": "final_desc",
+			"width": 300
+		},
 	]
 
 
@@ -93,5 +118,6 @@ def get_data(filters):
 	result = [add_devs_and_cons(row) for row in result]
 	result = [add_completeness(row, range(21)) for row in result]
 	result = [add_relevance(row) for row in result]
+	result = [add_newline(row) for row in result]
 
 	return result
