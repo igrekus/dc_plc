@@ -5,5 +5,5 @@
 frappe.query_reports["DC Product Filter RND Project"] = {
 	"filters": [
 	],
-	formatter: frappe.dc_plc.utils.rnd_project_link_formatter,
+	formatter: frappe.dc_plc.utils.formatters.rnd_project_link_formatter,
 };

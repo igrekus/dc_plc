@@ -13,13 +13,14 @@
 		frappe.dc_plc.utils.formatters.desdoc_spec_formatter = desdoc_spec_formatter;
 		frappe.dc_plc.utils.formatters.tech_writer_formatter = tech_writer_formatter;
 
-		frappe.dc_plc.utils.function_link_formatter = function_link_formatter;
-		frappe.dc_plc.utils.full_stat_formatter = full_stat_formatter;
-		frappe.dc_plc.utils.rnd_project_link_formatter = rnd_project_link_formatter;
-		frappe.dc_plc.utils.product_type_link_formatter = product_type_link_formatter;
-		frappe.dc_plc.utils.package_link_formatter = package_link_formatter;
-		frappe.dc_plc.utils.letter_link_formatter = letter_link_formatter;
-		frappe.dc_plc.utils.status_link_formatter = status_link_formatter;
+		frappe.dc_plc.utils.formatters.full_stat_formatter = full_stat_formatter;
+
+		frappe.dc_plc.utils.formatters.function_link_formatter = function_link_formatter;
+		frappe.dc_plc.utils.formatters.rnd_project_link_formatter = rnd_project_link_formatter;
+		frappe.dc_plc.utils.formatters.product_type_link_formatter = product_type_link_formatter;
+		frappe.dc_plc.utils.formatters.package_link_formatter = package_link_formatter;
+		frappe.dc_plc.utils.formatters.letter_link_formatter = letter_link_formatter;
+		frappe.dc_plc.utils.formatters.status_link_formatter = status_link_formatter;
 	});
 
 	frappe.dc_plc.utils.handlers.mmic_dept_head_handler = (o) => {

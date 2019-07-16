@@ -5,5 +5,5 @@
 frappe.query_reports["DC Product Filter Model"] = {
 	"filters": [
 	],
-	formatter: frappe.dc_plc.utils.letter_link_formatter,
+	formatter: frappe.dc_plc.utils.formatters.letter_link_formatter,
 };
