@@ -33,5 +33,11 @@
 		frappe.dc_plc.utils.handlers.tech_writer_handler = tech_writer_handler;
 	});
 
+	frappe.dc_plc.utils.replaceCharAt = (str, index, char) => {
+		if (index > str.length - 1)
+			return str;
+		return str.substr(0, index) + char + str.substr(index + 1);
+	};
+
 	console.log('>>> DC PLC init finished <<<');
 })();
