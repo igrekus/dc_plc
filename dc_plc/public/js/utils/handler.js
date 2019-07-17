@@ -9,7 +9,11 @@ let template_handler = (method, checkbox) => {
         callback: r => {
             let {date, check} = r.message;
             $('.rel_label_' + id)[0].innerHTML = "&nbsp;&nbsp;" + date;
-            checkbox.checked = !!check;
+
+            let row_index = parseInt(checkbox.dataset.index);
+            let row = frappe.query_report.datatable.datamanager.getRow(row_index);
+            row[2].content = `${date};${check ? '1' : '0'};1`;
+            frappe.query_report.datatable.datamanager.updateRow(row, row_index);
         }
     });
 };

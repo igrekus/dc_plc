@@ -32,7 +32,7 @@ let template_role_formatter = (handler, value, row, column, row_data, format) =>
 		let [date, check, perms] = value.split(';');
 		let check_str = parseInt(check) ? 'checked' : '';
 		if (parseInt(perms)) {
-			return `<input type="checkbox" id="${id}" onchange="${handler}(this)" ${check_str}/><label style="vertical-align: top; padding-top: 3px;" class="rel_label_${id}" for="${id}">&nbsp&nbsp${date}</label>`
+			return `<input type="checkbox" data-index="${row.meta.rowIndex}" id="${id}" onchange="${handler}(this)" ${check_str}/><label style="vertical-align: top; padding-top: 3px;" class="rel_label_${id}" for="${id}">&nbsp&nbsp${date}</label>`
 		}
 		value = date;
 	}
