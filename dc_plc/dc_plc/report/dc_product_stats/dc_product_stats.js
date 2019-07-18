@@ -4,7 +4,6 @@
 frappe.provide("frappe.dc_plc");
 
 frappe.query_reports["DC Product Stats"] = {
-	// add filter to report table header
 	"filters": [
 		{
 			"label": __("RND Project"),
@@ -63,6 +62,26 @@ frappe.query_reports["DC Product Stats"] = {
 			dynamicRowHeight: false,
 		}
 	},
+	after_datatable_render: table_instance => {
+		// let highlight_cols = [12, 13, 14];
+		// highlight_cols.forEach(col => {
+		// 	table_instance.style.setStyle(`.dt-cell--col-${col}`, {backgroundColor: 'rgba(255, 252, 29, 0.27);'})
+		// });
+		let data = table_instance.datamanager.data;
+		for (let row = 0; row < data.length; ++row) {
+			let array_str = data[row][__('Relevance')].split('|')[0];
+			let index_str = array_str.slice(1, array_str.length - 1);
+			if (index_str) {
+				let columns_to_highlight = index_str.split(', ').map(el => {
+					return parseInt(el);
+				});
+				columns_to_highlight.forEach(col => {
+					table_instance.style.setStyle(`.dt-cell--${col}-${row}`, {backgroundColor: 'rgba(37,220,2,0.2);'});
+				});
+			}
+		}
+	},
+
 	// onload(report) {
 	// 	console.log("refresh");
 	//
