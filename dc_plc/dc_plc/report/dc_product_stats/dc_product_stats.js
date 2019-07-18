@@ -4,7 +4,6 @@
 frappe.provide("frappe.dc_plc");
 
 frappe.query_reports["DC Product Stats"] = {
-	// add filter to report table header
 	"filters": [
 		{
 			"label": __("RND Project"),
