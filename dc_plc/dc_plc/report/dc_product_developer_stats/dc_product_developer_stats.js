@@ -17,11 +17,11 @@ frappe.query_reports["DC Product Developer Stats"] = {
 		},
 	],
 	formatter: frappe.dc_plc.utils.formatters.developer_formatter,
-	onload: report => {
+	after_datatable_render: table_instance => {
 		let highlight_cols = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
-		let sheet = window.document.styleSheets[0];
-		highlight_cols.forEach((el) => {
-			sheet.insertRule(`.dt-instance-1 .dt-cell--col-${el} { background-color: rgba(255, 252, 29, 0.27); }`, sheet.cssRules.length);
+		highlight_cols.forEach(col => {
+			table_instance.style.setStyle(`.dt-cell--col-${col}`, {backgroundColor: 'rgba(255, 252, 29, 0.27);'})
 		});
-	}
+	},
+
 };

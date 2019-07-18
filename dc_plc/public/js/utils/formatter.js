@@ -2,21 +2,8 @@ let full_stat_formatter = (value, row, column, row_data, format) => {
 	if (!value) {
 		value = '-';
 	}
-
 	if (column.colIndex === 2) {   // Relevance column
-		let [array_str, percent] = value.split('|');
-		let index_str = array_str.slice(1, array_str.length - 1);
-		if (index_str) {
-			let columns_to_highlight = index_str.split(', ').map(el => {
-				return parseInt(el);
-			});
-			let sheet = window.document.styleSheets[0];
-			let row_index = row.meta.rowIndex;
-			columns_to_highlight.forEach(col_index => {
-				sheet.insertRule(`.dt-instance-1 .dt-cell--${col_index}-${row_index} { background-color: rgba(37,220,2,0.2); }`, sheet.cssRules.length);
-			});
-		}
-		value = percent;
+		value = value.split('|')[1];
 	}
 	return `<a href="http://${window.location.host}/desk#Form/DC_PLC_Product_Summary/${row_data.ID}">${value}</a>`;
 };
