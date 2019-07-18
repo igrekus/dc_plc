@@ -5,11 +5,10 @@
 frappe.query_reports["DC Product Desdoc Stats"] = {
 	filters: [],
 	formatter: frappe.dc_plc.utils.formatters.desdoc_spec_formatter,
-	onload: report => {
+	after_datatable_render: table_instance => {
 		let highlight_cols = [9, 10];
-		let sheet = window.document.styleSheets[0];
-		highlight_cols.forEach((el) => {
-			sheet.insertRule(`.dt-instance-1 .dt-cell--col-${el} { background-color: rgba(255, 252, 29, 0.27); }`, sheet.cssRules.length);
+		highlight_cols.forEach(col => {
+			table_instance.style.setStyle(`.dt-cell--col-${col}`, {backgroundColor: 'rgba(255, 252, 29, 0.27);'})
 		});
-	}
+	},
 };
