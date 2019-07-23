@@ -88,6 +88,8 @@ frappe.query_reports["DC Product Stats"] = {
 	},
 	onload: report => {
 		report.export_products = [];
+		report.page.set_title_sub('');
+		report.page.clear_actions_menu();
 		// TODO HACK modify inner menu
 		// remove inner toolbar with the "Set Chart" button
 		$('.form-inner-toolbar').remove();
@@ -110,13 +112,13 @@ frappe.query_reports["DC Product Stats"] = {
 			});
 			if (report.export_products.length) {
 				report.page.set_title_sub(`Export ${report.export_products.length} products`);
-				console.log(report.export_products);
+				console.log('exporting:', report.export_products);
 			}
 		}, true);
 
 		report.page.add_action_item(`Export added products`, () => {
 			if (report.export_products.length) {
-				frappe.set_route("query-report", "DC Product Developer Stats", {"developer": "HR-EMP-00094"});
+				frappe.set_route("dc_product_export", "", {export_products: report.export_products});
 			}
 		}, true);
 
