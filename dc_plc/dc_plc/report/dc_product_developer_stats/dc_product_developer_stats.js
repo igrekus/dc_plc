@@ -23,5 +23,9 @@ frappe.query_reports["DC Product Developer Stats"] = {
 			table_instance.style.setStyle(`.dt-cell--col-${col}`, {backgroundColor: 'rgba(255, 252, 29, 0.27);'})
 		});
 	},
-
+	onload: report => {
+		report.export_products = [];
+		report.page.set_title_sub('');
+		report.page.clear_actions_menu();
+	}
 };
