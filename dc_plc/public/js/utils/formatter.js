@@ -2,7 +2,7 @@ let full_stat_formatter = (value, row, column, row_data, format) => {
 	if (!value) {
 		value = '-';
 	}
-	if (column.colIndex === 2) {   // Relevance column
+	if (column.colIndex === 3) {   // Relevance column
 		value = value.split('|')[1];
 	}
 	return `<a href="http://${window.location.host}/desk#Form/DC_PLC_Product_Summary/${row_data.ID}">${value}</a>`;

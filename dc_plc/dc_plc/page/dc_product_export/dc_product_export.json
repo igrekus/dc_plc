@@ -1,0 +1,25 @@
+{
+ "content": null,
+ "creation": "2019-07-22 17:11:44.774755",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "icon-play",
+ "idx": 0,
+ "modified": "2019-07-22 17:19:58.132850",
+ "modified_by": "Administrator",
+ "module": "DC PLC",
+ "name": "dc_product_export",
+ "owner": "Administrator",
+ "page_name": "dc_product_export",
+ "restrict_to_domain": "Design Center",
+ "roles": [
+  {
+   "role": "All"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "DC Product Export"
+}
