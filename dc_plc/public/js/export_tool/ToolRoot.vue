@@ -1,19 +1,19 @@
 <template>
-	<div>{{ product_ids }}<ButtonCounter :count="50"></ButtonCounter></div>
+	<div><ExportTable v-bind:productIds="product_ids"></ExportTable></div>
 </template>
 
 <script>
-	import ButtonCounter from './ExportTable.vue'
+	import ExportTable from './ExportTable.vue'
 
 	export default {
 		name: "ToolRoot",
-		data: function () {
+		data: () => {
 			return {
 				product_ids: [],
 			}
 		},
 		components: {
-			ButtonCounter
+			ExportTable
 		},
 	}
 </script>

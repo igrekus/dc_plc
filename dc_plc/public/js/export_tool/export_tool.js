@@ -19,10 +19,9 @@ frappe.dc_plc.ExportTool = class {
 		});
 	}
 	setup_header() {
-
 	}
 
 	set_products_ids(ids) {
-		this.vue.$children[0].product_ids = ids;
+		// this.vue.$children[0].product_ids = ids;
 	}
 };
