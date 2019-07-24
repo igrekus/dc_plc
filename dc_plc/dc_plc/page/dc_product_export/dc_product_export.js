@@ -1,4 +1,4 @@
-frappe.provide('dc_plc.export_app');
+frappe.provide('frappe.dc_plc.export_app');
 
 frappe.pages['dc_product_export'].on_page_load = function(wrapper) {
 	// create page when loaded for the first time in the session
@@ -7,29 +7,18 @@ frappe.pages['dc_product_export'].on_page_load = function(wrapper) {
 		title: "Экспорт записей о продукции НО-8",
 		single_column: true,
 	});
+
+	this.page.$export_tool = new frappe.dc_plc.ExportTool(this.page);
 };
 
 frappe.pages['dc_product_export'].refresh = function(wrapper) {
-	let product_ids = [];
+	let product_ids = ["PROD000001", "PROD000014"];
+
 	if (frappe.has_route_options()) {
 		product_ids = frappe.route_options.export_products;
 	} else {
 		console.log('generating empty table');
 	}
 
-	show_product_export_page(this.page, product_ids);
-};
-
-show_product_export_page = (page, ids) => {
-	let app_div = $('#export-app');
-	if (!app_div.length) {
-		$(frappe.render_template('dc_product_export', page)).prependTo(page.main);
-		// TODO hook up Vue to rendered template
-		frappe.dc_plc.export_app = new Vue({
-			el: '#export-app',
-			data: {
-				product_ids: 'ids',
-			}
-		});
-	}
+	this.page.$export_tool.set_products_ids(product_ids);
 };

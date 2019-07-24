@@ -1,6 +1,6 @@
 {
   "js/dc_plc.min.js": [
-    "public/js/views/productsummaryview.js",
+    "public/js/export_tool/export_tool.js",
     "public/js/dc_plc.js"
   ]
 }
