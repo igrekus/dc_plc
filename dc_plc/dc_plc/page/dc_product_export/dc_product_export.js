@@ -1,5 +1,3 @@
-frappe.provide('frappe.dc_plc.export_app');
-
 frappe.pages['dc_product_export'].on_page_load = function(wrapper) {
 	// create page when loaded for the first time in the session
 	this.page = frappe.ui.make_app_page({
