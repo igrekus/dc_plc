@@ -204,6 +204,13 @@ def get_data():
 					"description": _("Totals for DC Products"),
 					"onboard": 1
 				},
+				{
+					"type": "page",
+					"label": _("export"),
+					"name": "dc_product_export",
+					"description": _("export"),
+					"onboard": 1
+				},
 			]
 		}
 	]
