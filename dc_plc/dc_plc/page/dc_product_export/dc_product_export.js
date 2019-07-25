@@ -9,6 +9,10 @@ frappe.pages['dc_product_export'].on_page_load = function(wrapper) {
 	this.page.$export_tool = new frappe.dc_plc.ExportTool(this.page);
 };
 
+frappe.pages['dc_product_export'].on_page_show = () => {
+	frappe.breadcrumbs.add("DC PLC");
+};
+
 frappe.pages['dc_product_export'].refresh = function(wrapper) {
 	let product_ids = ["PROD000001", "PROD000014"];
 
