@@ -221,7 +221,7 @@ def get_developer_stats(filters):
 	{}
 	""".format(dev_clause)
 
-	sql += "ORDER BY `id`"
+	sql += "GROUP BY `p`.`name` ORDER BY `id`"
 
 	return frappe.db.sql(sql + ";", as_list=1)
 
