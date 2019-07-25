@@ -94,7 +94,7 @@ def get_full_stats(filters):
 	{}
 	""".format(proj_clause, type_clause, model_clause, func_clause, status_clause, pack_clause, dev_clause)
 
-	sql += "ORDER BY `id`"
+	sql += "GROUP BY `p`.`name` ORDER BY `id`"
 
 	return frappe.db.sql(sql + ';', as_list=1)
 
