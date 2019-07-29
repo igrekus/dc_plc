@@ -69,6 +69,7 @@ frappe.query_reports["DC Product Stats"] = {
 				});
 			}
 		}
+		table_instance.style.setStyle(`.dt-scrollable`, {height: '600px;'});
 	},
 	get_datatable_options(options) {
 		return Object.assign(options, {
