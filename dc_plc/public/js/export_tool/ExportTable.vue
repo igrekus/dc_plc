@@ -1,22 +1,16 @@
 <template>
 	<div>
 		<table>
-			<thead>
-			<tr>
-				<th v-for="header in headers">{{ header }}</th>
-			</tr>
-			<tr v-for="id in productIds">
-				<td v-for="header in headers">{{ id }}</td>
-			</tr>
-			</thead>
+			<ExportTableHeader :header_data="headers"></ExportTableHeader>
+			<ExportTableRow v-for="row in rows" :row_data="row"></ExportTableRow>
 		</table>
-		<div>
-			{{ row_data }}
-		</div>
 	</div>
 </template>
 
 <script>
+	import ExportTableHeader from './ExportTableHeader.vue'
+	import ExportTableRow from './ExportTableRow.vue'
+
 	export default {
 		props: {
 			productIds: Array,
@@ -24,21 +18,30 @@
 		data: () => {
 			return {
 				headers: ['col1', 'col2', 'col3'],
-				row_data: [],
 			}
 		},
 		computed: {
-			rd: () => {
-				return 'lol';
+			rows: function () {
+				let new_rows = [];
+				for (let i = 0; i < this.productIds.length; ++i) {
+					let row = [];
+					for (let j = 0; j < this.headers.length; ++j) {
+						row.push(this.productIds.length[i] + ' ' + this.headers[j]);
+					}
+					new_rows.push(row);
+				}
+				return new_rows;
 			}
 		},
 		watch: {
-			productIds: {
-				handler: (new_val, old_val) => {
-					console.log(this.row_data);
-				},
-				deep: true
-			}
+			// productIds: {
+			// 	handler: function(new_val, old_val)  {
+			// 	},
+			// }
+		},
+		components: {
+			ExportTableHeader,
+			ExportTableRow
 		}
 	}
 </script>
