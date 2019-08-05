@@ -162,6 +162,8 @@ fabric.properties
 
 node_modules/
 
+dc_plc/public/node_modules/
+
 dc_plc/public/js/dc_plc\.min\.js
 
 dc_plc/public/js/dc_plc\.min\.js\.map
