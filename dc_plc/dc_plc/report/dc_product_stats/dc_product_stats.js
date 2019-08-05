@@ -65,7 +65,7 @@ frappe.query_reports["DC Product Stats"] = {
 					return parseInt(el);
 				});
 				columns_to_highlight.forEach(col => {
-					table_instance.style.setStyle(`.dt-cell--${col}-${row}`, {backgroundColor: 'rgba(37,220,2,0.2);'});
+					table_instance.style.setStyle(`.dt-cell--${col + 1}-${row}`, {backgroundColor: 'rgba(37,220,2,0.2);'});
 				});
 			}
 		}
