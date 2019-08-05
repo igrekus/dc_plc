@@ -10,20 +10,22 @@ frappe.dc_plc.ExportTool = class {
 		this.make_body();
 	}
 	make_body() {
-		this.$export_tool_container = this.$parent.find('.layout-main');
+		$(frappe.render_template('<div id="app"><tool-root></tool-root></div>', this.page)).prependTo(this.$parent.find('.layout-main'));
 		this.vue = new Vue({
-			el: this.$export_tool_container[0],
-			data: {
+			el: '#app',
+			data: function () {
+				return {}
 			},
-			render: h => h(ToolRoot),
+			components: {
+				ToolRoot
+			}
 		});
 	}
-	setup_header() {
 
+	setup_header() {
 	}
 
 	set_products_ids(ids) {
 		this.vue.$children[0].product_ids = ids;
-		console.log(this.vue);
 	}
 };
