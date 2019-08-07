@@ -63,7 +63,7 @@ def export_product_search(query=''):
 
 
 @frappe.whitelist(allow_guest=True)
-def export_product_export_data(ids=""):
+def export_product_data(ids=""):
 	"""
 	Search for members of the developer group (GRP00002)
 	:param ids:

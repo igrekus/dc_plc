@@ -215,7 +215,7 @@
 				}
 				let prod_data = [];
 				frappe.call({
-					method: "dc_plc.controllers.export_tool.export_product_export_data",
+					method: "dc_plc.controllers.export_tool.export_product_data",
 					args: {
 						ids: this.productIds,
 					},
