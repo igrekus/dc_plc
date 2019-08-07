@@ -1,5 +1,4 @@
 import frappe
-import ast
 
 
 @frappe.whitelist(allow_guest=True)
@@ -11,7 +10,7 @@ def export_product_numbers(ids):
 	"""
 
 	db_name = frappe.conf.get("db_name")
-	id_array = sorted(set(ast.literal_eval(ids)))
+	id_array = sorted(set(frappe.parse_json(ids)))
 	id_str = '"' + '","'.join(id_array) + '"'
 
 	res = frappe.db.sql("""SELECT
@@ -71,7 +70,7 @@ def export_product_data(ids=""):
 	"""
 
 	db_name = frappe.conf.get("db_name")
-	id_array = sorted(set(ast.literal_eval(ids)))
+	id_array = sorted(set(frappe.parse_json(ids)))
 	id_str = '"' + '","'.join(id_array) + '"'
 
 	sql = """SELECT
