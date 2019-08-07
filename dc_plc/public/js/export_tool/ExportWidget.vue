@@ -168,30 +168,18 @@
 				if (!this.productIds.length) {
 					return [];
 				}
-				return [
-					{
-						ext_num: 'external_numbrer',
-						int_num: 'int_numbor',
-						status: 'stutussss',
-						letter: 'bukovka',
-						type: 'tip4ik',
-						rnd_proj: 'projetto',
-						chip: 'kristallllll',
-						asm_board: 'asmblr',
-						package: 'upakovo4ka',
-						func: 'fonkshon',
-						application: 'prolojuha',
-						description: 'opesuha',
-						specs: 'ttX',
-						analogs: 'spizjeno!',
-						desdoc_num: 'ka de',
-						opcon_num: 'te uu',
-						procmap_num: 'technologyia',
-						reports: 'et4eteg',
-						datasheet: 'data shit lolol',
-						final_description: 'final epta'
+				let prod_data = [];
+				frappe.call({
+					method: "dc_plc.controllers.export_tool.export_product_export_data",
+					args: {
+						ids: this.productIds,
+					},
+					async: false,
+					callback: r => {
+						prod_data = r.message;
 					}
-				]
+				});
+				return prod_data;
 			},
 		},
 		methods: {
