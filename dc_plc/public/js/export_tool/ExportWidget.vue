@@ -169,28 +169,12 @@
 					},
 				],
 				checkedAll: false,
-				checkedColumns: []
+				checkedColumns: [],
+				productData: [],
 			}
 		},
 		computed: {
-			productData: function () {
-				if (!this.productIds.length) {
-					return [];
-				}
-				let prod_data = [];
-				frappe.call({
-					method: "dc_plc.controllers.export_tool.export_product_export_data",
-					args: {
-						ids: this.productIds,
 					},
-					async: false,
-					callback: r => {
-						prod_data = r.message;
-					}
-				});
-				return prod_data;
-			},
-		},
 		methods: {
 			onAllChecked: function () {
 				let arr = [];
@@ -207,6 +191,23 @@
 						return el === col.propName;
 					});
 				})
+		watch: {
+			productIds: function (newVal, oldVal) {
+				if (!this.productIds.length) {
+					return [];
+			}
+				let prod_data = [];
+				frappe.call({
+					method: "dc_plc.controllers.export_tool.export_product_export_data",
+					args: {
+						ids: this.productIds,
+					},
+					async: false,
+					callback: r => {
+						prod_data = r.message;
+					}
+				});
+				this.productData = prod_data;
 			}
 		},
 		mounted: function () {
