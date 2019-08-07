@@ -200,12 +200,32 @@
 			},
 			onExportClicked: function () {
 				if (this.shouldExportList) {
-					
+					this.exportProductList(this.columns, this.productData);
 				}
-				console.log('export config:', this.shouldExportList, this.shouldExportCards, this.ShouldExportDatasheets);
 			},
-			exportProductList: function () {
-				console.log('exporting', this.productData());
+			exportProductList: function (cols, data) {
+				let to_export = this.columns.filter(col => {
+					return col.visible;
+				});
+				frappe.call({
+					method: "dc_plc.controllers.export_tool.export_excel",
+					args: {
+						headers: to_export.map(col => {
+							return col.label;
+						}),
+						fields: to_export.map(col => {
+							return col.propName;
+						}),
+						ids: this.productIds,
+					},
+					async: true,
+					callback: r => {
+						frappe.show_alert({
+							message: r.message ? "Экспорт завершен" : "Ошибка при экспорте",
+							indicator: r.message ? "green" : "red"
+						});
+					}
+				});
 			} 
 		},
 		watch: {

@@ -1,5 +1,7 @@
 import frappe
 
+from dc_plc.controllers.productexporter import export_xlsx
+
 
 @frappe.whitelist(allow_guest=True)
 def export_product_numbers(ids):
@@ -131,10 +133,19 @@ def export_product_data(ids=""):
 		'description': row[12],
 		'specs': row[13],
 		'analogs': row[14],
-		'desdoc_num': [15],
+		'desdoc_num': row[15],
 		'opcon_num': row[16],
 		'procmap_num': row[17],
 		'reports': row[18],
 		'datasheet': row[19],
 		'final_description': row[20]
 	} for row in res]
+
+
+@frappe.whitelist()
+def export_excel(headers, fields, ids):
+	return export_xlsx(
+		frappe.parse_json(headers),
+		frappe.parse_json(fields),
+		export_product_data(ids)
+	)
