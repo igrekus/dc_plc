@@ -2,7 +2,7 @@
 	<div>
 		<el-row>
 			<h3>Настройки печати</h3>
-			<el-checkbox v-model="shoudlExportList" label="Экспорт списка изделий"></el-checkbox>
+			<el-checkbox v-model="shouldExportList" label="Экспорт списка изделий"></el-checkbox>
 			<el-checkbox v-model="shouldExportCards" label="Экспорт карточек изделий" disabled></el-checkbox>
 			<el-checkbox v-model="ShouldExportDatasheets" label="Экспорт даташитов" disabled></el-checkbox>
 			<br/>
@@ -171,7 +171,7 @@
 				checkedAll: false,
 				checkedColumns: [],
 				productData: [],
-				shoudlExportList: true,
+				shouldExportList: true,
 				shouldExportCards: false,
 				ShouldExportDatasheets: false,
 			}
@@ -196,10 +196,13 @@
 				})
 			},
 			onPrintClicked: function () {
-				console.log('print config:', this.shoudlExportList, this.shouldExportCards, this.ShouldExportDatasheets);
+				console.log('print config:', this.shouldExportList, this.shouldExportCards, this.ShouldExportDatasheets);
 			},
 			onExportClicked: function () {
-				console.log('export config:', this.shoudlExportList, this.shouldExportCards, this.ShouldExportDatasheets);
+				if (this.shouldExportList) {
+					
+				}
+				console.log('export config:', this.shouldExportList, this.shouldExportCards, this.ShouldExportDatasheets);
 			},
 			exportProductList: function () {
 				console.log('exporting', this.productData());
