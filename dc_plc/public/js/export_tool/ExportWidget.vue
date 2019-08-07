@@ -1,7 +1,16 @@
 <template>
 	<div>
-		<h3>Предварительный просмотр</h3>
 		<el-row>
+			<h3>Настройки печати</h3>
+			<el-checkbox v-model="shoudlExportList" label="Экспорт списка изделий"></el-checkbox>
+			<el-checkbox v-model="shouldExportCards" label="Экспорт карточек изделий" disabled></el-checkbox>
+			<el-checkbox v-model="ShouldExportDatasheets" label="Экспорт даташитов" disabled></el-checkbox>
+			<br/>
+			<el-button type="primary" size="small" v-on:click="onExportClicked">Экспорт</el-button>
+			<el-button type="primary" size="small" v-on:click="onPrintClicked" disabled>Печать</el-button>
+		</el-row>
+		<el-row>
+			<h3>Предварительный просмотр</h3>
 			<el-checkbox-button size="mini" v-model="checkedAll" v-on:change="onAllChecked">
 				Все
 			</el-checkbox-button>
