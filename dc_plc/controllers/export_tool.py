@@ -6,12 +6,7 @@ import ast
 def export_product_numbers(ids):
 	"""
 	Search for members of the developer group (GRP00002)
-	:param doctype:
-	:param txt:
-	:param searchfield:
-	:param start:
-	:param page_len:
-	:param filters:
+	:param ids:
 	:return:
 	"""
 
@@ -40,12 +35,7 @@ def export_product_numbers(ids):
 def export_product_search(query=''):
 	"""
 	Search for members of the developer group (GRP00002)
-	:param doctype:
-	:param txt:
-	:param searchfield:
-	:param start:
-	:param page_len:
-	:param filters:
+	:param query:
 	:return:
 	"""
 
