@@ -106,7 +106,6 @@
 					arr.push(id);
 					arr.sort();
 					this.product_ids = arr;
-					console.log(this.product_ids);
 				}
 				this.state = '';
 			},
