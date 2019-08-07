@@ -171,10 +171,13 @@
 				checkedAll: false,
 				checkedColumns: [],
 				productData: [],
+				shoudlExportList: true,
+				shouldExportCards: false,
+				ShouldExportDatasheets: false,
 			}
 		},
 		computed: {
-					},
+		},
 		methods: {
 			onAllChecked: function () {
 				let arr = [];
@@ -191,11 +194,22 @@
 						return el === col.propName;
 					});
 				})
+			},
+			onPrintClicked: function () {
+				console.log('print config:', this.shoudlExportList, this.shouldExportCards, this.ShouldExportDatasheets);
+			},
+			onExportClicked: function () {
+				console.log('export config:', this.shoudlExportList, this.shouldExportCards, this.ShouldExportDatasheets);
+			},
+			exportProductList: function () {
+				console.log('exporting', this.productData());
+			} 
+		},
 		watch: {
 			productIds: function (newVal, oldVal) {
 				if (!this.productIds.length) {
 					return [];
-			}
+				}
 				let prod_data = [];
 				frappe.call({
 					method: "dc_plc.controllers.export_tool.export_product_export_data",
