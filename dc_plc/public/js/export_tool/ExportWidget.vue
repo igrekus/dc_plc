@@ -79,7 +79,7 @@
 					},
 					{
 						label: 'Консультант',
-						propName: 'cons`',
+						propName: 'cons',
 						width: 'auto',
 						visible: true
 					},
@@ -236,27 +236,7 @@
 				this.exportHelper("/api/method/dc_plc.controllers.export_tool.export_list_excel");
 			},
 			exportProductCards: function () {
-				// this.exportHelper("/api/method/dc_plc.controllers.export_tool.export_cards_excel");
-
-				let to_export = this.columns.filter(col => {
-					return col.visible;
-				});
-				frappe.call({
-					method: "dc_plc.controllers.export_tool.export_cards_excel",
-					args: {
-						headers: to_export.map(col => {
-							return col.label;
-						}),
-						fields: to_export.map(col => {
-							return col.propName;
-						}),
-						ids: this.productIds,
-					},
-					async: false,
-					callback: r => {
-						console.log('cards');
-					}
-				});
+				this.exportHelper("/api/method/dc_plc.controllers.export_tool.export_cards_excel");
 			}
 		},
 		watch: {
