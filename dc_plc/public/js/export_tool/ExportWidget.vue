@@ -48,7 +48,7 @@
 			return {
 				columns: [
 					{
-						label: 'Внешний номер',
+						label: 'Отраслевой номер',
 						propName: 'ext_num',
 						width: 'auto',
 						visible: true
@@ -60,26 +60,26 @@
 						visible: true
 					},
 					{
-						label: 'Статус',
+						label: 'Развитие',
 						propName: 'status',
 						width: 'auto',
 						visible: true
 					},
 					{
-						label: 'Литера',
+						label: 'Литерность',
 						propName: 'letter',
 						width: 'auto',
 						visible: true
 					},
 					{
-						label: 'Разработчики',
+						label: 'Разработчик',
 						propName: 'devs',
 						width: 'auto',
 						visible: true
 					},
 					{
-						label: 'Консультанты',
-						propName: 'cons',
+						label: 'Консультант',
+						propName: 'cons`',
 						width: 'auto',
 						visible: true
 					},
@@ -126,7 +126,7 @@
 						visible: true
 					},
 					{
-						label: 'Описание',
+						label: 'Техническое описание',
 						propName: 'description',
 						width: 'auto',
 						visible: true
