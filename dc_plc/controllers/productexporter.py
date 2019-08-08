@@ -5,7 +5,7 @@ import datetime
 from six import BytesIO
 
 
-class ExcelProductExport:
+class ExcelProductListExport:
 	def __init__(self, headers, fields, data):
 		self._headers = headers
 		self._rows = [[data_object[f] for f in fields] for data_object in data]
@@ -40,6 +40,7 @@ class ExcelProductExport:
 		return 'products_export_{}.xlsx'.format(datetime.date.today().isoformat())
 
 
-def export_xlsx(headers, fields, data):
-	export = ExcelProductExport(headers, fields, data)
+def export_list_xlsx(headers, fields, data):
+	export = ExcelProductListExport(headers, fields, data)
 	export.serve()
+

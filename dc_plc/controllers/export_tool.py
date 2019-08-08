@@ -1,6 +1,6 @@
 import frappe
 
-from dc_plc.controllers.productexporter import export_xlsx
+from dc_plc.controllers.productexporter import export_list_xlsx, export_cards_xlsx
 
 
 @frappe.whitelist(allow_guest=True)
@@ -143,9 +143,10 @@ def export_product_data(ids=""):
 
 
 @frappe.whitelist()
-def export_excel(headers, fields, ids):
-	return export_xlsx(
+def export_list_excel(headers, fields, ids):
+	return export_list_xlsx(
 		frappe.parse_json(headers),
 		frappe.parse_json(fields),
 		export_product_data(ids)
 	)
+
