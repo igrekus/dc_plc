@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 import openpyxl
@@ -79,10 +81,10 @@ class ExcelProductCardExport:
 
 	def __init__(self, headers, fields, product_data):
 		self._headers = headers
-		self._fields = fields
+		self._fields = {f: h for f, h in zip(fields, headers)}
 		self._data = {field: product_data[field] for field in fields}
-		self._small_fields = [field for field in self.small_fields.keys() if field in fields]
-		self._large_fields = [field for field in self.large_fields.keys() if field in fields]
+		self._small_fields = [field for field in self.small_fields.keys() if field in self._fields]
+		self._large_fields = [field for field in self.large_fields.keys() if field in self._fields]
 
 	def _append_header(self, sheet):
 		header_cell = sheet['A1']
@@ -93,7 +95,7 @@ class ExcelProductCardExport:
 		col = 0
 		row = 0
 		for field in self._small_fields:
-			base_cell.offset(0 + row, 0 + col * 3).value = self.small_fields[field]
+			base_cell.offset(0 + row, 0 + col * 3).value = self._fields[field]
 			base_cell.offset(0 + row, 1 + col * 3).value = self._data[field]
 			col += 1
 			if col > 1:
@@ -103,7 +105,7 @@ class ExcelProductCardExport:
 	def _append_large_fields(self, sheet):
 		base_cell = sheet['A' + str(sheet.max_row + 2)]
 		for row, field in enumerate(self._large_fields):
-			base_cell.offset(0 + row, 0). value = self.large_fields[field]
+			base_cell.offset(0 + row, 0). value = self._fields[field]
 			base_cell.offset(0 + row, 1). value = self._data[field]
 
 	@property
