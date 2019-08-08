@@ -200,33 +200,23 @@
 			},
 			onExportClicked: function () {
 				if (this.shouldExportList) {
-					this.exportProductList(this.columns, this.productData);
+					this.exportProductList();
 				}
 			},
-			exportProductList: function (cols, data) {
+			exportProductList: function () {
 				let to_export = this.columns.filter(col => {
 					return col.visible;
 				});
-				frappe.call({
-					method: "dc_plc.controllers.export_tool.export_excel",
-					args: {
-						headers: to_export.map(col => {
-							return col.label;
-						}),
-						fields: to_export.map(col => {
-							return col.propName;
-						}),
-						ids: this.productIds,
-					},
-					async: true,
-					callback: r => {
-						frappe.show_alert({
-							message: r.message ? "Экспорт завершен" : "Ошибка при экспорте",
-							indicator: r.message ? "green" : "red"
-						});
-					}
+				open_url_post("/api/method/dc_plc.controllers.export_tool.export_excel", {
+					headers: to_export.map(col => {
+						return col.label;
+					}),
+					fields: to_export.map(col => {
+						return col.propName;
+					}),
+					ids: this.productIds,
 				});
-			} 
+			}
 		},
 		watch: {
 			productIds: function (newVal, oldVal) {

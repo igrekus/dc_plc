@@ -1,5 +1,8 @@
 import openpyxl
 import frappe
+import datetime
+
+from six import BytesIO
 
 
 class ExcelProductExport:
@@ -7,15 +10,19 @@ class ExcelProductExport:
 		self._headers = headers
 		self._rows = [[data_object[f] for f in fields] for data_object in data]
 
-	def save(self):
+	def serve(self):
 		wb = openpyxl.Workbook()
 		ws = wb.active
 
 		self._append_header(ws)
 		self._append_data(ws)
 
-		wb.save('./site1.local/public/files/test.xlsx')
-		return True
+		xlsx_file = BytesIO()
+		wb.save(xlsx_file)
+
+		frappe.response['filename'] = self._generate_filename()
+		frappe.response['filecontent'] = xlsx_file.getvalue()
+		frappe.response['type'] = 'binary'
 
 	def _append_header(self, sheet):
 		header_cell = sheet['A1']
@@ -29,8 +36,10 @@ class ExcelProductExport:
 				data_cell.offset(0 + row, 0).value = row + 1
 				data_cell.offset(0 + row, 1 + col).value = value
 
+	def _generate_filename(self):
+		return 'products_export_{}.xlsx'.format(datetime.date.today().isoformat())
+
 
 def export_xlsx(headers, fields, data):
-	frappe.msgprint(str(fields))
 	export = ExcelProductExport(headers, fields, data)
-	return export.save()
+	export.serve()
