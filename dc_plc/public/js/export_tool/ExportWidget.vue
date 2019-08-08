@@ -72,6 +72,18 @@
 						visible: true
 					},
 					{
+						label: 'Разработчики',
+						propName: 'devs',
+						width: 'auto',
+						visible: true
+					},
+					{
+						label: 'Консультанты',
+						propName: 'cons',
+						width: 'auto',
+						visible: true
+					},
+					{
 						label: 'Тип',
 						propName: 'type',
 						width: 'auto',

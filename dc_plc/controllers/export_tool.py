@@ -97,6 +97,8 @@ def export_product_data(ids=""):
 	, `p`.`report`
 	, `p`.`datasheet`
 	, `p`.`final_description`
+	, GROUP_CONCAT(`con`.`full_name`) AS `devs`
+	, GROUP_CONCAT(`dev`.`full_name`) AS `cons`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
@@ -110,9 +112,14 @@ def export_product_data(ids=""):
 		`{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
+	LEFT OUTER JOIN
+		`{}`.`tabDC_PLC_Developers_in_Product` AS `dev` ON `p`.`name` = `dev`.`parent`
+	LEFT OUTER JOIN
+		`{}`.`tabDC_PLC_Consulants_in_Product` AS `con` ON `p`.`name` = `con`.`parent`
 	WHERE `p`.`name` IN ({})
+	GROUP BY `p`.`name`
 	ORDER BY `p`.`name` ASC""" \
-		.format(db_name, db_name, db_name, db_name, db_name, db_name, db_name, id_str)
+		.format(db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, id_str)
 
 	res = frappe.db.sql(sql + ';')
 
@@ -138,7 +145,9 @@ def export_product_data(ids=""):
 		'procmap_num': row[17],
 		'reports': row[18],
 		'datasheet': row[19],
-		'final_description': row[20]
+		'final_description': row[20],
+		'devs': row[21],
+		'cons': row[22]
 	} for row in res]
 
 
