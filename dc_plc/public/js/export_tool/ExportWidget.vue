@@ -3,7 +3,7 @@
 		<el-row>
 			<h3>Настройки печати</h3>
 			<el-checkbox v-model="shouldExportList" label="Экспорт списка изделий"></el-checkbox>
-			<el-checkbox v-model="shouldExportCards" label="Экспорт карточек изделий" disabled></el-checkbox>
+			<el-checkbox v-model="shouldExportCards" label="Экспорт карточек изделий"></el-checkbox>
 			<el-checkbox v-model="ShouldExportDatasheets" label="Экспорт даташитов" disabled></el-checkbox>
 			<br/>
 			<el-button type="primary" size="small" v-on:click="onExportClicked">Экспорт</el-button>
@@ -171,8 +171,8 @@
 				checkedAll: false,
 				checkedColumns: [],
 				productData: [],
-				shouldExportList: true,
-				shouldExportCards: false,
+				shouldExportList: false,
+				shouldExportCards: true,
 				ShouldExportDatasheets: false,
 			}
 		},
@@ -202,12 +202,15 @@
 				if (this.shouldExportList) {
 					this.exportProductList();
 				}
+				if (this.shouldExportCards) {
+					this.exportProductCards();
+				}
 			},
-			exportProductList: function () {
+			exportHelper: function (method) {
 				let to_export = this.columns.filter(col => {
 					return col.visible;
 				});
-				open_url_post("/api/method/dc_plc.controllers.export_tool.export_list_excel", {
+				open_url_post(method, {
 					headers: to_export.map(col => {
 						return col.label;
 					}),
@@ -215,6 +218,32 @@
 						return col.propName;
 					}),
 					ids: this.productIds,
+				});
+			},
+			exportProductList: function () {
+				this.exportHelper("/api/method/dc_plc.controllers.export_tool.export_list_excel");
+			},
+			exportProductCards: function () {
+				// this.exportHelper("/api/method/dc_plc.controllers.export_tool.export_cards_excel");
+
+				let to_export = this.columns.filter(col => {
+					return col.visible;
+				});
+				frappe.call({
+					method: "dc_plc.controllers.export_tool.export_cards_excel",
+					args: {
+						headers: to_export.map(col => {
+							return col.label;
+						}),
+						fields: to_export.map(col => {
+							return col.propName;
+						}),
+						ids: this.productIds,
+					},
+					async: false,
+					callback: r => {
+						console.log('cards');
+					}
 				});
 			}
 		},

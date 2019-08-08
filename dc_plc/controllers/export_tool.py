@@ -150,3 +150,11 @@ def export_list_excel(headers, fields, ids):
 		export_product_data(ids)
 	)
 
+
+@frappe.whitelist()
+def export_cards_excel(headers, fields, ids):
+	return export_cards_xlsx(
+		frappe.parse_json(headers),
+		frappe.parse_json(fields),
+		export_product_data(ids)
+	)

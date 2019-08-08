@@ -44,3 +44,18 @@ def export_list_xlsx(headers, fields, data):
 	export = ExcelProductListExport(headers, fields, data)
 	export.serve()
 
+
+class ExcelProductCardExport:
+	def __init__(self, headers, fields, product_data):
+		self._headers = headers
+		self._data = product_data
+		self._fields = fields
+
+	def serve(self):
+		pass
+
+
+def export_cards_xlsx(headers, fields, data):
+	frappe.msgprint(fields)
+	# for prod in data:
+	# 	frappe.msgprint(str(prod))
