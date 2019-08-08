@@ -1,5 +1,6 @@
 import frappe
-import ast
+
+from dc_plc.controllers.productexporter import export_xlsx
 
 
 @frappe.whitelist(allow_guest=True)
@@ -11,7 +12,7 @@ def export_product_numbers(ids):
 	"""
 
 	db_name = frappe.conf.get("db_name")
-	id_array = sorted(set(ast.literal_eval(ids)))
+	id_array = sorted(set(frappe.parse_json(ids)))
 	id_str = '"' + '","'.join(id_array) + '"'
 
 	res = frappe.db.sql("""SELECT
@@ -63,7 +64,7 @@ def export_product_search(query=''):
 
 
 @frappe.whitelist(allow_guest=True)
-def export_product_export_data(ids=""):
+def export_product_data(ids=""):
 	"""
 	Search for members of the developer group (GRP00002)
 	:param ids:
@@ -71,7 +72,7 @@ def export_product_export_data(ids=""):
 	"""
 
 	db_name = frappe.conf.get("db_name")
-	id_array = sorted(set(ast.literal_eval(ids)))
+	id_array = sorted(set(frappe.parse_json(ids)))
 	id_str = '"' + '","'.join(id_array) + '"'
 
 	sql = """SELECT
@@ -132,10 +133,19 @@ def export_product_export_data(ids=""):
 		'description': row[12],
 		'specs': row[13],
 		'analogs': row[14],
-		'desdoc_num': [15],
+		'desdoc_num': row[15],
 		'opcon_num': row[16],
 		'procmap_num': row[17],
 		'reports': row[18],
 		'datasheet': row[19],
 		'final_description': row[20]
 	} for row in res]
+
+
+@frappe.whitelist()
+def export_excel(headers, fields, ids):
+	return export_xlsx(
+		frappe.parse_json(headers),
+		frappe.parse_json(fields),
+		export_product_data(ids)
+	)

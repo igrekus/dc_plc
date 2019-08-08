@@ -1,7 +1,16 @@
 <template>
 	<div>
-		<h3>Предварительный просмотр</h3>
 		<el-row>
+			<h3>Настройки печати</h3>
+			<el-checkbox v-model="shouldExportList" label="Экспорт списка изделий"></el-checkbox>
+			<el-checkbox v-model="shouldExportCards" label="Экспорт карточек изделий" disabled></el-checkbox>
+			<el-checkbox v-model="ShouldExportDatasheets" label="Экспорт даташитов" disabled></el-checkbox>
+			<br/>
+			<el-button type="primary" size="small" v-on:click="onExportClicked">Экспорт</el-button>
+			<el-button type="primary" size="small" v-on:click="onPrintClicked" disabled>Печать</el-button>
+		</el-row>
+		<el-row>
+			<h3>Предварительный просмотр</h3>
 			<el-checkbox-button size="mini" v-model="checkedAll" v-on:change="onAllChecked">
 				Все
 			</el-checkbox-button>
@@ -160,27 +169,14 @@
 					},
 				],
 				checkedAll: false,
-				checkedColumns: []
+				checkedColumns: [],
+				productData: [],
+				shouldExportList: true,
+				shouldExportCards: false,
+				ShouldExportDatasheets: false,
 			}
 		},
 		computed: {
-			productData: function () {
-				if (!this.productIds.length) {
-					return [];
-				}
-				let prod_data = [];
-				frappe.call({
-					method: "dc_plc.controllers.export_tool.export_product_export_data",
-					args: {
-						ids: this.productIds,
-					},
-					async: false,
-					callback: r => {
-						prod_data = r.message;
-					}
-				});
-				return prod_data;
-			},
 		},
 		methods: {
 			onAllChecked: function () {
@@ -198,6 +194,47 @@
 						return el === col.propName;
 					});
 				})
+			},
+			onPrintClicked: function () {
+				console.log('print config:', this.shouldExportList, this.shouldExportCards, this.ShouldExportDatasheets);
+			},
+			onExportClicked: function () {
+				if (this.shouldExportList) {
+					this.exportProductList();
+				}
+			},
+			exportProductList: function () {
+				let to_export = this.columns.filter(col => {
+					return col.visible;
+				});
+				open_url_post("/api/method/dc_plc.controllers.export_tool.export_excel", {
+					headers: to_export.map(col => {
+						return col.label;
+					}),
+					fields: to_export.map(col => {
+						return col.propName;
+					}),
+					ids: this.productIds,
+				});
+			}
+		},
+		watch: {
+			productIds: function (newVal, oldVal) {
+				if (!this.productIds.length) {
+					return [];
+				}
+				let prod_data = [];
+				frappe.call({
+					method: "dc_plc.controllers.export_tool.export_product_data",
+					args: {
+						ids: this.productIds,
+					},
+					async: false,
+					callback: r => {
+						prod_data = r.message;
+					}
+				});
+				this.productData = prod_data;
 			}
 		},
 		mounted: function () {
