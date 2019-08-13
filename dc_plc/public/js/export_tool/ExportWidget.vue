@@ -7,7 +7,7 @@
 			<el-checkbox v-model="ShouldExportDatasheets" label="Экспорт даташитов" disabled></el-checkbox>
 			<br/>
 			<el-button type="primary" size="small" v-on:click="onExportClicked">Экспорт</el-button>
-			<el-button type="primary" size="small" v-on:click="onPrintClicked" disabled>Печать</el-button>
+			<el-button type="primary" size="small" v-on:click="onPrintClicked">Печать</el-button>
 		</el-row>
 		<el-row>
 			<h3>Предварительный просмотр</h3>
@@ -208,7 +208,12 @@
 				})
 			},
 			onPrintClicked: function () {
-				console.log('print config:', this.shouldExportList, this.shouldExportCards, this.ShouldExportDatasheets);
+				if (this.shouldExportList) {
+					console.log('print list');
+				}
+				if (this.shouldExportCards) {
+					this.printProductCards();
+				}
 			},
 			onExportClicked: function () {
 				this.exportProducts({
