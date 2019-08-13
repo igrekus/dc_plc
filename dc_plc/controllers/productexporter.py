@@ -16,20 +16,6 @@ class ExcelProductListExport:
 		self._headers = headers
 		self._rows = [[data_object[f] for f in fields] for data_object in data]
 
-	def serve(self):
-		wb = openpyxl.Workbook()
-		ws = wb.active
-
-		self._append_header(ws)
-		self._append_data(ws)
-
-		xlsx_file = BytesIO()
-		wb.save(xlsx_file)
-
-		frappe.response['filename'] = self._generate_filename()
-		frappe.response['filecontent'] = xlsx_file.getvalue()
-		frappe.response['type'] = 'binary'
-
 	def _append_header(self, sheet):
 		header_cell = sheet['A1']
 		for col, header in enumerate(['№'] + self._headers):
@@ -42,13 +28,21 @@ class ExcelProductListExport:
 				data_cell.offset(0 + row, 0).value = row + 1
 				data_cell.offset(0 + row, 1 + col).value = value
 
-	def _generate_filename(self):
-		return 'products_export_{}.xlsx'.format(datetime.date.today().isoformat())
+	@property
+	def name(self):
+		return 'product_list_{}.xlsx'.format(datetime.date.today().isoformat())
 
+	@property
+	def bytes(self):
+		wb = openpyxl.Workbook()
+		ws = wb.active
 
-def export_list_xlsx(headers, fields, data):
-	export = ExcelProductListExport(headers, fields, data)
-	export.serve()
+		self._append_header(ws)
+		self._append_data(ws)
+
+		xlsx_file = BytesIO()
+		wb.save(xlsx_file)
+		return xlsx_file.getvalue()
 
 
 class ExcelProductCardExport:
@@ -109,7 +103,7 @@ class ExcelProductCardExport:
 			base_cell.offset(0 + row, 1). value = self._data[field]
 
 	@property
-	def filename(self):
+	def name(self):
 		return '{}-({})-{}.xlsx'.format(
 			self._data.get('int_num', '-'),
 			self._data.get('ext_num', '-'),
@@ -117,7 +111,7 @@ class ExcelProductCardExport:
 		)
 
 	@property
-	def as_bytes(self):
+	def bytes(self):
 		wb = openpyxl.Workbook()
 		ws = wb.active
 
@@ -131,15 +125,24 @@ class ExcelProductCardExport:
 		return xlsx_file.getvalue()
 
 
-def export_cards_xlsx(headers, fields, data):
+def export_xlsx(exports, headers, fields, data):
 	zipname = './site1.local/public/files/outzip-' + frappe.generate_hash('', 10) + '.zip'
 	with zipfile.ZipFile(zipname, 'w') as outzip:
-		for prod in data:
-			export = ExcelProductCardExport(headers, fields, prod)
-			outzip.writestr(export.filename, export.as_bytes)
+		if exports['list']:
+			export_list = ExcelProductListExport(headers, fields, data)
+			outzip.writestr(export_list.name, export_list.bytes)
+
+		if exports['cards']:
+			for prod in data:
+				export = ExcelProductCardExport(headers, fields, prod)
+				outzip.writestr(export.name, export.bytes)
+
+		if exports['datasheets']:
+			# TODO append datasheets to zip
+			pass
 
 	with open(zipname, mode='rb') as f:
-		frappe.response['filename'] = 'product_cards.zip'
+		frappe.response['filename'] = 'product_export.zip'
 		frappe.response['filecontent'] = BytesIO(f.read()).getvalue()
 		frappe.response['type'] = 'binary'
 
