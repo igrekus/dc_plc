@@ -211,18 +211,18 @@
 				console.log('print config:', this.shouldExportList, this.shouldExportCards, this.ShouldExportDatasheets);
 			},
 			onExportClicked: function () {
-				if (this.shouldExportList) {
-					this.exportProductList();
-				}
-				if (this.shouldExportCards) {
-					this.exportProductCards();
-				}
+				this.exportProducts({
+					list: this.shouldExportList,
+					cards: this.shouldExportCards,
+					datasheets: this.ShouldExportDatasheets,
+				});
 			},
-			exportHelper: function (method) {
-				let to_export = this.columns.filter(col => {
+			exportProducts: function (exports) {
+				const to_export = this.columns.filter(col => {
 					return col.visible;
 				});
-				open_url_post(method, {
+				open_url_post('/api/method/dc_plc.controllers.export_tool.export_excel', {
+					exports: exports,
 					headers: to_export.map(col => {
 						return col.label;
 					}),
@@ -232,12 +232,6 @@
 					ids: this.productIds,
 				});
 			},
-			exportProductList: function () {
-				this.exportHelper("/api/method/dc_plc.controllers.export_tool.export_list_excel");
-			},
-			exportProductCards: function () {
-				this.exportHelper("/api/method/dc_plc.controllers.export_tool.export_cards_excel");
-			}
 		},
 		watch: {
 			productIds: function (newVal, oldVal) {
