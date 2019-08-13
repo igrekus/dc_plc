@@ -159,3 +159,16 @@ fabric.properties
 
 \.idea/
 
+
+node_modules/
+
+dc_plc/public/node_modules/
+
+dc_plc/public/js/dc_plc\.min\.js
+
+dc_plc/public/js/dc_plc\.min\.js\.map
+
+*.map
+
+*.js.map
+

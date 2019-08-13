@@ -1,5 +1,5 @@
 {
-  "js/dc_plc.min.js": [
+  "dc_plc/js/dc_plc.min.js": [
     "public/js/export_tool/export_tool.js",
     "public/js/dc_plc.js"
   ]
