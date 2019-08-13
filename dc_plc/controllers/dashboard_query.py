@@ -154,8 +154,8 @@ GROUP BY `p`.`name`;
 		{
 			"name": _("Total"),
 			"progress": total,
-			"relevant": sum([rel_check_dept_head, rel_check_rnd_spec, rel_check_developer,
-							rel_check_opcon, rel_check_procmap, rel_check_tech_writer, rel_check_desdoc]) / 7,
+			"relevant": round(sum([rel_check_dept_head, rel_check_rnd_spec, rel_check_developer,
+							rel_check_opcon, rel_check_procmap, rel_check_tech_writer, rel_check_desdoc]) / 7, 0),
 			"url": "{}/desk#query-report/DC%20Product%20Stats".format(host)
 		}
 	]
