@@ -1,6 +1,6 @@
 import frappe
 
-from dc_plc.controllers.productexporter import export_xlsx
+from dc_plc.controllers.productexporter import export_xlsx, export_pdf
 
 
 @frappe.whitelist(allow_guest=True)
@@ -152,8 +152,18 @@ def export_product_data(ids=""):
 
 
 @frappe.whitelist()
-def export_excel(exports, headers, fields, ids):
+def get_xlsx(exports, headers, fields, ids):
 	return export_xlsx(
+		frappe.parse_json(exports),
+		frappe.parse_json(headers),
+		frappe.parse_json(fields),
+		export_product_data(ids)
+	)
+
+
+@frappe.whitelist()
+def get_pdf(exports, headers, fields, ids):
+	return export_pdf(
 		frappe.parse_json(exports),
 		frappe.parse_json(headers),
 		frappe.parse_json(fields),

@@ -226,7 +226,7 @@
 				const to_export = this.columns.filter(col => {
 					return col.visible;
 				});
-				open_url_post('/api/method/dc_plc.controllers.export_tool.export_excel', {
+				open_url_post('/api/method/dc_plc.controllers.export_tool.get_xlsx', {
 					exports: exports,
 					headers: to_export.map(col => {
 						return col.label;
