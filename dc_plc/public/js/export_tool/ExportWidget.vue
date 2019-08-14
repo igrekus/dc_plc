@@ -208,18 +208,17 @@
 				})
 			},
 			onPrintClicked: function () {
-				if (this.shouldExportList) {
-					console.log('print list');
-				}
-				if (this.shouldExportCards) {
-					this.printProductCards();
-				}
+				this.printProducts({
+					list: this.shouldExportList,
+					cards: this.shouldExportCards,
+					datasheets: this.shouldExportDatasheets,
+				});
 			},
 			onExportClicked: function () {
 				this.exportProducts({
 					list: this.shouldExportList,
 					cards: this.shouldExportCards,
-					datasheets: this.ShouldExportDatasheets,
+					datasheets: this.shouldExportDatasheets,
 				});
 			},
 			exportProducts: function (exports) {
@@ -237,6 +236,43 @@
 					ids: this.productIds,
 				});
 			},
+			printProducts: function (exports) {
+				const to_export = this.columns.filter(col => {
+					return col.visible;
+				});
+				// open_url_post('/api/method/dc_plc.controllers.export_tool.get_pdf', {
+				// 	exports: exports,
+				// 	headers: to_export.map(col => {
+				// 		return col.label;
+				// 	}),
+				// 	fields: to_export.map(col => {
+				// 		return col.propName;
+				// 	}),
+				// 	ids: this.productIds,
+				// }, true);
+				frappe.call({
+					method: 'dc_plc.controllers.export_tool.get_pdf',
+					args: {
+						exports: exports,
+						headers: to_export.map(col => {
+							return col.label;
+						}),
+						fields: to_export.map(col => {
+							return col.propName;
+						}),
+						ids: this.productIds,
+					},
+					callback: r => {
+						let w = window.open();
+						if (!w) {
+							frappe.msgprint(__("Please enable pop-ups in your browser"))
+						}
+						w.document.write(r.message);
+						w.document.close();
+					}
+				});
+
+			}
 		},
 		watch: {
 			productIds: function (newVal, oldVal) {

@@ -7,8 +7,10 @@ import frappe
 import datetime
 import zipfile
 import os
+import pdfkit
 
 from six import BytesIO
+from jinja2 import Environment, FileSystemLoader
 
 small_fields = {
 	'ext_num': u'Отраслевой номер',
@@ -150,3 +152,72 @@ def export_xlsx(exports, headers, fields, data):
 		frappe.response['type'] = 'binary'
 
 	os.remove(zipname)
+
+
+class ProductPDF:
+	def __init__(self, exports, headers, fields, product_data):
+		self._filename = f'./site1.local/public/files/outpdf-{frappe.generate_hash("", 10)}.pdf'
+		self._headers = headers
+		self._fields = {f: h for f, h in zip(fields, headers)}
+		self._products = product_data
+		self._exports = exports
+
+		self._small_fields = [field for field in small_fields.keys() if field in self._fields]
+		self._large_fields = [field for field in large_fields.keys() if field in self._fields]
+
+	@property
+	def html(self):
+		env = Environment(loader=FileSystemLoader('./assets/dc_plc/html/'))
+		template = env.get_template('export_template.html')
+		return template.render(params={
+			'has_list': self._exports['list'],
+			'has_cards': self._exports['cards'],
+			'headers': self._headers,
+			'list': self.list_data,
+			'cards': self.card_data,
+		})
+
+	@property
+	def card_data(self):
+		cards = list()
+		for prod in self._products:
+			col = 0
+			row_data = list()
+			small_rows = list()
+			for field in self._small_fields:
+				row_data.append((self._fields[field], prod[field] or '-'))
+				col += 1
+				if col > 1:
+					col = 0
+					small_rows.append(row_data)
+					row_data = list()
+
+			large_rows = [(self._fields[field], prod[field] or '-') for field in self._large_fields]
+
+			cards.append({
+				'small_rows': small_rows,
+				'large_rows': large_rows
+			})
+		return cards
+
+	@property
+	def list_data(self):
+		rows = [[product[f] or '-' for f in self._fields] for product in self._products]
+		return rows
+
+	@property
+	def name(self):
+		return self._filename
+
+	@property
+	def bytes(self):
+		filedata = pdfkit.from_string(self.html, False, options={})
+		return BytesIO(filedata).getvalue()
+
+
+def export_pdf(exports, headers, fields, product_data):
+	pdf = ProductPDF(exports, headers, fields, product_data)
+	return pdf.html
+	# frappe.local.response.filename = "product_export.html"
+	# frappe.local.response.filecontent = pdf.html
+	# frappe.local.response.type = "html"
