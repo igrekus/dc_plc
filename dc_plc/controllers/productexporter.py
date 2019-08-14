@@ -110,8 +110,8 @@ class ExcelProductCardExport:
 	@property
 	def name(self):
 		return '{} {} {}.xlsx'.format(
-			self._data.get('int_num', '-'),
 			self._data.get('ext_num', '-'),
+			self._data.get('int_num', '-'),
 			datetime.date.today().isoformat()
 		)
 
