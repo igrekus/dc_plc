@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" content="text/html">
+	<title></title>
+	<style type="text/css">
+		@media print {
+			.pagebreak {
+				page-break-after: always;
+			}
+			body {
+				margin: 10mm 10mm 10mm 10mm;
+				line-height: 14pt;
+			}
+		}
+
+		@page {
+			size: A4 portrait;
+			margin: 0;
+		}
+
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		td {
+			font-size: 10pt;
+			/*border: 2px solid red;*/
+		}
+
+		td .list-cell {
+			width: auto;
+		}
+
+		.small-field-title {
+			width: 15%;
+		}
+
+		.small-field-value {
+			border-bottom: 1px solid black;
+			width: 31%;
+		}
+
+		.table-small-fields-spacer {
+			width: 8%;
+		}
+
+		.large-field-title {
+			width: 15%;
+		}
+
+		.large-field-value {
+			width: 85%;
+			border-bottom: 1px solid black;
+		}
+
+	</style>
+</head>
+<body>
+{% if params.has_list %}
+<br/>
+<div class="list-template">
+	<table>
+		<thead>
+		<tr>
+			{% for head in params.headers %}
+				<th>{{ head }}</th>
+			{% endfor %}
+		</tr>
+		</thead>
+		<tbody>
+		{% for row in params.list %}
+			<tr>
+			{% for col in row %}
+				<td>{{ col }}</td>
+			{% endfor %}
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+</div>
+<div class="pagebreak"></div>
+{% endif %}
+{% if params.has_cards %}
+{% for card in params.cards %}
+<div class="card-template">
+	<br/>
+	<div>
+		<h2>Карточка изделия</h2>
+	</div>
+	<br/>
+	<table class="table-small-fields">
+		<tbody>
+		{% for row in card.small_rows %}
+		<tr>
+			<td class="small-field-title col1">{{ row[0][0] }}</td>
+			<td class="small-field-value col1">{{ row[0][1] }}</td>
+			<td class="table-small-fields-spacer">&nbsp;</td>
+			<td class="small-field-title col2">{{ row[1][0] }}</td>
+			<td class="small-field-value col2">{{ row[1][1] }}</td>
+		</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	<br/>
+	<table class="table-large-fields">
+		<tbody>
+		{% for row in card.large_rows %}
+		<tr>
+			<td class="large-field-title">{{ row[0] }}</td>
+			<td class="large-field-value">{{ row[1] }}</td>
+		</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+</div>
+<div class="pagebreak"></div>
+{% endfor %}
+{% endif %}
+</body>
+</html>

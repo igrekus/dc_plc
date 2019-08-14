@@ -14,7 +14,7 @@ frappe.pages['dc_product_export'].on_page_show = () => {
 };
 
 frappe.pages['dc_product_export'].refresh = function(wrapper) {
-	let product_ids = ["PROD000001", "PROD000014"];
+	let product_ids = [];
 
 	if (frappe.has_route_options()) {
 		product_ids = frappe.route_options.export_products;
