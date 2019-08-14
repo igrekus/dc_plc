@@ -4,10 +4,10 @@
 			<h3>Настройки печати</h3>
 			<el-checkbox v-model="shouldExportList" label="Экспорт списка изделий"></el-checkbox>
 			<el-checkbox v-model="shouldExportCards" label="Экспорт карточек изделий"></el-checkbox>
-			<el-checkbox v-model="ShouldExportDatasheets" label="Экспорт даташитов" disabled></el-checkbox>
+			<el-checkbox v-model="shouldExportDatasheets" label="Экспорт даташитов" disabled></el-checkbox>
 			<br/>
-			<el-button type="primary" size="small" v-on:click="onExportClicked">Экспорт</el-button>
-			<el-button type="primary" size="small" v-on:click="onPrintClicked">Печать</el-button>
+			<el-button type="primary" size="small" v-on:click="onExportClicked" v-bind:disabled="canExport">Экспорт</el-button>
+			<el-button type="primary" size="small" v-on:click="onPrintClicked" v-bind:disabled="canExport">Печать</el-button>
 		</el-row>
 		<el-row>
 			<h3>Предварительный просмотр</h3>
@@ -51,144 +51,147 @@
 						label: 'Отраслевой номер',
 						propName: 'ext_num',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Внутренний номер',
 						propName: 'int_num',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Развитие',
 						propName: 'status',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Литерность',
 						propName: 'letter',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Разработчик',
 						propName: 'devs',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Консультант',
 						propName: 'cons',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Тип',
 						propName: 'type',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'ОКР',
 						propName: 'rnd_proj',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Кристалл',
 						propName: 'chip',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Плата в сборке',
 						propName: 'asm_board',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Корпус',
 						propName: 'package',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Функция',
 						propName: 'func',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Применение',
 						propName: 'application',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Техническое описание',
 						propName: 'description',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Параметры',
 						propName: 'specs',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Аналоги',
 						propName: 'analogs',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Номер КД',
 						propName: 'desdoc_num',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Номер ТУ',
 						propName: 'opcon_num',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Номер ТК',
 						propName: 'procmap_num',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Отчёты',
 						propName: 'reports',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Даташит',
 						propName: 'datasheet',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 					{
 						label: 'Финальное описание',
 						propName: 'final_description',
 						width: 'auto',
-						visible: true
+						visible: false
 					},
 				],
 				checkedAll: false,
 				checkedColumns: [],
 				productData: [],
 				shouldExportList: false,
-				shouldExportCards: true,
-				ShouldExportDatasheets: false,
+				shouldExportCards: false,
+				shouldExportDatasheets: false,
 			}
 		},
 		computed: {
+			canExport: function () {
+				return !(this.shouldExportList || this.shouldExportCards || this.shouldExportDatasheets);
+			}
 		},
 		methods: {
 			onAllChecked: function () {
@@ -198,6 +201,9 @@
 					arr.push(col.propName);
 				});
 				this.checkedColumns = this.checkedAll ? arr : [];
+			},
+			onExportFlagToggled: function () {
+				console.log('toggle');
 			},
 			onColumnChecked: function (cols) {
 				// TODO simplify this mess
@@ -294,10 +300,10 @@
 			}
 		},
 		mounted: function () {
-			this.checkedColumns = this.columns.map(col => {
-				return col.propName;
-			});
-			this.checkedAll = true;
+			// this.checkedColumns = this.columns.map(col => {
+			// 	return col.propName;
+			// });
+			this.checkedAll = false;
 		}
 	}
 </script>
