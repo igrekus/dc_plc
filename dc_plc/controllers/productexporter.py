@@ -30,7 +30,7 @@ class ExcelProductListExport:
 
 	@property
 	def name(self):
-		return 'product_list_{}.xlsx'.format(datetime.date.today().isoformat())
+		return 'Product list {}.xlsx'.format(datetime.date.today().isoformat())
 
 	@property
 	def bytes(self):
@@ -104,7 +104,7 @@ class ExcelProductCardExport:
 
 	@property
 	def name(self):
-		return '{}-({})-{}.xlsx'.format(
+		return '{} {} {}.xlsx'.format(
 			self._data.get('int_num', '-'),
 			self._data.get('ext_num', '-'),
 			datetime.date.today().isoformat()
