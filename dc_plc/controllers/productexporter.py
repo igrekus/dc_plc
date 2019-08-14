@@ -10,6 +10,35 @@ import os
 
 from six import BytesIO
 
+small_fields = {
+	'ext_num': u'Отраслевой номер',
+	'rnd_proj': u'ОКР',
+	'int_num': u'Внутренний номер',
+	'type': u'Тип',
+	'func': u'Функция',
+	'letter': 'uЛитерность',
+	'opcon_num': u'Номер ТУ',
+	'status': u'Развитие',
+	'devs': u'Разработчик',
+	'cons': u'Консультант',
+	'chip': u'Кристалл',
+	'package': u'Корпус',
+	'desdoc_num': u'Номер КД',
+	'asm_board': u'Плата в сборке',
+	'procmap_num': u'Номер ТК',
+}
+
+
+large_fields = {
+	'application': u'Применение',
+	'analogs': u'Аналоги',
+	'final_description': u'Финально описание',
+	'description': u'Техническое описание',
+	'specs': u'Параметры',
+	'reports': u'Отчёты',
+	'datasheet': u'Даташит',
+}
+
 
 class ExcelProductListExport:
 	def __init__(self, headers, fields, data):
@@ -46,39 +75,13 @@ class ExcelProductListExport:
 
 
 class ExcelProductCardExport:
-	small_fields = {
-		'ext_num': u'Отраслевой номер',
-		'rnd_proj': u'ОКР',
-		'int_num': u'Внутренний номер',
-		'type': u'Тип',
-		'func': u'Функция',
-		'letter': 'uЛитерность',
-		'opcon_num': u'Номер ТУ',
-		'status': u'Развитие',
-		'devs': u'Разработчик',
-		'cons': u'Консультант',
-		'chip': u'Кристалл',
-		'package': u'Корпус',
-		'desdoc_num': u'Номер КД',
-		'asm_board': u'Плата в сборке',
-		'procmap_num': u'Номер ТК',
-	}
-	large_fields = {
-		'application': u'Применение',
-		'analogs': u'Аналоги',
-		'final_description': u'Финально описание',
-		'description': u'Техническое описание',
-		'specs': u'Параметры',
-		'reports': u'Отчёты',
-		'datasheet': u'Даташит',
-	}
 
 	def __init__(self, headers, fields, product_data):
 		self._headers = headers
 		self._fields = {f: h for f, h in zip(fields, headers)}
-		self._data = {field: product_data[field] for field in fields}
-		self._small_fields = [field for field in self.small_fields.keys() if field in self._fields]
-		self._large_fields = [field for field in self.large_fields.keys() if field in self._fields]
+		self._data = {field: product_data[field] or '-' for field in fields}
+		self._small_fields = [field for field in small_fields.keys() if field in self._fields]
+		self._large_fields = [field for field in large_fields.keys() if field in self._fields]
 
 	def _append_header(self, sheet):
 		header_cell = sheet['A1']
