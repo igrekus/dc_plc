@@ -206,9 +206,9 @@ def get_data():
 				},
 				{
 					"type": "page",
-					"label": _("export"),
+					"label": _("Export tool"),
 					"name": "dc_product_export",
-					"description": _("export"),
+					"description": _("Export DC product data"),
 					"onboard": 1
 				},
 			]
