@@ -1,6 +1,7 @@
 import frappe
 
 
+# TODO properly escape filter items
 def get_full_stats(filters):
 	db_name = frappe.conf.get("db_name")
 
