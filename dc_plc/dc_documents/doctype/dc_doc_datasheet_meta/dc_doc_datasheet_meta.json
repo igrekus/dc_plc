@@ -15,7 +15,7 @@
    "fieldname": "title",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Ttile"
+   "label": "Title"
   },
   {
    "fieldname": "link_doc_type",
@@ -39,7 +39,7 @@
    "read_only": 1
   }
  ],
- "modified": "2019-08-26 15:49:05.519083",
+ "modified": "2019-08-26 15:53:42.738652",
  "modified_by": "Administrator",
  "module": "DC Documents",
  "name": "DC_Doc_Datasheet_Meta",
