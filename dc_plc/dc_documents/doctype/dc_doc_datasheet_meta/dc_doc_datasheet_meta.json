@@ -11,11 +11,11 @@
  ],
  "fields": [
   {
-   "fetch_from": "attached_file.file_name",
    "fieldname": "title",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Title"
+   "label": "Title",
+   "read_only": 1
   },
   {
    "fieldname": "link_doc_type",
@@ -31,15 +31,13 @@
    "label": "File"
   },
   {
-   "default": "&nbsp",
    "fieldname": "info_file",
    "fieldtype": "HTML",
    "label": "File",
-   "options": "&nbsp",
    "read_only": 1
   }
  ],
- "modified": "2019-08-26 15:53:42.738652",
+ "modified": "2019-08-27 13:13:02.359153",
  "modified_by": "Administrator",
  "module": "DC Documents",
  "name": "DC_Doc_Datasheet_Meta",
@@ -68,9 +66,71 @@
    "role": "DC_PLC_Tech_Writer",
    "share": 1,
    "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_Process_Map_Specialist",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_Desdoc_Specialist",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_Guest",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_RnD_Specialist",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_MMIC_Dept_Head",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_Developer",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_Opcon_Specialist",
+   "share": 1
   }
  ],
- "quick_entry": 1,
  "restrict_to_domain": "Design Center",
  "sort_field": "modified",
  "sort_order": "DESC",

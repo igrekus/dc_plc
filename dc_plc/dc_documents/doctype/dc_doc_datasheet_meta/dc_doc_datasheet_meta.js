@@ -12,9 +12,17 @@ frappe.ui.form.on('DC_Doc_Datasheet_Meta', {
 			},
 			callback: r => {
 				let file = r.message;
+				let title = frm.doc['title'];
+				if (title !== file.file_name) {
+					frm.set_value('title', file.file_name);
+					frm.save();
+				}
 				frm.fields_dict['info_file'].wrapper.innerHTML =
+					file.name ?
 					'<span class="control-label">Метаданные файла</span><br/>' +
-					`<span><a class="attached-file-link" target="_blank" href="/desk#Form/File/${file.name}">test_datasheet.txt</a></span>`;
+					`<span><a class="attached-file-link" target="_blank" href="/desk#Form/File/${file.name}">${file.file_name}</a></span>`
+					:
+					'<span class="control-label">Метаданные файла</span><br/><span>Файл не прикреплён</span>';
 			}
 		});
 	}
