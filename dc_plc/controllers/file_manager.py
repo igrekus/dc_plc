@@ -50,3 +50,36 @@ AND `f`.`attached_to_name` = %(docname)s"""
 
 	return res[0] if res else {}
 
+
+@frappe.whitelist()
+def datasheet_search_query(doctype, txt, searchfield, start, page_len, filters):
+	"""
+	:param doctype:
+	:param txt:
+	:param searchfield:
+	:param start:
+	:param page_len:
+	:param filters:
+	:return:
+	"""
+
+	db_name = frappe.conf.get("db_name")
+
+	sql = f"""
+SELECT
+	`m`.`name`
+	, `m`.`title`
+FROM `{db_name}`.tabDC_Doc_Datasheet_Meta AS `m`
+WHERE 
+	(`m`.`name` LIKE %(search)s OR `m`.`title` LIKE %(search)s)
+ORDER BY
+	`m`.`name` ASC, `m`.`title` ASC"""
+
+	res = frappe.db.sql(
+		sql + ';',
+		{
+			'search': '%{}%'.format(txt)
+		}
+	)
+
+	return res
