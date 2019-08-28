@@ -54,11 +54,11 @@
   "process_map",
   "sec_tech_writer",
   "rel_check_tech_writer",
+  "rel_date_tech_writer",
   "application",
   "final_description",
-  "col_tech_writer",
-  "rel_date_tech_writer",
   "datasheet",
+  "tab_datasheet",
   "sec_desdoc",
   "rel_check_desdoc",
   "int_num",
@@ -201,7 +201,7 @@
    "default": "-",
    "fieldname": "datasheet",
    "fieldtype": "Data",
-   "in_list_view": 1,
+   "hidden": 1,
    "label": "Datasheet",
    "permlevel": 6
   },
@@ -313,10 +313,6 @@
    "fieldtype": "Section Break",
    "label": "Responsible: tech writer",
    "read_only": 1
-  },
-  {
-   "fieldname": "col_tech_writer",
-   "fieldtype": "Column Break"
   },
   {
    "collapsible": 1,
@@ -499,9 +495,15 @@
    "fieldtype": "Small Text",
    "label": "Final description",
    "permlevel": 6
+  },
+  {
+   "fieldname": "tab_datasheet",
+   "fieldtype": "Table",
+   "label": "Datasheets",
+   "options": "DC_Doc_Datasheets_in_Datasheet_List"
   }
  ],
- "modified": "2019-07-15 17:19:50.627692",
+ "modified": "2019-08-28 13:16:20.507071",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",
