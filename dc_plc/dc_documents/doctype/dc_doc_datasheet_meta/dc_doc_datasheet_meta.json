@@ -1,0 +1,138 @@
+{
+ "creation": "2019-08-26 15:22:40.555290",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "info_file",
+  "title",
+  "link_doc_type",
+  "attached_file"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title",
+   "read_only": 1
+  },
+  {
+   "fieldname": "link_doc_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Document type",
+   "options": "DC_Doc_Document_Type"
+  },
+  {
+   "fieldname": "attached_file",
+   "fieldtype": "Attach",
+   "in_list_view": 1,
+   "label": "File"
+  },
+  {
+   "fieldname": "info_file",
+   "fieldtype": "HTML",
+   "label": "File",
+   "read_only": 1
+  }
+ ],
+ "modified": "2019-08-27 13:13:02.359153",
+ "modified_by": "Administrator",
+ "module": "DC Documents",
+ "name": "DC_Doc_Datasheet_Meta",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_Tech_Writer",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_Process_Map_Specialist",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_Desdoc_Specialist",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_Guest",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_RnD_Specialist",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_MMIC_Dept_Head",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_Developer",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_Opcon_Specialist",
+   "share": 1
+  }
+ ],
+ "restrict_to_domain": "Design Center",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
