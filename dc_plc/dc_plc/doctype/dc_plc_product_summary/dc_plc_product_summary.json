@@ -500,10 +500,11 @@
    "fieldname": "tab_datasheet",
    "fieldtype": "Table",
    "label": "Datasheets",
-   "options": "DC_Doc_Datasheets_in_Datasheet_List"
+   "options": "DC_Doc_Datasheets_in_Datasheet_List",
+   "permlevel": 6
   }
  ],
- "modified": "2019-08-28 13:16:20.507071",
+ "modified": "2019-08-29 15:54:11.908927",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",
