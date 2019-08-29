@@ -6,6 +6,7 @@
  "field_order": [
   "link_datasheet_meta",
   "doc_type",
+  "doc_subtype",
   "file_name"
  ],
  "fields": [
@@ -30,10 +31,17 @@
    "in_list_view": 1,
    "label": "File name",
    "read_only": 1
+  },
+  {
+   "fieldname": "doc_subtype",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Subtype",
+   "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2019-08-26 18:57:45.494348",
+ "modified": "2019-08-29 15:26:24.435588",
  "modified_by": "Administrator",
  "module": "DC Documents",
  "name": "DC_Doc_Datasheets_in_Datasheet_List",
