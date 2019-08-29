@@ -10,9 +10,12 @@ SELECT
 	`m`.`name` 
 	, `m`.`title` AS `meta_title`
 	, `t`.`title` AS `type_title`
+	, `s`.`title` AS `subtype_title`
 FROM `{db_name}`.tabDC_Doc_Datasheet_Meta AS `m`
 INNER JOIN  `{db_name}`.tabDC_Doc_Document_Type AS `t`
 ON `m`.`link_doc_type` = `t`.`name`
+INNER JOIN  `{db_name}`.tabDC_Doc_Document_Subtype AS `s`
+ON `m`.`link_subtype` = `s`.`name`
 WHERE `m`.`name` = %(meta_id)s
 """
 	res = frappe.db.sql(

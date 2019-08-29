@@ -1,54 +1,24 @@
 {
- "creation": "2019-08-26 15:22:40.555290",
+ "autoname": "DST.###",
+ "creation": "2019-08-29 14:52:13.237833",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "info_file",
-  "title",
-  "link_doc_type",
-  "link_subtype",
-  "attached_file"
+  "title"
  ],
  "fields": [
   {
    "fieldname": "title",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Title",
-   "read_only": 1
-  },
-  {
-   "fieldname": "link_doc_type",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Type",
-   "options": "DC_Doc_Document_Type"
-  },
-  {
-   "fieldname": "attached_file",
-   "fieldtype": "Attach",
-   "in_list_view": 1,
-   "label": "File"
-  },
-  {
-   "fieldname": "info_file",
-   "fieldtype": "HTML",
-   "label": "File",
-   "read_only": 1
-  },
-  {
-   "fieldname": "link_subtype",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Subtype",
-   "options": "DC_Doc_Document_Subtype"
+   "label": "Title"
   }
  ],
- "modified": "2019-08-29 15:17:03.745934",
+ "modified": "2019-08-29 14:52:13.237833",
  "modified_by": "Administrator",
  "module": "DC Documents",
- "name": "DC_Doc_Datasheet_Meta",
+ "name": "DC_Doc_Document_Subtype",
  "owner": "Administrator",
  "permissions": [
   {
@@ -64,16 +34,13 @@
    "write": 1
   },
   {
-   "create": 1,
-   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "DC_PLC_Tech_Writer",
-   "share": 1,
-   "write": 1
+   "role": "DC_PLC_Process_Map_Specialist",
+   "share": 1
   },
   {
    "email": 1,
@@ -81,7 +48,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "DC_PLC_Process_Map_Specialist",
+   "role": "DC_PLC_Tech_Writer",
    "share": 1
   },
   {
@@ -139,6 +106,7 @@
    "share": 1
   }
  ],
+ "quick_entry": 1,
  "restrict_to_domain": "Design Center",
  "search_fields": "title",
  "sort_field": "modified",

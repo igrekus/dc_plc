@@ -194,6 +194,27 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
 
 });
 
+
+frappe.ui.form.on('DC_Doc_Datasheets_in_Datasheet_List', {
+    link_datasheet_meta: function (frm, cdt, cdn) {
+        let row_id = locals[cdt][cdn]['link_datasheet_meta'];
+        frappe.call({
+            method: 'dc_plc.controllers.file_manager.get_datasheet_meta',
+            args: {
+                meta_id: row_id,
+            },
+            callback: r => {
+                let meta_data = r.message;
+                console.log(meta_data);
+                console.log(frappe.model.get_doc(cdt, cdn));
+                frappe.model.set_value(cdt, cdn, 'doc_type', meta_data['type_title']);
+                frappe.model.set_value(cdt, cdn, 'doc_subtype', meta_data['subtype_title']);
+                frappe.model.set_value(cdt, cdn, 'file_name', meta_data['meta_title']);
+            }
+        });
+    },
+});
+
 // List of Triggers
 //
 // Field Names (see the company example above)
