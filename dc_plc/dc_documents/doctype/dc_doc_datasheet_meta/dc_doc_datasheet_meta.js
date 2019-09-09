@@ -1,8 +1,16 @@
 // Copyright (c) 2019, igrekus and contributors
 // For license information, please see license.txt
 
+let value_or_none = frappe.dc_plc.utils.value_or_none;
+let set_field_title = frappe.dc_plc.utils.ui.set_field_title;
+let render_info_field = frappe.dc_plc.utils.ui.render_info_field;
+
+
 frappe.ui.form.on('DC_Doc_Datasheet_Meta', {
 	refresh: frm => {
+		set_field_title(frm,'link_subtype');
+		render_info_field(frm, 'info_type', 'Подтип документа', 'subtype');
+
 		frappe.call({
 			method: 'dc_plc.controllers.file_manager.get_file_meta',
 			args: {
@@ -17,13 +25,19 @@ frappe.ui.form.on('DC_Doc_Datasheet_Meta', {
 					frm.set_value('title', file.file_name);
 					frm.save();
 				}
-				frm.fields_dict['info_file'].wrapper.innerHTML =
+				render_info_field(
+					frm,
+					'info_file',
+					'Метаданные файла',
 					file.name ?
-					'<span class="control-label">Метаданные файла</span><br/>' +
-					`<span><a class="attached-file-link" target="_blank" href="/desk#Form/File/${file.name}">${file.file_name}</a></span>`
-					:
-					'<span class="control-label">Метаданные файла</span><br/><span>Файл не прикреплён</span>';
+						`<a class="attached-file-link" target="_blank" href="/desk#Form/File/${file.name}">${file.file_name}</a></span>`
+						:
+						'Файл не прикреплён'
+				);
 			}
 		});
+	},
+	link_subtype: frm => {
+		set_field_title(frm,'link_subtype');
 	}
 });
