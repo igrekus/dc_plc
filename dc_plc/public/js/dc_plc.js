@@ -3,6 +3,7 @@
 	frappe.provide('frappe.dc_plc.utils');
 	frappe.provide('frappe.dc_plc.utils.handlers');
 	frappe.provide('frappe.dc_plc.utils.formatters');
+	frappe.provide('frappe.dc_plc.utils.ui');
 
 	frappe.require('assets/dc_plc/js/utils/formatter.js', () => {
 		frappe.dc_plc.utils.formatters.mmic_dept_head_formatter = mmic_dept_head_formatter;
@@ -37,6 +38,38 @@
 		if (index > str.length - 1)
 			return str;
 		return str.substr(0, index) + char + str.substr(index + 1);
+	};
+
+	let value_or_none = value => {
+		return value ? value : '-';
+	};
+	frappe.dc_plc.utils.value_or_none = value_or_none;
+
+	let render_field_title = (frm, title, text) => {
+		let field = frm.fields_dict[title];
+		field.label_span.innerHTML = `${__(field._label)}&nbsp-&nbsp<b>${text}</b>`;
+	};
+	frappe.dc_plc.utils.ui.render_field_title = render_field_title;
+
+	let render_info_field = (frm, field, label, content) => {
+		frm.fields_dict[field].wrapper.innerHTML = `<span class="text-muted">${label}</span><br/><span>${content}</span>`;
+	};
+	frappe.dc_plc.utils.ui.render_info_field = render_info_field;
+
+	frappe.dc_plc.utils.ui.set_field_title = (frm, title) => {
+		if (!frm.fields_dict[title].value)
+			return;
+		frappe.db.get_doc(frm.fields_dict[title].df.options, frm.fields_dict[title].value).then(result => {
+			render_field_title(frm, title, value_or_none(result.title));
+		});
+	};
+
+	frappe.dc_plc.utils.ui.set_info_field = (frm, field, title) => {
+		if (!frm.fields_dict[field].value)
+			return;
+		frappe.db.get_doc(frm.fields_dict[field].df.options, frm.fields_dict[field].value).then(result => {
+			render_info_field(frm, field.replace('link_', 'info_'), title, value_or_none(result.title));
+		});
 	};
 
 	console.log('>>> DC PLC init finished <<<');
