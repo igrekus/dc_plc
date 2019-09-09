@@ -5,8 +5,8 @@
  "engine": "InnoDB",
  "field_order": [
   "info_file",
+  "info_type",
   "title",
-  "link_doc_type",
   "link_subtype",
   "attached_file"
  ],
@@ -17,13 +17,6 @@
    "in_list_view": 1,
    "label": "Title",
    "read_only": 1
-  },
-  {
-   "fieldname": "link_doc_type",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Type",
-   "options": "DC_Doc_Document_Type"
   },
   {
    "fieldname": "attached_file",
@@ -43,9 +36,15 @@
    "in_list_view": 1,
    "label": "Subtype",
    "options": "DC_Doc_Document_Subtype"
+  },
+  {
+   "fieldname": "info_type",
+   "fieldtype": "HTML",
+   "label": "Type",
+   "read_only": 1
   }
  ],
- "modified": "2019-08-29 15:17:03.745934",
+ "modified": "2019-08-29 16:40:06.564247",
  "modified_by": "Administrator",
  "module": "DC Documents",
  "name": "DC_Doc_Datasheet_Meta",
