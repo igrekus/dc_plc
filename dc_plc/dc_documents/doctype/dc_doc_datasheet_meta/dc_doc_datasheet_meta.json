@@ -8,7 +8,8 @@
   "info_type",
   "title",
   "link_subtype",
-  "attached_file"
+  "attached_file",
+  "note"
  ],
  "fields": [
   {
@@ -42,9 +43,14 @@
    "fieldtype": "HTML",
    "label": "Type",
    "read_only": 1
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "Note"
   }
  ],
- "modified": "2019-08-29 16:40:06.564247",
+ "modified": "2019-09-17 17:30:58.512588",
  "modified_by": "Administrator",
  "module": "DC Documents",
  "name": "DC_Doc_Datasheet_Meta",
