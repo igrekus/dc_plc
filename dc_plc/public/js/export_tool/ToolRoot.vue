@@ -79,15 +79,6 @@
 			}
 		},
 		methods: {
-			// toggleSelection(rows) {
-			// 	if (rows) {
-			// 		rows.forEach(row => {
-			// 			this.$refs.exportTable.toggleRowSelection(row);
-			// 		});
-			// 	} else {
-			// 		this.$refs.exportTable.clearSelection();
-			// 	}
-			// },
 			querySearchAsync(queryString, cb) {
 				frappe.call({
 					method: "dc_plc.controllers.export_tool.export_product_search",
