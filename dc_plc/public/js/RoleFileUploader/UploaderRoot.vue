@@ -114,10 +114,7 @@
 					file_url: 'file/url',
 					note: 'noteeee'
 				}
-				// 	/*
-				// 		  handleAvatarSuccess(res, file) {
-				// this.imageUrl = URL.createObjectURL(file.raw);
-				// },*/
+				
 			},
 			handleAttachModeToggle() {
 				this.currentDatasheet = null;
