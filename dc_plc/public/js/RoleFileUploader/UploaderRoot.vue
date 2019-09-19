@@ -130,7 +130,6 @@
 						query: queryString,
 					},
 					callback: r => {
-						console.log(r.message);
 						cb(r.message);
 					}
 				});
