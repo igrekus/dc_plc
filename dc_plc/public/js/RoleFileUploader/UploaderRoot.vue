@@ -1,7 +1,5 @@
 <template>
 	<div>
-		{{ intNum }}
-		{{ extNum }}
 		<el-row>
 			<el-switch
 					v-model="uploadNew"
@@ -113,8 +111,9 @@
 					value: 'title',
 					file_url: 'file/url',
 					note: 'noteeee'
-				}
-				
+				};
+				console.log(result);
+				console.log(file);
 			},
 			handleAttachModeToggle() {
 				this.currentDatasheet = null;
