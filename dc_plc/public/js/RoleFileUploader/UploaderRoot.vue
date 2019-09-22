@@ -12,14 +12,15 @@
 		</el-row>
 		<div v-if="uploadNew">
 			<el-row>
-				<div class="text-muted">Имя файла</div>
-				<el-input v-model="fileName"/>
+				<el-input
+						placeholder="Имя файла"
+						v-model="fileName" />
 			</el-row>
 			<el-row>
 				<el-input
 						type="textarea"
 						autosize
-						placeholder="Введите комментарий..."
+						placeholder="Комментарий..."
 						v-model="note" />
 			</el-row>
 			<el-row>
@@ -61,7 +62,7 @@
 				<div class="file-info">{{ currentDatasheet.value }}</div>
 				<div class="text-muted">Путь к файлу:</div>
 				<div class="file-info">{{ currentDatasheet.file_url }}</div>
-				<div class="text-muted">Примечание:</div>
+				<div class="text-muted">Комментарий:</div>
 				<div class="file-info">{{ currentDatasheet.note }}</div>
 			</el-row>
 		</div>
