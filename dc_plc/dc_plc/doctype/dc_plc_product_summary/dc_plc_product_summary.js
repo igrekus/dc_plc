@@ -53,8 +53,7 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
 
         frm.fields_dict['tab_datasheet'].grid.add_custom_button('Добавить даташит', () => {
             upload_datasheet({
-                intNum: frm.get_field('int_num').value,
-                extNum: frm.get_field('ext_num').value,
+                product: frm.doc,
             });
         });
         let tech_writer_grid = $('.form-group*[data-fieldname="tab_datasheet"]');
@@ -182,12 +181,10 @@ frappe.ui.form.on('DC_Doc_Datasheets_in_Datasheet_List', {
     },
 });
 
-let upload_datasheet = ({intNum='', extNum=''}) => {
+let upload_datasheet = ({product}) => {
     new frappe.dc_plc.RoleFileUploader({
-        intNum: intNum,
-        extNum: extNum
+        product: product,
     });
-
 };
 
 // List of Triggers

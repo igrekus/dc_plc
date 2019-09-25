@@ -32,7 +32,6 @@
 						:before-upload="beforeUpload"
 						:on-remove="handleRemove"
 						:on-exceed="handleExceed"
-						:on-progress="handleProgress"
 						:on-success="handleSuccess"
 						:http-request="handleUploadRequest"
 						:file-list="fileList">
@@ -82,47 +81,59 @@
 		},
 		data() {
 			return {
+				isUploading: false,
 				state: '',
 				uploadNew: false,
 				fileName: '',
 				note: '',
 				fileList: [],
-				currentDatasheet: null
+				currentDatasheet: null,
+				tempFileName: '',
 			}
 		},
 		methods: {
 			beforeUpload(file) {
 				const { size } = file;
-				const isAllowedSize = (size / 1024 / 1024) < 70;
+				const isAllowedSize = (size / 1024 / 1024) < this.allowedFileSize;
 
 				if (!isAllowedSize) {
 					this.$message.warning(`Размер файла не должен превышать ${this.allowedFileSize} Мб`);
 				}
 				return isAllowedSize;
 			},
-			handleRemove() {
-				console.log('handle remove');
+			handleRemove(file, fileList) {
+				self = this;
+				frappe.call({
+					method: "dc_plc.controllers.role_file_uploader.remove_temp_file",
+					args: {
+						filename: this.tempFileName,
+					},
+					callback: function () {
+						self.fileName = null;
+						self.currentDatasheet = null;
+					}
+				});
 			},
 			handleExceed(files, fileList) {
 				this.$message.warning(`За один раз можно загрузить только один файл`);
 			},
-			handleProgress(event, file, fileList) {
-				console.log(event, file, fileList);
-			},
-			handleSuccess(result, file) {
-				console.log('handle success');
+			handleSuccess(response, file) {
 				this.currentDatasheet = {
-					label: 'id',
-					value: 'title',
-					file_url: 'file/url',
-					note: 'noteeee'
+					label: null,
+					value: file.name,
+					file_url: `./site1.local/public/files/datasheets/`,
+					note: this.note
 				};
-				// console.log(result);
-				// console.log(file);
+				this.tempFileName = JSON.parse(response).message;
 				this.fileName = file.name;
+
+				// TODO hack to indicate upload complete
+				this.$children[3].$children[0].uploadFiles[0].status = 'success';
+				this.isUploading = false;
 			},
 			handleAttachModeToggle() {
 				this.currentDatasheet = null;
+				this.fileName = '';
 				this.state = '';
 			},
 			querySearchAsync(queryString, cb) {
@@ -140,9 +151,8 @@
 				this.currentDatasheet = item;
 			},
 			handleUploadRequest(param) {
-				// console.log(param);
-
-				let url = "http://localhost:8000/api/method/dc_plc.controllers.role_file_uploader.upload_file";
+				this.isUploading = true;
+				let url = "api/method/dc_plc.controllers.role_file_uploader.upload_file";
 				let file = param.file;
 
 				let form = new FormData();
@@ -156,7 +166,14 @@
 				xhr.setRequestHeader('Accept', 'application/json');
 				xhr.setRequestHeader('X-Frappe-CSRF-Token', frappe.csrf_token);
 
-				xhr.upload.addEventListener("progress", (progress) => {console.log(progress)}, false);
+				if (xhr.upload) {
+					xhr.upload.onprogress = function progress(e) {
+						if (e.total > 0) {
+							e.percent = e.loaded / e.total * 100;
+						}
+						param.onProgress(e);
+					};
+				}
 
 				let self = this;
 				xhr.onload = function () {
