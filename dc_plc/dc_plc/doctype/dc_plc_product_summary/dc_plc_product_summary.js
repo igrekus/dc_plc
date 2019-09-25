@@ -53,12 +53,13 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
 
         frm.fields_dict['tab_datasheet'].grid.add_custom_button('Добавить даташит', () => {
             upload_datasheet({
+                frm: frm,
                 product: frm.doc,
             });
         });
         let tech_writer_grid = $('.form-group*[data-fieldname="tab_datasheet"]');
         tech_writer_grid.find('.btn.grid-add-row').hide();
-        tech_writer_grid.find('.btn.grid-remove-rows').hide();
+        // tech_writer_grid.find('.btn.grid-remove-rows').hide();
     },
     ext_num: frm => render_info_field(frm, 'info_ext_num', 'Внешний номер', value_or_none(frm.get_field('ext_num').value)),
     int_num: frm => render_info_field(frm, 'info_int_num', 'Внутренний номер', value_or_none(frm.get_field('int_num').value)),
@@ -181,8 +182,9 @@ frappe.ui.form.on('DC_Doc_Datasheets_in_Datasheet_List', {
     },
 });
 
-let upload_datasheet = ({product}) => {
+let upload_datasheet = ({frm, product}) => {
     new frappe.dc_plc.RoleFileUploader({
+        form: frm,
         product: product,
     });
 };

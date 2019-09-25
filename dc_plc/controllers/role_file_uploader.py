@@ -2,6 +2,9 @@ import contextlib
 import frappe
 import os
 
+from dc_plc.dc_plc.doctype.dc_plc_product_summary.dc_plc_product_summary import DC_PLC_Product_Summary
+from dc_plc.dc_documents.doctype.dc_doc_datasheet_meta.dc_doc_datasheet_meta import DC_Doc_Datasheet_Meta
+
 
 @frappe.whitelist()
 def search_existing_datasheets(query):
@@ -110,9 +113,28 @@ def remove_temp_file(filename):
 
 @frappe.whitelist()
 def add_datasheet(prod_id, datasheet, temp_file):
-	frappe.msgprint(datasheet)
-	# ds = frappe.parse_json(datasheet)
-	# frappe.msgprint(prod_id)
-	# frappe.msgprint(str(ds))
-	# frappe.msgprint(temp_file)
+	ds = frappe.parse_json(datasheet)
+
+	if ds['label']:
+		add_existing_datasheet(prod_id, ds)
+	else:
+		add_new_datasheet()
+
 	return 'success'
+
+
+def add_existing_datasheet(prod_id, datasheet):
+	# TODO use single query is performance degrading
+	doc: DC_PLC_Product_Summary = frappe.get_doc('DC_PLC_Product_Summary', prod_id)
+	meta: DC_Doc_Datasheet_Meta = frappe.get_doc('DC_Doc_Datasheet_Meta', datasheet['label'])
+	doc_subype = frappe.get_doc('DC_Doc_Document_Subtype', meta.link_subtype)
+	doc_type = frappe.get_doc('DC_Doc_Document_Type', doc_subype.link_doc_type)
+
+	doc.append('tab_datasheet', {
+		'link_datasheet_meta': meta.name,
+		'doc_type': doc_type.title,
+		'doc_subtype': doc_subype.title
+	})
+	doc.save()
+
+	return True

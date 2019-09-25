@@ -39,19 +39,14 @@ frappe.dc_plc.RoleFileUploader = class {
 			method: "dc_plc.controllers.role_file_uploader.add_datasheet",
 			args: {
 				prod_id: self.product.name,
-				datasheet: self.uploader.currentDatasheet,
-				temp_file: self.uploader.tempFileName
+				datasheet: datasheet,
+				temp_file: tempFileName
 			},
 			callback: function (r) {
-				console.log(r.message);
-				// this.dialog && this.dialog.hide();
+				self.dialog.hide();
+				self.form.reload_doc();
 			}
 		});
-		// this.dialog && this.dialog.get_primary_btn().prop('disabled', true);
-		// return this.uploader.upload_files()
-		// 	.then(() => {
-		// 		this.dialog && this.dialog.hide();
-		// 	});
 	}
 
 	make_dialog({title, } = {}) {
