@@ -4,20 +4,11 @@ frappe.provide('frappe.dc_plc');
 
 frappe.dc_plc.RoleFileUploader = class {
 	constructor({
+		form,
 		product,
-		wrapper,
-		method,
-		on_success,
-		doctype,
-		docname,
-		files,
-		folder,
-		restrictions,
-		upload_notes,
-		allow_multiple,
-		as_dataurl
 	} = {}) {
 		this.product = product;
+		this.form = form;
 
 		this.make_dialog({
 			title: 'Добавить даташит'
@@ -30,25 +21,10 @@ frappe.dc_plc.RoleFileUploader = class {
 					extNum: product['ext_num'],
 					intNum: product['int_num'],
 					allowedFileSize: 10,
-					// show_upload_button: !Boolean(this.dialog),
-					// doctype,
-					// docname,
-					// method,
-					// folder,
-					// on_success,
-					// restrictions,
-					// upload_notes,
-					// allow_multiple,
-					// as_dataurl
 				}
 			})
 		});
-
 		this.uploader = this.$fileuploader.$children[0];
-
-		// if (files && files.length) {
-		// 	this.uploader.add_files(files);
-		// }
 	}
 
 	upload_files() {
@@ -57,9 +33,6 @@ frappe.dc_plc.RoleFileUploader = class {
 		if (!datasheet) {
 			return;
 		}
-
-		console.log(datasheet);
-		console.log(tempFileName);
 
 		let self = this;
 		frappe.call({
