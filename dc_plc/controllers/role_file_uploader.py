@@ -1,5 +1,6 @@
+import contextlib
 import frappe
-from frappe.handler import is_whitelisted
+import os
 
 
 @frappe.whitelist()
@@ -50,11 +51,11 @@ def upload_file(*args, **kwargs):
 		content = file.stream.read()
 		filename = file.filename
 
-	uploaded_file_name = './site1.local/temp/upload-' + frappe.generate_hash('', 10) + '.dat'
+	uploaded_file_name = './site1.local/temp/datasheet-' + frappe.generate_hash('', 10) + '.dat'
 	with open(uploaded_file_name, 'wb') as f:
 		f.write(content)
 
-	return True
+	return uploaded_file_name
 	files = frappe.request.files
 	is_private = frappe.form_dict.is_private
 	doctype = frappe.form_dict.doctype
@@ -98,3 +99,20 @@ def upload_file(*args, **kwargs):
 		})
 		ret.save(ignore_permissions=True)
 		return ret
+
+
+@frappe.whitelist()
+def remove_temp_file(filename):
+	with contextlib.suppress(FileNotFoundError):
+		os.remove(filename)
+	return 'success'
+
+
+@frappe.whitelist()
+def add_datasheet(prod_id, datasheet, temp_file):
+	frappe.msgprint(datasheet)
+	# ds = frappe.parse_json(datasheet)
+	# frappe.msgprint(prod_id)
+	# frappe.msgprint(str(ds))
+	# frappe.msgprint(temp_file)
+	return 'success'
