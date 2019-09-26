@@ -181,6 +181,11 @@
 				};
 				xhr.send(form);
 			},
+		},
+		watch: {
+			note: function (new_v, old_v) {
+				this.currentDatasheet.note = new_v;
+			}
 		}
 		// components: {
 		// 	ExportWidget,
