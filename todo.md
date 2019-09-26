@@ -1,17 +1,18 @@
-## ToDo
+## Frappe - ToDo
 
 ### Immediate tasks
-- resize table div to fit in the browser window without scroll
 
-- research print formatter
-- research file attachments API
-
-- implement export app
+- serve recorded file names instead of generated ones
+- forbid attachment button press until all files are uploaded
 
 ### Feats
+- ~~develop datasheet attachment GUI + bacakend~~
+- ~~research print formatter~~
+- ~~implement export app~~
 - ~~fix checkmarks appear unchecked when scrolling the report table~~
 - ~~reset cache when selecting different reports (was a bug actually, not a cache problem)~~
 - ~~fix long string formatting~~
+- ~~resize table div to fit in the browser window without scroll~~
 - ~~add line breaks~~
 - ~~refactor formatters~~
 - ~~add developer filter to developer stats query~~
