@@ -1,7 +1,9 @@
 import contextlib
 import frappe
 import os
+import shutil
 
+from frappe.core.doctype.file.file import File
 from dc_plc.dc_plc.doctype.dc_plc_product_summary.dc_plc_product_summary import DC_PLC_Product_Summary
 from dc_plc.dc_documents.doctype.dc_doc_datasheet_meta.dc_doc_datasheet_meta import DC_Doc_Datasheet_Meta
 
@@ -118,7 +120,7 @@ def add_datasheet(prod_id, datasheet, temp_file):
 	if ds['label']:
 		add_existing_datasheet(prod_id, ds)
 	else:
-		add_new_datasheet()
+		add_new_datasheet(prod_id, ds, temp_file)
 
 	return 'success'
 
@@ -136,5 +138,40 @@ def add_existing_datasheet(prod_id, datasheet):
 		'doc_subtype': doc_subype.title
 	})
 	doc.save()
+
+	return True
+
+
+def add_new_datasheet(prod_id, datasheet, temp_file):
+	file_name = temp_file.split('/')[-1]
+	target_file = f'{datasheet["file_url"]}{file_name}'
+	stored_url = target_file[20:]
+
+	shutil.move(temp_file, target_file)
+	file_info = os.stat(target_file)
+
+	new_meta: DC_Doc_Datasheet_Meta = frappe.get_doc({
+		'doctype': 'DC_Doc_Datasheet_Meta',
+		'title': datasheet['value'],
+		'link_subtype': 'DST002',
+		'attached_file': stored_url,
+		'note': datasheet['note']
+	})
+	new_meta.insert()
+
+	new_file: File = frappe.get_doc({
+		'doctype': 'File',
+		'file_name': datasheet['value'],
+		'is_private': 0,
+		'file_size': file_info.st_size,
+		'file_url': stored_url,
+		'folder': 'Home/Datasheets',
+		'attached_to_doctype': 'DC_Doc_Datasheet_Meta',
+		'attached_to_name': new_meta.name,
+		'attached_to_field': 'attached_file',
+	})
+	new_file.insert()
+
+	add_existing_datasheet(prod_id, datasheet={'label': new_meta.name})
 
 	return True
