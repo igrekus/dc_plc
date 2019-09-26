@@ -1,7 +1,5 @@
 <template>
 	<div>
-		{{ intNum }}
-		{{ extNum }}
 		<el-row>
 			<el-switch
 					v-model="uploadNew"
@@ -14,26 +12,28 @@
 		</el-row>
 		<div v-if="uploadNew">
 			<el-row>
-				<div class="text-muted">Имя файла</div>
-				<el-input v-model="fileName"/>
+				<el-input
+						placeholder="Имя файла"
+						v-model="fileName" />
 			</el-row>
 			<el-row>
 				<el-input
 						type="textarea"
 						autosize
-						placeholder="Введите комментарий..."
+						placeholder="Комментарий..."
 						v-model="note" />
 			</el-row>
 			<el-row>
 				<el-upload
 						class="upload-demo"
 						drag
-						action="https://jsonplaceholder.typicode.com/posts/"
+						action="api/method/dc_plc.controllers.role_file_uploader.upload_file"
 						:limit="1"
 						:before-upload="beforeUpload"
 						:on-remove="handleRemove"
 						:on-exceed="handleExceed"
 						:on-success="handleSuccess"
+						:http-request="handleUploadRequest"
 						:file-list="fileList">
 					<i class="el-icon-upload"></i>
 					<div class="el-upload__text">Для за грузки, перетащите файл <em>нажмите мышкой</em></div>
@@ -63,7 +63,7 @@
 				<div class="file-info">{{ currentDatasheet.value }}</div>
 				<div class="text-muted">Путь к файлу:</div>
 				<div class="file-info">{{ currentDatasheet.file_url }}</div>
-				<div class="text-muted">Примечание:</div>
+				<div class="text-muted">Комментарий:</div>
 				<div class="file-info">{{ currentDatasheet.note }}</div>
 			</el-row>
 		</div>
@@ -81,12 +81,14 @@
 		},
 		data() {
 			return {
+				isUploading: false,
 				state: '',
 				uploadNew: false,
 				fileName: '',
 				note: '',
 				fileList: [],
-				currentDatasheet: null
+				currentDatasheet: null,
+				tempFileName: '',
 			}
 		},
 		methods: {
@@ -95,32 +97,43 @@
 				const isAllowedSize = (size / 1024 / 1024) < this.allowedFileSize;
 
 				if (!isAllowedSize) {
-					this.$message.warning(`Размер файла не должен превышать 10 Мб`);
+					this.$message.warning(`Размер файла не должен превышать ${this.allowedFileSize} Мб`);
 				}
 				return isAllowedSize;
 			},
-			handleRemove() {
-				console.log('handle remove');
+			handleRemove(file, fileList) {
+				self = this;
+				frappe.call({
+					method: "dc_plc.controllers.role_file_uploader.remove_temp_file",
+					args: {
+						filename: this.tempFileName,
+					},
+					callback: function () {
+						self.fileName = null;
+						self.currentDatasheet = null;
+					}
+				});
 			},
 			handleExceed(files, fileList) {
-				this.$message.warning(`За раз можно загрузить только 1 файл`);
+				this.$message.warning(`За один раз можно загрузить только один файл`);
 			},
-
-			handleSuccess(result, file) {
-				console.log('handle success');
+			handleSuccess(response, file) {
 				this.currentDatasheet = {
-					label: 'id',
-					value: 'title',
-					file_url: 'file/url',
-					note: 'noteeee'
-				}
-				// 	/*
-				// 		  handleAvatarSuccess(res, file) {
-				// this.imageUrl = URL.createObjectURL(file.raw);
-				// },*/
+					label: null,
+					value: file.name,
+					file_url: `./site1.local/public/files/datasheets/`,
+					note: this.note
+				};
+				this.tempFileName = JSON.parse(response).message;
+				this.fileName = file.name;
+
+				// TODO hack to indicate upload complete
+				this.$children[3].$children[0].uploadFiles[0].status = 'success';
+				this.isUploading = false;
 			},
 			handleAttachModeToggle() {
 				this.currentDatasheet = null;
+				this.fileName = '';
 				this.state = '';
 			},
 			querySearchAsync(queryString, cb) {
@@ -130,14 +143,44 @@
 						query: queryString,
 					},
 					callback: r => {
-						console.log(r.message);
 						cb(r.message);
 					}
 				});
 			},
 			handleAutocompleteSelect(item) {
 				this.currentDatasheet = item;
-			}
+			},
+			handleUploadRequest(param) {
+				this.isUploading = true;
+				let url = "api/method/dc_plc.controllers.role_file_uploader.upload_file";
+				let file = param.file;
+
+				let form = new FormData();
+				form.append("file", file);
+				form.append("filename", file.name);
+				form.append("test", "test data");
+
+				let xhr = new XMLHttpRequest();
+
+				xhr.open("POST", url, true);
+				xhr.setRequestHeader('Accept', 'application/json');
+				xhr.setRequestHeader('X-Frappe-CSRF-Token', frappe.csrf_token);
+
+				if (xhr.upload) {
+					xhr.upload.onprogress = function progress(e) {
+						if (e.total > 0) {
+							e.percent = e.loaded / e.total * 100;
+						}
+						param.onProgress(e);
+					};
+				}
+
+				let self = this;
+				xhr.onload = function () {
+					self.handleSuccess(xhr.response, file);
+				};
+				xhr.send(form);
+			},
 		}
 		// components: {
 		// 	ExportWidget,

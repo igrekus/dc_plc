@@ -4,20 +4,12 @@ frappe.provide('frappe.dc_plc');
 
 frappe.dc_plc.RoleFileUploader = class {
 	constructor({
-		extNum='ext',
-		intNum='int',
-		wrapper,
-		method,
-		on_success,
-		doctype,
-		docname,
-		files,
-		folder,
-		restrictions,
-		upload_notes,
-		allow_multiple,
-		as_dataurl
+		form,
+		product,
 	} = {}) {
+		this.product = product;
+		this.form = form;
+
 		this.make_dialog({
 			title: 'Добавить даташит'
 		});
@@ -26,37 +18,35 @@ frappe.dc_plc.RoleFileUploader = class {
 			el: this.wrapper,
 			render: h => h(UploaderRoot, {
 				props: {
-					extNum: extNum,
-					intNum: intNum,
+					extNum: product['ext_num'],
+					intNum: product['int_num'],
 					allowedFileSize: 10,
-					// show_upload_button: !Boolean(this.dialog),
-					// doctype,
-					// docname,
-					// method,
-					// folder,
-					// on_success,
-					// restrictions,
-					// upload_notes,
-					// allow_multiple,
-					// as_dataurl
 				}
 			})
 		});
-
 		this.uploader = this.$fileuploader.$children[0];
-
-		// if (files && files.length) {
-		// 	this.uploader.add_files(files);
-		// }
 	}
 
 	upload_files() {
-		console.log('upload', this.uploader.currentDatasheet);
-		// this.dialog && this.dialog.get_primary_btn().prop('disabled', true);
-		// return this.uploader.upload_files()
-		// 	.then(() => {
-		// 		this.dialog && this.dialog.hide();
-		// 	});
+		let datasheet = this.uploader.currentDatasheet;
+		let tempFileName = this.uploader.tempFileName;
+		if (!datasheet) {
+			return;
+		}
+
+		let self = this;
+		frappe.call({
+			method: "dc_plc.controllers.role_file_uploader.add_datasheet",
+			args: {
+				prod_id: self.product.name,
+				datasheet: datasheet,
+				temp_file: tempFileName
+			},
+			callback: function (r) {
+				self.dialog.hide();
+				self.form.reload_doc();
+			}
+		});
 	}
 
 	make_dialog({title, } = {}) {
