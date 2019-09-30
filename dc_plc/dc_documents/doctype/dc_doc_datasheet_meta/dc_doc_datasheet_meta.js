@@ -36,6 +36,12 @@ frappe.ui.form.on('DC_Doc_Datasheet_Meta', {
 				);
 			}
 		});
+		frm.add_custom_button('Скачать', function() {
+			open_url_post('/api/method/dc_plc.controllers.file_manager.serve_as_filename', {
+				src_url: frm.doc.attached_file,
+				target_name: frm.doc.title,
+			}, true);
+		});
 	},
 	link_subtype: frm => {
 		set_field_title(frm,'link_subtype');

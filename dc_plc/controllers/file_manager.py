@@ -1,4 +1,6 @@
 import frappe
+import os
+import six
 
 
 @frappe.whitelist()
@@ -52,6 +54,15 @@ AND `f`.`attached_to_name` = %(docname)s"""
 	)
 
 	return res[0] if res else {}
+
+
+@frappe.whitelist()
+def serve_as_filename(src_url, target_name):
+	source = f'./site1.local/public{src_url}'
+	with open(source, mode='rb') as f:
+		frappe.response['filename'] = target_name
+		frappe.response['filecontent'] = six.BytesIO(f.read()).getvalue()
+		frappe.response['type'] = 'binary'
 
 
 @frappe.whitelist()
