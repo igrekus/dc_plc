@@ -104,7 +104,10 @@ def add_new_datasheet(prod_id, datasheet, temp_file):
 	target_file = f'{datasheet["file_url"]}{file_name}'
 	stored_url = target_file[20:]
 
-	shutil.move(temp_file, target_file)
+	try:
+		shutil.move(temp_file, target_file, copy_function=shutil.copy)
+	except PermissionError:
+		pass
 	file_info = os.stat(target_file)
 
 	new_meta: DC_Doc_Datasheet_Meta = frappe.get_doc({
