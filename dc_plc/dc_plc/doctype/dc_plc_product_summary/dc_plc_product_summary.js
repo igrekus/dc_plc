@@ -172,8 +172,6 @@ frappe.ui.form.on('DC_Doc_Datasheets_in_Datasheet_List', {
             },
             callback: r => {
                 let meta_data = r.message;
-                console.log(meta_data);
-                console.log(frappe.model.get_doc(cdt, cdn));
                 frappe.model.set_value(cdt, cdn, 'doc_type', meta_data['type_title']);
                 frappe.model.set_value(cdt, cdn, 'doc_subtype', meta_data['subtype_title']);
                 frappe.model.set_value(cdt, cdn, 'file_name', meta_data['meta_title']);
