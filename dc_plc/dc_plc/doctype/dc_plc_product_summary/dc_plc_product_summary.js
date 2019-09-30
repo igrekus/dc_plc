@@ -18,21 +18,21 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
         frm.fields_dict['tab_developers'].grid.get_field('link_employee').get_query = function (doc, cut, cdn) {
             return {
                 query: 'dc_plc.controllers.queries.developer_query'
-            }
-        };
+			}
+		};
 
-        set_field_title(frm,'link_function');
-        set_field_title(frm,'link_package');
-        set_field_title(frm,'link_rnd_project');
-        set_field_title(frm,'link_type');
-        set_field_title(frm,'link_status');
-        set_field_title(frm,'link_letter');
+		set_field_title(frm, 'link_function');
+		set_field_title(frm, 'link_package');
+		set_field_title(frm, 'link_rnd_project');
+		set_field_title(frm, 'link_type');
+		set_field_title(frm, 'link_status');
+		set_field_title(frm, 'link_letter');
 
-        set_info_field(frm,'link_function', 'Функция');
-        set_info_field(frm,'link_rnd_project', 'Наименование ОКР');
+		set_info_field(frm, 'link_function', 'Функция');
+		set_info_field(frm, 'link_rnd_project', 'Наименование ОКР');
 
-        render_info_field(frm, 'info_ext_num', 'Внешний номер', value_or_none(frm.get_field('ext_num').value));
-        render_info_field(frm, 'info_int_num', 'Внутренний номер', value_or_none(frm.get_field('int_num').value));
+		render_info_field(frm, 'info_ext_num', 'Внешний номер', value_or_none(frm.get_field('ext_num').value));
+		render_info_field(frm, 'info_int_num', 'Внутренний номер', value_or_none(frm.get_field('int_num').value));
         render_info_field(frm, 'info_description', 'Описание', value_or_none(frm.get_field('description').value).split('\n').join('<br>'));
         render_info_field(frm, 'info_specs', 'Параметры', value_or_none(frm.get_field('specs').value).split('\n').join('<br>'));
 
