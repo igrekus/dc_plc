@@ -57,6 +57,29 @@ AND `f`.`attached_to_name` = %(docname)s"""
 
 
 @frappe.whitelist()
+def serve_datasheet(meta_id):
+	db_name = frappe.conf.get("db_name")
+
+	sql = f"""
+	SELECT
+	`m`.`title` AS `meta_title`
+	, `m`.`attached_file`
+	FROM `{db_name}`.`tabDC_Doc_Datasheet_Meta` AS `m`
+	WHERE `m`.`name` = %(meta_id)s
+	"""
+	res = frappe.db.sql(
+		query=sql + ';',
+		values={
+			'meta_id': f'{meta_id}'
+		},
+		as_list=1
+	)
+
+	target, source = res[0]
+	serve_as_filename(source, target)
+
+
+@frappe.whitelist()
 def serve_as_filename(src_url, target_name):
 	source = f'./site1.local/public{src_url}'
 	with open(source, mode='rb') as f:
