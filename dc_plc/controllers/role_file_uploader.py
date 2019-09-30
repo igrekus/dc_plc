@@ -31,9 +31,14 @@ INNER JOIN
 WHERE
 	`s`.`name` = 'DST002'
 AND
-	`m`.`title` LIKE  %(search)s 
+	(
+	`m`.`title` LIKE  %(search)s
+	OR
+	DATE(`m`.`creation`) < %(date)s
+	) 
 LIMIT 10;""", {
-		'search': '%{}%'.format(query)
+		'search': '%{}%'.format(query),
+		'date': '{}'.format(query),
 	})
 
 	return [
