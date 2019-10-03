@@ -40,7 +40,7 @@ frappe.ui.form.on('DC_Doc_Datasheet_Meta', {
 			open_url_post('/api/method/dc_plc.controllers.file_manager.serve_as_filename', {
 				src_url: frm.doc.attached_file,
 				target_name: frm.doc.title,
-			}, true);
+			}, false);
 		});
 	},
 	link_subtype: frm => {
