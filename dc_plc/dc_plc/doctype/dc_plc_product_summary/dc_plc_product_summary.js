@@ -182,7 +182,7 @@ frappe.ui.form.on('DC_Doc_Datasheets_in_Datasheet_List', {
 		let row = frappe.model.get_doc(cdt, cdn);
 		open_url_post('/api/method/dc_plc.controllers.file_manager.serve_datasheet', {
 			meta_id: row.link_datasheet_meta
-		}, true);
+		}, false);
 	}
 });
 
