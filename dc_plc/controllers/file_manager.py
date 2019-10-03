@@ -1,6 +1,7 @@
 import frappe
 import os
 import six
+from urllib.parse import quote
 
 
 @frappe.whitelist()
@@ -83,7 +84,7 @@ def serve_datasheet(meta_id):
 def serve_as_filename(src_url, target_name):
 	source = f'./site1.local/public{src_url}'
 	with open(source, mode='rb') as f:
-		frappe.response['filename'] = target_name
+		frappe.response['filename'] = f"{quote(target_name)}"
 		frappe.response['filecontent'] = six.BytesIO(f.read()).getvalue()
 		frappe.response['type'] = 'binary'
 
