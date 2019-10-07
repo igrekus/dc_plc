@@ -4,10 +4,10 @@
 
 - remove standard Child Table 'add row' GUI
 - remove standard commentary form
+
 - product - file-meta multi-link UI & backend
 
-- search by device ext_num & int_num
-
+- ~~search by device ext_num & int_num~~
 - ~~add tech and eceonomy note to the export~~
 - ~~tweak translation for assembly board~~
 - ~~rewrite dev stats to handle only dev-related fields~~
