@@ -10,7 +10,7 @@ DocType: DC_PLC_Product_Summary,Developers,Разработчики
 DocType: DC_PLC_Product_Summary,Assembly,Сборка
 DocType: DC_PLC_Product_Summary,Chip,Кристалл
 DocType: DC_PLC_Product_Summary,Package,Корпус
-DocType: DC_PLC_Product_Summary,Assembly board,Плата в сборке
+DocType: DC_PLC_Product_Summary,Assembly board,Номер платы в составе модуля
 DocType: DC_PLC_Product_Summary,Product Type,Тип устройства
 DocType: DC_PLC_Product_Summary,Function,Функциональное назначение
 DocType: DC_PLC_Product_Summary,Application,Применение
@@ -105,7 +105,7 @@ DC_Employee_Group,Members,Членов
 ,Consultants,Консультанты
 ,Developers,Разработчики
 ,Chip,Кристалл
-,Assembly board,Плата в сборке
+,Assembly board,Номер платы в составе модуля
 ,Package,Корпус
 ,Function,Функция
 ,Application,Применение
