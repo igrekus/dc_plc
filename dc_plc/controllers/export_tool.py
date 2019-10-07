@@ -5,12 +5,6 @@ from dc_plc.controllers.productexporter import export_xlsx, export_pdf
 
 @frappe.whitelist(allow_guest=True)
 def export_product_numbers(ids):
-	"""
-	Search for members of the developer group (GRP00002)
-	:param ids:
-	:return:
-	"""
-
 	db_name = frappe.conf.get("db_name")
 	id_array = sorted(set(frappe.parse_json(ids)))
 	id_str = '"' + '","'.join(id_array) + '"'
@@ -34,12 +28,6 @@ def export_product_numbers(ids):
 
 @frappe.whitelist(allow_guest=True)
 def export_product_search(query=''):
-	"""
-	Search for members of the developer group (GRP00002)
-	:param query:
-	:return:
-	"""
-
 	db_name = frappe.conf.get("db_name")
 
 	res = frappe.db.sql("""SELECT
@@ -65,12 +53,6 @@ def export_product_search(query=''):
 
 @frappe.whitelist(allow_guest=True)
 def export_product_data(ids=""):
-	"""
-	Search for members of the developer group (GRP00002)
-	:param ids:
-	:return:
-	"""
-
 	db_name = frappe.conf.get("db_name")
 	id_array = sorted(set(frappe.parse_json(ids)))
 	id_str = '"' + '","'.join(id_array) + '"'
@@ -99,6 +81,8 @@ def export_product_data(ids=""):
 	, `p`.`final_description`
 	, GROUP_CONCAT(`con`.`full_name`) AS `devs`
 	, GROUP_CONCAT(`dev`.`full_name`) AS `cons`
+	, `p`.`tech_note`
+	, `p`.`economy_note`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
@@ -147,7 +131,9 @@ def export_product_data(ids=""):
 		'datasheet': row[19],
 		'final_description': row[20],
 		'devs': row[21],
-		'cons': row[22]
+		'cons': row[22],
+		'tech_note': row[23],
+		'economy_note': row[24]
 	} for row in res]
 
 

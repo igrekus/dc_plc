@@ -179,6 +179,18 @@
 						width: 'auto',
 						visible: false
 					},
+					{
+						label: 'Примечание техника',
+						propName: 'tech_note',
+						width: 'auto',
+						visible: false
+					},
+					{
+						label: 'Примечание экономиста',
+						propName: 'economy_note',
+						width: 'auto',
+						visible: false
+					},
 				],
 				checkedAll: false,
 				checkedColumns: [],
