@@ -5,12 +5,6 @@ from dc_plc.controllers.productexporter import export_xlsx, export_pdf
 
 @frappe.whitelist(allow_guest=True)
 def export_product_numbers(ids):
-	"""
-	Search for members of the developer group (GRP00002)
-	:param ids:
-	:return:
-	"""
-
 	db_name = frappe.conf.get("db_name")
 	id_array = sorted(set(frappe.parse_json(ids)))
 	id_str = '"' + '","'.join(id_array) + '"'
@@ -34,12 +28,6 @@ def export_product_numbers(ids):
 
 @frappe.whitelist(allow_guest=True)
 def export_product_search(query=''):
-	"""
-	Search for members of the developer group (GRP00002)
-	:param query:
-	:return:
-	"""
-
 	db_name = frappe.conf.get("db_name")
 
 	res = frappe.db.sql("""SELECT
@@ -65,12 +53,6 @@ def export_product_search(query=''):
 
 @frappe.whitelist(allow_guest=True)
 def export_product_data(ids=""):
-	"""
-	Search for members of the developer group (GRP00002)
-	:param ids:
-	:return:
-	"""
-
 	db_name = frappe.conf.get("db_name")
 	id_array = sorted(set(frappe.parse_json(ids)))
 	id_str = '"' + '","'.join(id_array) + '"'
