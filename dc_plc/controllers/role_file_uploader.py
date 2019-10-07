@@ -19,7 +19,7 @@ def search_existing_datasheets(query):
 	db_name = frappe.conf.get("db_name")
 
 	res = frappe.db.sql(f"""
-SELECT
+SELECT DISTINCT 
 	`m`.`name`
 	, `m`.`title` AS `meta_title`
 	, `m`.`note` AS `note`
@@ -28,11 +28,19 @@ FROM
 	`{db_name}`.tabDC_Doc_Datasheet_Meta AS `m`
 INNER JOIN
 	`{db_name}`.tabDC_Doc_Document_Subtype AS `s` ON `m`.`link_subtype` = `s`.`name`
+INNER JOIN
+	`{db_name}`.tabDC_Doc_Datasheets_in_Datasheet_List AS `l` ON `l`.`link_datasheet_meta` = `m`.`name`
+INNER JOIN
+	`{db_name}`.tabDC_PLC_Product_Summary AS `p` ON `p`.`name` = `l`.`parent`
 WHERE
 	`s`.`name` = 'DST002'
 AND
 	(
-	`m`.`title` LIKE  %(search)s
+	`m`.`title` LIKE %(search)s
+	OR
+	`p`.`int_num` LIKE %(search)s
+	OR
+	`p`.`ext_num` LIKE %(search)s
 	OR
 	DATE(`m`.`creation`) < %(date)s
 	) 
