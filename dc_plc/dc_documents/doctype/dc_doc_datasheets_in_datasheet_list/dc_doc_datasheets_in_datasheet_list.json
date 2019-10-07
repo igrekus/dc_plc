@@ -14,7 +14,6 @@
   {
    "fieldname": "link_datasheet_meta",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Datasheet",
    "options": "DC_Doc_Datasheet_Meta"
   },
@@ -46,8 +45,9 @@
    "label": "Download"
   }
  ],
+ "hide_toolbar": 1,
  "istable": 1,
- "modified": "2019-09-30 17:45:34.497328",
+ "modified": "2019-10-07 15:07:25.522205",
  "modified_by": "Administrator",
  "module": "DC Documents",
  "name": "DC_Doc_Datasheets_in_Datasheet_List",
