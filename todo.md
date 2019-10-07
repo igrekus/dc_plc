@@ -2,11 +2,18 @@
 
 ### Immediate tasks
 
-- serve recorded file names instead of generated ones
-- forbid attachment button press until all files are uploaded
+- add tech and eceonomy note to the export
+- remove standard Child Table 'add row' GUI
+- remove standard commentary form
+- search by device ext_num & int_num
+- product - file-meta multi-link UI & backend
+
+- ~~tweak translation for assembly board~~
 
 ### Feats
 - ~~develop datasheet attachment GUI + bacakend~~
+- ~~fix non-ascii file names~~
+- ~~rewrite dev stats to handle only dev-related fields~~
 - ~~research print formatter~~
 - ~~implement export app~~
 - ~~fix checkmarks appear unchecked when scrolling the report table~~
