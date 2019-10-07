@@ -180,7 +180,7 @@
 						visible: false
 					},
 					{
-						label: 'Примечание техника',
+						label: 'Примечание тех. специалиста',
 						propName: 'tech_note',
 						width: 'auto',
 						visible: false
