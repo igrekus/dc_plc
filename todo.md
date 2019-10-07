@@ -2,18 +2,19 @@
 
 ### Immediate tasks
 
-- add tech and eceonomy note to the export
 - remove standard Child Table 'add row' GUI
 - remove standard commentary form
-- search by device ext_num & int_num
 - product - file-meta multi-link UI & backend
 
+- search by device ext_num & int_num
+
+- ~~add tech and eceonomy note to the export~~
 - ~~tweak translation for assembly board~~
+- ~~rewrite dev stats to handle only dev-related fields~~
 
 ### Feats
 - ~~develop datasheet attachment GUI + bacakend~~
 - ~~fix non-ascii file names~~
-- ~~rewrite dev stats to handle only dev-related fields~~
 - ~~research print formatter~~
 - ~~implement export app~~
 - ~~fix checkmarks appear unchecked when scrolling the report table~~
