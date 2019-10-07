@@ -39,6 +39,8 @@ large_fields = {
 	'specs': u'Параметры',
 	'reports': u'Отчёты',
 	'datasheet': u'Даташит',
+	'tech_note': u'Примечание техника',
+	'economy_note': u'Примечание техника',
 }
 
 
