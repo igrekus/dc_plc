@@ -7,12 +7,16 @@
 
 - product - file-meta multi-link UI & backend
 
+- developer report file manager
+- misc file manager
+- opcon file manager
+- rest
+
+### Feats
 - ~~search by device ext_num & int_num~~
 - ~~add tech and eceonomy note to the export~~
 - ~~tweak translation for assembly board~~
 - ~~rewrite dev stats to handle only dev-related fields~~
-
-### Feats
 - ~~develop datasheet attachment GUI + bacakend~~
 - ~~fix non-ascii file names~~
 - ~~research print formatter~~
