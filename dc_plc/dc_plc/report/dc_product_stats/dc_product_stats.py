@@ -108,7 +108,7 @@ def get_data(filters):
 				done += relevance_values[index]
 				cells_to_highlight += cell_groups[index]
 		percent = int((done/total) * 100)
-		return [row[0]] + ['{}|{}%'.format(cells_to_highlight, percent)] + row[1:]
+		return [row[0]] + [f'{percent:03d}|{cells_to_highlight}'] + row[1:]
 
 	devs = get_developers_for_product()
 	cons = get_consultants_for_product()
