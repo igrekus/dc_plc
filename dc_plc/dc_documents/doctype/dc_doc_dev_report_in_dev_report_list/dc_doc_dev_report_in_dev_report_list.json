@@ -1,0 +1,62 @@
+{
+ "creation": "2019-10-09 16:26:26.262712",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "link_dev_report_meta",
+  "dev_report_type",
+  "dev_report_subtype",
+  "file_name",
+  "btn_download"
+ ],
+ "fields": [
+  {
+   "fieldname": "link_dev_report_meta",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Dev Report",
+   "options": "DC_Doc_Dev_Report_Meta"
+  },
+  {
+   "default": "DT001",
+   "fieldname": "dev_report_type",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Type",
+   "read_only": 1
+  },
+  {
+   "default": "\u041e\u0442\u0447\u0451\u0442 \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u0447\u0438\u043a\u0430",
+   "fieldname": "dev_report_subtype",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "file_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "File name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "btn_download",
+   "fieldtype": "Button",
+   "in_list_view": 1,
+   "label": "Download"
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-10-09 16:56:02.984691",
+ "modified_by": "Administrator",
+ "module": "DC Documents",
+ "name": "DC_Doc_Dev_Report_in_Dev_Report_List",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

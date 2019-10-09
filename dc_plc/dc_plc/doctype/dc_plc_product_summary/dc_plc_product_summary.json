@@ -43,6 +43,7 @@
   "link_package",
   "specs",
   "report",
+  "tab_dev_report",
   "sec_opcon",
   "rel_check_opcon",
   "ext_num",
@@ -194,7 +195,7 @@
    "default": "-",
    "fieldname": "report",
    "fieldtype": "Data",
-   "in_list_view": 1,
+   "hidden": 1,
    "label": "Report",
    "permlevel": 3
   },
@@ -503,10 +504,17 @@
    "label": "Datasheets",
    "options": "DC_Doc_Datasheets_in_Datasheet_List",
    "permlevel": 6
+  },
+  {
+   "fieldname": "tab_dev_report",
+   "fieldtype": "Table",
+   "label": "Report",
+   "options": "DC_Doc_Dev_Report_in_Dev_Report_List",
+   "permlevel": 3
   }
  ],
  "hide_toolbar": 1,
- "modified": "2019-10-07 15:05:26.138287",
+ "modified": "2019-10-09 16:35:05.297914",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",
