@@ -37,8 +37,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Subtype",
-   "options": "DC_Doc_Document_Subtype",
-   "read_only": 1
+   "options": "DC_Doc_Document_Subtype"
   },
   {
    "fieldname": "attached_file",
@@ -52,7 +51,7 @@
    "label": "Note"
   }
  ],
- "modified": "2019-10-09 16:43:53.051817",
+ "modified": "2019-10-09 18:02:59.144300",
  "modified_by": "Administrator",
  "module": "DC Documents",
  "name": "DC_Doc_Dev_Report_Meta",
@@ -147,7 +146,9 @@
   }
  ],
  "restrict_to_domain": "Design Center",
+ "search_fields": "title",
  "sort_field": "modified",
  "sort_order": "DESC",
+ "title_field": "title",
  "track_changes": 1
 }
