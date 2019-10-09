@@ -22,6 +22,7 @@ frappe.query_reports["DC Product Developer Stats"] = {
 		highlight_cols.forEach(col => {
 			table_instance.style.setStyle(`.dt-cell--col-${col}`, {backgroundColor: 'rgba(255, 252, 29, 0.27);'})
 		});
+		table_instance.style.setStyle(`.dt-scrollable`, {height: '550px;'});
 	},
 	onload: report => {
 		report.export_products = [];

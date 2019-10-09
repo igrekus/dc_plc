@@ -3,7 +3,10 @@ let full_stat_formatter = (value, row, column, row_data, format) => {
 		value = '-';
 	}
 	if (column.colIndex === 3) {   // Relevance column
-		value = value.split('|')[1];
+		value = parseInt(value.split('|')[0]).toString() + '%';
+	}
+	if (column.colIndex === 4) {   // Progress column
+		value = value.toString() + '%';
 	}
 	return `<a href="http://${window.location.host}/desk#Form/DC_PLC_Product_Summary/${row_data.ID}">${value}</a>`;
 };
