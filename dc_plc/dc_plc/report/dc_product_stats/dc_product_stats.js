@@ -57,7 +57,7 @@ frappe.query_reports["DC Product Stats"] = {
 	after_datatable_render: table_instance => {
 		let data = table_instance.datamanager.data;
 		for (let row = 0; row < data.length; ++row) {
-			let array_str = data[row][__('Relevance')].split('|')[0];
+			let array_str = data[row][__('Relevance')].split('|')[1];
 			let index_str = array_str.slice(1, array_str.length - 1);
 			if (index_str) {
 				// TODO remove old styles
