@@ -2,10 +2,9 @@
 # For license information, please see license.txt
 
 from __future__ import unicode_literals, division
-import frappe
 from frappe import _
 
-from dc_plc.custom.utils import add_translation, add_completeness, add_newline
+from dc_plc.custom.utils import add_completeness, add_newline
 from dc_plc.controllers.stats_query import get_full_stats, get_developers_for_product, get_consultants_for_product
 
 
