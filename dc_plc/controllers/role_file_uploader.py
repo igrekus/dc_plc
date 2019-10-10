@@ -61,7 +61,60 @@ LIMIT 10;""", {
 
 
 @frappe.whitelist()
+def search_existing_dev_reports(query):
+	"""
+	Search for existing developer reports
+	:param query: str -- text search query
+	:return: list -- list of {'value': '', 'label': ''} entries
+	"""
+
+	db_name = frappe.conf.get("db_name")
+
+	res = frappe.db.sql(f"""
+SELECT DISTINCT 
+	`m`.`name`
+	, `m`.`title` AS `meta_title`
+	, `m`.`note` AS `note`
+	, `m`.`attached_file` AS `url`
+FROM
+	`{db_name}`.tabDC_Doc_Dev_Report_Meta AS `m`
+INNER JOIN
+	`{db_name}`.tabDC_Doc_Document_Subtype AS `s` ON `m`.`link_subtype` = `s`.`name`
+INNER JOIN
+	`{db_name}`.tabDC_Doc_Dev_Report_in_Dev_Report_List AS `l` ON `l`.`link_dev_report_meta` = `m`.`name`
+INNER JOIN
+	`{db_name}`.tabDC_PLC_Product_Summary AS `p` ON `p`.`name` = `l`.`parent`
+WHERE
+	`s`.`name` = 'DST003'
+AND
+	(
+	`m`.`title` LIKE %(search)s
+	OR
+	`p`.`int_num` LIKE %(search)s
+	OR
+	`p`.`ext_num` LIKE %(search)s
+	OR
+	DATE(`m`.`creation`) < %(date)s
+	) 
+LIMIT 10;""", {
+		'search': '%{}%'.format(query),
+		'date': '{}'.format(query),
+	})
+
+	return [
+		{
+			'label': d[0],
+			'value': d[1],
+			'note': d[2],
+			'file_url': d[3].replace('\n', '<br>')
+		}
+		for d in res
+	]
+
+
+@frappe.whitelist()
 def upload_file(*args, **kwargs):
+	file_type = kwargs['fileType']
 
 	files = frappe.request.files
 	if 'file' in files:
@@ -69,7 +122,7 @@ def upload_file(*args, **kwargs):
 		content = file.stream.read()
 		filename = file.filename
 
-	uploaded_file_name = './site1.local/temp/datasheet-' + frappe.generate_hash('', 10) + '.dat'
+	uploaded_file_name = f'./site1.local/temp/{file_type}-' + frappe.generate_hash('', 10) + '.dat'
 	with open(uploaded_file_name, 'wb') as f:
 		f.write(content)
 

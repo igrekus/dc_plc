@@ -78,6 +78,8 @@
 			extNum: String,
 			intNum: String,
 			allowedFileSize: Number,
+			fileType: String,
+			searchMethod: String,
 		},
 		data() {
 			return {
@@ -121,7 +123,7 @@
 				this.currentDatasheet = {
 					label: null,
 					value: file.name,
-					file_url: `./site1.local/public/files/datasheets/`,
+					file_url: `./site1.local/public/files/${this.fileType}/`,
 					note: this.note
 				};
 				this.tempFileName = JSON.parse(response).message;
@@ -138,7 +140,7 @@
 			},
 			querySearchAsync(queryString, cb) {
 				frappe.call({
-					method: "dc_plc.controllers.role_file_uploader.search_existing_datasheets",
+					method: this.searchMethod,
 					args: {
 						query: queryString,
 					},
@@ -158,7 +160,7 @@
 				let form = new FormData();
 				form.append("file", file);
 				form.append("filename", file.name);
-				form.append("test", "test data");
+				form.append("fileType", this.fileType);
 
 				let xhr = new XMLHttpRequest();
 

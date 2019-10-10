@@ -221,6 +221,8 @@ let upload_datasheet = ({frm, product}) => {
 		product: product,
 		title: 'Добавить даташит',
 		method: 'dc_plc.controllers.role_file_uploader.add_datasheet',
+		fileType: 'datasheets',   // this will be the storage directory name and a part of the temp file name
+		searchMethod: 'dc_plc.controllers.role_file_uploader.search_existing_datasheets',
 	});
 };
 
@@ -230,6 +232,8 @@ let upload_dev_report = ({frm, product}) => {
 		product: product,
 		title: 'Добавить отчёт разработчика',
 		method: 'dc_plc.controllers.role_file_uploader.add_dev_report',
+		fileType: 'dev_reports',
+		searchMethod: 'dc_plc.controllers.role_file_uploader.search_existing_dev_reports',
 	});
 };
 
