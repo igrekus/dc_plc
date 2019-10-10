@@ -66,11 +66,10 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
 
 		// developer -- dev report grid
 		frm.fields_dict['tab_dev_report'].grid.add_custom_button('Добавить отчёт', () => {
-			console.log('add report')
-			// upload_datasheet({
-			// 	frm: frm,
-			// 	product: frm.doc,
-			// });
+			upload_dev_report({
+				frm: frm,
+				product: frm.doc,
+			})
 		});
 		let dev_report_grid = $('.form-group*[data-fieldname="tab_dev_report"]');
 		dev_report_grid.find('.btn.grid-add-row').hide();
@@ -217,6 +216,13 @@ frappe.ui.form.on('DC_Doc_Dev_Report_in_Dev_Report_List', {
 
 
 let upload_datasheet = ({frm, product}) => {
+	new frappe.dc_plc.RoleFileUploader({
+		form: frm,
+		product: product,
+	});
+};
+
+let upload_dev_report = ({frm, product}) => {
 	new frappe.dc_plc.RoleFileUploader({
 		form: frm,
 		product: product,
