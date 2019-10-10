@@ -219,6 +219,8 @@ let upload_datasheet = ({frm, product}) => {
 	new frappe.dc_plc.RoleFileUploader({
 		form: frm,
 		product: product,
+		title: 'Добавить даташит',
+		method: 'dc_plc.controllers.role_file_uploader.add_datasheet',
 	});
 };
 
@@ -226,6 +228,8 @@ let upload_dev_report = ({frm, product}) => {
 	new frappe.dc_plc.RoleFileUploader({
 		form: frm,
 		product: product,
+		title: 'Добавить отчёт разработчика',
+		method: 'dc_plc.controllers.role_file_uploader.add_dev_report',
 	});
 };
 

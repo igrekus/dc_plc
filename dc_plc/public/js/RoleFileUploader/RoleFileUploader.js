@@ -6,12 +6,15 @@ frappe.dc_plc.RoleFileUploader = class {
 	constructor({
 		form,
 		product,
+		title,
+		method,
 	} = {}) {
 		this.product = product;
 		this.form = form;
+		this.method = method;
 
 		this.make_dialog({
-			title: 'Добавить даташит'
+			title: title
 		});
 
 		this.$fileuploader = new Vue({
@@ -36,7 +39,7 @@ frappe.dc_plc.RoleFileUploader = class {
 
 		let self = this;
 		frappe.call({
-			method: "dc_plc.controllers.role_file_uploader.add_datasheet",
+			method: this.method,
 			args: {
 				prod_id: self.product.name,
 				datasheet: datasheet,
