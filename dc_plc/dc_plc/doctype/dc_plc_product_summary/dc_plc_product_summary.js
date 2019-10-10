@@ -172,8 +172,6 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
 			frm.set_value('rel_date_desdoc', '0001-01-01');
 		}
 	},
-
-
 });
 
 

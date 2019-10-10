@@ -4,15 +4,17 @@
 
 - remove standard Child Table 'add row' GUI
 - remove standard commentary form
-
 - product - file-meta multi-link UI & backend
+- update stat table logic to show reworked attached docs (how?)
 
-- developer report file manager
 - misc file manager
 - opcon file manager
 - rest
 
+- fix disappearing odd-numbered small field in the report
+
 ### Feats
+- ~~developer report file manager~~
 - ~~search by device ext_num & int_num~~
 - ~~add tech and eceonomy note to the export~~
 - ~~tweak translation for assembly board~~
