@@ -58,13 +58,13 @@
 					<!--</template>-->
 				</el-autocomplete>
 			</el-row>
-			<el-row v-if="!!currentDatasheet">
+			<el-row v-if="!!currentUpload">
 				<div class="text-muted">Наименование файла:</div>
-				<div class="file-info">{{ currentDatasheet.value }}</div>
+				<div class="file-info">{{ currentUpload.value }}</div>
 				<div class="text-muted">Путь к файлу:</div>
-				<div class="file-info">{{ currentDatasheet.file_url }}</div>
+				<div class="file-info">{{ currentUpload.file_url }}</div>
 				<div class="text-muted">Комментарий:</div>
-				<div class="file-info">{{ currentDatasheet.note }}</div>
+				<div class="file-info">{{ currentUpload.note }}</div>
 			</el-row>
 		</div>
 	</div>
@@ -89,7 +89,7 @@
 				fileName: '',
 				note: '',
 				fileList: [],
-				currentDatasheet: null,
+				currentUpload: null,
 				tempFileName: '',
 			}
 		},
@@ -112,7 +112,7 @@
 					},
 					callback: function () {
 						self.fileName = null;
-						self.currentDatasheet = null;
+						self.currentUpload = null;
 					}
 				});
 			},
@@ -120,7 +120,7 @@
 				this.$message.warning(`За один раз можно загрузить только один файл`);
 			},
 			handleSuccess(response, file) {
-				this.currentDatasheet = {
+				this.currentUpload = {
 					label: null,
 					value: file.name,
 					file_url: `./site1.local/public/files/${this.fileType}/`,
@@ -134,7 +134,7 @@
 				this.isUploading = false;
 			},
 			handleAttachModeToggle() {
-				this.currentDatasheet = null;
+				this.currentUpload = null;
 				this.fileName = '';
 				this.state = '';
 			},
@@ -150,7 +150,7 @@
 				});
 			},
 			handleAutocompleteSelect(item) {
-				this.currentDatasheet = item;
+				this.currentUpload = item;
 			},
 			handleUploadRequest(param) {
 				this.isUploading = true;
@@ -186,7 +186,7 @@
 		},
 		watch: {
 			note: function (new_v, old_v) {
-				this.currentDatasheet.note = new_v;
+				this.currentUpload.note = new_v;
 			}
 		}
 		// components: {

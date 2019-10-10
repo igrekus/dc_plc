@@ -137,8 +137,8 @@ def remove_temp_file(filename):
 
 
 @frappe.whitelist()
-def add_datasheet(prod_id, datasheet, temp_file):
-	ds = frappe.parse_json(datasheet)
+def add_datasheet(prod_id, upload, temp_file):
+	ds = frappe.parse_json(upload)
 
 	if ds['label']:
 		add_existing_datasheet(prod_id, ds)

@@ -35,9 +35,9 @@ frappe.dc_plc.RoleFileUploader = class {
 	}
 
 	upload_files() {
-		let datasheet = this.uploader.currentDatasheet;
+		let upload = this.uploader.currentUpload;
 		let tempFileName = this.uploader.tempFileName;
-		if (!datasheet) {
+		if (!upload) {
 			return;
 		}
 
@@ -46,7 +46,7 @@ frappe.dc_plc.RoleFileUploader = class {
 			method: this.method,
 			args: {
 				prod_id: self.product.name,
-				datasheet: datasheet,
+				upload: upload,
 				temp_file: tempFileName
 			},
 			callback: function (r) {
