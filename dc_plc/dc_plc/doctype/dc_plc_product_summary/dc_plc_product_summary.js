@@ -204,21 +204,8 @@ frappe.ui.form.on('DC_Doc_Datasheets_in_Datasheet_List', {
 
 
 frappe.ui.form.on('DC_Doc_Dev_Report_in_Dev_Report_List', {
-	link_datasheet_meta: function (frm, cdt, cdn) {
-		console.log('get report meta');
-		// let row_id = locals[cdt][cdn]['link_datasheet_meta'];
-		// frappe.call({
-		// 	method: 'dc_plc.controllers.file_manager.get_datasheet_meta',
-	 	// 	args: {
-		// 		meta_id: row_id,
-		// 	},
-		// 	callback: r => {
-		// 		let meta_data = r.message;
-		// 		frappe.model.set_value(cdt, cdn, 'doc_type', meta_data['type_title']);
-		// 		frappe.model.set_value(cdt, cdn, 'doc_subtype', meta_data['subtype_title']);
-		// 		frappe.model.set_value(cdt, cdn, 'file_name', meta_data['meta_title']);
-		// 	}
-		// });
+	link_dev_report_meta: function (frm, cdt, cdn) {
+		// TODO implement if needed in-table row editing
 	},
 	btn_download: function (frm, cdt, cdn) {
 		let row = frappe.model.get_doc(cdt, cdn);
