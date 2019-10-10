@@ -4,6 +4,7 @@ import os
 import shutil
 
 from frappe.core.doctype.file.file import File
+from dc_plc.dc_documents.doctype.dc_doc_dev_report_meta.dc_doc_dev_report_meta import DC_Doc_Dev_Report_Meta
 from dc_plc.dc_plc.doctype.dc_plc_product_summary.dc_plc_product_summary import DC_PLC_Product_Summary
 from dc_plc.dc_documents.doctype.dc_doc_datasheet_meta.dc_doc_datasheet_meta import DC_Doc_Datasheet_Meta
 
@@ -61,7 +62,60 @@ LIMIT 10;""", {
 
 
 @frappe.whitelist()
+def search_existing_dev_reports(query):
+	"""
+	Search for existing developer reports
+	:param query: str -- text search query
+	:return: list -- list of {'value': '', 'label': ''} entries
+	"""
+
+	db_name = frappe.conf.get("db_name")
+
+	res = frappe.db.sql(f"""
+SELECT DISTINCT 
+	`m`.`name`
+	, `m`.`title` AS `meta_title`
+	, `m`.`note` AS `note`
+	, `m`.`attached_file` AS `url`
+FROM
+	`{db_name}`.tabDC_Doc_Dev_Report_Meta AS `m`
+INNER JOIN
+	`{db_name}`.tabDC_Doc_Document_Subtype AS `s` ON `m`.`link_subtype` = `s`.`name`
+INNER JOIN
+	`{db_name}`.tabDC_Doc_Dev_Report_in_Dev_Report_List AS `l` ON `l`.`link_dev_report_meta` = `m`.`name`
+INNER JOIN
+	`{db_name}`.tabDC_PLC_Product_Summary AS `p` ON `p`.`name` = `l`.`parent`
+WHERE
+	`s`.`name` = 'DST003'
+AND
+	(
+	`m`.`title` LIKE %(search)s
+	OR
+	`p`.`int_num` LIKE %(search)s
+	OR
+	`p`.`ext_num` LIKE %(search)s
+	OR
+	DATE(`m`.`creation`) < %(date)s
+	) 
+LIMIT 10;""", {
+		'search': '%{}%'.format(query),
+		'date': '{}'.format(query),
+	})
+
+	return [
+		{
+			'label': d[0],
+			'value': d[1],
+			'note': d[2],
+			'file_url': d[3].replace('\n', '<br>')
+		}
+		for d in res
+	]
+
+
+@frappe.whitelist()
 def upload_file(*args, **kwargs):
+	file_type = kwargs['fileType']
 
 	files = frappe.request.files
 	if 'file' in files:
@@ -69,7 +123,7 @@ def upload_file(*args, **kwargs):
 		content = file.stream.read()
 		filename = file.filename
 
-	uploaded_file_name = './site1.local/temp/datasheet-' + frappe.generate_hash('', 10) + '.dat'
+	uploaded_file_name = f'./site1.local/temp/{file_type}-' + frappe.generate_hash('', 10) + '.dat'
 	with open(uploaded_file_name, 'wb') as f:
 		f.write(content)
 
@@ -84,8 +138,8 @@ def remove_temp_file(filename):
 
 
 @frappe.whitelist()
-def add_datasheet(prod_id, datasheet, temp_file):
-	ds = frappe.parse_json(datasheet)
+def add_datasheet(prod_id, upload, temp_file):
+	ds = frappe.parse_json(upload)
 
 	if ds['label']:
 		add_existing_datasheet(prod_id, ds)
@@ -146,5 +200,71 @@ def add_new_datasheet(prod_id, datasheet, temp_file):
 	new_file.insert()
 
 	add_existing_datasheet(prod_id, datasheet={'label': new_meta.name})
+
+	return True
+
+
+@frappe.whitelist()
+def add_dev_report(prod_id, upload, temp_file):
+	ds = frappe.parse_json(upload)
+
+	if ds['label']:
+		add_existing_dev_report(prod_id, ds)
+	else:
+		add_new_dev_report(prod_id, ds, temp_file)
+
+	return 'success'
+
+
+def add_existing_dev_report(prod_id, dev_report):
+	doc: DC_PLC_Product_Summary = frappe.get_doc('DC_PLC_Product_Summary', prod_id)
+	meta: DC_Doc_Dev_Report_Meta = frappe.get_doc('DC_Doc_Dev_Report_Meta', dev_report['label'])
+	doc_subype = frappe.get_doc('DC_Doc_Document_Subtype', meta.link_subtype)
+	doc_type = frappe.get_doc('DC_Doc_Document_Type', doc_subype.link_doc_type)
+
+	doc.append('tab_dev_report', {
+		'link_dev_report_meta': meta.name,
+		'doc_type': doc_type.title,
+		'doc_subtype': doc_subype.title,
+	})
+	doc.save()
+
+	return True
+
+
+def add_new_dev_report(prod_id, dev_report, temp_file):
+	file_name = temp_file.split('/')[-1]
+	target_file = f'{dev_report["file_url"]}{file_name}'
+	stored_url = target_file[20:]
+
+	try:
+		shutil.move(temp_file, target_file, copy_function=shutil.copy)
+	except PermissionError:
+		pass
+	file_info = os.stat(target_file)
+
+	new_meta: DC_Doc_Dev_Report_Meta = frappe.get_doc({
+		'doctype': 'DC_Doc_Dev_Report_Meta',
+		'title': dev_report['value'],
+		'link_subtype': 'DST003',
+		'attached_file': stored_url,
+		'note': dev_report['note']
+	})
+	new_meta.insert()
+
+	new_file: File = frappe.get_doc({
+		'doctype': 'File',
+		'file_name': dev_report['value'],
+		'is_private': 0,
+		'file_size': file_info.st_size,
+		'file_url': stored_url,
+		'folder': 'Home/Developer_Reports',
+		'attached_to_doctype': 'DC_Doc_Dev_Report_Meta',
+		'attached_to_name': new_meta.name,
+		'attached_to_field': 'attached_file',
+	})
+	new_file.insert()
+
+	add_existing_dev_report(prod_id, dev_report={'label': new_meta.name})
 
 	return True

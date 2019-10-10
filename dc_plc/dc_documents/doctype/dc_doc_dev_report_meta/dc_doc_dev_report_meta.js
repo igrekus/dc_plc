@@ -6,7 +6,7 @@ let set_field_title = frappe.dc_plc.utils.ui.set_field_title;
 let render_info_field = frappe.dc_plc.utils.ui.render_info_field;
 
 
-frappe.ui.form.on('DC_Doc_Datasheet_Meta', {
+frappe.ui.form.on('DC_Doc_Dev_Report_Meta', {
 	refresh: frm => {
 		set_field_title(frm, 'link_subtype');
 		render_info_field(frm, 'info_type', 'Подтип документа', 'subtype');
@@ -44,6 +44,6 @@ frappe.ui.form.on('DC_Doc_Datasheet_Meta', {
 		});
 	},
 	link_subtype: frm => {
-		set_field_title(frm,'link_subtype');
+		set_field_title(frm, 'link_subtype');
 	}
 });
