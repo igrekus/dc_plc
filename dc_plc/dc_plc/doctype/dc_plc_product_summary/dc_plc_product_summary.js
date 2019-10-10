@@ -51,6 +51,9 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
 
 		frm.fields_dict['info_rel_total'].wrapper.innerHTML = '<span class="text-muted">Актуально:</span>&nbsp;<span>' + percent + '%</span>';
 
+		// TODO add grid button logic here
+		// prepare grid buttons
+		// tech writer -- datasheet grid
 		frm.fields_dict['tab_datasheet'].grid.add_custom_button('Добавить даташит', () => {
 			upload_datasheet({
 				frm: frm,
@@ -60,6 +63,19 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
 		let tech_writer_grid = $('.form-group*[data-fieldname="tab_datasheet"]');
 		tech_writer_grid.find('.btn.grid-add-row').hide();
 		// tech_writer_grid.find('.btn.grid-remove-rows').hide();
+
+		// developer -- dev report grid
+		frm.fields_dict['tab_dev_report'].grid.add_custom_button('Добавить отчёт', () => {
+			console.log('add report')
+			// upload_datasheet({
+			// 	frm: frm,
+			// 	product: frm.doc,
+			// });
+		});
+		let dev_report_grid = $('.form-group*[data-fieldname="tab_dev_report"]');
+		dev_report_grid.find('.btn.grid-add-row').hide();
+		// dev_report_grid.find('.btn.grid-remove-rows').hide();
+
 	},
 	ext_num: frm => render_info_field(frm, 'info_ext_num', 'Внешний номер', value_or_none(frm.get_field('ext_num').value)),
 	int_num: frm => render_info_field(frm, 'info_int_num', 'Внутренний номер', value_or_none(frm.get_field('int_num').value)),
@@ -185,6 +201,33 @@ frappe.ui.form.on('DC_Doc_Datasheets_in_Datasheet_List', {
 		}, false);
 	}
 });
+
+
+frappe.ui.form.on('DC_Doc_Dev_Report_in_Dev_Report_List', {
+	link_datasheet_meta: function (frm, cdt, cdn) {
+		console.log('get report meta');
+		// let row_id = locals[cdt][cdn]['link_datasheet_meta'];
+		// frappe.call({
+		// 	method: 'dc_plc.controllers.file_manager.get_datasheet_meta',
+	 	// 	args: {
+		// 		meta_id: row_id,
+		// 	},
+		// 	callback: r => {
+		// 		let meta_data = r.message;
+		// 		frappe.model.set_value(cdt, cdn, 'doc_type', meta_data['type_title']);
+		// 		frappe.model.set_value(cdt, cdn, 'doc_subtype', meta_data['subtype_title']);
+		// 		frappe.model.set_value(cdt, cdn, 'file_name', meta_data['meta_title']);
+		// 	}
+		// });
+	},
+	btn_download: function (frm, cdt, cdn) {
+		let row = frappe.model.get_doc(cdt, cdn);
+		open_url_post('/api/method/dc_plc.controllers.file_manager.serve_dev_report', {
+			meta_id: row.link_dev_report_meta
+		}, false);
+	}
+});
+
 
 let upload_datasheet = ({frm, product}) => {
 	new frappe.dc_plc.RoleFileUploader({
