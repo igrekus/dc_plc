@@ -59,6 +59,7 @@ AND `f`.`attached_to_name` = %(docname)s"""
 
 @frappe.whitelist()
 def serve_datasheet(meta_id):
+	# TODO refactor concrete doc serve functions
 	db_name = frappe.conf.get("db_name")
 
 	sql = f"""
@@ -68,6 +69,32 @@ def serve_datasheet(meta_id):
 	FROM `{db_name}`.`tabDC_Doc_Datasheet_Meta` AS `m`
 	WHERE `m`.`name` = %(meta_id)s
 	"""
+	res = frappe.db.sql(
+		query=sql + ';',
+		values={
+			'meta_id': f'{meta_id}'
+		},
+		as_list=1
+	)
+
+	target, source = res[0]
+	serve_as_filename(source, target)
+
+
+@frappe.whitelist()
+def serve_dev_report(meta_id):
+	frappe.msgprint(meta_id)
+
+	db_name = frappe.conf.get('db_name')
+
+	sql = f"""
+	SELECT
+	`m`.`title` AS `meta_title`
+	, `m`.`attached_file`
+	FROM `{db_name}`.`tabDC_Doc_Dev_Report_Meta` AS `m`
+	WHERE `m`.`name` = %(meta_id)s
+	"""
+
 	res = frappe.db.sql(
 		query=sql + ';',
 		values={

@@ -58,13 +58,13 @@
 					<!--</template>-->
 				</el-autocomplete>
 			</el-row>
-			<el-row v-if="!!currentDatasheet">
+			<el-row v-if="!!currentUpload">
 				<div class="text-muted">Наименование файла:</div>
-				<div class="file-info">{{ currentDatasheet.value }}</div>
+				<div class="file-info">{{ currentUpload.value }}</div>
 				<div class="text-muted">Путь к файлу:</div>
-				<div class="file-info">{{ currentDatasheet.file_url }}</div>
+				<div class="file-info">{{ currentUpload.file_url }}</div>
 				<div class="text-muted">Комментарий:</div>
-				<div class="file-info">{{ currentDatasheet.note }}</div>
+				<div class="file-info">{{ currentUpload.note }}</div>
 			</el-row>
 		</div>
 	</div>
@@ -78,6 +78,8 @@
 			extNum: String,
 			intNum: String,
 			allowedFileSize: Number,
+			fileType: String,
+			searchMethod: String,
 		},
 		data() {
 			return {
@@ -87,7 +89,7 @@
 				fileName: '',
 				note: '',
 				fileList: [],
-				currentDatasheet: null,
+				currentUpload: null,
 				tempFileName: '',
 			}
 		},
@@ -110,7 +112,7 @@
 					},
 					callback: function () {
 						self.fileName = null;
-						self.currentDatasheet = null;
+						self.currentUpload = null;
 					}
 				});
 			},
@@ -118,10 +120,10 @@
 				this.$message.warning(`За один раз можно загрузить только один файл`);
 			},
 			handleSuccess(response, file) {
-				this.currentDatasheet = {
+				this.currentUpload = {
 					label: null,
 					value: file.name,
-					file_url: `./site1.local/public/files/datasheets/`,
+					file_url: `./site1.local/public/files/${this.fileType}/`,
 					note: this.note
 				};
 				this.tempFileName = JSON.parse(response).message;
@@ -132,13 +134,13 @@
 				this.isUploading = false;
 			},
 			handleAttachModeToggle() {
-				this.currentDatasheet = null;
+				this.currentUpload = null;
 				this.fileName = '';
 				this.state = '';
 			},
 			querySearchAsync(queryString, cb) {
 				frappe.call({
-					method: "dc_plc.controllers.role_file_uploader.search_existing_datasheets",
+					method: this.searchMethod,
 					args: {
 						query: queryString,
 					},
@@ -148,7 +150,7 @@
 				});
 			},
 			handleAutocompleteSelect(item) {
-				this.currentDatasheet = item;
+				this.currentUpload = item;
 			},
 			handleUploadRequest(param) {
 				this.isUploading = true;
@@ -158,7 +160,7 @@
 				let form = new FormData();
 				form.append("file", file);
 				form.append("filename", file.name);
-				form.append("test", "test data");
+				form.append("fileType", this.fileType);
 
 				let xhr = new XMLHttpRequest();
 
@@ -184,7 +186,7 @@
 		},
 		watch: {
 			note: function (new_v, old_v) {
-				this.currentDatasheet.note = new_v;
+				this.currentUpload.note = new_v;
 			}
 		}
 		// components: {
