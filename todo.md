@@ -14,6 +14,7 @@
 - fix disappearing odd-numbered small field in the report
 
 ### Feats
+- ~~add note field to both file tables~~
 - ~~developer report file manager~~
 - ~~search by device ext_num & int_num~~
 - ~~add tech and eceonomy note to the export~~
