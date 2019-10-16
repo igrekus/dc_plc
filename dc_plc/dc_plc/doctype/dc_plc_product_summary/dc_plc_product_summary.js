@@ -75,6 +75,17 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
 		dev_report_grid.find('.btn.grid-add-row').hide();
 		// dev_report_grid.find('.btn.grid-remove-rows').hide();
 
+		// anybody -- misc file grid
+		frm.fields_dict['tab_misc'].grid.add_custom_button('Добавить файл', () => {
+			upload_misc({
+				frm: frm,
+				product: frm.doc,
+			})
+		});
+		let misc_grid = $('.form-group*[data-fieldname="tab_misc"]');
+		misc_grid.find('.btn.grid-add-row').hide();
+		// misc_grid.find('.btn.grid-remove-rows').hide();
+
 	},
 	ext_num: frm => render_info_field(frm, 'info_ext_num', 'Внешний номер', value_or_none(frm.get_field('ext_num').value)),
 	int_num: frm => render_info_field(frm, 'info_int_num', 'Внутренний номер', value_or_none(frm.get_field('int_num').value)),
@@ -213,6 +224,18 @@ frappe.ui.form.on('DC_Doc_Dev_Report_in_Dev_Report_List', {
 });
 
 
+frappe.ui.form.on('DC_Doc_Misc_in_Misc_List', {
+	link_misc_meta: function (frm, cdt, cdn) {
+	},
+	btn_download: function (frm, cdt, cdn) {
+		let row = frappe.model.get_doc(cdt, cdn);
+		open_url_post('/api/method/dc_plc.controllers.file_manager.serve_meta', {
+			meta_id: row.link_misc_meta
+		}, false);
+	}
+});
+
+
 let upload_datasheet = ({frm, product}) => {
 	new frappe.dc_plc.RoleFileUploader({
 		form: frm,
@@ -232,6 +255,17 @@ let upload_dev_report = ({frm, product}) => {
 		method: 'dc_plc.controllers.role_file_uploader.add_dev_report',
 		fileType: 'dev_reports',
 		searchMethod: 'dc_plc.controllers.role_file_uploader.search_existing_dev_reports',
+	});
+};
+
+let upload_misc = ({frm, product}) => {
+	new frappe.dc_plc.RoleFileUploader({
+		form: frm,
+		product: product,
+		title: 'Добавить документ',
+		method: 'dc_plc.controllers.role_file_uploader.add_misc',
+		fileType: 'misc',
+		searchMethod: 'dc_plc.controllers.role_file_uploader.search_existing_misc',
 	});
 };
 
