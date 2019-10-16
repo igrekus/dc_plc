@@ -1,0 +1,71 @@
+{
+ "creation": "2019-10-15 15:05:43.325436",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "link_misc_meta",
+  "doc_type",
+  "doc_subtype",
+  "file_name",
+  "note",
+  "btn_download"
+ ],
+ "fields": [
+  {
+   "fieldname": "link_misc_meta",
+   "fieldtype": "Link",
+   "label": "Misc",
+   "options": "DC_Doc_Misc_Meta"
+  },
+  {
+   "default": "\u041e\u0431\u0449\u0435\u0435",
+   "fieldname": "doc_type",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Type",
+   "read_only": 1
+  },
+  {
+   "default": "\u041e\u0431\u0449\u0435\u0435",
+   "fieldname": "doc_subtype",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Type",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "link_misc_meta.title",
+   "fieldname": "file_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "File name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "link_misc_meta.note",
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Note",
+   "read_only": 1
+  },
+  {
+   "fieldname": "btn_download",
+   "fieldtype": "Button",
+   "in_list_view": 1,
+   "label": "Download"
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-10-15 16:24:18.288958",
+ "modified_by": "Administrator",
+ "module": "DC Documents",
+ "name": "DC_Doc_Misc_in_Misc_List",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
