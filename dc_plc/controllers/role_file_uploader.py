@@ -167,6 +167,81 @@ LIMIT 10;""", {
 
 
 @frappe.whitelist()
+def search_existing_opcon(query):
+	"""
+	Search for existing opcons
+	:param query: str -- text search query
+	:return: list -- list of {'value': '', 'label': ''} entries
+	"""
+
+	db_name = frappe.conf.get("db_name")
+
+	res = frappe.db.sql(f"""
+SELECT DISTINCT 
+	`m`.`name`
+	, `m`.`title` AS `meta_title`
+	, `m`.`note` AS `note`
+	, `m`.`attached_file` AS `url`
+FROM
+	`{db_name}`.tabDC_Doc_Opcon_Meta AS `m`
+INNER JOIN
+	`{db_name}`.tabDC_Doc_Document_Subtype AS `s` ON `m`.`link_subtype` = `s`.`name`
+INNER JOIN
+	`{db_name}`.tabDC_Doc_Opcon_in_Opcon_List AS `l` ON `l`.`link_opcon_meta` = `m`.`name`
+INNER JOIN
+	`{db_name}`.tabDC_PLC_Product_Summary AS `p` ON `p`.`name` = `l`.`parent`
+WHERE
+	`s`.`name` IN ('DST005', 'DST006', 'DST007')
+AND
+	(
+	`m`.`title` LIKE %(search)s
+	OR
+	`p`.`int_num` LIKE %(search)s
+	OR
+	`p`.`ext_num` LIKE %(search)s
+	OR
+	DATE(`m`.`creation`) < %(date)s
+	) 
+LIMIT 10;""", {
+		'search': '%{}%'.format(query),
+		'date': '{}'.format(query),
+	})
+
+	return [
+		{
+			'label': d[0],
+			'value': d[1],
+			'note': d[2],
+			'file_url': d[3].replace('\n', '<br>')
+		}
+		for d in res
+	]
+
+
+@frappe.whitelist()
+def get_opcon_subtypes():
+	db_name = frappe.conf.get("db_name")
+
+	res = frappe.db.sql(f"""
+	SELECT
+		`s`.`name`
+		, `s`.`title`
+	FROM
+		`{db_name}`.tabDC_Doc_Document_Subtype AS `s`
+	WHERE
+		`s`.`link_doc_type` = 'DT004'
+""")
+
+	return [
+		{
+			'value': d[0],
+			'label': d[1],
+		}
+		for d in res
+	]
+
+
+@frappe.whitelist()
 def upload_file(*args, **kwargs):
 	file_type = kwargs['fileType']
 
@@ -387,3 +462,17 @@ def add_new_misc(prod_id, misc_file, temp_file):
 	add_existing_misc(prod_id, misc={'label': new_misc.name})
 
 	return True
+
+
+@frappe.whitelist()
+def add_opcon(prod_id, upload, temp_file):
+	ds = frappe.parse_json(upload)
+
+	frappe.msgprint(str(ds))
+	# if ds['label']:
+	# 	add_existing_dev_report(prod_id, ds)
+	# else:
+	# 	add_new_dev_report(prod_id, ds, temp_file)
+
+	return 'success'
+

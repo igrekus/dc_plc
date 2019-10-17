@@ -86,6 +86,18 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
 		misc_grid.find('.btn.grid-add-row').hide();
 		// misc_grid.find('.btn.grid-remove-rows').hide();
 
+		// opcon specialist -- opcon grid
+		frm.fields_dict['tab_opcon'].grid.add_custom_button('Добавить файл', () => {
+			upload_opcon({
+				frm: frm,
+				product: frm.doc,
+			})
+		});
+		let opcon_grid = $('.form-group*[data-fieldname="tab_opcon"]');
+		opcon_grid.find('.btn.grid-add-row').hide();
+		// misc_grid.find('.btn.grid-remove-rows').hide();
+
+
 	},
 	ext_num: frm => render_info_field(frm, 'info_ext_num', 'Внешний номер', value_or_none(frm.get_field('ext_num').value)),
 	int_num: frm => render_info_field(frm, 'info_int_num', 'Внутренний номер', value_or_none(frm.get_field('int_num').value)),
@@ -236,6 +248,18 @@ frappe.ui.form.on('DC_Doc_Misc_in_Misc_List', {
 });
 
 
+frappe.ui.form.on('DC_Doc_Opcon_in_Opcon_List ', {
+	link_opcon_meta: function (frm, cdt, cdn) {
+	},
+	btn_download: function (frm, cdt, cdn) {
+		let row = frappe.model.get_doc(cdt, cdn);
+		open_url_post('/api/method/dc_plc.controllers.file_manager.serve_opcon', {
+			meta_id: row.link_opcon_meta
+		}, false);
+	}
+});
+
+
 let upload_datasheet = ({frm, product}) => {
 	new frappe.dc_plc.RoleFileUploader({
 		form: frm,
@@ -266,6 +290,18 @@ let upload_misc = ({frm, product}) => {
 		method: 'dc_plc.controllers.role_file_uploader.add_misc',
 		fileType: 'misc',
 		searchMethod: 'dc_plc.controllers.role_file_uploader.search_existing_misc',
+	});
+};
+
+let upload_opcon = ({frm, product}) => {
+	new frappe.dc_plc.RoleFileUploader({
+		form: frm,
+		product: product,
+		title: 'Добавить ТУ',
+		method: 'dc_plc.controllers.role_file_uploader.add_opcon',
+		fileType: 'opcons',
+		searchMethod: 'dc_plc.controllers.role_file_uploader.search_existing_opcon',
+		subtypeMethod: 'dc_plc.controllers.role_file_uploader.get_opcon_subtypes'
 	});
 };
 
