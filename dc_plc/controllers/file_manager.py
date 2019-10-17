@@ -41,6 +41,7 @@ SELECT
 	`f`.`name`
 	, `f`.`file_name`
 	, `f`.`file_url`
+	, `f`.`creation`
 FROM `{db_name}`.`tabFile` AS `f`
 WHERE `f`.`attached_to_doctype` = %(doctype)s
 AND `f`.`attached_to_name` = %(docname)s"""

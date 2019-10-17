@@ -46,9 +46,9 @@
   "sec_opcon",
   "rel_check_opcon",
   "ext_num",
-  "col_opcon",
   "rel_date_opcon",
   "opcon",
+  "tab_opcon",
   "sec_procmap",
   "rel_check_procmap",
   "rel_date_procmap",
@@ -187,7 +187,7 @@
    "default": "-",
    "fieldname": "opcon",
    "fieldtype": "Data",
-   "in_list_view": 1,
+   "hidden": 1,
    "label": "Opcon",
    "permlevel": 4
   },
@@ -293,10 +293,6 @@
    "fieldtype": "Section Break",
    "label": "Responsible: opcon spec",
    "permlevel": 3
-  },
-  {
-   "fieldname": "col_opcon",
-   "fieldtype": "Column Break"
   },
   {
    "collapsible": 1,
@@ -513,10 +509,17 @@
    "fieldtype": "Table",
    "label": "Misc documents",
    "options": "DC_Doc_Misc_in_Misc_List"
+  },
+  {
+   "fieldname": "tab_opcon",
+   "fieldtype": "Table",
+   "label": "Opcon",
+   "options": "DC_Doc_Opcon_in_Opcon_List",
+   "permlevel": 4
   }
  ],
  "hide_toolbar": 1,
- "modified": "2019-10-15 15:13:49.342471",
+ "modified": "2019-10-17 16:44:58.036047",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",
