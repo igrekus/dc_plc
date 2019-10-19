@@ -3,8 +3,9 @@ import frappe
 import os
 import shutil
 
-from dc_plc.dc_documents.doctype.dc_doc_misc_meta.dc_doc_misc_meta import DC_Doc_Misc_Meta
 from frappe.core.doctype.file.file import File
+from dc_plc.dc_documents.doctype.dc_doc_misc_meta.dc_doc_misc_meta import DC_Doc_Misc_Meta
+from dc_plc.dc_documents.doctype.dc_doc_opcon_meta.dc_doc_opcon_meta import DC_Doc_Opcon_Meta
 from dc_plc.dc_documents.doctype.dc_doc_dev_report_meta.dc_doc_dev_report_meta import DC_Doc_Dev_Report_Meta
 from dc_plc.dc_plc.doctype.dc_plc_product_summary.dc_plc_product_summary import DC_PLC_Product_Summary
 from dc_plc.dc_documents.doctype.dc_doc_datasheet_meta.dc_doc_datasheet_meta import DC_Doc_Datasheet_Meta
@@ -468,11 +469,64 @@ def add_new_misc(prod_id, misc_file, temp_file):
 def add_opcon(prod_id, upload, temp_file):
 	ds = frappe.parse_json(upload)
 
-	frappe.msgprint(str(ds))
-	# if ds['label']:
-	# 	add_existing_dev_report(prod_id, ds)
-	# else:
-	# 	add_new_dev_report(prod_id, ds, temp_file)
+	if ds['label']:
+		add_existing_opcon(prod_id, ds)
+	else:
+		add_new_opcon(prod_id, ds, temp_file)
 
 	return 'success'
+
+
+def add_existing_opcon(prod_id, misc):
+	doc: DC_PLC_Product_Summary = frappe.get_doc('DC_PLC_Product_Summary', prod_id)
+	meta: DC_Doc_Opcon_Meta = frappe.get_doc('DC_Doc_Opcon_Meta', misc['label'])
+	doc_subype = frappe.get_doc('DC_Doc_Document_Subtype', meta.link_subtype)
+	doc_type = frappe.get_doc('DC_Doc_Document_Type', doc_subype.link_doc_type)
+
+	doc.append('tab_opcon', {
+		'link_opcon_meta': meta.name,
+		'doc_type': doc_type.title,
+		'doc_subtype': doc_subype.title,
+	})
+	doc.save()
+
+	return True
+
+
+def add_new_opcon(prod_id, opcon_meta, temp_file):
+	file_name = temp_file.split('/')[-1]
+	target_file = f'{opcon_meta["file_url"]}{file_name}'
+	stored_url = target_file[20:]
+
+	try:
+		shutil.move(temp_file, target_file, copy_function=shutil.copy)
+	except PermissionError:
+		pass
+	file_info = os.stat(target_file)
+
+	new_opcon: DC_Doc_Opcon_Meta = frappe.get_doc({
+		'doctype': 'DC_Doc_Opcon_Meta',
+		'title': opcon_meta['value'],
+		'link_subtype': opcon_meta['subtype'],
+		'attached_file': stored_url,
+		'note': opcon_meta['note']
+	})
+	new_opcon.insert()
+
+	new_file: File = frappe.get_doc({
+		'doctype': 'File',
+		'file_name': opcon_meta['value'],
+		'is_private': 0,
+		'file_size': file_info.st_size,
+		'file_url': stored_url,
+		'folder': 'Home/Opcons',
+		'attached_to_doctype': 'DC_Doc_Opcon_Meta',
+		'attached_to_name': new_opcon.name,
+		'attached_to_field': 'attached_file',
+	})
+	new_file.insert()
+
+	add_existing_opcon(prod_id, misc={'label': new_opcon.name})
+
+	return True
 

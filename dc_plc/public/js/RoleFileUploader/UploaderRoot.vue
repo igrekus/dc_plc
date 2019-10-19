@@ -202,6 +202,11 @@
 		watch: {
 			note: function (new_v, old_v) {
 				this.currentUpload.note = new_v;
+			},
+			selectedSubtype: function (new_v, old_v) {
+				if (this.currentUpload) {
+					this.currentUpload.subtype = new_v
+				}
 			}
 		},
 		mounted() {
@@ -214,6 +219,7 @@
 				args: {},
 				callback: r => {
 					me.subtypeOptions = r.message;
+					me.selectedSubtype = me.subtypeOptions[0].value;
 				}
 			});
 		}
