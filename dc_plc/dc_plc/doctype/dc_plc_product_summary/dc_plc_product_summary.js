@@ -253,9 +253,11 @@ frappe.ui.form.on('DC_Doc_Opcon_in_Opcon_List ', {
 	},
 	btn_download: function (frm, cdt, cdn) {
 		let row = frappe.model.get_doc(cdt, cdn);
-		open_url_post('/api/method/dc_plc.controllers.file_manager.serve_opcon', {
-			meta_id: row.link_opcon_meta
-		}, false);
+		console.log(row);
+		return;
+		// open_url_post('/api/method/dc_plc.controllers.file_manager.serve_opcon', {
+		// 	meta_id: row.link_opcon_meta
+		// }, false);
 	}
 });
 
