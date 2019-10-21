@@ -3,8 +3,9 @@ import frappe
 import os
 import shutil
 
-from dc_plc.dc_documents.doctype.dc_doc_misc_meta.dc_doc_misc_meta import DC_Doc_Misc_Meta
 from frappe.core.doctype.file.file import File
+from dc_plc.dc_documents.doctype.dc_doc_misc_meta.dc_doc_misc_meta import DC_Doc_Misc_Meta
+from dc_plc.dc_documents.doctype.dc_doc_opcon_meta.dc_doc_opcon_meta import DC_Doc_Opcon_Meta
 from dc_plc.dc_documents.doctype.dc_doc_dev_report_meta.dc_doc_dev_report_meta import DC_Doc_Dev_Report_Meta
 from dc_plc.dc_plc.doctype.dc_plc_product_summary.dc_plc_product_summary import DC_PLC_Product_Summary
 from dc_plc.dc_documents.doctype.dc_doc_datasheet_meta.dc_doc_datasheet_meta import DC_Doc_Datasheet_Meta
@@ -161,6 +162,81 @@ LIMIT 10;""", {
 			'value': d[1],
 			'note': d[2],
 			'file_url': d[3].replace('\n', '<br>')
+		}
+		for d in res
+	]
+
+
+@frappe.whitelist()
+def search_existing_opcon(query):
+	"""
+	Search for existing opcons
+	:param query: str -- text search query
+	:return: list -- list of {'value': '', 'label': ''} entries
+	"""
+
+	db_name = frappe.conf.get("db_name")
+
+	res = frappe.db.sql(f"""
+SELECT DISTINCT 
+	`m`.`name`
+	, `m`.`title` AS `meta_title`
+	, `m`.`note` AS `note`
+	, `m`.`attached_file` AS `url`
+FROM
+	`{db_name}`.tabDC_Doc_Opcon_Meta AS `m`
+INNER JOIN
+	`{db_name}`.tabDC_Doc_Document_Subtype AS `s` ON `m`.`link_subtype` = `s`.`name`
+INNER JOIN
+	`{db_name}`.tabDC_Doc_Opcon_in_Opcon_List AS `l` ON `l`.`link_opcon_meta` = `m`.`name`
+INNER JOIN
+	`{db_name}`.tabDC_PLC_Product_Summary AS `p` ON `p`.`name` = `l`.`parent`
+WHERE
+	`s`.`name` IN ('DST005', 'DST006', 'DST007')
+AND
+	(
+	`m`.`title` LIKE %(search)s
+	OR
+	`p`.`int_num` LIKE %(search)s
+	OR
+	`p`.`ext_num` LIKE %(search)s
+	OR
+	DATE(`m`.`creation`) < %(date)s
+	) 
+LIMIT 10;""", {
+		'search': '%{}%'.format(query),
+		'date': '{}'.format(query),
+	})
+
+	return [
+		{
+			'label': d[0],
+			'value': d[1],
+			'note': d[2],
+			'file_url': d[3].replace('\n', '<br>')
+		}
+		for d in res
+	]
+
+
+@frappe.whitelist()
+def get_opcon_subtypes():
+	db_name = frappe.conf.get("db_name")
+
+	res = frappe.db.sql(f"""
+	SELECT
+		`s`.`name`
+		, `s`.`title`
+	FROM
+		`{db_name}`.tabDC_Doc_Document_Subtype AS `s`
+	WHERE
+		`s`.`link_doc_type` = 'DT004'
+""")
+
+	return [
+		{
+			'value': d[0],
+			'label': d[1],
 		}
 		for d in res
 	]
@@ -387,3 +463,70 @@ def add_new_misc(prod_id, misc_file, temp_file):
 	add_existing_misc(prod_id, misc={'label': new_misc.name})
 
 	return True
+
+
+@frappe.whitelist()
+def add_opcon(prod_id, upload, temp_file):
+	ds = frappe.parse_json(upload)
+
+	if ds['label']:
+		add_existing_opcon(prod_id, ds)
+	else:
+		add_new_opcon(prod_id, ds, temp_file)
+
+	return 'success'
+
+
+def add_existing_opcon(prod_id, misc):
+	doc: DC_PLC_Product_Summary = frappe.get_doc('DC_PLC_Product_Summary', prod_id)
+	meta: DC_Doc_Opcon_Meta = frappe.get_doc('DC_Doc_Opcon_Meta', misc['label'])
+	doc_subype = frappe.get_doc('DC_Doc_Document_Subtype', meta.link_subtype)
+	doc_type = frappe.get_doc('DC_Doc_Document_Type', doc_subype.link_doc_type)
+
+	doc.append('tab_opcon', {
+		'link_opcon_meta': meta.name,
+		'doc_type': doc_type.title,
+		'doc_subtype': doc_subype.title,
+	})
+	doc.save()
+
+	return True
+
+
+def add_new_opcon(prod_id, opcon_meta, temp_file):
+	file_name = temp_file.split('/')[-1]
+	target_file = f'{opcon_meta["file_url"]}{file_name}'
+	stored_url = target_file[20:]
+
+	try:
+		shutil.move(temp_file, target_file, copy_function=shutil.copy)
+	except PermissionError:
+		pass
+	file_info = os.stat(target_file)
+
+	new_opcon: DC_Doc_Opcon_Meta = frappe.get_doc({
+		'doctype': 'DC_Doc_Opcon_Meta',
+		'title': opcon_meta['value'],
+		'link_subtype': opcon_meta['subtype'],
+		'attached_file': stored_url,
+		'note': opcon_meta['note']
+	})
+	new_opcon.insert()
+
+	new_file: File = frappe.get_doc({
+		'doctype': 'File',
+		'file_name': opcon_meta['value'],
+		'is_private': 0,
+		'file_size': file_info.st_size,
+		'file_url': stored_url,
+		'folder': 'Home/Opcons',
+		'attached_to_doctype': 'DC_Doc_Opcon_Meta',
+		'attached_to_name': new_opcon.name,
+		'attached_to_field': 'attached_file',
+	})
+	new_file.insert()
+
+	add_existing_opcon(prod_id, misc={'label': new_opcon.name})
+
+	return True
+

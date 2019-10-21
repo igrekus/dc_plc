@@ -41,6 +41,7 @@ SELECT
 	`f`.`name`
 	, `f`.`file_name`
 	, `f`.`file_url`
+	, `f`.`creation`
 FROM `{db_name}`.`tabFile` AS `f`
 WHERE `f`.`attached_to_doctype` = %(doctype)s
 AND `f`.`attached_to_name` = %(docname)s"""
@@ -114,6 +115,30 @@ def serve_meta(meta_id):
 	`m`.`title` AS `meta_title`
 	, `m`.`attached_file`
 	FROM `{db_name}`.`tabDC_Doc_Misc_Meta` AS `m`
+	WHERE `m`.`name` = %(meta_id)s
+	"""
+
+	res = frappe.db.sql(
+		query=sql + ';',
+		values={
+			'meta_id': f'{meta_id}'
+		},
+		as_list=1
+	)
+
+	target, source = res[0]
+	serve_as_filename(source, target)
+
+
+@frappe.whitelist()
+def serve_opcon(meta_id):
+	db_name = frappe.conf.get('db_name')
+
+	sql = f"""
+	SELECT
+	`m`.`title` AS `meta_title`
+	, `m`.`attached_file`
+	FROM `{db_name}`.`tabDC_Doc_Opcon_Meta` AS `m`
 	WHERE `m`.`name` = %(meta_id)s
 	"""
 

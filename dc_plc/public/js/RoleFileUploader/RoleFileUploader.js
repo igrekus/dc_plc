@@ -10,6 +10,7 @@ frappe.dc_plc.RoleFileUploader = class {
 		method,
 		fileType,
 		searchMethod,
+		subtypeMethod,
 	} = {}) {
 		this.product = product;
 		this.form = form;
@@ -28,6 +29,7 @@ frappe.dc_plc.RoleFileUploader = class {
 					allowedFileSize: 10,
 					fileType: fileType,
 					searchMethod: searchMethod,
+					subtypeMethod: subtypeMethod,
 				}
 			})
 		});
