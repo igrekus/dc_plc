@@ -17,6 +17,16 @@
 						v-model="fileName" />
 			</el-row>
 			<el-row>
+				<el-select v-model="selectedSubtype" placeholder="Тип файла">
+					<el-option
+							v-for="item in subtypeOptions"
+							:key="item.value"
+							:label="item.label"
+							:value="item.value">
+					</el-option>
+				</el-select>
+			</el-row>
+			<el-row>
 				<el-input
 						type="textarea"
 						autosize
@@ -80,6 +90,7 @@
 			allowedFileSize: Number,
 			fileType: String,
 			searchMethod: String,
+			subtypeMethod: String,
 		},
 		data() {
 			return {
@@ -91,6 +102,8 @@
 				fileList: [],
 				currentUpload: null,
 				tempFileName: '',
+				subtypeOptions: [],
+				selectedSubtype: '',
 			}
 		},
 		methods: {
@@ -120,17 +133,19 @@
 				this.$message.warning(`За один раз можно загрузить только один файл`);
 			},
 			handleSuccess(response, file) {
+				this.tempFileName = JSON.parse(response).message;
+				this.fileName = file.name;
+
 				this.currentUpload = {
 					label: null,
 					value: file.name,
 					file_url: `./site1.local/public/files/${this.fileType}/`,
-					note: this.note
+					note: this.note,
+					subtype: this.selectedSubtype
 				};
-				this.tempFileName = JSON.parse(response).message;
-				this.fileName = file.name;
 
 				// TODO hack to indicate upload complete
-				this.$children[3].$children[0].uploadFiles[0].status = 'success';
+				this.$children[4].$children[0].uploadFiles[0].status = 'success';
 				this.isUploading = false;
 			},
 			handleAttachModeToggle() {
@@ -187,7 +202,26 @@
 		watch: {
 			note: function (new_v, old_v) {
 				this.currentUpload.note = new_v;
+			},
+			selectedSubtype: function (new_v, old_v) {
+				if (this.currentUpload) {
+					this.currentUpload.subtype = new_v
+				}
 			}
+		},
+		mounted() {
+			if (!this.subtypeMethod)
+				return;
+
+			let me = this;
+			frappe.call({
+				method: this.subtypeMethod,
+				args: {},
+				callback: r => {
+					me.subtypeOptions = r.message;
+					me.selectedSubtype = me.subtypeOptions[0].value;
+				}
+			});
 		}
 		// components: {
 		// 	ExportWidget,
