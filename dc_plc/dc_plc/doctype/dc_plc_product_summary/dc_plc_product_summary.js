@@ -248,16 +248,14 @@ frappe.ui.form.on('DC_Doc_Misc_in_Misc_List', {
 });
 
 
-frappe.ui.form.on('DC_Doc_Opcon_in_Opcon_List ', {
+frappe.ui.form.on('DC_Doc_Opcon_in_Opcon_List', {
 	link_opcon_meta: function (frm, cdt, cdn) {
 	},
 	btn_download: function (frm, cdt, cdn) {
 		let row = frappe.model.get_doc(cdt, cdn);
-		console.log(row);
-		return;
-		// open_url_post('/api/method/dc_plc.controllers.file_manager.serve_opcon', {
-		// 	meta_id: row.link_opcon_meta
-		// }, false);
+		open_url_post('/api/method/dc_plc.controllers.file_manager.serve_opcon', {
+			meta_id: row.link_opcon_meta
+		}, false);
 	}
 });
 
