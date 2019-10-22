@@ -16,23 +16,49 @@
 						placeholder="Имя файла"
 						v-model="fileName" />
 			</el-row>
-			<el-row>
-				<el-select v-model="selectedSubtype" placeholder="Тип файла">
-					<el-option
-							v-for="item in subtypeOptions"
-							:key="item.value"
-							:label="item.label"
-							:value="item.value">
-					</el-option>
-				</el-select>
-			</el-row>
-			<el-row>
-				<el-input
-						type="textarea"
-						autosize
-						placeholder="Комментарий..."
-						v-model="note" />
-			</el-row>
+			<div v-if="!!subtypeMethod">
+				<el-row>
+					<el-select v-model="selectedSubtype" placeholder="Тип файла">
+						<el-option
+								v-for="item in subtypeOptions"
+								:key="item.value"
+								:label="item.label"
+								:value="item.value">
+						</el-option>
+					</el-select>
+				</el-row>
+				<el-row>
+					<el-input
+							placeholder="Номер ТУ"
+							v-model="opconNum"/>
+				</el-row>
+				<el-row>
+					<el-input
+							placeholder="Внутренний номер ТУ"
+							v-model="opconIntNum"/>
+				</el-row>
+				<el-row>
+					<el-date-picker
+							v-model="dateApproval"
+							type="date"
+							placeholder="Дата утверждения">
+					</el-date-picker>
+				</el-row>
+				<el-row>
+					<el-date-picker
+							v-model="dateArchive"
+							type="date"
+							placeholder="Дата сдачи в архив">
+					</el-date-picker>
+				</el-row>
+				<el-row>
+					<el-input
+							type="textarea"
+							autosize
+							placeholder="Комментарий"
+							v-model="note"/>
+				</el-row>
+			</div>
 			<el-row>
 				<el-upload
 						class="upload-demo"
@@ -99,6 +125,10 @@
 				uploadNew: false,
 				fileName: '',
 				note: '',
+				opconNum: '',
+				opconIntNum: '',
+				dateApproval: '',
+				dateArchive: '',
 				fileList: [],
 				currentUpload: null,
 				tempFileName: '',
@@ -141,11 +171,18 @@
 					value: file.name,
 					file_url: `./site1.local/public/files/${this.fileType}/`,
 					note: this.note,
-					subtype: this.selectedSubtype
+					subtype: this.selectedSubtype,
+					opconNum: this.opconNum,
+					opconIntNum: this.opconIntNum,
+					dateApproval: this.dateApproval,
+					dateArchive: this.dateArchive,
 				};
 
 				// TODO hack to indicate upload complete
-				this.$children[4].$children[0].uploadFiles[0].status = 'success';
+				const child_index = !!this.subtypeMethod ? 8 : 2;
+				console.log(child_index);
+				console.log(this.$children);
+				this.$children[child_index].$children[0].uploadFiles[0].status = 'success';
 				this.isUploading = false;
 			},
 			handleAttachModeToggle() {
@@ -200,13 +237,35 @@
 			},
 		},
 		watch: {
-			note: function (new_v, old_v) {
+			note(new_v, old_v) {
+				if (!this.currentUpload)
+					return;
 				this.currentUpload.note = new_v;
 			},
-			selectedSubtype: function (new_v, old_v) {
-				if (this.currentUpload) {
-					this.currentUpload.subtype = new_v
-				}
+			selectedSubtype(new_v, old_v) {
+				if (!this.currentUpload)
+					return;
+				this.currentUpload.subtype = new_v;
+			},
+			opconNum(new_v, old_v) {
+				if (!this.currentUpload)
+					return;
+				this.currentUpload.opconNum = new_v;
+			},
+			opconIntNum(new_v, old_v) {
+				if (!this.currentUpload)
+					return;
+				this.currentUpload.opconIntNum = new_v;
+			},
+			dateApproval(new_v, old_v) {
+				if (!this.currentUpload)
+					return;
+				this.currentUpload.dateApproval = new_v;
+			},
+			dateArchive(new_v, old_v) {
+				if (!this.currentUpload)
+					return;
+				this.currentUpload.dateArchive = new_v;
 			}
 		},
 		mounted() {

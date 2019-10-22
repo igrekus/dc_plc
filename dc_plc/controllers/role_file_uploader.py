@@ -507,9 +507,13 @@ def add_new_opcon(prod_id, opcon_meta, temp_file):
 	new_opcon: DC_Doc_Opcon_Meta = frappe.get_doc({
 		'doctype': 'DC_Doc_Opcon_Meta',
 		'title': opcon_meta['value'],
-		'link_subtype': opcon_meta['subtype'],
 		'attached_file': stored_url,
-		'note': opcon_meta['note']
+		'link_subtype': opcon_meta['subtype'],
+		'note': opcon_meta['note'],
+		'opcon_num': opcon_meta['opconNum'],
+		'opcon_int_num': opcon_meta['opconIntNum'],
+		'date_approve': opcon_meta['dateApproval'][:10],
+		'date_archive': opcon_meta['dateArchive'][:10],
 	})
 	new_opcon.insert()
 
