@@ -248,7 +248,7 @@ frappe.ui.form.on('DC_Doc_Misc_in_Misc_List', {
 });
 
 
-frappe.ui.form.on('DC_Doc_Opcon_in_Opcon_List ', {
+frappe.ui.form.on('DC_Doc_Opcon_in_Opcon_List', {
 	link_opcon_meta: function (frm, cdt, cdn) {
 	},
 	btn_download: function (frm, cdt, cdn) {
