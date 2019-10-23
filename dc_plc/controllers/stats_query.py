@@ -194,6 +194,7 @@ def get_developer_stats(filters):
 	, `p`.`analog`
 	, `p`.`ext_num`
 	, `p`.`int_num`
+	, `p`.`rel_check_dept_head`
 	, `p`.`rel_check_developer`
 	, `p`.`rel_date_developer`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
