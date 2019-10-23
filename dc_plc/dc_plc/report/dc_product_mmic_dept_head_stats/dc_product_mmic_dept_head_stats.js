@@ -16,6 +16,7 @@ frappe.query_reports["DC Product MMIC Dept Head Stats"] = {
 				table_instance.style.setStyle(`.dt-cell--${col}-${row}`, {backgroundColor: `${bgCol}`});
 			});
 		}
+		table_instance.style.setStyle(`.dt-scrollable`, {height: '550px;'});
 	},
 	onload: report => {
 		report.export_products = [];
