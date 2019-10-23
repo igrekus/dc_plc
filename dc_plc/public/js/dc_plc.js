@@ -72,5 +72,6 @@
 		});
 	};
 
+	setTimeout(() => { ELEMENT.locale(ELEMENT.lang.ruRU); }, 1000);
 	console.log('>>> DC PLC init finished <<<');
 })();

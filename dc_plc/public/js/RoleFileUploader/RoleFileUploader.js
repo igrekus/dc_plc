@@ -35,7 +35,6 @@ frappe.dc_plc.RoleFileUploader = class {
 		});
 		this.uploader = this.$fileuploader.$children[0];
 
-		ELEMENT.locale(ELEMENT.lang.ruRU);
 	}
 
 	upload_files() {
