@@ -5,15 +5,18 @@
 frappe.query_reports["DC Product MMIC Dept Head Stats"] = {
 	filters: [],
 	formatter: frappe.dc_plc.utils.formatters.mmic_dept_head_formatter,
-	// onload: report => {
-	// 	// console.log('table onload');
-	// },
 	after_datatable_render: table_instance => {
-		// $(table_instance.wrapper).find(".dt-row-0").find('input[type=checkbox]').click();
 		let highlight_cols = [4, 6, 7];
-		highlight_cols.forEach(col => {
-			table_instance.style.setStyle(`.dt-cell--col-${col}`, { backgroundColor: 'rgba(255, 252, 29, 0.27);' })
-		});
+		let data = table_instance.datamanager.data;
+		for (let row = 0; row < data.length; ++row) {
+			const [date, check, perms] = data[row][__('Relevance')].split(';');
+			const is_checked = !!parseInt(check);
+			highlight_cols.forEach(col => {
+				let bgCol = is_checked ? 'rgba(37,220,2,0.2);' : 'rgba(255, 252, 29, 0.27);';
+				table_instance.style.setStyle(`.dt-cell--${col}-${row}`, {backgroundColor: `${bgCol}`});
+			});
+		}
+		table_instance.style.setStyle(`.dt-scrollable`, {height: '550px;'});
 	},
 	onload: report => {
 		report.export_products = [];
