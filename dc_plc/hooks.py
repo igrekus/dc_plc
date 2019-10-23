@@ -27,6 +27,7 @@ app_include_css = [
 app_include_js = [
 	"/assets/dc_plc/js/dc_plc.min.js",
 	"/assets/dc_plc/node_modules/element-ui/lib/index.js",
+	"/assets/dc_plc/node_modules/element-ui/lib/umd/locale/ru-RU.js"
 ]
 
 # include js, css files in header of web template

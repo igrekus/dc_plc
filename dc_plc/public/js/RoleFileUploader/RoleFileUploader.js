@@ -34,6 +34,7 @@ frappe.dc_plc.RoleFileUploader = class {
 			})
 		});
 		this.uploader = this.$fileuploader.$children[0];
+
 	}
 
 	upload_files() {
