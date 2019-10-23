@@ -46,6 +46,11 @@ def get_data(filters):
 		row[3] = devs.get(row[0], '').replace(',', '<br>')
 		return row
 
+	def add_dept_head_relevance(row):
+		relevant = int(row[-1])
+		row[1] += f';{relevant}'
+		return row[:-1]
+
 	devs = get_developers_for_product()
 	cons = get_consultants_for_product()
 
@@ -55,6 +60,7 @@ def get_data(filters):
 	res = [add_devs_and_cons(row) for row in res]
 	res = [add_completeness(row, range(2, 12)) for row in res]
 	res = [add_query_relevance(row, has_perms) for row in res]
+	res = [add_dept_head_relevance(row) for row in res]
 	res = [add_newline(row) for row in res]
 
 	return res
