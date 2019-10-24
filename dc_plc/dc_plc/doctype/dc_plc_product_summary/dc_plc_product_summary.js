@@ -329,16 +329,14 @@ let upload_opcon = ({frm, product}) => {
 };
 
 let upload_desdoc = ({frm, product}) => {
-	console.log('upload desdoc');
-	return true;
 	new frappe.dc_plc.RoleFileUploader({
 		form: frm,
 		product: product,
-		title: 'Добавить ТУ',
-		method: 'dc_plc.controllers.role_file_uploader.add_opcon',
-		fileType: 'opcons',
-		searchMethod: 'dc_plc.controllers.role_file_uploader.search_existing_opcon',
-		subtypeMethod: 'dc_plc.controllers.role_file_uploader.get_opcon_subtypes'
+		title: 'Добавить КД',
+		method: 'dc_plc.controllers.role_file_uploader.add_desdoc',
+		fileType: 'desdocs',
+		searchMethod: 'dc_plc.controllers.role_file_uploader.search_existing_desdoc',
+		subtypeMethod: 'dc_plc.controllers.role_file_uploader.get_desdoc_subtypes'
 	});
 };
 

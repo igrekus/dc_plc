@@ -16,49 +16,6 @@
 						placeholder="Имя файла"
 						v-model="fileName" />
 			</el-row>
-			<div v-if="!!subtypeMethod">
-				<el-row>
-					<el-select v-model="selectedSubtype" placeholder="Тип файла">
-						<el-option
-								v-for="item in subtypeOptions"
-								:key="item.value"
-								:label="item.label"
-								:value="item.value">
-						</el-option>
-					</el-select>
-				</el-row>
-				<el-row>
-					<el-input
-							placeholder="Номер ТУ"
-							v-model="opconNum"/>
-				</el-row>
-				<el-row>
-					<el-input
-							placeholder="Внутренний номер ТУ"
-							v-model="opconIntNum"/>
-				</el-row>
-				<el-row>
-					<el-date-picker
-							v-model="dateApproval"
-							type="date"
-							placeholder="Дата утверждения">
-					</el-date-picker>
-				</el-row>
-				<el-row>
-					<el-date-picker
-							v-model="dateArchive"
-							type="date"
-							placeholder="Дата сдачи в архив">
-					</el-date-picker>
-				</el-row>
-				<el-row>
-					<el-input
-							type="textarea"
-							autosize
-							placeholder="Комментарий"
-							v-model="note"/>
-				</el-row>
-			</div>
 			<el-row>
 				<el-upload
 						class="upload-demo"
@@ -76,6 +33,51 @@
 					<div class="el-upload__tip" slot="tip">PDF размером меньше 10 Мб</div>
 				</el-upload>
 			</el-row>
+			<div v-if="!!subtypeMethod">
+				<el-row>
+					<el-select v-model="selectedSubtype" placeholder="Тип файла">
+						<el-option
+								v-for="item in subtypeOptions"
+								:key="item.value"
+								:label="item.label"
+								:value="item.value">
+						</el-option>
+					</el-select>
+				</el-row>
+				<el-row>
+					<el-input
+							placeholder="Номер"
+							v-model="opconNum"/>
+				</el-row>
+				<div v-if="fileType === 'opcons'">
+					<el-row>
+						<el-input
+								placeholder="Внутренний номер ТУ"
+								v-model="opconIntNum"/>
+					</el-row>
+					<el-row>
+						<el-date-picker
+								v-model="dateApproval"
+								type="date"
+								placeholder="Дата утверждения">
+						</el-date-picker>
+					</el-row>
+				</div>
+				<el-row>
+					<el-date-picker
+							v-model="dateArchive"
+							type="date"
+							placeholder="Дата сдачи в архив">
+					</el-date-picker>
+				</el-row>
+				<el-row>
+					<el-input
+							type="textarea"
+							autosize
+							placeholder="Комментарий"
+							v-model="note"/>
+				</el-row>
+			</div>
 		</div>
 		<div v-else>
 			<el-row>
@@ -179,10 +181,8 @@
 				};
 
 				// TODO hack to indicate upload complete
-				const child_index = !!this.subtypeMethod ? 8 : 2;
-				console.log(child_index);
-				console.log(this.$children);
-				this.$children[child_index].$children[0].uploadFiles[0].status = 'success';
+				// const child_index = !!this.subtypeMethod ? 8 : 2;
+				this.$children[2].$children[0].uploadFiles[0].status = 'success';
 				this.isUploading = false;
 			},
 			handleAttachModeToggle() {
