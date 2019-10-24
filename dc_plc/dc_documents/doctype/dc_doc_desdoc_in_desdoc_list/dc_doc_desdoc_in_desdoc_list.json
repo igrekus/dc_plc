@@ -1,10 +1,10 @@
 {
- "creation": "2019-10-17 16:36:23.433992",
+ "creation": "2019-10-24 14:03:46.617050",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "link_opcon_meta",
+  "link_desdoc_meta",
   "doc_type",
   "doc_subtype",
   "file_name",
@@ -13,13 +13,13 @@
  ],
  "fields": [
   {
-   "fieldname": "link_opcon_meta",
+   "fieldname": "link_desdoc_meta",
    "fieldtype": "Link",
-   "label": "Opcon",
-   "options": "DC_Doc_Opcon_Meta"
+   "label": "Desdoc",
+   "options": "DC_Doc_Desdoc_Meta"
   },
   {
-   "default": "\u0422\u0423",
+   "default": "\u041a\u0414",
    "fieldname": "doc_type",
    "fieldtype": "Data",
    "hidden": 1,
@@ -34,15 +34,14 @@
    "read_only": 1
   },
   {
-   "fetch_from": "link_opcon_meta.title",
+   "fetch_from": "link_desdoc_meta.title",
    "fieldname": "file_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "File name",
-   "read_only": 1
+   "label": "File name"
   },
   {
-   "fetch_from": "link_opcon_meta.note",
+   "fetch_from": "link_desdoc_meta.note",
    "fieldname": "note",
    "fieldtype": "Small Text",
    "in_list_view": 1,
@@ -57,10 +56,10 @@
   }
  ],
  "istable": 1,
- "modified": "2019-10-24 13:57:36.073750",
+ "modified": "2019-10-24 16:08:02.661386",
  "modified_by": "Administrator",
  "module": "DC Documents",
- "name": "DC_Doc_Opcon_in_Opcon_List",
+ "name": "DC_Doc_Desdoc_in_Desdoc_List",
  "owner": "Administrator",
  "permissions": [],
  "quick_entry": 1,
