@@ -63,9 +63,9 @@
   "sec_desdoc",
   "rel_check_desdoc",
   "int_num",
-  "col_desdoc",
   "rel_date_desdoc",
   "desdoc_num",
+  "tab_desdoc",
   "sec_notes",
   "link_bkvp_num",
   "tech_note",
@@ -220,12 +220,9 @@
    "label": "Economy note"
   },
   {
-   "allow_in_quick_entry": 1,
    "fieldname": "link_bkvp_num",
    "fieldtype": "Link",
    "hidden": 1,
-   "in_global_search": 1,
-   "in_standard_filter": 1,
    "label": "BKPV number",
    "options": "DC_PLC_BKVP_Number",
    "permlevel": 2
@@ -234,9 +231,7 @@
    "default": "-",
    "fieldname": "desdoc_num",
    "fieldtype": "Data",
-   "in_global_search": 1,
-   "in_list_view": 1,
-   "in_standard_filter": 1,
+   "hidden": 1,
    "label": "Desdoc number",
    "permlevel": 7
   },
@@ -313,10 +308,6 @@
    "fieldname": "sec_desdoc",
    "fieldtype": "Section Break",
    "label": "Responsible: desdoc spec"
-  },
-  {
-   "fieldname": "col_desdoc",
-   "fieldtype": "Column Break"
   },
   {
    "collapsible": 1,
@@ -516,10 +507,17 @@
    "label": "Opcon",
    "options": "DC_Doc_Opcon_in_Opcon_List",
    "permlevel": 4
+  },
+  {
+   "fieldname": "tab_desdoc",
+   "fieldtype": "Table",
+   "label": "Design documents",
+   "options": "DC_Doc_Desdoc_in_Desdoc_List",
+   "permlevel": 7
   }
  ],
  "hide_toolbar": 1,
- "modified": "2019-10-17 16:44:58.036047",
+ "modified": "2019-10-24 14:08:02.764831",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",
