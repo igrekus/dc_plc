@@ -4,6 +4,7 @@ import os
 import shutil
 
 from frappe.core.doctype.file.file import File
+from dc_plc.dc_documents.doctype.dc_doc_desdoc_meta.dc_doc_desdoc_meta import DC_Doc_Desdoc_Meta
 from dc_plc.dc_documents.doctype.dc_doc_misc_meta.dc_doc_misc_meta import DC_Doc_Misc_Meta
 from dc_plc.dc_documents.doctype.dc_doc_opcon_meta.dc_doc_opcon_meta import DC_Doc_Opcon_Meta
 from dc_plc.dc_documents.doctype.dc_doc_dev_report_meta.dc_doc_dev_report_meta import DC_Doc_Dev_Report_Meta
@@ -614,11 +615,65 @@ def add_new_opcon(prod_id, opcon_meta, temp_file):
 def add_desdoc(prod_id, upload, temp_file):
 	ds = frappe.parse_json(upload)
 
-	frappe.msgprint(str(ds))
-	return True
 	if ds['label']:
-		add_existing_opcon(prod_id, ds)
+		add_existing_desdoc(prod_id, ds)
 	else:
-		add_new_opcon(prod_id, ds, temp_file)
+		add_new_desdoc(prod_id, ds, temp_file)
 
 	return 'success'
+
+
+def add_existing_desdoc(prod_id, misc):
+	doc: DC_PLC_Product_Summary = frappe.get_doc('DC_PLC_Product_Summary', prod_id)
+	meta: DC_Doc_Desdoc_Meta = frappe.get_doc('DC_Doc_Desdoc_Meta', misc['label'])
+	doc_subype = frappe.get_doc('DC_Doc_Document_Subtype', meta.link_subtype)
+	doc_type = frappe.get_doc('DC_Doc_Document_Type', doc_subype.link_doc_type)
+
+	doc.append('tab_desdoc', {
+		'link_desdoc_meta': meta.name,
+		'doc_type': doc_type.title,
+		'doc_subtype': doc_subype.title,
+	})
+	doc.save()
+
+	return True
+
+
+def add_new_desdoc(prod_id, desdoc_meta, temp_file):
+	file_name = temp_file.split('/')[-1]
+	target_file = f'{desdoc_meta["file_url"]}{file_name}'
+	stored_url = target_file[20:]
+
+	try:
+		shutil.move(temp_file, target_file, copy_function=shutil.copy)
+	except PermissionError:
+		pass
+	file_info = os.stat(target_file)
+
+	new_desdoc: DC_Doc_Desdoc_Meta = frappe.get_doc({
+		'doctype': 'DC_Doc_Desdoc_Meta',
+		'title': desdoc_meta['value'],
+		'attached_file': stored_url,
+		'link_subtype': desdoc_meta['subtype'],
+		'note': desdoc_meta['note'],
+		'desdoc_num': desdoc_meta['opconNum'],
+		'date_archive': desdoc_meta['dateArchive'][:10],
+	})
+	new_desdoc.insert()
+
+	new_file: File = frappe.get_doc({
+		'doctype': 'File',
+		'file_name': desdoc_meta['value'],
+		'is_private': 0,
+		'file_size': file_info.st_size,
+		'file_url': stored_url,
+		'folder': 'Home/Design_Documents',
+		'attached_to_doctype': 'DC_Doc_Desdoc_Meta',
+		'attached_to_name': new_desdoc.name,
+		'attached_to_field': 'attached_file',
+	})
+	new_file.insert()
+
+	add_existing_desdoc(prod_id, misc={'label': new_desdoc.name})
+
+	return True
