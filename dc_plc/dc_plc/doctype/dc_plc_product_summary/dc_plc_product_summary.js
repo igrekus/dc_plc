@@ -97,6 +97,17 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
 		opcon_grid.find('.btn.grid-add-row').hide();
 		// misc_grid.find('.btn.grid-remove-rows').hide();
 
+		// desdoc specialist -- desdoc grid
+		frm.fields_dict['tab_desdoc'].grid.add_custom_button('Добавить файл', () => {
+			upload_desdoc({
+				frm: frm,
+				product: frm.doc,
+			})
+		});
+		let desdoc_grid = $('.form-group*[data-fieldname="tab_desdoc"]');
+		desdoc_grid.find('.btn.grid-add-row').hide();
+		// desdoc_grid.find('.btn.grid-remove-rows').hide();
+
 
 	},
 	ext_num: frm => render_info_field(frm, 'info_ext_num', 'Внешний номер', value_or_none(frm.get_field('ext_num').value)),
@@ -260,6 +271,18 @@ frappe.ui.form.on('DC_Doc_Opcon_in_Opcon_List', {
 });
 
 
+frappe.ui.form.on('DC_Doc_Desdoc_in_Desdoc_List', {
+	link_desdoc_meta: function (frm, cdt, cdn) {
+	},
+	btn_download: function (frm, cdt, cdn) {
+		let row = frappe.model.get_doc(cdt, cdn);
+		open_url_post('/api/method/dc_plc.controllers.file_manager.serve_desdoc', {
+			meta_id: row.link_desdoc_meta
+		}, false);
+	}
+});
+
+
 let upload_datasheet = ({frm, product}) => {
 	new frappe.dc_plc.RoleFileUploader({
 		form: frm,
@@ -304,6 +327,19 @@ let upload_opcon = ({frm, product}) => {
 		subtypeMethod: 'dc_plc.controllers.role_file_uploader.get_opcon_subtypes'
 	});
 };
+
+let upload_desdoc = ({frm, product}) => {
+	new frappe.dc_plc.RoleFileUploader({
+		form: frm,
+		product: product,
+		title: 'Добавить КД',
+		method: 'dc_plc.controllers.role_file_uploader.add_desdoc',
+		fileType: 'desdocs',
+		searchMethod: 'dc_plc.controllers.role_file_uploader.search_existing_desdoc',
+		subtypeMethod: 'dc_plc.controllers.role_file_uploader.get_desdoc_subtypes'
+	});
+};
+
 
 // List of Triggers
 //
