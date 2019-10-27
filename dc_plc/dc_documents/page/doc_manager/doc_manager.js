@@ -5,7 +5,7 @@ frappe.pages['doc_manager'].on_page_load = function(wrapper) {
 		single_column: true,
 	});
 
-	// this.page.$export_tool = new frappe.dc_plc.ExportTool(this.page);
+	this.page.$doc_man = new frappe.dc_plc.DocManager(this.page);
 };
 
 frappe.pages['doc_manager'].on_page_show = () => {
