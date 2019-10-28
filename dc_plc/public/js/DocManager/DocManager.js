@@ -1,4 +1,4 @@
-// import ToolRoot from './ToolRoot.vue';
+import DocManagerRoot from './DocManagerRoot.vue';
 
 frappe.provide('frappe.dc_plc');
 
@@ -10,7 +10,17 @@ frappe.dc_plc.DocManager = class {
 		this.make_body();
 	}
 	make_body() {
-		$(frappe.render_template('<div id="app">LOL MANAGER HAHAHA</div>', this.page)).prependTo(this.$parent.find('.layout-main'));
+		$(frappe.render_template('<div id="app"><doc-manager-root></doc-manager-root></div>', this.page))
+			.prependTo(this.$parent.find('.layout-main'));
+		this.vue = new Vue({
+			el: '#app',
+			data() {
+				return {}
+			},
+			components: {
+				DocManagerRoot,
+			}
+		});
 	}
 
 	setup_header() {
