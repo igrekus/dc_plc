@@ -2,6 +2,7 @@
   "dc_plc/js/dc_plc.min.js": [
     "public/js/export_tool/export_tool.js",
     "public/js/RoleFileUploader/RoleFileUploader.js",
+    "public/js/DocManager/DocManager.js",
     "public/js/dc_plc.js"
   ]
 }

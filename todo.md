@@ -7,12 +7,13 @@
 - product - file-meta multi-link UI & backend
 - update stat table logic to show reworked attached docs (how?)
 - fix disappearing odd-numbered small field in the report
-- URL link to meta doctype from list child table
+
+- parse and import new data
+- document manager
 
 ### Feats
-- ~~desdoc~~ 
-- ~~color green on relevant columns on checked row for dept head and developer queries~~ 
-- ~~color dept-head relevant rows in developer query~~ 
+- ~~desdoc file manager~~
+- ~~opcon file manager~~
 - ~~misc file manager~~
 - ~~add note field to both file tables~~
 - ~~developer report file manager~~

@@ -1,0 +1,24 @@
+{
+ "content": null,
+ "creation": "2019-10-30 16:57:04.201939",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2019-10-30 16:57:39.339264",
+ "modified_by": "Administrator",
+ "module": "DC Documents",
+ "name": "doc_manager",
+ "owner": "Administrator",
+ "page_name": "doc_manager",
+ "restrict_to_domain": "Design Center",
+ "roles": [
+  {
+   "role": "All"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "Doc manager"
+}
