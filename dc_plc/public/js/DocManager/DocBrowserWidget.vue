@@ -5,39 +5,45 @@
 				v-model="filterText">
 		</el-input>
 
-		<el-tree
-				class="filter-tree"
-				:data="data"
-				:props="defaultProps"
-				default-expand-all
-				:filter-node-method="filterNode"
-				ref="tree">
-		</el-tree>
+		<div class="custom-tree-container">
+			<div class="block">
+				<el-tree
+						:data="data"
+						show-checkbox
+						node-key="id"
+						default-expand-all
+						:expand-on-click-node="false">
+					<span class="custom-tree-node" slot-scope="{ node, data }">
+						<span>{{ node.label }}</span>
+						<span>
+							<el-button
+									type="text"
+									size="mini"
+									@click="() => append(data)">+
+							</el-button>
+							<el-button
+									type="text"
+									size="mini"
+									@click="() => remove(node, data)">-
+							</el-button>
+						</span>
+					</span>
+				</el-tree>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
+	let id = 1000;
+
 	export default {
 		name: "DocBrowserWidget",
-		watch: {
-			filterText(val) {
-				this.$refs.tree.filter(val);
-			}
-		},
-
-		methods: {
-			filterNode(value, data) {
-				if (!value) return true;
-				return data.label.indexOf(value) !== -1;
-			}
-		},
-
 		data() {
-			return {
-				filterText: '',
-				data: [{
+			const data = [
+				{
 					id: 1,
-					label: 'Level one 1',
+					label: 'root 1',
 					children: [{
 						id: 4,
 						label: 'Level two 1-1',
@@ -49,9 +55,10 @@
 							label: 'Level three 1-1-2'
 						}]
 					}]
-				}, {
+				},
+				{
 					id: 2,
-					label: 'Level one 2',
+					label: 'root 2',
 					children: [{
 						id: 5,
 						label: 'Level two 2-1'
@@ -61,7 +68,7 @@
 					}]
 				}, {
 					id: 3,
-					label: 'Level one 3',
+					label: 'root 3',
 					children: [{
 						id: 7,
 						label: 'Level two 3-1'
@@ -69,16 +76,39 @@
 						id: 8,
 						label: 'Level two 3-2'
 					}]
-				}],
-				defaultProps: {
-					children: 'children',
-					label: 'label'
+				}];
+			return {
+				data: JSON.parse(JSON.stringify(data)),
+				filterText: ''
+			}
+		},
+
+		methods: {
+			append(data) {
+				const newChild = {id: id++, label: 'testtest', children: []};
+				if (!data.children) {
+					this.$set(data, 'children', []);
 				}
-			};
+				data.children.push(newChild);
+			},
+
+			remove(node, data) {
+				const parent = node.parent;
+				const children = parent.data.children || parent.data;
+				const index = children.findIndex(d => d.id === data.id);
+				children.splice(index, 1);
+			},
 		}
 	}
 </script>
 
 <style scoped>
-
+	.custom-tree-node {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-size: 14px;
+		padding-right: 8px;
+	}
 </style>
