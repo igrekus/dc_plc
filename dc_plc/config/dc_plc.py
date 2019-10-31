@@ -211,6 +211,13 @@ def get_data():
 					"description": _("Export DC product data"),
 					"onboard": 1
 				},
+				{
+					"type": "page",
+					"label": _("Document manager"),
+					"name": "doc_manager",
+					"description": _("Manage Design Center documents"),
+					"onboard": 1
+				},
 			]
 		}
 	]
