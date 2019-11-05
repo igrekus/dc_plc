@@ -6,52 +6,42 @@ frappe.pages["dc_product_dashboard"].on_page_load = (wrapper) => {
 		parent: wrapper,
 		title: "Статистика заполненности и актуальности",
 		single_column: true,
-		role_completeness: [],
-		developer_completeness: []
+		data: {
+			role_stat: [],
+			dev_stat: [],
+		},
 	});
-
-	frappe.dc_plc.show_dashboard(this.page);
 
 	this.page.add_menu_item(__("Menu item 1"), () => {
 		console.log("menu item 1");
 	}, 'fa fa-th');
+
+	let page = this.page;
+
+	Promise.all([
+		get_role_completeness_stats(),
+		get_developer_completeness_stats(),
+	]).then(r => {
+		let [role_stat, dev_stat] = r;
+
+		page.data.role_stat = role_stat.message;
+		page.data.dev_stat = dev_stat.message;
+ 		page.data.dev_stat[0].url = `http://${window.location.host}/desk#query-report/DC%20Product%20Stats/Report?developer=HR-EMP-00094`;
+
+		render_dashboard(page);
+	});
 };
 
 frappe.pages['dc_product_dashboard'].on_page_show = () => {
 	frappe.breadcrumbs.add("DC PLC");
 };
 
-// TODO refactor callback hell
-get_role_completeness_stats = (page) => {
-	frappe.call({
-		method: "dc_plc.controllers.dashboard_query.role_completeness_stats",
-		callback: (r) => {
-			if (r.message) {
-				page.role_completeness = r.message;
-				get_developer_completeness_stats(page);
-			}
-		}
-	});
-};
+let get_role_completeness_stats = () => frappe.call({
+	method: "dc_plc.controllers.dashboard_query.role_completeness_stats",
+}).promise();
 
-get_developer_completeness_stats = (page) => {
-	frappe.call({
-		method: "dc_plc.controllers.dashboard_query.developer_completeness_stats",
-		callback: (r) => {
-			if (r.message) {
-				page.developer_completeness = r.message;
-				page.developer_completeness[0].url = `http://${window.location.host}/desk#query-report/DC%20Product%20Stats/Report?developer=HR-EMP-00094`;
-				frappe.dc_plc.render_dashboard(page);
-			}
-		}
-	});
-};
+let get_developer_completeness_stats = () => frappe.call({
+	method: "dc_plc.controllers.dashboard_query.developer_completeness_stats",
+}).promise();
 
-frappe.dc_plc.show_dashboard = (page) => {
-	get_role_completeness_stats(page);
-};
-
-frappe.dc_plc.render_dashboard = (page) => {
-	page.title = "";
-	$(frappe.render_template("dc_product_dashboard", page)).prependTo(page.main);
-};
+let render_dashboard = (page) => $(frappe.render_template("dc_product_dashboard", page)).prependTo(page.main);

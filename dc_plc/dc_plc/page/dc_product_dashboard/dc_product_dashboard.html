@@ -7,7 +7,7 @@
             <th>Заполненность</th>
             <th>Актуальность</th>
         </tr>
-        {% for item in role_completeness %}
+        {% for item in data.role_stat %}
             <tr class="list-row">
                 <td><a href="{{ item.url }}">{{ item.name }}</a></td>
                 <td><a href="{{ item.url }}">{{ item.progress }}%</a></td>
@@ -23,7 +23,7 @@
             <th>Актуальность</th>
             <th>Количество</th>
         </tr>
-        {% for item in developer_completeness %}
+        {% for item in data.dev_stat %}
             <tr class="list-row">
                 <td><a href="{{ item.url }}">{{ item.name }}</a></td>
                 <td><a href="{{ item.url }}">{{ item.progress }}%</a></td>
