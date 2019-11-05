@@ -209,19 +209,29 @@ def get_developer_stats(filters):
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
 	LEFT OUTER JOIN
-		`{}`.`tabDC_PLC_Developers_in_Product` AS `dev` ON `p`.`name` = `dev`.`parent`""".format(db_name, db_name, db_name, db_name, db_name, db_name, db_name)
+		`{}`.`tabDC_PLC_Developers_in_Product` AS `dev` ON `p`.`name` = `dev`.`parent`
+	LEFT OUTER JOIN
+		`{}`.`tabDC_PLC_Consulants_in_Product` AS `con` ON `p`.`name` = `con`.`parent`
+		""".format(db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name)
 
 	if filters:
 		dev = filters.get('developer', '%')
+		con = filters.get('consultant', '%')
 		if dev == 'HR-EMP-00094':
 			dev_clause = "`dev`.`link_employee` IS NULL"
 		else:
 			dev_clause = "(`dev`.`link_employee` LIKE '%' OR `dev`.`link_employee` IS NULL)" if dev == '%' else "`dev`.`link_employee` LIKE '{}'".format(dev)
+		if con == 'HR-EMP-00094':
+			cons_clause = "`con`.`link_employee` IS NULL"
+		else:
+			cons_clause = "(`con`.`link_employee` LIKE '%' OR `con`.`link_employee` IS NULL)" if con == '%' else "`con`.`link_employee` LIKE '{}'".format(con)
 
 		sql += """
 	WHERE
 	{}
-	""".format(dev_clause)
+	AND
+	{}
+	""".format(dev_clause, cons_clause)
 
 	sql += "GROUP BY `p`.`name` ORDER BY `id`"
 
