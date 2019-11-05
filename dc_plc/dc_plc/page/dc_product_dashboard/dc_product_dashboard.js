@@ -49,14 +49,9 @@ get_developer_completeness_stats = (page) => {
 
 frappe.dc_plc.show_dashboard = (page) => {
 	get_role_completeness_stats(page);
-	// get_developer_completeness_stats(page);
 };
 
 frappe.dc_plc.render_dashboard = (page) => {
 	page.title = "";
-	// console.log(page.main);
-	// console.log($("role-comp-container"));
-	// console.log(frappe.render_template("dc_product_dashboard", page));
 	$(frappe.render_template("dc_product_dashboard", page)).prependTo(page.main);
-	// $("#role-comp-container").append(frappe.render_template("dc_product_dashboard", page));
 };
