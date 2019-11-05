@@ -32,4 +32,21 @@
             </tr>
         {% endfor %}
     </table>
+    <br/>
+    <table id="consultant-completeness" width="60%">
+        <tr class="list-row list-row-head text-muted" style="width: 100%">
+            <th>Консультант</th>
+            <th>Заполненность</th>
+            <th>Актуальность</th>
+            <th>Количество</th>
+        </tr>
+        {% for item in data.con_stat %}
+            <tr class="list-row">
+                <td><a href="{{ item.url }}">{{ item.name }}</a></td>
+                <td><a href="{{ item.url }}">{{ item.progress }}%</a></td>
+                <td><a href="{{ item.url }}">{{ item.relevant }}%</a></td>
+                <td><a href="{{ item.url }}">{{ item.product_count }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
 </div>
