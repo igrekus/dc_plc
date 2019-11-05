@@ -12,7 +12,6 @@ frappe.pages["dc_product_dashboard"].on_page_load = (wrapper) => {
 
 	frappe.dc_plc.show_dashboard(this.page);
 
-	// Build Report Button
 	this.page.add_menu_item(__("Menu item 1"), () => {
 		console.log("menu item 1");
 	}, 'fa fa-th');
