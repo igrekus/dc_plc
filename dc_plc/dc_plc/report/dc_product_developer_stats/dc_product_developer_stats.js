@@ -15,6 +15,17 @@ frappe.query_reports["DC Product Developer Stats"] = {
 				}
 			}
 		},
+		{
+			label: __("Consultant"),
+			fieldname: "consultant",
+			fieldtype: "Link",
+			options: "Employee",
+			get_query: (doc, cut, cdn) => {
+				return {
+					query: 'dc_plc.controllers.queries.consultant_query_with_empty_consultant'
+				}
+			}
+		},
 	],
 	formatter: frappe.dc_plc.utils.formatters.developer_formatter,
 	after_datatable_render: table_instance => {
