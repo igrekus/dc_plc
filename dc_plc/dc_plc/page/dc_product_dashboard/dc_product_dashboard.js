@@ -26,7 +26,7 @@ frappe.pages["dc_product_dashboard"].on_page_load = (wrapper) => {
 
 		page.data.role_stat = role_stat.message;
 		page.data.dev_stat = dev_stat.message;
- 		page.data.dev_stat[0].url = `http://${window.location.host}/desk#query-report/DC%20Product%20Stats/Report?developer=HR-EMP-00094`;
+ 		page.data.dev_stat[0].url = `http://${window.location.host}/desk#query-report/DC%20Product%20Developer%20Stats/Report?developer=HR-EMP-00094`;
 
 		render_dashboard(page);
 	});
