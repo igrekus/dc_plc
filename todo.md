@@ -11,6 +11,8 @@
 - parse and import new data
 - document manager
 
+- ~~consultant stats, count dev-completeness and dev-relevance, group by consultants, link to consultant filter~~
+
 ### Feats
 - ~~desdoc file manager~~
 - ~~opcon file manager~~
