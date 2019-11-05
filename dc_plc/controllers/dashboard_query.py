@@ -225,3 +225,67 @@ ORDER BY `dev` ASC;""".format(db_name, db_name, db_name, db_name, db_name, db_na
 			"url": "{}/desk#query-report/DC%20Product%20Developer%20Stats/Report?developer={}".format(host, ids[k])
 		} for k, v in output.items()],
 		key=itemgetter('name'))
+
+
+@frappe.whitelist()
+def consultant_completeness_stats():
+	# TODO refactor this
+
+	db_name = frappe.conf.get("db_name")
+
+	res = frappe.db.sql(f"""
+		SELECT 
+		CONCAT(`emps`.last_name, ' ', `emps`.first_name, ' ', `emps`.middle_name) AS `con`
+		, `cons`.`link_employee`
+		, `type`.`title`
+		, `letter`.`title`
+		, `func`.`title`
+		, `p`.`chip`
+		, `p`.`asm_board`
+		, `p`.`link_package`
+		, `p`.`description`
+		, `p`.`specs`
+		, `p`.`report`
+		, `p`.`analog`
+		, `p`.`rel_check_developer`
+	FROM `{db_name}`.tabDC_PLC_Product_Summary AS `p`
+	LEFT JOIN
+		`{db_name}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
+	LEFT JOIN
+		`{db_name}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
+	LEFT JOIN
+		`{db_name}`.`tabDC_PLC_Product_Function` AS `func` ON `p`.`link_function` = `func`.`name`
+	LEFT OUTER JOIN `{db_name}`.tabDC_PLC_Consulants_in_Product AS `cons` ON `cons`.parent = `p`.`name`
+	LEFT OUTER JOIN `{db_name}`.tabEmployee AS `emps` ON `cons`.link_employee = `emps`.`name`
+	ORDER BY `con` ASC;""")
+
+	temp = defaultdict(list)
+	ids = dict()
+	for row in res:
+		name = row[0] if row[0] else '-'
+		emp_id = row[1]
+		data = row[2:12]
+		rel = row[12:]
+		ids[name] = emp_id
+		temp[name].append([count_filled_fields(data, range(len(data))), int(round(sum(rel) / 1 * 100))])
+
+	output = dict()
+	for name, data in temp.items():
+		s_list = list()
+		rel_list = list()
+		for row, rel in data:
+			s_list.append(int(round(row[0] / row[1], 2) * 100))
+			rel_list.append(rel)
+		output[name] = [int(sum(s_list) / len(s_list)), int(sum(rel_list) / len(rel_list)), len(s_list)]
+
+	host = frappe.utils.get_url()
+
+	return sorted(
+		[{
+			'name': k,
+			"progress": v[0],
+			"relevant": v[1],
+			"product_count": v[2],
+			"url": "{}/desk#query-report/DC%20Product%20Developer%20Stats/Report?consultant={}".format(host, ids[k])
+		} for k, v in output.items()],
+		key=itemgetter('name'))
