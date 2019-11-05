@@ -37,11 +37,11 @@ frappe.pages['dc_product_dashboard'].on_page_show = () => {
 };
 
 let get_role_completeness_stats = () => frappe.call({
-	method: "dc_plc.controllers.dashboard_query.role_completeness_stats",
+	method: 'dc_plc.controllers.dashboard_query.role_completeness_stats',
 }).promise();
 
 let get_developer_completeness_stats = () => frappe.call({
-	method: "dc_plc.controllers.dashboard_query.developer_completeness_stats",
+	method: 'dc_plc.controllers.dashboard_query.developer_completeness_stats',
 }).promise();
 
 let render_dashboard = (page) => $(frappe.render_template("dc_product_dashboard", page)).prependTo(page.main);
