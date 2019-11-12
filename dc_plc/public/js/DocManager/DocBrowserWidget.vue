@@ -92,8 +92,8 @@
 				dialogTableVisible: false,
 				formData: {
 					name: '',
-					type: 'cd',
-					subtype: 'ccd',
+					type: '',
+					subtype: '',
 					note: 'note'
 				}
 			}
