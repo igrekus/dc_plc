@@ -23,13 +23,12 @@
 			</el-form-item>
 			<el-form-item label="Тип файла">
 				<el-select v-model="form.type" placeholder="Выберите тип документа">
-					<el-option label="КД" value="cd"></el-option>
-					<el-option label="ТУ" value="op"></el-option>
+					<el-option v-for="type in types" :label="type.label" :value="type.value"></el-option>
 				</el-select>
 			</el-form-item>
 			<el-form-item label="Подтип файла">
 				<el-select v-model="form.subtype" placeholder="Выберите подтип документа">
-					<el-option label="Zone No.1" value="ccd"></el-option>
+					<el-option v-for="sub in subtypes" :label="sub.label" :value="sub.value"></el-option>
 				</el-select>
 			</el-form-item>
 			<div>form customization stub</div>
@@ -59,14 +58,45 @@
 		props: ['formData'],
 		data() {
 			return {
+				fileList: [],
 				labelPosition: 'left',
 				form: {
 					id: null,
 					name: '',
-					type: 'cd',
-					subtype: 'ccd',
+					type: '',
+					subtype: '',
 					note: 'note'
 				},
+				// TODO get type-subtype info from the backend
+				types: [
+					{ label: 'Тех. писатель', value: 'DT001'},
+					{ label: 'Разработчик', value: 'DT002'},
+					{ label: 'Общий', value: 'DT003'},
+					{ label: 'ТУ', value: 'DT004'},
+					{ label: 'КД', value: 'DT005'},
+				],
+				typeSubtypeMap: {
+					'DT001': [ { label: 'Даташит', value: 'DST002'} ],
+					'DT002': [ { label: 'Отчёт разработчика', value: 'DST003'} ],
+					'DT003': [ { label: 'Общий', value: 'DST004'} ],
+					'DT004': [
+						{ label: 'Базовые ТУ', value: 'DST005'},
+						{ label: 'Единыые ТУ', value: 'DST006'},
+						{ label: 'ТУ исполнения', value: 'DST007'},
+					],
+					'DT005': [
+						{ label: 'Габаритный чертёж', value: 'DST008'},
+						{ label: 'Комплект КД', value: 'DST009'},
+						{ label: 'Отчёт КД', value: 'DST010'},
+					],
+				}
+			}
+		},
+		computed: {
+			subtypes() {
+				let newSubs = this.typeSubtypeMap[this.form.type];
+				this.form.subtype = newSubs[0].value;
+				return newSubs;
 			}
 		},
 		methods: {
@@ -75,16 +105,16 @@
 			},
 			confirm() {
 				console.log('confirm');
-			}
+			},
 		},
 		watch: {
 			formData(newVal, oldVal) {
 				this.form = { ...this.formData };
-				console.log(newVal, oldVal);
 			},
 		},
 		mounted: function () {
 			this.form = { ...this.formData };
+			this.form.type = 'DT001';
 		}
 	}
 </script>
