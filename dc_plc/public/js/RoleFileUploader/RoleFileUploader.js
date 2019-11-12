@@ -26,7 +26,7 @@ frappe.dc_plc.RoleFileUploader = class {
 				props: {
 					extNum: product['ext_num'],
 					intNum: product['int_num'],
-					allowedFileSize: 10,
+					allowedFileSize: 50,
 					fileType: fileType,
 					searchMethod: searchMethod,
 					subtypeMethod: subtypeMethod,
