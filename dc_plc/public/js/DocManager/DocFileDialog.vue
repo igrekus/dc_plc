@@ -1,10 +1,10 @@
 <template>
 	<div>
 		<el-form :model="form" :label-position="labelPosition" @submit.native.prevent label-width="150px">
-			<el-form-item v-if="!!form.id" label="Название файла">
+			<el-form-item label="Название файла">
 				<el-input v-model="form.name" autocomplete="off" />
 			</el-form-item>
-			<el-form-item v-else label="Новый файл">
+			<el-form-item v-if="!form.id" label="Новый файл">
 				<el-upload
 						drag
 						action="api/method/dc_plc.controllers.role_file_uploader.upload_file"
@@ -46,28 +46,27 @@
 					<el-date-picker v-model="form.optional.date_archive" type="date" prefix-icon="lol" />
 				</el-form-item>
 			</div>
+			<doc-file-dialog-project-browser
+					:products="products"
+					@productschanged="handleProductsChanged">
+			</doc-file-dialog-project-browser>
 		</el-form>
-		<div>
-			product link section
-		</div>
-		<el-input placeholder="Поиск устройства"></el-input>
-		<table>
-			<tr><th>product_id</th><th>ext_name</th><th>int_name</th></tr>
-			<tr><td>1</td><td>2</td><td>3</td></tr>
-		</table>
+		<el-divider></el-divider>
 		<span slot="footer" class="dialog-footer">
-			<el-button @click="cancel">Cancel</el-button>
-			<el-button type="primary" @click="confirm">Confirm</el-button>
+			<el-button type="primary" @click="confirm" :disabled="isSaveEnabled">Сохранить</el-button>
 		</span>
 	</div>
 </template>
 
 <script>
+	import DocFileDialogProjectBrowser from './DocFileDialogProjectBrowser.vue'
+
 	export default {
 		name: 'DocFileDialog',
 		props: ['formData'],
 		data() {
 			return {
+				products: ['PROD000001'],
 				allowedFileSize: 50,
 				fileList: [],
 				labelPosition: 'left',
@@ -83,7 +82,7 @@
 						int_num: '',
 						date_approve: null,
 						date_archive: null,
-					}
+					},
 				},
 				// TODO get type-subtype info from the backend
 				types: [
@@ -121,11 +120,11 @@
 			isExtendedForm() {
 				return this.form.type === 'DT004' || this.form.type === 'DT005';
 			},
+			isSaveEnabled() {
+				return !this.products.length;
+			}
 		},
 		methods: {
-			cancel() {
-				console.log('cancel');
-			},
 			confirm() {
 				console.log('confirm');
 			},
@@ -209,6 +208,10 @@
 				};
 				xhr.send(form);
 			},
+
+			handleProductsChanged(value) {
+				this.products = [...value];
+			},
 		},
 		watch: {
 			formData(newVal, oldVal) {
@@ -221,6 +224,9 @@
 		mounted: function () {
 			this.form = { ...this.formData };
 			this.form.type = 'DT001';
+		},
+		components: {
+			DocFileDialogProjectBrowser,
 		}
 	}
 </script>

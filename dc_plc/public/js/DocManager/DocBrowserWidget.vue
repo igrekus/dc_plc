@@ -100,7 +100,7 @@
 						int_num: 'int num',
 						date_approve: null,
 						date_archive: null,
-					}
+					},
 				}
 			}
 		},
