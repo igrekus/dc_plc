@@ -15,7 +15,7 @@
 				Все
 			</el-checkbox-button>
 			<el-checkbox-group size="mini" v-model="checkedColumns" v-on:change="onColumnChecked">
-				<el-checkbox-button v-for="col in columns" v-bind:label="col.propName">
+				<el-checkbox-button v-for="col in columns" v-bind:label="col.propName" v-bind:key="col.propName">
 					{{ col.label }}
 				</el-checkbox-button>
 			</el-checkbox-group>
@@ -31,7 +31,8 @@
 							 v-if="col.visible"
 							 :property="col.propName"
 							 :label="col.label"
-							 :width="col.width">
+							 :width="col.width"
+							 :key="col.propName">
 			</el-table-column>
 		</el-table>
 	</div>
