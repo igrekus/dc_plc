@@ -29,7 +29,7 @@
 						:http-request="handleUploadRequest"
 						:file-list="fileList">
 					<i class="el-icon-upload"></i>
-					<div class="el-upload__text">Для за грузки, перетащите файл <em>нажмите мышкой</em></div>
+					<div class="el-upload__text">Для загрузки, <em>перетащите</em> файл или <em>нажмите</em> мышкой</div>
 					<div class="el-upload__tip" slot="tip">PDF размером меньше 50 Мб</div>
 				</el-upload>
 			</el-row>
