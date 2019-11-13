@@ -94,7 +94,13 @@
 					name: '',
 					type: '',
 					subtype: '',
-					note: 'note'
+					note: 'note',
+					optional: {
+						num: 'num',
+						int_num: 'int num',
+						date_approve: null,
+						date_archive: null,
+					}
 				}
 			}
 		},

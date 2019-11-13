@@ -1,12 +1,11 @@
 <template>
 	<div>
-		<el-form :model="form" :label-position="labelPosition" @submit.native.prevent>
+		<el-form :model="form" :label-position="labelPosition" @submit.native.prevent label-width="150px">
 			<el-form-item v-if="!!form.id" label="Название файла">
-				<el-input v-model="form.name" autocomplete="off"></el-input>
+				<el-input v-model="form.name" autocomplete="off" />
 			</el-form-item>
-			<el-form-item v-else>
+			<el-form-item v-else label="Новый файл">
 				<el-upload
-						class="upload-demo"
 						drag
 						action="api/method/dc_plc.controllers.role_file_uploader.upload_file"
 						:limit="1"
@@ -17,25 +16,36 @@
 						:http-request="handleUploadRequest"
 						:file-list="fileList">
 					<i class="el-icon-upload"></i>
-					<div class="el-upload__text">Для за грузки, перетащите файл <em>нажмите мышкой</em></div>
-					<div class="el-upload__tip" slot="tip">PDF размером меньше 50 Мб</div>
+					<div class="el-upload__text"><em>Перетащите</em> файл или <em>нажмите</em> мышкой</div>
 				</el-upload>
 			</el-form-item>
 			<el-form-item label="Тип файла">
 				<el-select v-model="form.type" placeholder="Выберите тип документа">
-					<el-option v-for="type in types" :label="type.label" :value="type.value"></el-option>
+					<el-option v-for="type in types" :label="type.label" :value="type.value" :key="type.value"></el-option>
 				</el-select>
 			</el-form-item>
 			<el-form-item label="Подтип файла">
 				<el-select v-model="form.subtype" placeholder="Выберите подтип документа">
-					<el-option v-for="sub in subtypes" :label="sub.label" :value="sub.value"></el-option>
+					<el-option v-for="sub in subtypes" :label="sub.label" :value="sub.value" :key="sub.value"></el-option>
 				</el-select>
 			</el-form-item>
-			<div>form customization stub</div>
 			<el-form-item label="Комментарий">
-				<el-input v-model="form.note" type="textarea" autosize>
-				</el-input>
+				<el-input v-model="form.note" type="textarea" autosize />
 			</el-form-item>
+			<div v-if="isExtendedForm">
+				<el-form-item label="Внутренний номер">
+					<el-input v-model="form.optional.int_num" />
+				</el-form-item>
+				<el-form-item label="Номер">
+					<el-input v-model="form.optional.num" />
+				</el-form-item>
+				<el-form-item v-if="form.type === 'DT004'" label="Дата утверждения">
+					<el-date-picker v-model="form.optional.date_approve" type="date" prefix-icon="lol" />
+				</el-form-item>
+				<el-form-item label="Дата сдачи в архив">
+					<el-date-picker v-model="form.optional.date_archive" type="date" prefix-icon="lol" />
+				</el-form-item>
+			</div>
 		</el-form>
 		<div>
 			product link section
@@ -58,14 +68,22 @@
 		props: ['formData'],
 		data() {
 			return {
+				allowedFileSize: 50,
 				fileList: [],
 				labelPosition: 'left',
 				form: {
-					id: null,
+					id: true,
 					name: '',
 					type: '',
 					subtype: '',
-					note: 'note'
+					note: 'note',
+					currentUpload: '',
+					optional: {
+						num: '',
+						int_num: '',
+						date_approve: null,
+						date_archive: null,
+					}
 				},
 				// TODO get type-subtype info from the backend
 				types: [
@@ -94,10 +112,15 @@
 		},
 		computed: {
 			subtypes() {
-				let newSubs = this.typeSubtypeMap[this.form.type];
+				if (!this.typeSubtypeMap[this.form.type])
+					return [];
+				let newSubs = [...this.typeSubtypeMap[this.form.type]];
 				this.form.subtype = newSubs[0].value;
 				return newSubs;
-			}
+			},
+			isExtendedForm() {
+				return this.form.type === 'DT004' || this.form.type === 'DT005';
+			},
 		},
 		methods: {
 			cancel() {
@@ -106,11 +129,94 @@
 			confirm() {
 				console.log('confirm');
 			},
+			beforeUpload(file) {
+				const { size } = file;
+				const isAllowedSize = (size / 1024 / 1024) < this.allowedFileSize;
+				if (!isAllowedSize) {
+					this.$message.warning(`Размер файла не должен превышать ${this.allowedFileSize} Мб`);
+				}
+				return isAllowedSize;
+			},
+			handleRemove(file, fileList) {
+				self = this;
+				frappe.call({
+					method: "dc_plc.controllers.role_file_uploader.remove_temp_file",
+					args: {
+						filename: this.tempFileName,
+					},
+					callback: function () {
+						self.form.fileName = null;
+						self.form.currentUpload = null;
+					}
+				});
+			},
+			handleExceed(files, fileList) {
+				this.$message.warning(`За один раз можно загрузить только один файл`);
+			},
+			handleSuccess(response, file) {
+				return;
+
+				// TODO rewrite for new uploader
+				this.tempFileName = JSON.parse(response).message;
+				this.fileName = file.name;
+
+				this.currentUpload = {
+					label: null,
+					value: file.name,
+					file_url: `./site1.local/public/files/${this.fileType}/`,
+					note: this.note,
+					subtype: this.selectedSubtype,
+					opconNum: this.opconNum,
+					opconIntNum: this.opconIntNum,
+					dateApproval: this.dateApproval,
+					dateArchive: this.dateArchive,
+				};
+
+				// TODO hack to indicate upload complete
+				// const child_index = !!this.subtypeMethod ? 8 : 2;
+				this.$children[2].$children[0].uploadFiles[0].status = 'success';
+				this.isUploading = false;
+			},
+			handleUploadRequest(param) {
+				return;
+				this.isUploading = true;
+				let url = "api/method/dc_plc.controllers.role_file_uploader.upload_file";
+				let file = param.file;
+
+				let form = new FormData();
+				form.append("file", file);
+				form.append("filename", file.name);
+				form.append("fileType", this.fileType);
+
+				let xhr = new XMLHttpRequest();
+
+				xhr.open("POST", url, true);
+				xhr.setRequestHeader('Accept', 'application/json');
+				xhr.setRequestHeader('X-Frappe-CSRF-Token', frappe.csrf_token);
+
+				if (xhr.upload) {
+					xhr.upload.onprogress = function progress(e) {
+						if (e.total > 0) {
+							e.percent = e.loaded / e.total * 100;
+						}
+						param.onProgress(e);
+					};
+				}
+
+				let self = this;
+				xhr.onload = function () {
+					self.handleSuccess(xhr.response, file);
+				};
+				xhr.send(form);
+			},
 		},
 		watch: {
 			formData(newVal, oldVal) {
 				this.form = { ...this.formData };
 			},
+			// form(newVal, oldVal) {
+			// 	console.log(newVal);
+			// }
 		},
 		mounted: function () {
 			this.form = { ...this.formData };
@@ -119,6 +225,12 @@
 	}
 </script>
 
-<style scoped>
+<style>
+	input[type="file"] {
+		display: none;
+	}
 
+	.el-form-item {
+		margin-bottom: 5px;
+	}
 </style>
