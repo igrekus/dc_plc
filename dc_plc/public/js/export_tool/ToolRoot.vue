@@ -36,6 +36,7 @@
 						<div class="suggestion-item">
 							<div class="ext_num">Внеш.: <span class="item-text">{{ item.ext_num }}</span></div>
 							<div class="int_num">Внут.: <span class="item-text">{{ item.int_num }}</span></div>
+							<div class="rnd_proj">ОКР: <span class="item-text">{{ item.rnd_proj }}</span></div>
 						</div>
 					</template>
 				</el-autocomplete>
