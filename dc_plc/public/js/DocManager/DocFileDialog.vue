@@ -67,6 +67,7 @@
 		props: ['formData'],
 		data() {
 			return {
+				// TODO use v-model to select products
 				products: ['PROD000001'],
 				allowedFileSize: 50,
 				fileList: [],
@@ -122,6 +123,7 @@
 				return this.form.type === 'DT004' || this.form.type === 'DT005';
 			},
 			isSaveEnabled() {
+				// TODO only disable save on missing uploaded file
 				return !this.products.length;
 			}
 		},
