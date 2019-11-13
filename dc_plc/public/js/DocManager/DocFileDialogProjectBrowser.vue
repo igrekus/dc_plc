@@ -100,7 +100,7 @@
 		},
 		watch: {
 			productsInfo(newVal, oldVal) {
-				this.$emit('productschanged', this.product_ids);
+				this.$emit('input', this.product_ids);
 			},
 		},
 		mounted() {

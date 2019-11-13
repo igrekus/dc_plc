@@ -48,8 +48,8 @@
 			</div>
 			<el-form-item label="Связанные изделия"></el-form-item>
 			<doc-file-dialog-project-browser
-					:products="products"
-					@productschanged="handleProductsChanged">
+					v-bind:products="products"
+					v-on:input="onTableInput($event)">
 			</doc-file-dialog-project-browser>
 		</el-form>
 		<el-divider></el-divider>
@@ -211,8 +211,7 @@
 				};
 				xhr.send(form);
 			},
-
-			handleProductsChanged(value) {
+			onTableInput(value) {
 				this.products = [...value];
 			},
 		},
