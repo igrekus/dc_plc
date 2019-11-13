@@ -46,6 +46,7 @@
 					<el-date-picker v-model="form.optional.date_archive" type="date" prefix-icon="lol" />
 				</el-form-item>
 			</div>
+			<el-form-item label="Связанные изделия"></el-form-item>
 			<doc-file-dialog-project-browser
 					:products="products"
 					@productschanged="handleProductsChanged">
