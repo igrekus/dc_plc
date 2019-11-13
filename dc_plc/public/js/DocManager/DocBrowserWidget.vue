@@ -1,5 +1,13 @@
 <template>
 	<div>
+		<el-button @click="dialogTableVisible = true">
+			new doc
+		</el-button>
+
+		<el-dialog title="Новый документ" :visible.sync="dialogTableVisible">
+			<doc-file-dialog v-bind:formData="formData"></doc-file-dialog>
+		</el-dialog>
+
 		<el-input
 				placeholder="Filter keyword"
 				v-model="filterText">
@@ -35,6 +43,7 @@
 </template>
 
 <script>
+	import DocFileDialog from './DocFileDialog.vue'
 	let id = 1000;
 
 	export default {
@@ -79,7 +88,20 @@
 				}];
 			return {
 				data: JSON.parse(JSON.stringify(data)),
-				filterText: ''
+				filterText: '',
+				dialogTableVisible: false,
+				formData: {
+					name: '',
+					type: '',
+					subtype: '',
+					note: 'note',
+					optional: {
+						num: 'num',
+						int_num: 'int num',
+						date_approve: null,
+						date_archive: null,
+					},
+				}
 			}
 		},
 
@@ -98,7 +120,14 @@
 				const index = children.findIndex(d => d.id === data.id);
 				children.splice(index, 1);
 			},
-		}
+
+			newDocument() {
+				console.log('new doc');
+			}
+		},
+		components: {
+			DocFileDialog,
+		},
 	}
 </script>
 

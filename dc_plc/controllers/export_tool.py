@@ -41,7 +41,7 @@ def export_product_search(query=''):
 		OR `p`.`int_num` LIKE "%{}%"
 		OR `proj`.`title` LIKE "%{}%"
 	ORDER BY `p`.`ext_num` ASC, `p`.`int_num` ASC
-	LIMIT 10""".format(db_name, db_name, query, query, query))
+	LIMIT 100""".format(db_name, db_name, query, query, query))
 
 	return [{
 			'value': row[0],
