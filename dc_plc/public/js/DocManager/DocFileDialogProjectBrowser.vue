@@ -45,24 +45,24 @@
 	export default {
 		name: "DocFileDialogProjectBrowser",
 		props: {
-			products: Array,
+			value: Array,
 		},
 		data() {
 			return {
 				state: '',
-				product_ids: [],
+				content: [],
 			}
 		},
 		computed: {
 			productsInfo: function () {
-				if (!this.product_ids.length) {
+				if (!this.content.length) {
 					return [];
 				}
 				let prod_data = [];
 				frappe.call({
 					method: "dc_plc.controllers.export_tool.export_product_numbers",
 					args: {
-						ids: this.product_ids.sort(),
+						ids: this.content.sort(),
 					},
 					async: false,
 					callback: r => {
@@ -86,25 +86,25 @@
 			},
 			handleAutocompleteSelect(item) {
 				let id = this.state;
-				if (this.product_ids.indexOf(id) === -1) {
-					let arr = [...this.product_ids];
+				if (this.content.indexOf(id) === -1) {
+					let arr = [...this.content];
 					arr.push(id);
 					arr.sort();
-					this.product_ids = arr;
+					this.content = arr;
 				}
 				this.state = '';
 			},
 			handleDelete(row_index, row_object) {
-				this.product_ids.splice(row_index, 1);
+				this.content.splice(row_index, 1);
 			}
 		},
 		watch: {
 			productsInfo(newVal, oldVal) {
-				this.$emit('input', this.product_ids);
+				this.$emit('input', this.content);
 			},
 		},
 		mounted() {
-			this.product_ids = this.products;
+			this.content = [...this.value];
 		}
 	}
 </script>

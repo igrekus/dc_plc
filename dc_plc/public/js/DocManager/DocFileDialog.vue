@@ -48,7 +48,7 @@
 			</div>
 			<el-form-item label="Связанные изделия"></el-form-item>
 			<doc-file-dialog-project-browser
-					v-bind:products="products"
+					v-bind:value="products"
 					v-on:input="onTableInput($event)">
 			</doc-file-dialog-project-browser>
 		</el-form>
