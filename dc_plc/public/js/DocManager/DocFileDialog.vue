@@ -70,7 +70,7 @@
 				fileList: [],
 				labelPosition: 'left',
 				form: {
-					id: true,
+					id: null,
 					name: '',
 					type: '',
 					subtype: '',
