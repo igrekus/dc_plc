@@ -1,8 +1,6 @@
 <template>
 	<div>
-		<el-button @click="dialogTableVisible = true">
-			new doc
-		</el-button>
+		<el-button @click="dialogTableVisible = true">Новый документ</el-button>
 
 		<el-dialog title="Новый документ" :visible.sync="dialogTableVisible">
 			<doc-file-dialog v-bind:formData="formData"></doc-file-dialog>
