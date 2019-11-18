@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<el-button @click="dialogTableVisible = true">Новый документ</el-button>
+		<el-button @click="onNewDocClicked">Новый документ</el-button>
 
 		<el-dialog title="Новый документ" :visible.sync="dialogTableVisible">
 			<doc-file-dialog v-bind:formData="formData"></doc-file-dialog>
@@ -101,6 +101,21 @@
 				console.log(row_data);
 				// console.log(column);
 				// console.log(event);
+			onNewDocClicked() {
+				this.formData = {
+					id: null,
+					name: '',
+					type: '',
+					subtype: '',
+					note: '',
+					optional: {
+						num: '',
+						int_num: '',
+						date_approve: null,
+						date_archive: null,
+					},
+				};
+				this.dialogTableVisible = true;
 			},
 			updateTable(filters={}) {
 				let me = this;
