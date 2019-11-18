@@ -47,10 +47,7 @@
 				</el-form-item>
 			</div>
 			<el-form-item label="Связанные изделия"></el-form-item>
-			<doc-file-dialog-project-browser
-					v-bind:value="products"
-					v-on:input="onTableInput($event)">
-			</doc-file-dialog-project-browser>
+			<doc-file-dialog-project-browser v-model="products"></doc-file-dialog-project-browser>
 		</el-form>
 		<el-divider></el-divider>
 		<span slot="footer" class="dialog-footer">
@@ -123,13 +120,14 @@
 				return this.form.type === 'DT004' || this.form.type === 'DT005';
 			},
 			isSaveEnabled() {
-				// TODO only disable save on missing uploaded file
+				// TODO only disable save on missing uploaded file on a new file record
 				return !this.products.length;
 			}
 		},
 		methods: {
 			confirm() {
-				console.log('confirm');
+				console.log(this.form);
+				console.log(this.products);
 			},
 			beforeUpload(file) {
 				const { size } = file;
