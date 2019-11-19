@@ -1,0 +1,204 @@
+{
+ "creation": "2019-11-19 13:39:36.788667",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "info_file",
+  "info_type",
+  "title",
+  "link_subtype",
+  "attached_file",
+  "note",
+  "ext_num",
+  "int_num",
+  "info_upload",
+  "date_approve",
+  "date_archive"
+ ],
+ "fields": [
+  {
+   "fieldname": "info_file",
+   "fieldtype": "HTML",
+   "label": "File",
+   "read_only": 1
+  },
+  {
+   "fieldname": "info_type",
+   "fieldtype": "HTML",
+   "label": "Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title",
+   "read_only": 1
+  },
+  {
+   "fieldname": "link_subtype",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Subtype",
+   "options": "DC_Doc_Document_Subtype"
+  },
+  {
+   "fieldname": "attached_file",
+   "fieldtype": "Attach",
+   "in_list_view": 1,
+   "label": "File"
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "Note"
+  },
+  {
+   "fieldname": "ext_num",
+   "fieldtype": "Data",
+   "label": "Number"
+  },
+  {
+   "fieldname": "int_num",
+   "fieldtype": "Data",
+   "label": "Internal number"
+  },
+  {
+   "fieldname": "info_upload",
+   "fieldtype": "HTML",
+   "label": "Upload date"
+  },
+  {
+   "fieldname": "date_approve",
+   "fieldtype": "Date",
+   "label": "Approval date"
+  },
+  {
+   "fieldname": "date_archive",
+   "fieldtype": "Date",
+   "label": "Archive date"
+  }
+ ],
+ "modified": "2019-11-19 13:39:36.788667",
+ "modified_by": "Administrator",
+ "module": "DC Documents",
+ "name": "DC_Doc_Meta",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_Process_Map_Specialist",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_Tech_Writer",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_Desdoc_Specialist",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_Guest",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_RnD_Specialist",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_MMIC_Dept_Head",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_Developer",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "DC_PLC_Opcon_Specialist",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "search_fields": "title",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "title",
+ "track_changes": 1
+}
