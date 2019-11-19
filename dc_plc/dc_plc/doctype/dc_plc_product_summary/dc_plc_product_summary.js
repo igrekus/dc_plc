@@ -208,6 +208,10 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
 	},
 });
 
+let serve_document = (frm, cdt, cdn) => {
+	let row = frappe.model.get_doc(cdt, cdn);
+	open_url_post('/api/method/dc_plc.controllers.file_manager.serve_document', { meta_id: row.link_doc_meta }, false);
+};
 
 frappe.ui.form.on('DC_Doc_Datasheets_in_Datasheet_List', {
 	link_datasheet_meta: function (frm, cdt, cdn) {
@@ -225,61 +229,27 @@ frappe.ui.form.on('DC_Doc_Datasheets_in_Datasheet_List', {
 			}
 		});
 	},
-	btn_download: function (frm, cdt, cdn) {
-		let row = frappe.model.get_doc(cdt, cdn);
-		open_url_post('/api/method/dc_plc.controllers.file_manager.serve_datasheet', {
-			meta_id: row.link_datasheet_meta
-		}, false);
-	}
+	btn_download: serve_document,
 });
 
 
 frappe.ui.form.on('DC_Doc_Dev_Report_in_Dev_Report_List', {
-	link_dev_report_meta: function (frm, cdt, cdn) {
-		// TODO implement if needed in-table row editing
-	},
-	btn_download: function (frm, cdt, cdn) {
-		let row = frappe.model.get_doc(cdt, cdn);
-		open_url_post('/api/method/dc_plc.controllers.file_manager.serve_dev_report', {
-			meta_id: row.link_dev_report_meta
-		}, false);
-	}
+	btn_download: serve_document,
 });
 
 
 frappe.ui.form.on('DC_Doc_Misc_in_Misc_List', {
-	link_misc_meta: function (frm, cdt, cdn) {
-	},
-	btn_download: function (frm, cdt, cdn) {
-		let row = frappe.model.get_doc(cdt, cdn);
-		open_url_post('/api/method/dc_plc.controllers.file_manager.serve_meta', {
-			meta_id: row.link_misc_meta
-		}, false);
-	}
+	btn_download: serve_document,
 });
 
 
 frappe.ui.form.on('DC_Doc_Opcon_in_Opcon_List', {
-	link_opcon_meta: function (frm, cdt, cdn) {
-	},
-	btn_download: function (frm, cdt, cdn) {
-		let row = frappe.model.get_doc(cdt, cdn);
-		open_url_post('/api/method/dc_plc.controllers.file_manager.serve_opcon', {
-			meta_id: row.link_opcon_meta
-		}, false);
-	}
+	btn_download: serve_document,
 });
 
 
 frappe.ui.form.on('DC_Doc_Desdoc_in_Desdoc_List', {
-	link_desdoc_meta: function (frm, cdt, cdn) {
-	},
-	btn_download: function (frm, cdt, cdn) {
-		let row = frappe.model.get_doc(cdt, cdn);
-		open_url_post('/api/method/dc_plc.controllers.file_manager.serve_desdoc', {
-			meta_id: row.link_desdoc_meta
-		}, false);
-	}
+	btn_download: serve_document,
 });
 
 
