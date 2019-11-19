@@ -4,7 +4,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "link_dev_report_meta",
+  "link_doc_meta",
   "doc_type",
   "doc_subtype",
   "file_name",
@@ -13,13 +13,7 @@
  ],
  "fields": [
   {
-   "fieldname": "link_dev_report_meta",
-   "fieldtype": "Link",
-   "label": "Dev Report",
-   "options": "DC_Doc_Dev_Report_Meta"
-  },
-  {
-   "fetch_from": "link_dev_report_meta.title",
+   "fetch_from": "link_doc_meta.title",
    "fieldname": "file_name",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -49,16 +43,22 @@
    "read_only": 1
   },
   {
-   "fetch_from": "link_dev_report_meta.note",
+   "fetch_from": "link_doc_meta.note",
    "fieldname": "note",
    "fieldtype": "Small Text",
    "in_list_view": 1,
    "label": "Note",
    "read_only": 1
+  },
+  {
+   "fieldname": "link_doc_meta",
+   "fieldtype": "Link",
+   "label": "Dev report",
+   "options": "DC_Doc_Meta"
   }
  ],
  "istable": 1,
- "modified": "2019-10-14 17:05:37.206169",
+ "modified": "2019-11-19 15:11:13.380784",
  "modified_by": "Administrator",
  "module": "DC Documents",
  "name": "DC_Doc_Dev_Report_in_Dev_Report_List",

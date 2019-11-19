@@ -4,7 +4,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "link_datasheet_meta",
+  "link_doc_meta",
   "doc_type",
   "doc_subtype",
   "file_name",
@@ -13,19 +13,13 @@
  ],
  "fields": [
   {
-   "fieldname": "link_datasheet_meta",
-   "fieldtype": "Link",
-   "label": "Datasheet",
-   "options": "DC_Doc_Datasheet_Meta"
-  },
-  {
    "fieldname": "doc_type",
    "fieldtype": "Data",
    "label": "Type",
    "read_only": 1
   },
   {
-   "fetch_from": "link_datasheet_meta.title",
+   "fetch_from": "link_doc_meta.title",
    "fieldname": "file_name",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -47,17 +41,23 @@
    "label": "Download"
   },
   {
-   "fetch_from": "link_datasheet_meta.note",
+   "fetch_from": "link_doc_meta.note",
    "fieldname": "note",
    "fieldtype": "Small Text",
    "in_list_view": 1,
    "label": "Note",
    "read_only": 1
+  },
+  {
+   "fieldname": "link_doc_meta",
+   "fieldtype": "Link",
+   "label": "Datasheet",
+   "options": "DC_Doc_Meta"
   }
  ],
  "hide_toolbar": 1,
  "istable": 1,
- "modified": "2019-10-14 17:05:38.302184",
+ "modified": "2019-11-19 14:58:11.025778",
  "modified_by": "Administrator",
  "module": "DC Documents",
  "name": "DC_Doc_Datasheets_in_Datasheet_List",
