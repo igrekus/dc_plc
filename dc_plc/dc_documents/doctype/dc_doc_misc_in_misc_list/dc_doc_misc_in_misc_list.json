@@ -4,7 +4,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "link_misc_meta",
+  "link_doc_meta",
   "doc_type",
   "doc_subtype",
   "file_name",
@@ -12,12 +12,6 @@
   "btn_download"
  ],
  "fields": [
-  {
-   "fieldname": "link_misc_meta",
-   "fieldtype": "Link",
-   "label": "Misc",
-   "options": "DC_Doc_Misc_Meta"
-  },
   {
    "default": "\u041e\u0431\u0449\u0435\u0435",
    "fieldname": "doc_type",
@@ -35,7 +29,7 @@
    "read_only": 1
   },
   {
-   "fetch_from": "link_misc_meta.title",
+   "fetch_from": "link_doc_meta.title",
    "fieldname": "file_name",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -43,7 +37,7 @@
    "read_only": 1
   },
   {
-   "fetch_from": "link_misc_meta.note",
+   "fetch_from": "link_doc_meta.note",
    "fieldname": "note",
    "fieldtype": "Small Text",
    "in_list_view": 1,
@@ -55,10 +49,16 @@
    "fieldtype": "Button",
    "in_list_view": 1,
    "label": "Download"
+  },
+  {
+   "fieldname": "link_doc_meta",
+   "fieldtype": "Link",
+   "label": "Misc",
+   "options": "DC_Doc_Meta"
   }
  ],
  "istable": 1,
- "modified": "2019-10-17 17:23:51.675278",
+ "modified": "2019-11-19 15:11:07.583000",
  "modified_by": "Administrator",
  "module": "DC Documents",
  "name": "DC_Doc_Misc_in_Misc_List",
