@@ -5,34 +5,6 @@ from urllib.parse import quote
 
 
 @frappe.whitelist()
-def get_datasheet_meta(meta_id):
-	db_name = frappe.conf.get("db_name")
-
-	sql = f"""
-	SELECT
-		`m`.`name` 
-		, `m`.`title` AS `meta_title`
-		, `t`.`title` AS `type_title`
-		, `s`.`title` AS `subtype_title`
-	FROM `{db_name}`.tabDC_Doc_Datasheet_Meta AS `m`
-	INNER JOIN `{db_name}`.tabDC_Doc_Document_Subtype AS `s`
-	ON `m`.`link_subtype` = `s`.`name`
-	INNER JOIN `{db_name}`.tabDC_Doc_Document_Type AS `t`
-	ON `s`.`link_doc_type` = `t`.`name`
-	WHERE `m`.`name` = %(meta_id)s
-	"""
-	res = frappe.db.sql(
-		query=sql + ';',
-		values={
-			'meta_id': f'{meta_id}'
-		},
-		as_dict=1
-	)
-
-	return res[0]
-
-
-@frappe.whitelist()
 def get_file_meta(doctype, docname, field_name):
 	db_name = frappe.conf.get("db_name")
 
@@ -59,7 +31,34 @@ AND `f`.`attached_to_name` = %(docname)s"""
 
 
 @frappe.whitelist()
-def serve_datasheet(meta_id):
+def get_doc_meta(doctype, docname):
+	db_name = frappe.conf.get("db_name")
+
+	sql = f"""
+SELECT `f`.`name`
+, `f`.`file_name`
+, `f`.`file_url`
+, `f`.`creation`
+, `t`.`title` AS `type`
+FROM `{db_name}`.`tabFile` AS `f`
+INNER JOIN `{db_name}`.`tabDC_Doc_Meta` AS `dm` ON `dm`.`name` = `f`.`attached_to_name`
+INNER JOIN `{db_name}`.`tabDC_Doc_Document_Subtype` AS `st` ON `st`.`name` = `dm`.`link_subtype`
+INNER JOIN `{db_name}`.`tabDC_Doc_Document_Type` AS `t` ON `t`.`name` = `st`.`link_doc_type`
+WHERE `dm`.`name` = %(docname)s"""
+
+	res = frappe.db.sql(
+		query=sql + ';',
+		values={
+			'docname': f'{docname}'
+		},
+		as_dict=1
+	)
+
+	return res[0] if res else {}
+
+
+@frappe.whitelist()
+def serve_document(meta_id):
 	# TODO refactor concrete doc serve functions
 	db_name = frappe.conf.get("db_name")
 
@@ -67,105 +66,9 @@ def serve_datasheet(meta_id):
 	SELECT
 	`m`.`title` AS `meta_title`
 	, `m`.`attached_file`
-	FROM `{db_name}`.`tabDC_Doc_Datasheet_Meta` AS `m`
+	FROM `{db_name}`.`tabDC_Doc_Meta` AS `m`
 	WHERE `m`.`name` = %(meta_id)s
 	"""
-	res = frappe.db.sql(
-		query=sql + ';',
-		values={
-			'meta_id': f'{meta_id}'
-		},
-		as_list=1
-	)
-
-	target, source = res[0]
-	serve_as_filename(source, target)
-
-
-@frappe.whitelist()
-def serve_dev_report(meta_id):
-	db_name = frappe.conf.get('db_name')
-
-	sql = f"""
-	SELECT
-	`m`.`title` AS `meta_title`
-	, `m`.`attached_file`
-	FROM `{db_name}`.`tabDC_Doc_Dev_Report_Meta` AS `m`
-	WHERE `m`.`name` = %(meta_id)s
-	"""
-
-	res = frappe.db.sql(
-		query=sql + ';',
-		values={
-			'meta_id': f'{meta_id}'
-		},
-		as_list=1
-	)
-
-	target, source = res[0]
-	serve_as_filename(source, target)
-
-
-@frappe.whitelist()
-def serve_meta(meta_id):
-	db_name = frappe.conf.get('db_name')
-
-	sql = f"""
-	SELECT
-	`m`.`title` AS `meta_title`
-	, `m`.`attached_file`
-	FROM `{db_name}`.`tabDC_Doc_Misc_Meta` AS `m`
-	WHERE `m`.`name` = %(meta_id)s
-	"""
-
-	res = frappe.db.sql(
-		query=sql + ';',
-		values={
-			'meta_id': f'{meta_id}'
-		},
-		as_list=1
-	)
-
-	target, source = res[0]
-	serve_as_filename(source, target)
-
-
-@frappe.whitelist()
-def serve_opcon(meta_id):
-	db_name = frappe.conf.get('db_name')
-
-	sql = f"""
-	SELECT
-	`m`.`title` AS `meta_title`
-	, `m`.`attached_file`
-	FROM `{db_name}`.`tabDC_Doc_Opcon_Meta` AS `m`
-	WHERE `m`.`name` = %(meta_id)s
-	"""
-
-	res = frappe.db.sql(
-		query=sql + ';',
-		values={
-			'meta_id': f'{meta_id}'
-		},
-		as_list=1
-	)
-
-	target, source = res[0]
-	serve_as_filename(source, target)
-
-
-@frappe.whitelist()
-def serve_desdoc(meta_id):
-	db_name = frappe.conf.get('db_name')
-
-	sql = f"""
-	SELECT
-	`m`.`title` AS `meta_title`
-	, `m`.`attached_file`
-	FROM `{db_name}`.`tabDC_Doc_Desdoc_Meta` AS `m`
-	WHERE `m`.`name` = %(meta_id)s
-	"""
-
 	res = frappe.db.sql(
 		query=sql + ';',
 		values={

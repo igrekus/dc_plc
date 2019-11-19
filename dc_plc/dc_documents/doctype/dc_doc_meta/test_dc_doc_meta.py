@@ -6,5 +6,5 @@ from __future__ import unicode_literals
 # import frappe
 import unittest
 
-class TestDC_Doc_Dev_Report_Meta(unittest.TestCase):
+class TestDC_Doc_Meta(unittest.TestCase):
 	pass

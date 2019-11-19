@@ -1,5 +1,5 @@
 {
- "creation": "2019-10-17 14:26:52.301899",
+ "creation": "2019-11-19 13:39:36.788667",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -10,9 +10,9 @@
   "link_subtype",
   "attached_file",
   "note",
-  "opcon_num",
-  "opcon_int_num",
-  "info_date_upload",
+  "ext_num",
+  "int_num",
+  "info_upload",
   "date_approve",
   "date_archive"
  ],
@@ -55,14 +55,19 @@
    "label": "Note"
   },
   {
-   "fieldname": "opcon_num",
+   "fieldname": "ext_num",
    "fieldtype": "Data",
-   "label": "Opcon number"
+   "label": "Number"
   },
   {
-   "fieldname": "opcon_int_num",
+   "fieldname": "int_num",
    "fieldtype": "Data",
-   "label": "Opcon internal number"
+   "label": "Internal number"
+  },
+  {
+   "fieldname": "info_upload",
+   "fieldtype": "HTML",
+   "label": "Upload date"
   },
   {
    "fieldname": "date_approve",
@@ -73,17 +78,12 @@
    "fieldname": "date_archive",
    "fieldtype": "Date",
    "label": "Archive date"
-  },
-  {
-   "fieldname": "info_date_upload",
-   "fieldtype": "HTML",
-   "label": "Upload date"
   }
  ],
- "modified": "2019-10-17 16:31:26.065597",
+ "modified": "2019-11-19 13:39:36.788667",
  "modified_by": "Administrator",
  "module": "DC Documents",
- "name": "DC_Doc_Opcon_Meta",
+ "name": "DC_Doc_Meta",
  "owner": "Administrator",
  "permissions": [
   {
@@ -99,67 +99,88 @@
    "write": 1
   },
   {
+   "create": 1,
+   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "DC_PLC_Process_Map_Specialist",
-   "share": 1
+   "share": 1,
+   "write": 1
   },
   {
+   "create": 1,
+   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "DC_PLC_Tech_Writer",
-   "share": 1
+   "share": 1,
+   "write": 1
   },
   {
+   "create": 1,
+   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "DC_PLC_Desdoc_Specialist",
-   "share": 1
+   "share": 1,
+   "write": 1
   },
   {
+   "create": 1,
+   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "DC_Guest",
-   "share": 1
+   "share": 1,
+   "write": 1
   },
   {
+   "create": 1,
+   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "DC_PLC_RnD_Specialist",
-   "share": 1
+   "share": 1,
+   "write": 1
   },
   {
+   "create": 1,
+   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "DC_PLC_MMIC_Dept_Head",
-   "share": 1
+   "share": 1,
+   "write": 1
   },
   {
+   "create": 1,
+   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "DC_PLC_Developer",
-   "share": 1
+   "share": 1,
+   "write": 1
   },
   {
    "create": 1,
@@ -174,6 +195,7 @@
    "write": 1
   }
  ],
+ "quick_entry": 1,
  "search_fields": "title",
  "sort_field": "modified",
  "sort_order": "DESC",
