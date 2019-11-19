@@ -4,6 +4,7 @@ import os
 import shutil
 
 from dc_plc.dc_plc.doctype.dc_plc_product_summary.dc_plc_product_summary import DC_PLC_Product_Summary
+from dc_plc.dc_documents.doctype.dc_doc_meta.dc_doc_meta import DC_Doc_Meta
 from frappe.core.doctype.file.file import File
 
 
@@ -179,12 +180,12 @@ def add_datasheet(prod_id, upload, temp_file):
 def add_existing_datasheet(prod_id, datasheet):
 	# TODO use single query is performance degrading
 	doc: DC_PLC_Product_Summary = frappe.get_doc('DC_PLC_Product_Summary', prod_id)
-	meta: DC_Doc_Datasheet_Meta = frappe.get_doc('DC_Doc_Datasheet_Meta', datasheet['label'])
+	meta: DC_Doc_Meta = frappe.get_doc('DC_Doc_Meta', datasheet['label'])
 	doc_subype = frappe.get_doc('DC_Doc_Document_Subtype', meta.link_subtype)
 	doc_type = frappe.get_doc('DC_Doc_Document_Type', doc_subype.link_doc_type)
 
 	doc.append('tab_datasheet', {
-		'link_datasheet_meta': meta.name,
+		'link_doc_meta': meta.name,
 		'doc_type': doc_type.title,
 		'doc_subtype': doc_subype.title
 	})
@@ -204,8 +205,8 @@ def add_new_datasheet(prod_id, datasheet, temp_file):
 		pass
 	file_info = os.stat(target_file)
 
-	new_meta: DC_Doc_Datasheet_Meta = frappe.get_doc({
-		'doctype': 'DC_Doc_Datasheet_Meta',
+	new_meta: DC_Doc_Meta = frappe.get_doc({
+		'doctype': 'DC_Doc_Meta',
 		'title': datasheet['value'],
 		'link_subtype': 'DST002',
 		'attached_file': stored_url,
@@ -220,7 +221,7 @@ def add_new_datasheet(prod_id, datasheet, temp_file):
 		'file_size': file_info.st_size,
 		'file_url': stored_url,
 		'folder': 'Home/Datasheets',
-		'attached_to_doctype': 'DC_Doc_Datasheet_Meta',
+		'attached_to_doctype': 'DC_Doc_Meta',
 		'attached_to_name': new_meta.name,
 		'attached_to_field': 'attached_file',
 	})
@@ -245,12 +246,12 @@ def add_dev_report(prod_id, upload, temp_file):
 
 def add_existing_dev_report(prod_id, dev_report):
 	doc: DC_PLC_Product_Summary = frappe.get_doc('DC_PLC_Product_Summary', prod_id)
-	meta: DC_Doc_Dev_Report_Meta = frappe.get_doc('DC_Doc_Dev_Report_Meta', dev_report['label'])
+	meta: DC_Doc_Meta = frappe.get_doc('DC_Doc_Meta', dev_report['label'])
 	doc_subype = frappe.get_doc('DC_Doc_Document_Subtype', meta.link_subtype)
 	doc_type = frappe.get_doc('DC_Doc_Document_Type', doc_subype.link_doc_type)
 
 	doc.append('tab_dev_report', {
-		'link_dev_report_meta': meta.name,
+		'link_doc_meta': meta.name,
 		'doc_type': doc_type.title,
 		'doc_subtype': doc_subype.title,
 	})
@@ -270,8 +271,8 @@ def add_new_dev_report(prod_id, dev_report, temp_file):
 		pass
 	file_info = os.stat(target_file)
 
-	new_meta: DC_Doc_Dev_Report_Meta = frappe.get_doc({
-		'doctype': 'DC_Doc_Dev_Report_Meta',
+	new_meta: DC_Doc_Meta = frappe.get_doc({
+		'doctype': 'DC_Doc_Meta',
 		'title': dev_report['value'],
 		'link_subtype': 'DST003',
 		'attached_file': stored_url,
@@ -286,7 +287,7 @@ def add_new_dev_report(prod_id, dev_report, temp_file):
 		'file_size': file_info.st_size,
 		'file_url': stored_url,
 		'folder': 'Home/Developer_Reports',
-		'attached_to_doctype': 'DC_Doc_Dev_Report_Meta',
+		'attached_to_doctype': 'DC_Doc_Meta',
 		'attached_to_name': new_meta.name,
 		'attached_to_field': 'attached_file',
 	})
@@ -311,12 +312,12 @@ def add_misc(prod_id, upload, temp_file):
 
 def add_existing_misc(prod_id, misc):
 	doc: DC_PLC_Product_Summary = frappe.get_doc('DC_PLC_Product_Summary', prod_id)
-	meta: DC_Doc_Misc_Meta = frappe.get_doc('DC_Doc_Misc_Meta', misc['label'])
+	meta: DC_Doc_Meta = frappe.get_doc('DC_Doc_Meta', misc['label'])
 	doc_subype = frappe.get_doc('DC_Doc_Document_Subtype', meta.link_subtype)
 	doc_type = frappe.get_doc('DC_Doc_Document_Type', doc_subype.link_doc_type)
 
 	doc.append('tab_misc', {
-		'link_misc_meta': meta.name,
+		'link_doc_meta': meta.name,
 		'doc_type': doc_type.title,
 		'doc_subtype': doc_subype.title,
 	})
@@ -336,8 +337,8 @@ def add_new_misc(prod_id, misc_file, temp_file):
 		pass
 	file_info = os.stat(target_file)
 
-	new_misc: DC_Doc_Misc_Meta = frappe.get_doc({
-		'doctype': 'DC_Doc_Misc_Meta',
+	new_misc: DC_Doc_Meta = frappe.get_doc({
+		'doctype': 'DC_Doc_Meta',
 		'title': misc_file['value'],
 		'link_subtype': 'DST004',
 		'attached_file': stored_url,
@@ -352,7 +353,7 @@ def add_new_misc(prod_id, misc_file, temp_file):
 		'file_size': file_info.st_size,
 		'file_url': stored_url,
 		'folder': 'Home/Misc_Files',
-		'attached_to_doctype': 'DC_Doc_Misc_Meta',
+		'attached_to_doctype': 'DC_Doc_Meta',
 		'attached_to_name': new_misc.name,
 		'attached_to_field': 'attached_file',
 	})
@@ -377,12 +378,12 @@ def add_opcon(prod_id, upload, temp_file):
 
 def add_existing_opcon(prod_id, misc):
 	doc: DC_PLC_Product_Summary = frappe.get_doc('DC_PLC_Product_Summary', prod_id)
-	meta: DC_Doc_Opcon_Meta = frappe.get_doc('DC_Doc_Opcon_Meta', misc['label'])
+	meta: DC_Doc_Meta = frappe.get_doc('DC_Doc_Meta', misc['label'])
 	doc_subype = frappe.get_doc('DC_Doc_Document_Subtype', meta.link_subtype)
 	doc_type = frappe.get_doc('DC_Doc_Document_Type', doc_subype.link_doc_type)
 
 	doc.append('tab_opcon', {
-		'link_opcon_meta': meta.name,
+		'link_doc_meta': meta.name,
 		'doc_type': doc_type.title,
 		'doc_subtype': doc_subype.title,
 	})
@@ -402,8 +403,8 @@ def add_new_opcon(prod_id, opcon_meta, temp_file):
 		pass
 	file_info = os.stat(target_file)
 
-	new_opcon: DC_Doc_Opcon_Meta = frappe.get_doc({
-		'doctype': 'DC_Doc_Opcon_Meta',
+	new_opcon: DC_Doc_Meta = frappe.get_doc({
+		'doctype': 'DC_Doc_Meta',
 		'title': opcon_meta['value'],
 		'attached_file': stored_url,
 		'link_subtype': opcon_meta['subtype'],
@@ -422,7 +423,7 @@ def add_new_opcon(prod_id, opcon_meta, temp_file):
 		'file_size': file_info.st_size,
 		'file_url': stored_url,
 		'folder': 'Home/Opcons',
-		'attached_to_doctype': 'DC_Doc_Opcon_Meta',
+		'attached_to_doctype': 'DC_Doc_Meta',
 		'attached_to_name': new_opcon.name,
 		'attached_to_field': 'attached_file',
 	})
@@ -447,12 +448,12 @@ def add_desdoc(prod_id, upload, temp_file):
 
 def add_existing_desdoc(prod_id, misc):
 	doc: DC_PLC_Product_Summary = frappe.get_doc('DC_PLC_Product_Summary', prod_id)
-	meta: DC_Doc_Desdoc_Meta = frappe.get_doc('DC_Doc_Desdoc_Meta', misc['label'])
+	meta: DC_Doc_Meta = frappe.get_doc('DC_Doc_Meta', misc['label'])
 	doc_subype = frappe.get_doc('DC_Doc_Document_Subtype', meta.link_subtype)
 	doc_type = frappe.get_doc('DC_Doc_Document_Type', doc_subype.link_doc_type)
 
 	doc.append('tab_desdoc', {
-		'link_desdoc_meta': meta.name,
+		'link_doc_meta': meta.name,
 		'doc_type': doc_type.title,
 		'doc_subtype': doc_subype.title,
 	})
@@ -472,8 +473,8 @@ def add_new_desdoc(prod_id, desdoc_meta, temp_file):
 		pass
 	file_info = os.stat(target_file)
 
-	new_desdoc: DC_Doc_Desdoc_Meta = frappe.get_doc({
-		'doctype': 'DC_Doc_Desdoc_Meta',
+	new_desdoc: DC_Doc_Meta = frappe.get_doc({
+		'doctype': 'DC_Doc_Meta',
 		'title': desdoc_meta['value'],
 		'attached_file': stored_url,
 		'link_subtype': desdoc_meta['subtype'],
@@ -490,7 +491,7 @@ def add_new_desdoc(prod_id, desdoc_meta, temp_file):
 		'file_size': file_info.st_size,
 		'file_url': stored_url,
 		'folder': 'Home/Design_Documents',
-		'attached_to_doctype': 'DC_Doc_Desdoc_Meta',
+		'attached_to_doctype': 'DC_Doc_Meta',
 		'attached_to_name': new_desdoc.name,
 		'attached_to_field': 'attached_file',
 	})
