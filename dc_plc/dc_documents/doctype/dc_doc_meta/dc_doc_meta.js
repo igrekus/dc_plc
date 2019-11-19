@@ -5,18 +5,14 @@ let value_or_none = frappe.dc_plc.utils.value_or_none;
 let set_field_title = frappe.dc_plc.utils.ui.set_field_title;
 let render_info_field = frappe.dc_plc.utils.ui.render_info_field;
 
-
-frappe.ui.form.on('DC_Doc_Dev_Report_Meta', {
+frappe.ui.form.on('DC_Doc_Meta', {
 	refresh: frm => {
 		set_field_title(frm, 'link_subtype');
-		render_info_field(frm, 'info_type', 'Тип документа', 'Отчёт разработчик');
-
 		frappe.call({
-			method: 'dc_plc.controllers.file_manager.get_file_meta',
+			method: 'dc_plc.controllers.file_manager.get_doc_meta',
 			args: {
 				doctype: frm.doctype,
 				docname: frm.docname,
-				field_name: 'attached_file'
 			},
 			callback: r => {
 				let file = r.message;
@@ -34,9 +30,10 @@ frappe.ui.form.on('DC_Doc_Dev_Report_Meta', {
 						:
 						'Файл не прикреплён'
 				);
+				render_info_field(frm, 'info_type', 'Тип документа', file.type);
 			}
 		});
-		frm.add_custom_button('Скачать', function() {
+		frm.add_custom_button('Скачать', function () {
 			open_url_post('/api/method/dc_plc.controllers.file_manager.serve_as_filename', {
 				src_url: frm.doc.attached_file,
 				target_name: frm.doc.title,
@@ -46,4 +43,5 @@ frappe.ui.form.on('DC_Doc_Dev_Report_Meta', {
 	link_subtype: frm => {
 		set_field_title(frm, 'link_subtype');
 	}
+
 });

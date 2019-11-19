@@ -1,8 +1,6 @@
 <template>
 	<div>
-		<el-button @click="dialogTableVisible = true">
-			new doc
-		</el-button>
+		<el-button @click="onNewDocClicked">Новый документ</el-button>
 
 		<el-dialog title="Новый документ" :visible.sync="dialogTableVisible">
 			<doc-file-dialog v-bind:formData="formData"></doc-file-dialog>
@@ -13,32 +11,42 @@
 				v-model="filterText">
 		</el-input>
 
-		<div class="custom-tree-container">
-			<div class="block">
-				<el-tree
-						:data="data"
-						show-checkbox
-						node-key="id"
-						default-expand-all
-						:expand-on-click-node="false">
-					<span class="custom-tree-node" slot-scope="{ node, data }">
-						<span>{{ node.label }}</span>
-						<span>
-							<el-button
-									type="text"
-									size="mini"
-									@click="() => append(data)">+
-							</el-button>
-							<el-button
-									type="text"
-									size="mini"
-									@click="() => remove(node, data)">-
-							</el-button>
-						</span>
-					</span>
-				</el-tree>
+		<el-table
+				:data="tableData"
+				style="width: 100%"
+				height="600"
+				@row-click="onRowClicked">
+			<div slot="empty">
+				Нет данных
 			</div>
-		</div>
+			<el-table-column
+					type="index">
+			</el-table-column>
+			<el-table-column
+					prop="filename"
+					label="Имя файла">
+			</el-table-column>
+			<el-table-column
+					prop="subtype"
+					label="Тип"
+					width="150">
+			</el-table-column>
+			<el-table-column
+					prop="int_num"
+					label="Внутренний номер"
+					width="150">
+			</el-table-column>
+			<el-table-column
+					prop="ext_num"
+					label="Внешний номер"
+					width="150">
+			</el-table-column>
+			<el-table-column
+					prop="prod_links"
+					label="Используется в"
+					width="150">
+			</el-table-column>
+		</el-table>
 	</div>
 </template>
 
@@ -49,55 +57,19 @@
 	export default {
 		name: "DocBrowserWidget",
 		data() {
-			const data = [
-				{
-					id: 1,
-					label: 'root 1',
-					children: [{
-						id: 4,
-						label: 'Level two 1-1',
-						children: [{
-							id: 9,
-							label: 'Level three 1-1-1'
-						}, {
-							id: 10,
-							label: 'Level three 1-1-2'
-						}]
-					}]
-				},
-				{
-					id: 2,
-					label: 'root 2',
-					children: [{
-						id: 5,
-						label: 'Level two 2-1'
-					}, {
-						id: 6,
-						label: 'Level two 2-2'
-					}]
-				}, {
-					id: 3,
-					label: 'root 3',
-					children: [{
-						id: 7,
-						label: 'Level two 3-1'
-					}, {
-						id: 8,
-						label: 'Level two 3-2'
-					}]
-				}];
 			return {
-				data: JSON.parse(JSON.stringify(data)),
+				tableData: [],
 				filterText: '',
 				dialogTableVisible: false,
 				formData: {
+					id: null,
 					name: '',
 					type: '',
 					subtype: '',
-					note: 'note',
+					note: '',
 					optional: {
-						num: 'num',
-						int_num: 'int num',
+						num: '',
+						int_num: '',
 						date_approve: null,
 						date_archive: null,
 					},
@@ -123,7 +95,43 @@
 
 			newDocument() {
 				console.log('new doc');
-			}
+			},
+
+			onRowClicked(row_data, column, event) {
+				console.log(row_data);
+				// console.log(column);
+				// console.log(event);
+			onNewDocClicked() {
+				this.formData = {
+					id: null,
+					name: '',
+					type: '',
+					subtype: '',
+					note: '',
+					optional: {
+						num: '',
+						int_num: '',
+						date_approve: null,
+						date_archive: null,
+					},
+				};
+				this.dialogTableVisible = true;
+			},
+			updateTable(filters={}) {
+				let me = this;
+				frappe.call({
+					method: "dc_plc.dc_documents.page.doc_manager.controller.get_document_list",
+					args: {
+						filters: filters,
+					},
+					callback: function (r) {
+						me.tableData = r.message;
+					}
+				});
+			},
+		},
+		mounted() {
+			this.updateTable({});
 		},
 		components: {
 			DocFileDialog,
@@ -132,12 +140,7 @@
 </script>
 
 <style scoped>
-	.custom-tree-node {
-		flex: 1;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		font-size: 14px;
-		padding-right: 8px;
+	.el-table__row {
+		height: 20px;
 	}
 </style>

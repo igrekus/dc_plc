@@ -4,7 +4,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "link_opcon_meta",
+  "link_doc_meta",
   "doc_type",
   "doc_subtype",
   "file_name",
@@ -12,12 +12,6 @@
   "btn_download"
  ],
  "fields": [
-  {
-   "fieldname": "link_opcon_meta",
-   "fieldtype": "Link",
-   "label": "Opcon",
-   "options": "DC_Doc_Opcon_Meta"
-  },
   {
    "default": "\u0422\u0423",
    "fieldname": "doc_type",
@@ -34,7 +28,7 @@
    "read_only": 1
   },
   {
-   "fetch_from": "link_opcon_meta.title",
+   "fetch_from": "link_doc_meta.title",
    "fieldname": "file_name",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -42,7 +36,7 @@
    "read_only": 1
   },
   {
-   "fetch_from": "link_opcon_meta.note",
+   "fetch_from": "link_doc_meta.note",
    "fieldname": "note",
    "fieldtype": "Small Text",
    "in_list_view": 1,
@@ -54,10 +48,16 @@
    "fieldtype": "Button",
    "in_list_view": 1,
    "label": "Download"
+  },
+  {
+   "fieldname": "link_doc_meta",
+   "fieldtype": "Link",
+   "label": "Opcon",
+   "options": "DC_Doc_Meta"
   }
  ],
  "istable": 1,
- "modified": "2019-10-24 13:57:36.073750",
+ "modified": "2019-11-19 15:11:02.410904",
  "modified_by": "Administrator",
  "module": "DC Documents",
  "name": "DC_Doc_Opcon_in_Opcon_List",

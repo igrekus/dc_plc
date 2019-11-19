@@ -6,5 +6,5 @@ from __future__ import unicode_literals
 # import frappe
 from frappe.model.document import Document
 
-class DC_Doc_Dev_Report_Meta(Document):
+class DC_Doc_Meta(Document):
 	pass

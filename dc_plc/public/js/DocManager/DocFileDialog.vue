@@ -46,10 +46,8 @@
 					<el-date-picker v-model="form.optional.date_archive" type="date" prefix-icon="lol" />
 				</el-form-item>
 			</div>
-			<doc-file-dialog-project-browser
-					:products="products"
-					@productschanged="handleProductsChanged">
-			</doc-file-dialog-project-browser>
+			<el-form-item label="Связанные изделия"></el-form-item>
+			<doc-file-dialog-project-browser v-model="products"></doc-file-dialog-project-browser>
 		</el-form>
 		<el-divider></el-divider>
 		<span slot="footer" class="dialog-footer">
@@ -66,12 +64,13 @@
 		props: ['formData'],
 		data() {
 			return {
+				// TODO use v-model to select products
 				products: ['PROD000001'],
 				allowedFileSize: 50,
 				fileList: [],
 				labelPosition: 'left',
 				form: {
-					id: true,
+					id: null,
 					name: '',
 					type: '',
 					subtype: '',
@@ -121,12 +120,14 @@
 				return this.form.type === 'DT004' || this.form.type === 'DT005';
 			},
 			isSaveEnabled() {
+				// TODO only disable save on missing uploaded file on a new file record
 				return !this.products.length;
 			}
 		},
 		methods: {
 			confirm() {
-				console.log('confirm');
+				console.log(this.form);
+				console.log(this.products);
 			},
 			beforeUpload(file) {
 				const { size } = file;
@@ -208,8 +209,7 @@
 				};
 				xhr.send(form);
 			},
-
-			handleProductsChanged(value) {
+			onTableInput(value) {
 				this.products = [...value];
 			},
 		},
