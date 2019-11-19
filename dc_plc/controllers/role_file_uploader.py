@@ -3,260 +3,82 @@ import frappe
 import os
 import shutil
 
-from frappe.core.doctype.file.file import File
-from dc_plc.dc_documents.doctype.dc_doc_desdoc_meta.dc_doc_desdoc_meta import DC_Doc_Desdoc_Meta
-from dc_plc.dc_documents.doctype.dc_doc_misc_meta.dc_doc_misc_meta import DC_Doc_Misc_Meta
-from dc_plc.dc_documents.doctype.dc_doc_opcon_meta.dc_doc_opcon_meta import DC_Doc_Opcon_Meta
-from dc_plc.dc_documents.doctype.dc_doc_dev_report_meta.dc_doc_dev_report_meta import DC_Doc_Dev_Report_Meta
 from dc_plc.dc_plc.doctype.dc_plc_product_summary.dc_plc_product_summary import DC_PLC_Product_Summary
-from dc_plc.dc_documents.doctype.dc_doc_datasheet_meta.dc_doc_datasheet_meta import DC_Doc_Datasheet_Meta
+from frappe.core.doctype.file.file import File
 
 
 @frappe.whitelist()
 def search_existing_datasheets(query):
-	"""
-	Search for existing datasheets
-	:param query: str -- text search query
-	:return: list -- list of {'value': '', 'label': ''} entries
-	"""
-
-	db_name = frappe.conf.get("db_name")
-
-	res = frappe.db.sql(f"""
-SELECT DISTINCT 
-	`m`.`name`
-	, `m`.`title` AS `meta_title`
-	, `m`.`note` AS `note`
-	, `m`.`attached_file` AS `url`
-FROM
-	`{db_name}`.tabDC_Doc_Datasheet_Meta AS `m`
-INNER JOIN
-	`{db_name}`.tabDC_Doc_Document_Subtype AS `s` ON `m`.`link_subtype` = `s`.`name`
-INNER JOIN
-	`{db_name}`.tabDC_Doc_Datasheets_in_Datasheet_List AS `l` ON `l`.`link_datasheet_meta` = `m`.`name`
-INNER JOIN
-	`{db_name}`.tabDC_PLC_Product_Summary AS `p` ON `p`.`name` = `l`.`parent`
-WHERE
-	`s`.`name` = 'DST002'
-AND
-	(
-	`m`.`title` LIKE %(search)s
-	OR
-	`p`.`int_num` LIKE %(search)s
-	OR
-	`p`.`ext_num` LIKE %(search)s
-	OR
-	DATE(`m`.`creation`) < %(date)s
-	) 
-LIMIT 10;""", {
-		'search': '%{}%'.format(query),
-		'date': '{}'.format(query),
-	})
-
-	return [
-		{
-			'label': d[0],
-			'value': d[1],
-			'note': d[2],
-			'file_url': d[3].replace('\n', '<br>')
-		}
-		for d in res
-	]
+	return search_existing_meta(
+		query=query,
+		table='tabDC_Doc_Datasheets_in_Datasheet_List',
+		type_id='DT001'
+	)
 
 
 @frappe.whitelist()
 def search_existing_dev_reports(query):
-	"""
-	Search for existing developer reports
-	:param query: str -- text search query
-	:return: list -- list of {'value': '', 'label': ''} entries
-	"""
-
-	db_name = frappe.conf.get("db_name")
-
-	res = frappe.db.sql(f"""
-SELECT DISTINCT 
-	`m`.`name`
-	, `m`.`title` AS `meta_title`
-	, `m`.`note` AS `note`
-	, `m`.`attached_file` AS `url`
-FROM
-	`{db_name}`.tabDC_Doc_Dev_Report_Meta AS `m`
-INNER JOIN
-	`{db_name}`.tabDC_Doc_Document_Subtype AS `s` ON `m`.`link_subtype` = `s`.`name`
-INNER JOIN
-	`{db_name}`.tabDC_Doc_Dev_Report_in_Dev_Report_List AS `l` ON `l`.`link_dev_report_meta` = `m`.`name`
-INNER JOIN
-	`{db_name}`.tabDC_PLC_Product_Summary AS `p` ON `p`.`name` = `l`.`parent`
-WHERE
-	`s`.`name` = 'DST003'
-AND
-	(
-	`m`.`title` LIKE %(search)s
-	OR
-	`p`.`int_num` LIKE %(search)s
-	OR
-	`p`.`ext_num` LIKE %(search)s
-	OR
-	DATE(`m`.`creation`) < %(date)s
-	) 
-LIMIT 10;""", {
-		'search': '%{}%'.format(query),
-		'date': '{}'.format(query),
-	})
-
-	return [
-		{
-			'label': d[0],
-			'value': d[1],
-			'note': d[2],
-			'file_url': d[3].replace('\n', '<br>')
-		}
-		for d in res
-	]
+	return search_existing_meta(
+		query=query,
+		table='tabDC_Doc_Dev_Report_in_Dev_Report_List',
+		type_id='DT002'
+	)
 
 
 @frappe.whitelist()
 def search_existing_misc(query):
-	"""
-	Search for existing developer reports
-	:param query: str -- text search query
-	:return: list -- list of {'value': '', 'label': ''} entries
-	"""
-
-	db_name = frappe.conf.get("db_name")
-
-	res = frappe.db.sql(f"""
-SELECT DISTINCT 
-	`m`.`name`
-	, `m`.`title` AS `meta_title`
-	, `m`.`note` AS `note`
-	, `m`.`attached_file` AS `url`
-FROM
-	`{db_name}`.tabDC_Doc_Misc_Meta AS `m`
-INNER JOIN
-	`{db_name}`.tabDC_Doc_Document_Subtype AS `s` ON `m`.`link_subtype` = `s`.`name`
-INNER JOIN
-	`{db_name}`.tabDC_Doc_Misc_in_Misc_List AS `l` ON `l`.`link_misc_meta` = `m`.`name`
-INNER JOIN
-	`{db_name}`.tabDC_PLC_Product_Summary AS `p` ON `p`.`name` = `l`.`parent`
-WHERE
-	`s`.`name` = 'DST004'
-AND
-	(
-	`m`.`title` LIKE %(search)s
-	OR
-	`p`.`int_num` LIKE %(search)s
-	OR
-	`p`.`ext_num` LIKE %(search)s
-	OR
-	DATE(`m`.`creation`) < %(date)s
-	) 
-LIMIT 10;""", {
-		'search': '%{}%'.format(query),
-		'date': '{}'.format(query),
-	})
-
-	return [
-		{
-			'label': d[0],
-			'value': d[1],
-			'note': d[2],
-			'file_url': d[3].replace('\n', '<br>')
-		}
-		for d in res
-	]
+	return search_existing_meta(
+		query=query,
+		table='tabDC_Doc_Misc_in_Misc_List',
+		type_id='DT003'
+	)
 
 
 @frappe.whitelist()
 def search_existing_opcon(query):
-	"""
-	Search for existing opcons
-	:param query: str -- text search query
-	:return: list -- list of {'value': '', 'label': ''} entries
-	"""
-
-	db_name = frappe.conf.get("db_name")
-
-	res = frappe.db.sql(f"""
-SELECT DISTINCT 
-	`m`.`name`
-	, `m`.`title` AS `meta_title`
-	, `m`.`note` AS `note`
-	, `m`.`attached_file` AS `url`
-FROM
-	`{db_name}`.tabDC_Doc_Opcon_Meta AS `m`
-INNER JOIN
-	`{db_name}`.tabDC_Doc_Document_Subtype AS `s` ON `m`.`link_subtype` = `s`.`name`
-INNER JOIN
-	`{db_name}`.tabDC_Doc_Opcon_in_Opcon_List AS `l` ON `l`.`link_opcon_meta` = `m`.`name`
-INNER JOIN
-	`{db_name}`.tabDC_PLC_Product_Summary AS `p` ON `p`.`name` = `l`.`parent`
-WHERE
-	`s`.`name` IN ('DST005', 'DST006', 'DST007')
-AND
-	(
-	`m`.`title` LIKE %(search)s
-	OR
-	`p`.`int_num` LIKE %(search)s
-	OR
-	`p`.`ext_num` LIKE %(search)s
-	OR
-	DATE(`m`.`creation`) < %(date)s
-	) 
-LIMIT 10;""", {
-		'search': '%{}%'.format(query),
-		'date': '{}'.format(query),
-	})
-
-	return [
-		{
-			'label': d[0],
-			'value': d[1],
-			'note': d[2],
-			'file_url': d[3].replace('\n', '<br>')
-		}
-		for d in res
-	]
+	return search_existing_meta(
+		query=query,
+		table='tabDC_Doc_Opcon_in_Opcon_List',
+		type_id='DT004'
+	)
 
 
 @frappe.whitelist()
 def search_existing_desdoc(query):
-	"""
-	Search for existing desdocs
-	:param query: str -- text search query
-	:return: list -- list of {'value': '', 'label': ''} entries
-	"""
+	return search_existing_meta(
+		query=query,
+		table='tabDC_Doc_Desdoc_in_Desdoc_List',
+		type_id='DT005'
+	)
 
+
+def search_existing_meta(query, table, type_id):
 	db_name = frappe.conf.get("db_name")
 
 	res = frappe.db.sql(f"""
-SELECT DISTINCT 
-	`m`.`name`
-	, `m`.`title` AS `meta_title`
-	, `m`.`note` AS `note`
-	, `m`.`attached_file` AS `url`
-FROM
-	`{db_name}`.tabDC_Doc_Desdoc_Meta AS `m`
-INNER JOIN
-	`{db_name}`.tabDC_Doc_Document_Subtype AS `s` ON `m`.`link_subtype` = `s`.`name`
-INNER JOIN
-	`{db_name}`.tabDC_Doc_Desdoc_in_Desdoc_List AS `l` ON `l`.`link_desdoc_meta` = `m`.`name`
-INNER JOIN
-	`{db_name}`.tabDC_PLC_Product_Summary AS `p` ON `p`.`name` = `l`.`parent`
-WHERE
-	`s`.`name` IN ('DST008', 'DST009', 'DST0010')
-AND
-	(
-	`m`.`title` LIKE %(search)s
-	OR
-	`p`.`int_num` LIKE %(search)s
-	OR
-	`p`.`ext_num` LIKE %(search)s
-	OR
-	DATE(`m`.`creation`) < %(date)s
-	) 
-LIMIT 10;""", {
+	SELECT DISTINCT 
+		`m`.`name`
+		, `m`.`title` AS `meta_title`
+		, `m`.`note` AS `note`
+		, `m`.`attached_file` AS `url`
+	FROM `{db_name}`.tabDC_Doc_Meta AS `m`
+	INNER JOIN `{db_name}`.`tabDC_Doc_Document_Subtype` AS `s` ON `m`.`link_subtype` = `s`.`name`
+	INNER JOIN `{db_name}`.`tabDC_Doc_Document_Type` AS `st` ON `st`.`name` = `s`.`link_doc_type`
+	INNER JOIN `{db_name}`.`{table}` AS `l` ON `l`.`link_doc_meta` = `m`.`name`
+	INNER JOIN `{db_name}`.`tabDC_PLC_Product_Summary` AS `p` ON `p`.`name` = `l`.`parent`
+	WHERE
+		`st`.`name` = '{type_id}'
+	AND
+		(
+		`m`.`title` LIKE %(search)s
+		OR
+		`p`.`int_num` LIKE %(search)s
+		OR
+		`p`.`ext_num` LIKE %(search)s
+		OR
+		DATE(`m`.`creation`) < %(date)s
+		) 
+	LIMIT 50;""", {
 		'search': '%{}%'.format(query),
 		'date': '{}'.format(query),
 	})
