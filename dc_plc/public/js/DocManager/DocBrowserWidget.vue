@@ -98,9 +98,18 @@
 			},
 
 			onRowClicked(row_data, column, event) {
-				console.log(row_data);
-				// console.log(column);
-				// console.log(event);
+				let me = this;
+				frappe.call({
+					method: "dc_plc.dc_documents.page.doc_manager.controller.get_doc_meta",
+					args: {
+						id_: row_data.id,
+					},
+					callback: function (r) {
+						me.formData = r.message;
+						me.dialogTableVisible = true;
+					}
+				});
+			},
 			onNewDocClicked() {
 				this.formData = {
 					id: null,

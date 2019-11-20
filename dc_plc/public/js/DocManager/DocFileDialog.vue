@@ -65,7 +65,7 @@
 		data() {
 			return {
 				// TODO use v-model to select products
-				products: ['PROD000001'],
+				products: [],
 				allowedFileSize: 50,
 				fileList: [],
 				labelPosition: 'left',
@@ -113,7 +113,7 @@
 				if (!this.typeSubtypeMap[this.form.type])
 					return [];
 				let newSubs = [...this.typeSubtypeMap[this.form.type]];
-				this.form.subtype = newSubs[0].value;
+				this.form.subtype = this.form.subtype ? this.form.subtype : '';
 				return newSubs;
 			},
 			isExtendedForm() {
@@ -223,7 +223,6 @@
 		},
 		mounted: function () {
 			this.form = { ...this.formData };
-			this.form.type = 'DT001';
 		},
 		components: {
 			DocFileDialogProjectBrowser,
