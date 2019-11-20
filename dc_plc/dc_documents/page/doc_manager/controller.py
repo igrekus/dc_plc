@@ -31,8 +31,16 @@ ORDER BY `subtype` ASC
 
 
 @frappe.whitelist()
-def get_doc_meta(id_):
+def get_doc_meta(id_, type_id):
 	db_name = frappe.conf.get("db_name")
+
+	table = {
+		'DT001': 'tabDC_Doc_Datasheets_in_Datasheet_List',
+		'DT002': 'tabDC_Doc_Dev_Report_in_Dev_Report_List',
+		'DT003': 'tabDC_Doc_Misc_in_Misc_List',
+		'DT004': 'tabDC_Doc_Opcon_in_Opcon_List',
+		'DT005': 'tabDC_Doc_Desdoc_in_Desdoc_List',
+	}[type_id]
 
 	res = frappe.db.sql(f"""
 SELECT `m`.`name`
@@ -44,12 +52,14 @@ SELECT `m`.`name`
 , `m`.`ext_num`
 , `m`.`date_approve`
 , `m`.`date_archive`
-, 'links'
+, GROUP_CONCAT(`ml`.`parent`, ',') AS `prod_links`
 FROM `{db_name}`.`tabDC_Doc_Meta` AS `m`
 INNER JOIN `{db_name}`.`tabDC_Doc_Document_Subtype` AS `st` ON `m`.`link_subtype` = `st`.`name`
 INNER JOIN `{db_name}`.`tabDC_Doc_Document_Type` AS `t` ON `t`.`name` = `st`.`link_doc_type`
+INNER JOIN `{db_name}`.`{table}` AS `ml` on `ml`.`link_doc_meta` = `m`.`name`
 WHERE `m`.`name` = '{id_}'
-ORDER BY `subtype` ASC;""", as_dict=1)[0]
+GROUP BY `m`.`name`
+ORDER BY `subtype` ASC""", as_dict=1)[0]
 
 	return {
 		'id': res['name'],
@@ -63,4 +73,6 @@ ORDER BY `subtype` ASC;""", as_dict=1)[0]
 			'date_approve': res['date_approve'],
 			'date_archive': res['date_archive'],
 		},
+		'products': res['prod_links'].strip(',').split(','),
 	}
+

@@ -73,6 +73,7 @@
 						date_approve: null,
 						date_archive: null,
 					},
+					products: [],
 				}
 			}
 		},
@@ -107,6 +108,7 @@
 						date_approve: null,
 						date_archive: null,
 					},
+					products: [],
 				};
 				this.dialogTableVisible = true;
 			},

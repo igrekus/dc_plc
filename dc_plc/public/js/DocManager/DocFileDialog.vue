@@ -47,7 +47,7 @@
 				</el-form-item>
 			</div>
 			<el-form-item label="Связанные изделия"></el-form-item>
-			<doc-file-dialog-project-browser v-model="products"></doc-file-dialog-project-browser>
+			<doc-file-dialog-project-browser v-model="form.products"></doc-file-dialog-project-browser>
 		</el-form>
 		<el-divider></el-divider>
 		<span slot="footer" class="dialog-footer">
@@ -64,8 +64,6 @@
 		props: ['formData'],
 		data() {
 			return {
-				// TODO use v-model to select products
-				products: [],
 				allowedFileSize: 50,
 				fileList: [],
 				labelPosition: 'left',
@@ -82,6 +80,7 @@
 						date_approve: null,
 						date_archive: null,
 					},
+					products: [],
 				},
 				// TODO get type-subtype info from the backend
 				types: [
@@ -121,13 +120,12 @@
 			},
 			isSaveEnabled() {
 				// TODO only disable save on missing uploaded file on a new file record
-				return !this.products.length;
+				return !this.form.products.length;
 			}
 		},
 		methods: {
 			confirm() {
 				console.log(this.form);
-				console.log(this.products);
 			},
 			beforeUpload(file) {
 				const { size } = file;
@@ -209,20 +207,11 @@
 				};
 				xhr.send(form);
 			},
-			onTableInput(value) {
-				this.products = [...value];
-			},
 		},
 		watch: {
-			formData(newVal, oldVal) {
-				this.form = { ...this.formData };
-			},
-			// form(newVal, oldVal) {
-			// 	console.log(newVal);
-			// }
 		},
 		mounted: function () {
-			this.form = { ...this.formData };
+			this.form = {...this.formData};
 		},
 		components: {
 			DocFileDialogProjectBrowser,

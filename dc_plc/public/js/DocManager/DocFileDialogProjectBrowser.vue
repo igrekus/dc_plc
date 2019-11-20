@@ -93,15 +93,17 @@
 					this.content = arr;
 				}
 				this.state = '';
+				this.$emit('input', this.content);
 			},
 			handleDelete(row_index, row_object) {
 				this.content.splice(row_index, 1);
+				this.$emit('input', this.content);
 			}
 		},
 		watch: {
-			productsInfo(newVal, oldVal) {
-				this.$emit('input', this.content);
-			},
+			value(newVal, oldVal) {
+				this.content = newVal;
+			}
 		},
 		mounted() {
 			this.content = [...this.value];
