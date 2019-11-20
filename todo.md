@@ -8,12 +8,12 @@
 - update stat table logic to show reworked attached docs (how?)
 - fix disappearing odd-numbered small field in the report
 
-- parse and import new data
 - document manager
-
-- ~~consultant stats, count dev-completeness and dev-relevance, group by consultants, link to consultant filter~~
+- product stages
 
 ### Feats
+- ~~consultant stats, count dev-completeness and dev-relevance, group by consultants, link to consultant filter~~
+- ~~parse and import new data~~
 - ~~desdoc file manager~~
 - ~~opcon file manager~~
 - ~~misc file manager~~
