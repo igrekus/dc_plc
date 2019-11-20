@@ -30,7 +30,7 @@
 						:file-list="fileList">
 					<i class="el-icon-upload"></i>
 					<div class="el-upload__text">Для загрузки, <em>перетащите</em> файл или <em>нажмите</em> мышкой</div>
-					<div class="el-upload__tip" slot="tip">PDF размером меньше 50 Мб</div>
+					<div class="el-upload__tip" slot="tip">Ограничение по размеру файла -- 50 Мб</div>
 				</el-upload>
 			</el-row>
 			<div v-if="!!subtypeMethod">
