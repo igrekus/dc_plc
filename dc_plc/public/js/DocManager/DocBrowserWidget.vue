@@ -3,7 +3,9 @@
 		<el-button @click="onNewDocClicked">Новый документ</el-button>
 
 		<el-dialog title="Новый документ" :visible.sync="dialogTableVisible">
-			<doc-file-dialog v-bind:formData="formData"></doc-file-dialog>
+			<doc-file-dialog
+					v-bind:formData="formData"
+					v-on:confirm="onConfirm"></doc-file-dialog>
 		</el-dialog>
 
 		<el-input
@@ -135,6 +137,13 @@
 			onNewDocClicked() {
 				this.newDocument();
 			},
+
+			onConfirm(form) {
+				this.dialogTableVisible = false;
+				console.log(form);
+				console.log(this.formData);
+			},
+
 			updateTable(filters={}) {
 				let me = this;
 				frappe.call({
