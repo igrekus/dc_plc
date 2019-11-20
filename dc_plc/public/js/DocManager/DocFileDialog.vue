@@ -51,7 +51,7 @@
 		</el-form>
 		<el-divider></el-divider>
 		<span slot="footer" class="dialog-footer">
-			<el-button type="primary" @click="confirm" :disabled="isSaveEnabled">Сохранить</el-button>
+			<el-button type="primary" @click="confirm" :disabled="isSaveDisabled">Сохранить</el-button>
 		</span>
 	</div>
 </template>
@@ -118,9 +118,9 @@
 			isExtendedForm() {
 				return this.form.type === 'DT004' || this.form.type === 'DT005';
 			},
-			isSaveEnabled() {
+			isSaveDisabled() {
 				// TODO only disable save on missing uploaded file on a new file record
-				return !this.form.products.length;
+				return !this.form.id;
 			}
 		},
 		methods: {
