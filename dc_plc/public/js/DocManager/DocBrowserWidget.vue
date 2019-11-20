@@ -147,7 +147,7 @@
 			},
 		},
 		mounted() {
-			this.updateTable({});
+			this.updateTable();
 		},
 		components: {
 			DocFileDialog,
