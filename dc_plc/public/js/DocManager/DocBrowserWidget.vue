@@ -95,22 +95,6 @@
 
 			newDocument() {
 				console.log('new doc');
-			},
-
-			onRowClicked(row_data, column, event) {
-				let me = this;
-				frappe.call({
-					method: "dc_plc.dc_documents.page.doc_manager.controller.get_doc_meta",
-					args: {
-						id_: row_data.id,
-					},
-					callback: function (r) {
-						me.formData = r.message;
-						me.dialogTableVisible = true;
-					}
-				});
-			},
-			onNewDocClicked() {
 				this.formData = {
 					id: null,
 					name: '',
@@ -125,6 +109,29 @@
 					},
 				};
 				this.dialogTableVisible = true;
+			},
+
+			editDocument(row_data) {
+				let me = this;
+				frappe.call({
+					method: "dc_plc.dc_documents.page.doc_manager.controller.get_doc_meta",
+					args: {
+						id_: row_data.id,
+						type_id: row_data.type_id,
+					},
+					callback: function (r) {
+						me.formData = r.message;
+						me.dialogTableVisible = true;
+					}
+				});
+			},
+
+			onRowClicked(row_data, column, event) {
+				this.editDocument(row_data);
+			},
+
+			onNewDocClicked() {
+				this.newDocument();
 			},
 			updateTable(filters={}) {
 				let me = this;
