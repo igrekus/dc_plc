@@ -7,7 +7,7 @@
 		</el-dialog>
 
 		<el-input
-				placeholder="Filter keyword"
+				placeholder="Фильтр списка докуметов..."
 				v-model="filterText">
 		</el-input>
 
@@ -28,7 +28,7 @@
 			</el-table-column>
 			<el-table-column
 					prop="subtype"
-					label="Тип"
+					label="Подтип"
 					width="150">
 			</el-table-column>
 			<el-table-column
