@@ -209,6 +209,9 @@
 			},
 		},
 		watch: {
+			formData(n, o) {
+				this.form = {...n};
+			}
 		},
 		mounted: function () {
 			this.form = {...this.formData};
