@@ -138,10 +138,10 @@
 				this.newDocument();
 			},
 
-			onConfirm(form) {
+			onConfirm() {
 				this.dialogTableVisible = false;
-				console.log(form);
-				console.log(this.formData);
+
+				frappe.call({
 			},
 
 			updateTable(filters={}) {
