@@ -47,11 +47,11 @@
 				</el-form-item>
 			</div>
 			<el-form-item label="Связанные изделия"></el-form-item>
-			<doc-file-dialog-project-browser v-model="products"></doc-file-dialog-project-browser>
+			<doc-file-dialog-project-browser v-model="form.products"></doc-file-dialog-project-browser>
 		</el-form>
 		<el-divider></el-divider>
 		<span slot="footer" class="dialog-footer">
-			<el-button type="primary" @click="confirm" :disabled="isSaveEnabled">Сохранить</el-button>
+			<el-button type="primary" @click="confirm" :disabled="isSaveDisabled">Сохранить</el-button>
 		</span>
 	</div>
 </template>
@@ -64,8 +64,6 @@
 		props: ['formData'],
 		data() {
 			return {
-				// TODO use v-model to select products
-				products: ['PROD000001'],
 				allowedFileSize: 50,
 				fileList: [],
 				labelPosition: 'left',
@@ -82,6 +80,7 @@
 						date_approve: null,
 						date_archive: null,
 					},
+					products: [],
 				},
 				// TODO get type-subtype info from the backend
 				types: [
@@ -113,21 +112,20 @@
 				if (!this.typeSubtypeMap[this.form.type])
 					return [];
 				let newSubs = [...this.typeSubtypeMap[this.form.type]];
-				this.form.subtype = newSubs[0].value;
+				this.form.subtype = this.form.subtype ? this.form.subtype : '';
 				return newSubs;
 			},
 			isExtendedForm() {
 				return this.form.type === 'DT004' || this.form.type === 'DT005';
 			},
-			isSaveEnabled() {
+			isSaveDisabled() {
 				// TODO only disable save on missing uploaded file on a new file record
-				return !this.products.length;
+				return !this.form.id;
 			}
 		},
 		methods: {
 			confirm() {
-				console.log(this.form);
-				console.log(this.products);
+				this.$emit('confirm', this.form);
 			},
 			beforeUpload(file) {
 				const { size } = file;
@@ -209,21 +207,14 @@
 				};
 				xhr.send(form);
 			},
-			onTableInput(value) {
-				this.products = [...value];
-			},
 		},
 		watch: {
-			formData(newVal, oldVal) {
-				this.form = { ...this.formData };
-			},
-			// form(newVal, oldVal) {
-			// 	console.log(newVal);
-			// }
+			formData(n, o) {
+				this.form = {...n};
+			}
 		},
 		mounted: function () {
-			this.form = { ...this.formData };
-			this.form.type = 'DT001';
+			this.form = {...this.formData};
 		},
 		components: {
 			DocFileDialogProjectBrowser,

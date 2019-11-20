@@ -3,11 +3,13 @@
 		<el-button @click="onNewDocClicked">Новый документ</el-button>
 
 		<el-dialog title="Новый документ" :visible.sync="dialogTableVisible">
-			<doc-file-dialog v-bind:formData="formData"></doc-file-dialog>
+			<doc-file-dialog
+					v-bind:formData="formData"
+					v-on:confirm="onConfirm"></doc-file-dialog>
 		</el-dialog>
 
 		<el-input
-				placeholder="Filter keyword"
+				placeholder="Фильтр списка докуметов..."
 				v-model="filterText">
 		</el-input>
 
@@ -28,7 +30,7 @@
 			</el-table-column>
 			<el-table-column
 					prop="subtype"
-					label="Тип"
+					label="Подтип"
 					width="150">
 			</el-table-column>
 			<el-table-column
@@ -73,6 +75,7 @@
 						date_approve: null,
 						date_archive: null,
 					},
+					products: [],
 				}
 			}
 		},
@@ -95,13 +98,6 @@
 
 			newDocument() {
 				console.log('new doc');
-			},
-
-			onRowClicked(row_data, column, event) {
-				console.log(row_data);
-				// console.log(column);
-				// console.log(event);
-			onNewDocClicked() {
 				this.formData = {
 					id: null,
 					name: '',
@@ -114,9 +110,40 @@
 						date_approve: null,
 						date_archive: null,
 					},
+					products: [],
 				};
 				this.dialogTableVisible = true;
 			},
+
+			editDocument(row_data) {
+				let me = this;
+				frappe.call({
+					method: "dc_plc.dc_documents.page.doc_manager.controller.get_doc_meta",
+					args: {
+						id_: row_data.id,
+						type_id: row_data.type_id,
+					},
+					callback: function (r) {
+						me.formData = r.message;
+						me.dialogTableVisible = true;
+					}
+				});
+			},
+
+			onRowClicked(row_data, column, event) {
+				this.editDocument(row_data);
+			},
+
+			onNewDocClicked() {
+				this.newDocument();
+			},
+
+			onConfirm(form) {
+				this.dialogTableVisible = false;
+				console.log(form);
+				console.log(this.formData);
+			},
+
 			updateTable(filters={}) {
 				let me = this;
 				frappe.call({
@@ -131,7 +158,7 @@
 			},
 		},
 		mounted() {
-			this.updateTable({});
+			this.updateTable();
 		},
 		components: {
 			DocFileDialog,

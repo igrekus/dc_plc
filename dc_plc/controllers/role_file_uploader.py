@@ -376,9 +376,9 @@ def add_opcon(prod_id, upload, temp_file):
 	return 'success'
 
 
-def add_existing_opcon(prod_id, misc):
+def add_existing_opcon(prod_id, opcon):
 	doc: DC_PLC_Product_Summary = frappe.get_doc('DC_PLC_Product_Summary', prod_id)
-	meta: DC_Doc_Meta = frappe.get_doc('DC_Doc_Meta', misc['label'])
+	meta: DC_Doc_Meta = frappe.get_doc('DC_Doc_Meta', opcon['label'])
 	doc_subype = frappe.get_doc('DC_Doc_Document_Subtype', meta.link_subtype)
 	doc_type = frappe.get_doc('DC_Doc_Document_Type', doc_subype.link_doc_type)
 
@@ -429,7 +429,7 @@ def add_new_opcon(prod_id, opcon_meta, temp_file):
 	})
 	new_file.insert()
 
-	add_existing_opcon(prod_id, misc={'label': new_opcon.name})
+	add_existing_opcon(prod_id, opcon={'label': new_opcon.name})
 
 	return True
 
@@ -446,9 +446,9 @@ def add_desdoc(prod_id, upload, temp_file):
 	return 'success'
 
 
-def add_existing_desdoc(prod_id, misc):
+def add_existing_desdoc(prod_id, desdoc):
 	doc: DC_PLC_Product_Summary = frappe.get_doc('DC_PLC_Product_Summary', prod_id)
-	meta: DC_Doc_Meta = frappe.get_doc('DC_Doc_Meta', misc['label'])
+	meta: DC_Doc_Meta = frappe.get_doc('DC_Doc_Meta', desdoc['label'])
 	doc_subype = frappe.get_doc('DC_Doc_Document_Subtype', meta.link_subtype)
 	doc_type = frappe.get_doc('DC_Doc_Document_Type', doc_subype.link_doc_type)
 
@@ -497,6 +497,6 @@ def add_new_desdoc(prod_id, desdoc_meta, temp_file):
 	})
 	new_file.insert()
 
-	add_existing_desdoc(prod_id, misc={'label': new_desdoc.name})
+	add_existing_desdoc(prod_id, desdoc={'label': new_desdoc.name})
 
 	return True
