@@ -125,7 +125,7 @@
 		},
 		methods: {
 			confirm() {
-				this.$emit('confirm');
+				this.$emit('confirm', this.form);
 			},
 			beforeUpload(file) {
 				const { size } = file;

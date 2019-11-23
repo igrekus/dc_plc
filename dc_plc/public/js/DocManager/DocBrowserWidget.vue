@@ -138,10 +138,19 @@
 				this.newDocument();
 			},
 
-			onConfirm() {
+			onConfirm(form) {
 				this.dialogTableVisible = false;
 
 				frappe.call({
+					method: "dc_plc.dc_documents.page.doc_manager.controller.update_document",
+					args: {
+						form_data: form,
+					},
+					callback: function (r) {
+						console.log(r);
+					}
+				});
+
 			},
 
 			updateTable(filters={}) {
