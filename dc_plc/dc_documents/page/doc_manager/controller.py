@@ -1,5 +1,13 @@
 import frappe
 
+list_tables = {
+	'DT001': 'tabDC_Doc_Datasheets_in_Datasheet_List',
+	'DT002': 'tabDC_Doc_Dev_Report_in_Dev_Report_List',
+	'DT003': 'tabDC_Doc_Misc_in_Misc_List',
+	'DT004': 'tabDC_Doc_Opcon_in_Opcon_List',
+	'DT005': 'tabDC_Doc_Desdoc_in_Desdoc_List',
+}
+
 
 @frappe.whitelist()
 def get_document_list(filters=None):
@@ -34,13 +42,7 @@ ORDER BY `subtype` ASC
 def get_doc_meta(id_, type_id):
 	db_name = frappe.conf.get("db_name")
 
-	table = {
-		'DT001': 'tabDC_Doc_Datasheets_in_Datasheet_List',
-		'DT002': 'tabDC_Doc_Dev_Report_in_Dev_Report_List',
-		'DT003': 'tabDC_Doc_Misc_in_Misc_List',
-		'DT004': 'tabDC_Doc_Opcon_in_Opcon_List',
-		'DT005': 'tabDC_Doc_Desdoc_in_Desdoc_List',
-	}[type_id]
+	table = list_tables[type_id]
 
 	res = frappe.db.sql(f"""
 SELECT `m`.`name`
@@ -75,4 +77,32 @@ ORDER BY `subtype` ASC""", as_dict=1)[0]
 		},
 		'products': res['prod_links'].strip(',').split(','),
 	}
+
+
+@frappe.whitelist()
+def update_document(form_data):
+	db_name = frappe.conf.get("db_name")
+
+	form_data = frappe.parse_json(form_data)
+	table = list_tables[form_data['type']]
+	new_links = set([e for e in form_data['products'] if e])
+
+	res = frappe.db.sql(f"""
+SELECT
+`ml`.`name`
+, `ml`.`parent`
+FROM `{db_name}`.`{table}` AS `ml`
+WHERE `ml`.`link_doc_meta` = '{form_data['id']}'
+GROUP BY `ml`.`parent`
+""", as_dict=1)
+	existing_links = set([e['parent'] for e in res])
+	existing_link_ids = {e['parent']: e['name'] for e in res}
+
+	to_remove = existing_links - new_links
+	to_add = new_links - existing_links
+
+	remove_links([existing_link_ids[link] for link in to_remove])
+	add_links(to_add)
+
+	return existing_links
 
