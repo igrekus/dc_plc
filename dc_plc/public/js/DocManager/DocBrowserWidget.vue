@@ -139,9 +139,20 @@
 			},
 
 			onConfirm(form) {
+				let me = this;
 				this.dialogTableVisible = false;
-				console.log(form);
-				console.log(this.formData);
+
+				frappe.call({
+					method: "dc_plc.dc_documents.page.doc_manager.controller.update_document",
+					args: {
+						form_data: form,
+					},
+					callback: function (r) {
+						const [res_remove, res_add] = r.message;
+						me.$message.info(`Привязки документа обновлены`);
+					}
+				});
+
 			},
 
 			updateTable(filters={}) {

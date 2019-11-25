@@ -57,7 +57,7 @@
 </template>
 
 <script>
-	import DocFileDialogProjectBrowser from './DocFileDialogProjectBrowser.vue'
+	import DocFileDialogProjectBrowser from './DocFileDialogProductBrowser.vue'
 
 	export default {
 		name: 'DocFileDialog',
