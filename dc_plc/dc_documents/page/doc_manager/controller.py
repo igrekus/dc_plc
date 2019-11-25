@@ -110,10 +110,21 @@ GROUP BY `ml`.`parent`
 	to_remove = existing_links - new_links
 	to_add = new_links - existing_links
 
-	remove_links([existing_link_ids[link] for link in to_remove])
+	remove_links([existing_link_ids[link] for link in to_remove], form_data['id'], form_data['type'])
 	add_links(to_add, form_data['id'], form_data['type'])
 
 	return existing_links
+
+
+def remove_links(link_ids, meta_id, meta_type):
+	if not link_ids:
+		return
+
+	# TODO refactor to use the document API
+	sql = f"""DELETE FROM `{list_tables[meta_type]}` 
+WHERE `name` in ({','.join([f'"{s}"' for s in link_ids])})"""
+
+	return frappe.db.sql(sql)
 
 
 def add_links(product_ids, meta_id, meta_type):
