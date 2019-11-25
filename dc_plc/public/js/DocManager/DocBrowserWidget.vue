@@ -139,6 +139,7 @@
 			},
 
 			onConfirm(form) {
+				let me = this;
 				this.dialogTableVisible = false;
 
 				frappe.call({
@@ -147,7 +148,8 @@
 						form_data: form,
 					},
 					callback: function (r) {
-						console.log(r);
+						const [res_remove, res_add] = r.message;
+						me.$message.info(`Привязки документа обновлены`);
 					}
 				});
 
