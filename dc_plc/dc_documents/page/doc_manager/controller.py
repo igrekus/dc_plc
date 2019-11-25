@@ -71,7 +71,7 @@ INNER JOIN `{db_name}`.`tabDC_Doc_Document_Type` AS `t` ON `t`.`name` = `st`.`li
 INNER JOIN `{db_name}`.`{table}` AS `ml` on `ml`.`link_doc_meta` = `m`.`name`
 WHERE `m`.`name` = '{id_}'
 GROUP BY `m`.`name`
-ORDER BY `subtype` ASC""", as_dict=1)[0]
+ORDER BY `subtype` ASC, `title` ASC""", as_dict=1)[0]
 
 	return {
 		'id': res['name'],
