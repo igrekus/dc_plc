@@ -1,4 +1,6 @@
 import frappe
+from dc_plc.dc_documents.doctype.dc_doc_meta.dc_doc_meta import DC_Doc_Meta
+from dc_plc.dc_plc.doctype.dc_plc_product_summary.dc_plc_product_summary import DC_PLC_Product_Summary
 
 list_tables = {
 	'DT001': 'tabDC_Doc_Datasheets_in_Datasheet_List',
@@ -6,6 +8,14 @@ list_tables = {
 	'DT003': 'tabDC_Doc_Misc_in_Misc_List',
 	'DT004': 'tabDC_Doc_Opcon_in_Opcon_List',
 	'DT005': 'tabDC_Doc_Desdoc_in_Desdoc_List',
+}
+
+list_child_fields = {
+	'DT001': 'tab_datasheet',
+	'DT002': 'tab_dev_report',
+	'DT003': 'tab_misc',
+	'DT004': 'tab_opcon',
+	'DT005': 'tab_desdoc',
 }
 
 
@@ -102,7 +112,25 @@ GROUP BY `ml`.`parent`
 	to_add = new_links - existing_links
 
 	remove_links([existing_link_ids[link] for link in to_remove])
-	add_links(to_add)
+	add_links(to_add, form_data['id'], form_data['type'])
 
 	return existing_links
+
+
+def add_links(product_ids, meta_id, meta_type):
+	meta: DC_Doc_Meta = frappe.get_doc('DC_Doc_Meta', meta_id)
+	doc_subype = frappe.get_doc('DC_Doc_Document_Subtype', meta.link_subtype)
+	doc_type = frappe.get_doc('DC_Doc_Document_Type', doc_subype.link_doc_type)
+
+	for id_ in product_ids:
+		product: DC_PLC_Product_Summary = frappe.get_doc('DC_PLC_Product_Summary', id_)
+
+		product.append(list_child_fields[meta_type], {
+			'link_doc_meta': meta.name,
+			'doc_type': doc_type.title,
+			'doc_subtype': doc_subype.title,
+		})
+		product.save()
+
+	return True
 
