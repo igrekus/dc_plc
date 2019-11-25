@@ -102,11 +102,11 @@
 		},
 		watch: {
 			value(newVal, oldVal) {
-				this.content = newVal;
+				// TODO hacky fix for empty product ids
+				this.content = [...newVal.filter(el => !!el)];
 			}
 		},
 		mounted() {
-			this.content = [...this.value];
 		}
 	}
 </script>
