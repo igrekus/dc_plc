@@ -110,10 +110,10 @@ GROUP BY `ml`.`parent`
 	to_remove = existing_links - new_links
 	to_add = new_links - existing_links
 
-	remove_links([existing_link_ids[link] for link in to_remove], form_data['id'], form_data['type'])
-	add_links(to_add, form_data['id'], form_data['type'])
+	res_remove = remove_links([existing_link_ids[link] for link in to_remove], form_data['id'], form_data['type'])
+	res_add = add_links(to_add, form_data['id'], form_data['type'])
 
-	return existing_links
+	return [res_remove, res_add]
 
 
 def remove_links(link_ids, meta_id, meta_type):
@@ -142,5 +142,5 @@ def add_links(product_ids, meta_id, meta_type):
 		})
 		product.save()
 
-	return True
+	return len(product_ids)
 
