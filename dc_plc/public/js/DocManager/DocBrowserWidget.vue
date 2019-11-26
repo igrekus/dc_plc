@@ -44,9 +44,16 @@
 					width="150">
 			</el-table-column>
 			<el-table-column
-					prop="prod_links"
-					label="Используется в"
-					width="150">
+					width="100" align="center">
+				<template slot-scope="scope">
+					<el-button
+							size="small"
+							type="primary"
+							icon="el-icon-edit"
+							plain
+							@click="onRowEditClicked(scope.$index, scope.row)">
+					</el-button>
+				</template>
 			</el-table-column>
 		</el-table>
 	</div>
@@ -131,6 +138,10 @@
 			},
 
 			onRowClicked(row_data, column, event) {
+				console.log(column);
+			},
+
+			onRowEditClicked(index, row_data) {
 				this.editDocument(row_data);
 			},
 
