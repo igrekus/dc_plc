@@ -2,8 +2,13 @@
 	<div>
 		<el-button @click="onNewDocClicked">Новый документ</el-button>
 
-		<el-dialog title="Новый документ" :visible.sync="dialogTableVisible" width="80%">
+		<el-dialog
+				:visible.sync="dialogTableVisible"
+				width="80%"
+				:before-close="onBeforeClose">
+			<template slot="title"><span class="el-dialog__title">{{ title }}</span></template>
 			<doc-file-dialog
+					ref="documentMetaDialog"
 					v-bind:formData="formData"
 					v-on:confirm="onConfirm"></doc-file-dialog>
 		</el-dialog>
@@ -76,6 +81,7 @@
 		name: "DocBrowserWidget",
 		data() {
 			return {
+				title: 'Новый документ',
 				tableData: [],
 				filterText: '',
 				dialogTableVisible: false,
@@ -113,7 +119,7 @@
 			},
 
 			newDocument() {
-				console.log('new doc');
+				this.title = 'Новый документ';
 				this.formData = {
 					id: null,
 					name: '',
@@ -132,6 +138,7 @@
 			},
 
 			editDocument(row_data) {
+				this.title = 'Редактировать докумет';
 				let me = this;
 				frappe.call({
 					method: "dc_plc.dc_documents.page.doc_manager.controller.get_doc_meta",
@@ -210,7 +217,7 @@
 	}
 </script>
 
-<style scoped>
+<style>
 	.el-table__row {
 		height: 20px;
 	}
