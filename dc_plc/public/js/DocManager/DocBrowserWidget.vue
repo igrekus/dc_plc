@@ -180,16 +180,16 @@
 			},
 
 			onConfirm(form) {
-				let me = this;
 				this.dialogTableVisible = false;
-
+				let me = this;
+				const method  = this.formData.id ? 'update_document' : 'add_new_document';
 				frappe.call({
-					method: "dc_plc.dc_documents.page.doc_manager.controller.update_document",
+					method: `dc_plc.dc_documents.page.doc_manager.controller.${method}`,
 					args: {
 						form_data: form,
 					},
 					callback: function (r) {
-						const [res_remove, res_add] = r.message;
+						// const [res_remove, res_add] = r.message;
 						me.$message.info(`Привязки документа обновлены`);
 					}
 				});

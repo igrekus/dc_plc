@@ -109,6 +109,12 @@ WHERE `m`.`name` = '{id_}'
 
 
 @frappe.whitelist()
+def add_new_document(form_data):
+	form_data = frappe.parse_json(form_data)
+	frappe.msgprint(str(form_data))
+
+
+@frappe.whitelist()
 def update_document(form_data):
 	db_name = frappe.conf.get("db_name")
 
