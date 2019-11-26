@@ -186,7 +186,6 @@
 						me.$message.info(`Привязки документа обновлены`);
 					}
 				});
-
 			},
 
 			updateTable(filters={}) {
