@@ -14,13 +14,22 @@
 		</el-input>
 
 		<el-table
+				ref="tableDocs"
 				:data="tableData"
 				style="width: 100%"
 				height="600"
-				@row-click="onRowClicked">
+				@cell-click="onCellClicked">
 			<div slot="empty">
 				Нет данных
 			</div>
+			<el-table-column type="expand">
+				<template slot-scope="props">
+					<p>Связан с изделиями:</p>
+					<ul>
+						<li v-for="link in props.row.prod_links">{{ link.ext_num }}</li>
+					</ul>
+				</template>
+			</el-table-column>
 			<el-table-column
 					type="index">
 			</el-table-column>
@@ -137,8 +146,22 @@
 				});
 			},
 
-			onRowClicked(row_data, column, event) {
-				console.log(column);
+			onCellClicked(row, column, cell, event) {
+				if (cell.cellIndex === 6) return;
+				if (!row.prod_links.length) {
+					let me = this;
+					frappe.call({
+						method: "dc_plc.dc_documents.page.doc_manager.controller.get_doc_links",
+						args: {
+							id_: row.id,
+							type_id: row.type_id,
+						},
+						callback: function (r) {
+							row.prod_links = r.message;
+						}
+					});
+				}
+				this.$refs.tableDocs.toggleRowExpansion(row);
 			},
 
 			onRowEditClicked(index, row_data) {
