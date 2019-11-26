@@ -42,7 +42,7 @@ ORDER BY `subtype` ASC, `title` ASC""")
 		'subtype': row[2],
 		'int_num': row[3],
 		'ext_num': row[4],
-		'prod_links': row[5],
+		'prod_links': [],
 		'type_id': row[6]
 	} for row in res]
 
@@ -86,6 +86,26 @@ ORDER BY `subtype` ASC""", as_dict=1)[0]
 		},
 		'products': res['prod_links'].strip(',').split(','),
 	}
+
+
+@frappe.whitelist()
+def get_doc_links(id_, type_id):
+	db_name = frappe.conf.get("db_name")
+
+	table = list_tables[type_id]
+
+	res = frappe.db.sql(f"""SELECT
+`m`.`name`
+, `p`.`name` AS prod
+, `p`.`ext_num`
+, `p`.`int_num`
+FROM `{db_name}`.`tabDC_Doc_Meta` AS `m`
+INNER JOIN `{db_name}`.`{table}` AS `ml` on `ml`.`link_doc_meta` = `m`.`name`
+INNER JOIN `{db_name}`.`tabDC_PLC_Product_Summary` AS `p` on `p`.`name` = `ml`.`parent`
+WHERE `m`.`name` = '{id_}'
+""", as_dict=1)
+
+	return res
 
 
 @frappe.whitelist()
