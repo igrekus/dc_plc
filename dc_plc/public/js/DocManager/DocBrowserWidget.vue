@@ -2,7 +2,7 @@
 	<div>
 		<el-button @click="onNewDocClicked">Новый документ</el-button>
 
-		<el-dialog title="Новый документ" :visible.sync="dialogTableVisible">
+		<el-dialog title="Новый документ" :visible.sync="dialogTableVisible" width="80%">
 			<doc-file-dialog
 					v-bind:formData="formData"
 					v-on:confirm="onConfirm"></doc-file-dialog>
