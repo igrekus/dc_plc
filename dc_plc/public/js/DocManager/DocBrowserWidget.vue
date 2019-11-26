@@ -195,6 +195,11 @@
 				});
 			},
 
+			onBeforeClose(done) {
+				this.$refs.documentMetaDialog.removeTempFiles();
+				done();
+			},
+
 			updateTable(filters={}) {
 				let me = this;
 				frappe.call({

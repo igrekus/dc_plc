@@ -124,6 +124,11 @@
 			}
 		},
 		methods: {
+			removeTempFiles() {
+				if (!this.form.id) {
+					this.handleRemove();
+				}
+			},
 			confirm() {
 				this.$emit('confirm', this.form);
 			},
@@ -135,16 +140,17 @@
 				}
 				return isAllowedSize;
 			},
-			handleRemove(file, fileList) {
-				self = this;
+			handleRemove(file=null, fileList=null) {
+				let me = this;
 				frappe.call({
 					method: "dc_plc.controllers.role_file_uploader.remove_temp_file",
 					args: {
-						filename: this.tempFileName,
+						// filename: this.tempFileName,
+						filename: 'lll.txt',
 					},
 					callback: function () {
-						self.form.fileName = null;
-						self.form.currentUpload = null;
+						me.form.fileName = null;
+						me.form.currentUpload = null;
 					}
 				});
 			},
