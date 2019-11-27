@@ -183,6 +183,7 @@
 			onConfirm(form) {
 				this.dialogTableVisible = false;
 				let me = this;
+				// TODO select correct method on the backend
 				const method  = this.formData.id ? 'update_document' : 'add_new_document';
 				frappe.call({
 					method: `dc_plc.dc_documents.page.doc_manager.controller.${method}`,
