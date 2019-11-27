@@ -191,8 +191,7 @@
 						form_data: form,
 					},
 					callback: function (r) {
-						// const [res_remove, res_add] = r.message;
-						me.$message.info(`Привязки документа обновлены`);
+						me.$message.info(me.formData.id ? 'Документ обновлён' : 'Документ создан');
 					}
 				});
 			},
