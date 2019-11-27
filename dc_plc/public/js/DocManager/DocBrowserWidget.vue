@@ -75,7 +75,6 @@
 
 <script>
 	import DocFileDialog from './DocFileDialog.vue'
-	let id = 1000;
 
 	export default {
 		name: "DocBrowserWidget",
