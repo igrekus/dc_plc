@@ -153,12 +153,11 @@
 				frappe.call({
 					method: "dc_plc.controllers.role_file_uploader.remove_temp_file",
 					args: {
-						// filename: this.tempFileName,
-						filename: 'lll.txt',
+						filename: this.form.tempFileName,
 					},
 					callback: function () {
-						me.form.fileName = null;
-						me.form.currentUpload = null;
+						me.form.name = null;
+						me.form.tempFileName = null;
 					}
 				});
 			},
