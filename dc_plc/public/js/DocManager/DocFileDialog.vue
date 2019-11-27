@@ -219,8 +219,11 @@
 		},
 		watch: {
 			formData(n, o) {
-				this.form = {...n};
-			}
+				this.form = {
+					optional: {...n.optional},
+					...n,
+				};
+			},
 		},
 		mounted: function () {
 			this.form = {...this.formData};
