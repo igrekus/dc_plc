@@ -127,8 +127,9 @@
 				return this.form.type === 'DT004' || this.form.type === 'DT005';
 			},
 			isSaveDisabled() {
-				// TODO only disable save on missing uploaded file on a new file record
-				return !this.form.id;
+				if (this.form.id)
+					return false;
+				return !this.isUploading && !this.fileList.length;
 			}
 		},
 		methods: {
@@ -212,6 +213,7 @@
 				};
 
 				this.$children[0].$children[1].$children[1].uploadFiles[0].status = 'success';
+				this.fileList = this.$children[0].$children[1].$children[1].uploadFiles;
 				this.isUploading = false;
 			},
 		},
