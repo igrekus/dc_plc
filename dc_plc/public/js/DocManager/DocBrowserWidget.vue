@@ -90,6 +90,7 @@
 					name: '',
 					type: '',
 					subtype: '',
+					tempFileName: '',
 					note: '',
 					optional: {
 						num: '',
@@ -125,6 +126,7 @@
 					name: '',
 					type: 'DT001',
 					subtype: 'DST002',
+					tempFileName: '',
 					note: '',
 					optional: {
 						num: '',
