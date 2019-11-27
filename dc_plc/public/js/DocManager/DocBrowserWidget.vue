@@ -123,8 +123,8 @@
 				this.formData = {
 					id: null,
 					name: '',
-					type: '',
-					subtype: '',
+					type: 'DT001',
+					subtype: 'DST002',
 					note: '',
 					optional: {
 						num: '',
