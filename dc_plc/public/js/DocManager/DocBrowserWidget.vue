@@ -130,8 +130,8 @@
 					optional: {
 						num: '',
 						int_num: '',
-						date_approve: null,
-						date_archive: null,
+						date_approve: new Date().toISOString().slice(0, 10),
+						date_archive: new Date().toISOString().slice(0, 10),
 					},
 					products: [],
 				};
