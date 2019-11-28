@@ -175,7 +175,7 @@ def add_new_document(form_data):
 	new_file.insert()
 
 	to_add = set([e for e in form_data['products'] if e])
-	res_add = add_links(to_add, new_meta.name, form_data['type'])
+	res_add = add_links(to_add, new_meta.name, form_data['type'], form_data['subtype'])
 	return ['', res_add]
 
 
@@ -221,7 +221,7 @@ GROUP BY `ml`.`parent`
 	to_add = new_links - existing_links
 
 	res_remove = remove_links([existing_link_ids[link] for link in to_remove], form_data['id'], form_data['type'])
-	res_add = add_links(to_add, existing_meta, form_data['type'])
+	res_add = add_links(to_add, existing_meta, form_data['type'], form_data['subtype'])
 
 	return [res_remove, res_add]
 
@@ -237,15 +237,15 @@ WHERE `name` in ({','.join([f'"{s}"' for s in link_ids])})"""
 	return frappe.db.sql(sql)
 
 
-def add_links(product_ids, meta_instsance, meta_type):
-	doc_subype = frappe.get_doc('DC_Doc_Document_Subtype', meta_instsance.link_subtype)
-	doc_type = frappe.get_doc('DC_Doc_Document_Type', doc_subype.link_doc_type)
+def add_links(product_ids, meta_instance, meta_type, meta_subtype):
+	doc_subype = frappe.get_doc('DC_Doc_Document_Subtype', meta_subtype)
+	doc_type = frappe.get_doc('DC_Doc_Document_Type', meta_type)
 
 	for id_ in product_ids:
 		product: DC_PLC_Product_Summary = frappe.get_doc('DC_PLC_Product_Summary', id_)
 
 		product.append(list_child_fields[meta_type], {
-			'link_doc_meta': meta_instsance.name,
+			'link_doc_meta': meta_instance.name,
 			'doc_type': doc_type.title,
 			'doc_subtype': doc_subype.title,
 		})
