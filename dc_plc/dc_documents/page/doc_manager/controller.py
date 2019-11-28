@@ -1,6 +1,10 @@
+import os
+import shutil
 import frappe
+
 from dc_plc.dc_documents.doctype.dc_doc_meta.dc_doc_meta import DC_Doc_Meta
 from dc_plc.dc_plc.doctype.dc_plc_product_summary.dc_plc_product_summary import DC_PLC_Product_Summary
+from frappe.core.doctype.file.file import File
 
 list_tables = {
 	'DT001': 'tabDC_Doc_Datasheets_in_Datasheet_List',
@@ -16,6 +20,23 @@ list_child_fields = {
 	'DT003': 'tab_misc',
 	'DT004': 'tab_opcon',
 	'DT005': 'tab_desdoc',
+}
+
+list_folders = {
+	'DT001': 'datasheets',
+	'DT002': 'dev_reports',
+	'DT003': 'misc',
+	'DT004': 'opcons',
+	'DT005': 'desdocs',
+}
+
+
+list_virtual_folders = {
+	'DT001': 'Home/Datasheets',
+	'DT002': 'Home/Developer_Reports',
+	'DT003': 'Home/Misc_Files',
+	'DT004': 'Home/Opcons',
+	'DT005': 'Home/Design_Documents',
 }
 
 
@@ -110,15 +131,78 @@ WHERE `m`.`name` = '{id_}'
 
 @frappe.whitelist()
 def add_new_document(form_data):
+	# TODO refactor ASAP !!!
 	form_data = frappe.parse_json(form_data)
-	frappe.msgprint(str(form_data))
+
+	temp_file = form_data['tempFileName']
+	file_name = temp_file.split('/')[-1]
+	target_file = f'./site1.local/public/files/{list_folders[form_data["type"]]}/{file_name}'
+	stored_url = target_file[20:]
+
+	# try:
+	# 	shutil.move(temp_file, target_file, copy_function=shutil.copy)
+	# except PermissionError:
+	# 	pass
+	# file_info = os.stat(target_file)
+	file_info = os.stat(temp_file)
+
+	date_approve = form_data['optional']['date_approve']
+	date_archive = form_data['optional']['date_archive']
+
+	new_meta: DC_Doc_Meta = frappe.get_doc({
+		'doctype': 'DC_Doc_Meta',
+		'title': form_data['name'],
+		'link_subtype': form_data['subtype'],
+		'attached_file': stored_url,
+		'note': form_data['note'],
+		'ext_num': form_data['optional']['num'],
+		'int_num': form_data['optional']['int_num'],
+		'date_approve': date_approve[:10] if date_approve is not None else None,
+		'date_archive': date_archive[:10] if date_archive is not None else None,
+	})
+	new_meta.insert()
+
+	new_file: File = frappe.get_doc({
+		'doctype': 'File',
+		'file_name': form_data['name'],
+		'is_private': 0,
+		'file_size': file_info.st_size,
+		'file_url': stored_url,
+		'folder': list_virtual_folders[form_data['type']],
+		'attached_to_doctype': 'DC_Doc_Meta',
+		'attached_to_name': new_meta.name,
+		'attached_to_field': 'attached_file',
+	})
+	new_file.insert()
+
+	to_add = set([e for e in form_data['products'] if e])
+	res_add = add_links(to_add, new_meta.name, form_data['type'])
+	return ['', res_add]
 
 
 @frappe.whitelist()
 def update_document(form_data):
+	# TODO needs refactor badly
 	db_name = frappe.conf.get("db_name")
 
 	form_data = frappe.parse_json(form_data)
+
+	existing_meta: DC_Doc_Meta = frappe.get_doc({
+		'name': form_data['id'],
+		'doctype': 'DC_Doc_Meta',
+	})
+
+	date_approve = form_data['optional']['date_approve']
+	date_archive = form_data['optional']['date_archive']
+	existing_meta.title = form_data['name']
+	existing_meta.link_subtype = form_data['subtype']
+	existing_meta.note = form_data['note']
+	existing_meta.ext_num = form_data['optional']['num']
+	existing_meta.int_num = form_data['optional']['int_num']
+	existing_meta.date_approve = date_approve[:10] if date_approve is not None else None
+	existing_meta.date_date_archive = date_archive[:10] if date_archive is not None else None
+	existing_meta.save()
+
 	table = list_tables[form_data['type']]
 	new_links = set([e for e in form_data['products'] if e])
 
