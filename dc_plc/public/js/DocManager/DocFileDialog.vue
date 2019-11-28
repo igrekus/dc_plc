@@ -223,6 +223,7 @@
 					optional: {...n.optional},
 					...n,
 				};
+				this.fileList = [];
 			},
 		},
 		mounted: function () {
