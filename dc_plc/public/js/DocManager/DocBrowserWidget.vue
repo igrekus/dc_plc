@@ -45,7 +45,20 @@
 			<el-table-column
 					prop="subtype"
 					label="Подтип"
-					width="150">
+					width="150"
+					:filters="[
+						{ text: 'Отчёт КД', value: 'Отчёт КД' },
+						{ text: 'Комплект КД', value: 'Комплект КД' },
+						{ text: 'Габаритный чертёж', value: 'Габаритный чертёж' },
+						{ text: 'ТУ исполнения', value: 'ТУ исполнения' },
+						{ text: 'Единые ТУ', value: 'Единые ТУ' },
+						{ text: 'Базовые ТУ ', value: 'Базовые ТУ ' },
+						{ text: 'Общий', value: 'Общий' },
+						{ text: 'Отчёт разработчика', value: 'Отчёт разработчика' },
+						{ text: 'Даташит', value: 'Даташит' }
+					]"
+					:filter-method="filterSubtype"
+					filter-placement="bottom-start">
 			</el-table-column>
 			<el-table-column
 					prop="int_num"
@@ -198,6 +211,10 @@
 						me.tableData = r.message;
 					}
 				});
+			},
+
+			filterSubtype(value, row) {
+				return row.subtype === value;
 			},
 		},
 		mounted() {
