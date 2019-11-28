@@ -88,7 +88,7 @@ SELECT `m`.`name`
 FROM `{db_name}`.`tabDC_Doc_Meta` AS `m`
 INNER JOIN `{db_name}`.`tabDC_Doc_Document_Subtype` AS `st` ON `m`.`link_subtype` = `st`.`name`
 INNER JOIN `{db_name}`.`tabDC_Doc_Document_Type` AS `t` ON `t`.`name` = `st`.`link_doc_type`
-INNER JOIN `{db_name}`.`{table}` AS `ml` on `ml`.`link_doc_meta` = `m`.`name`
+LEFT JOIN `{db_name}`.`{table}` AS `ml` on `ml`.`link_doc_meta` = `m`.`name`
 WHERE `m`.`name` = '{id_}'
 GROUP BY `m`.`name`
 ORDER BY `subtype` ASC""", as_dict=1)[0]
@@ -105,7 +105,7 @@ ORDER BY `subtype` ASC""", as_dict=1)[0]
 			'date_approve': res['date_approve'],
 			'date_archive': res['date_archive'],
 		},
-		'products': res['prod_links'].strip(',').split(','),
+		'products': res['prod_links'].strip(',').split(',') if res['prod_links'] else [],
 	}
 
 
