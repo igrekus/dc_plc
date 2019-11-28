@@ -45,7 +45,20 @@
 			<el-table-column
 					prop="subtype"
 					label="Подтип"
-					width="150">
+					width="150"
+					:filters="[
+						{ text: 'Отчёт КД', value: 'Отчёт КД' },
+						{ text: 'Комплект КД', value: 'Комплект КД' },
+						{ text: 'Габаритный чертёж', value: 'Габаритный чертёж' },
+						{ text: 'ТУ исполнения', value: 'ТУ исполнения' },
+						{ text: 'Единые ТУ', value: 'Единые ТУ' },
+						{ text: 'Базовые ТУ ', value: 'Базовые ТУ ' },
+						{ text: 'Общий', value: 'Общий' },
+						{ text: 'Отчёт разработчика', value: 'Отчёт разработчика' },
+						{ text: 'Даташит', value: 'Даташит' }
+					]"
+					:filter-method="filterSubtype"
+					filter-placement="bottom-start">
 			</el-table-column>
 			<el-table-column
 					prop="int_num"
@@ -103,21 +116,6 @@
 		},
 
 		methods: {
-			append(data) {
-				const newChild = {id: id++, label: 'testtest', children: []};
-				if (!data.children) {
-					this.$set(data, 'children', []);
-				}
-				data.children.push(newChild);
-			},
-
-			remove(node, data) {
-				const parent = node.parent;
-				const children = parent.data.children || parent.data;
-				const index = children.findIndex(d => d.id === data.id);
-				children.splice(index, 1);
-			},
-
 			newDocument() {
 				this.title = 'Новый документ';
 				this.formData = {
@@ -136,6 +134,7 @@
 					products: [],
 				};
 				this.dialogTableVisible = true;
+				this.updateTable();
 			},
 
 			editDocument(row_data) {
@@ -212,6 +211,10 @@
 						me.tableData = r.message;
 					}
 				});
+			},
+
+			filterSubtype(value, row) {
+				return row.subtype === value;
 			},
 		},
 		mounted() {
