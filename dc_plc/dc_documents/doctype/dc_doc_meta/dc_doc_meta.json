@@ -80,7 +80,7 @@
    "label": "Archive date"
   }
  ],
- "modified": "2019-11-19 13:39:36.788667",
+ "modified": "2019-11-28 13:25:47.289634",
  "modified_by": "Administrator",
  "module": "DC Documents",
  "name": "DC_Doc_Meta",
@@ -196,6 +196,7 @@
   }
  ],
  "quick_entry": 1,
+ "restrict_to_domain": "Design Center",
  "search_fields": "title",
  "sort_field": "modified",
  "sort_order": "DESC",
