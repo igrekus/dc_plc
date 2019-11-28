@@ -49,7 +49,7 @@
 			</el-table-column>
 			<el-table-column
 					prop="int_num"
-					label="Внутренний номер"
+					label="Номер"
 					width="150">
 			</el-table-column>
 			<el-table-column
