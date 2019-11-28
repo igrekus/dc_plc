@@ -186,22 +186,6 @@ def update_document(form_data):
 
 	form_data = frappe.parse_json(form_data)
 
-	existing_meta: DC_Doc_Meta = frappe.get_doc({
-		'name': form_data['id'],
-		'doctype': 'DC_Doc_Meta',
-	})
-
-	date_approve = form_data['optional']['date_approve']
-	date_archive = form_data['optional']['date_archive']
-	existing_meta.title = form_data['name']
-	existing_meta.link_subtype = form_data['subtype']
-	existing_meta.note = form_data['note']
-	existing_meta.ext_num = form_data['optional']['num']
-	existing_meta.int_num = form_data['optional']['int_num']
-	existing_meta.date_approve = date_approve[:10] if date_approve is not None else None
-	existing_meta.date_date_archive = date_archive[:10] if date_archive is not None else None
-	existing_meta.save()
-
 	table = list_tables[form_data['type']]
 	new_links = set([e for e in form_data['products'] if e])
 
