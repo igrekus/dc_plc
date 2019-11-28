@@ -139,12 +139,11 @@ def add_new_document(form_data):
 	target_file = f'./site1.local/public/files/{list_folders[form_data["type"]]}/{file_name}'
 	stored_url = target_file[20:]
 
-	# try:
-	# 	shutil.move(temp_file, target_file, copy_function=shutil.copy)
-	# except PermissionError:
-	# 	pass
-	# file_info = os.stat(target_file)
-	file_info = os.stat(temp_file)
+	try:
+		shutil.move(temp_file, target_file, copy_function=shutil.copy)
+	except PermissionError:
+		pass
+	file_info = os.stat(target_file)
 
 	date_approve = form_data['optional']['date_approve']
 	date_archive = form_data['optional']['date_archive']
