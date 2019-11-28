@@ -88,7 +88,7 @@ SELECT `m`.`name`
 FROM `{db_name}`.`tabDC_Doc_Meta` AS `m`
 INNER JOIN `{db_name}`.`tabDC_Doc_Document_Subtype` AS `st` ON `m`.`link_subtype` = `st`.`name`
 INNER JOIN `{db_name}`.`tabDC_Doc_Document_Type` AS `t` ON `t`.`name` = `st`.`link_doc_type`
-INNER JOIN `{db_name}`.`{table}` AS `ml` on `ml`.`link_doc_meta` = `m`.`name`
+LEFT JOIN `{db_name}`.`{table}` AS `ml` on `ml`.`link_doc_meta` = `m`.`name`
 WHERE `m`.`name` = '{id_}'
 GROUP BY `m`.`name`
 ORDER BY `subtype` ASC""", as_dict=1)[0]
@@ -105,7 +105,7 @@ ORDER BY `subtype` ASC""", as_dict=1)[0]
 			'date_approve': res['date_approve'],
 			'date_archive': res['date_archive'],
 		},
-		'products': res['prod_links'].strip(',').split(','),
+		'products': res['prod_links'].strip(',').split(',') if res['prod_links'] else [],
 	}
 
 
@@ -139,12 +139,11 @@ def add_new_document(form_data):
 	target_file = f'./site1.local/public/files/{list_folders[form_data["type"]]}/{file_name}'
 	stored_url = target_file[20:]
 
-	# try:
-	# 	shutil.move(temp_file, target_file, copy_function=shutil.copy)
-	# except PermissionError:
-	# 	pass
-	# file_info = os.stat(target_file)
-	file_info = os.stat(temp_file)
+	try:
+		shutil.move(temp_file, target_file, copy_function=shutil.copy)
+	except PermissionError:
+		pass
+	file_info = os.stat(target_file)
 
 	date_approve = form_data['optional']['date_approve']
 	date_archive = form_data['optional']['date_archive']
