@@ -134,7 +134,6 @@
 					products: [],
 				};
 				this.dialogTableVisible = true;
-				this.updateTable();
 			},
 
 			editDocument(row_data) {
@@ -191,6 +190,7 @@
 					},
 					callback: function (r) {
 						me.$message.info(me.formData.id ? 'Документ обновлён' : 'Документ создан');
+						me.updateTable();
 					}
 				});
 			},
