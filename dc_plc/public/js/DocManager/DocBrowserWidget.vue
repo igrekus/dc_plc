@@ -121,6 +121,7 @@
 					products: [],
 				};
 				this.dialogTableVisible = true;
+				this.updateTable();
 			},
 
 			editDocument(row_data) {
