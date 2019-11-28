@@ -2,8 +2,13 @@
 	<div>
 		<el-button @click="onNewDocClicked">Новый документ</el-button>
 
-		<el-dialog title="Новый документ" :visible.sync="dialogTableVisible" width="80%">
+		<el-dialog
+				:visible.sync="dialogTableVisible"
+				width="80%"
+				:before-close="onBeforeClose">
+			<template slot="title"><span class="el-dialog__title">{{ title }}</span></template>
 			<doc-file-dialog
+					ref="documentMetaDialog"
 					v-bind:formData="formData"
 					v-on:confirm="onConfirm"></doc-file-dialog>
 		</el-dialog>
@@ -70,12 +75,12 @@
 
 <script>
 	import DocFileDialog from './DocFileDialog.vue'
-	let id = 1000;
 
 	export default {
 		name: "DocBrowserWidget",
 		data() {
 			return {
+				title: 'Новый документ',
 				tableData: [],
 				filterText: '',
 				dialogTableVisible: false,
@@ -84,6 +89,7 @@
 					name: '',
 					type: '',
 					subtype: '',
+					tempFileName: '',
 					note: '',
 					optional: {
 						num: '',
@@ -113,18 +119,19 @@
 			},
 
 			newDocument() {
-				console.log('new doc');
+				this.title = 'Новый документ';
 				this.formData = {
 					id: null,
 					name: '',
-					type: '',
-					subtype: '',
+					type: 'DT001',
+					subtype: 'DST002',
+					tempFileName: '',
 					note: '',
 					optional: {
 						num: '',
 						int_num: '',
-						date_approve: null,
-						date_archive: null,
+						date_approve: new Date().toISOString().slice(0, 10),
+						date_archive: new Date().toISOString().slice(0, 10),
 					},
 					products: [],
 				};
@@ -132,6 +139,7 @@
 			},
 
 			editDocument(row_data) {
+				this.title = 'Редактировать докумет';
 				let me = this;
 				frappe.call({
 					method: "dc_plc.dc_documents.page.doc_manager.controller.get_doc_meta",
@@ -173,20 +181,24 @@
 			},
 
 			onConfirm(form) {
-				let me = this;
 				this.dialogTableVisible = false;
-
+				let me = this;
+				// TODO select correct method on the backend
+				const method  = this.formData.id ? 'update_document' : 'add_new_document';
 				frappe.call({
-					method: "dc_plc.dc_documents.page.doc_manager.controller.update_document",
+					method: `dc_plc.dc_documents.page.doc_manager.controller.${method}`,
 					args: {
 						form_data: form,
 					},
 					callback: function (r) {
-						const [res_remove, res_add] = r.message;
-						me.$message.info(`Привязки документа обновлены`);
+						me.$message.info(me.formData.id ? 'Документ обновлён' : 'Документ создан');
 					}
 				});
+			},
 
+			onBeforeClose(done) {
+				this.$refs.documentMetaDialog.removeTempFiles();
+				done();
 			},
 
 			updateTable(filters={}) {
@@ -211,7 +223,7 @@
 	}
 </script>
 
-<style scoped>
+<style>
 	.el-table__row {
 		height: 20px;
 	}

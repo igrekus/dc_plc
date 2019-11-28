@@ -65,6 +65,7 @@
 		data() {
 			return {
 				allowedFileSize: 50,
+				isUploading: false,
 				fileList: [],
 				labelPosition: 'left',
 				form: {
@@ -73,7 +74,7 @@
 					type: '',
 					subtype: '',
 					note: 'note',
-					currentUpload: '',
+					tempFileName: '',
 					optional: {
 						num: '',
 						int_num: '',
@@ -83,6 +84,13 @@
 					products: [],
 				},
 				// TODO get type-subtype info from the backend
+				fileType: {
+					'DT001': 'datasheets',
+					'DT002': 'dev_reports',
+					'DT003': 'misc',
+					'DT004': 'opcons',
+					'DT005': 'desdocs',
+				},
 				types: [
 					{ label: 'Тех. писатель', value: 'DT001'},
 					{ label: 'Разработчик', value: 'DT002'},
@@ -119,11 +127,17 @@
 				return this.form.type === 'DT004' || this.form.type === 'DT005';
 			},
 			isSaveDisabled() {
-				// TODO only disable save on missing uploaded file on a new file record
-				return !this.form.id;
+				if (this.form.id)
+					return false;
+				return !this.isUploading && !this.fileList.length;
 			}
 		},
 		methods: {
+			removeTempFiles() {
+				if (!this.form.id) {
+					this.handleRemove();
+				}
+			},
 			confirm() {
 				this.$emit('confirm', this.form);
 			},
@@ -135,48 +149,23 @@
 				}
 				return isAllowedSize;
 			},
-			handleRemove(file, fileList) {
-				self = this;
+			handleRemove(file=null, fileList=null) {
+				let me = this;
 				frappe.call({
 					method: "dc_plc.controllers.role_file_uploader.remove_temp_file",
 					args: {
-						filename: this.tempFileName,
+						filename: this.form.tempFileName,
 					},
 					callback: function () {
-						self.form.fileName = null;
-						self.form.currentUpload = null;
+						me.form.name = null;
+						me.form.tempFileName = null;
 					}
 				});
 			},
 			handleExceed(files, fileList) {
 				this.$message.warning(`За один раз можно загрузить только один файл`);
 			},
-			handleSuccess(response, file) {
-				return;
-
-				// TODO rewrite for new uploader
-				this.tempFileName = JSON.parse(response).message;
-				this.fileName = file.name;
-
-				this.currentUpload = {
-					label: null,
-					value: file.name,
-					file_url: `./site1.local/public/files/${this.fileType}/`,
-					note: this.note,
-					subtype: this.selectedSubtype,
-					opconNum: this.opconNum,
-					opconIntNum: this.opconIntNum,
-					dateApproval: this.dateApproval,
-					dateArchive: this.dateArchive,
-				};
-
-				// TODO hack to indicate upload complete
-				// const child_index = !!this.subtypeMethod ? 8 : 2;
-				this.$children[2].$children[0].uploadFiles[0].status = 'success';
-				this.isUploading = false;
-			},
 			handleUploadRequest(param) {
-				return;
 				this.isUploading = true;
 				let url = "api/method/dc_plc.controllers.role_file_uploader.upload_file";
 				let file = param.file;
@@ -184,7 +173,7 @@
 				let form = new FormData();
 				form.append("file", file);
 				form.append("filename", file.name);
-				form.append("fileType", this.fileType);
+				form.append("fileType", this.fileType[this.form.type]);
 
 				let xhr = new XMLHttpRequest();
 
@@ -201,17 +190,41 @@
 					};
 				}
 
-				let self = this;
+				let me = this;
 				xhr.onload = function () {
-					self.handleSuccess(xhr.response, file);
+					me.handleSuccess(xhr.response, file);
 				};
 				xhr.send(form);
+			},
+			handleSuccess(response, file) {
+				const form = {
+					...this.form,
+					optional: {
+						...this.form.optional
+					},
+				};
+				this.form = {
+					...form,
+					optional: {
+						...form.optional
+					},
+					name: file.name,
+					tempFileName: JSON.parse(response).message,
+				};
+
+				this.$children[0].$children[1].$children[1].uploadFiles[0].status = 'success';
+				this.fileList = this.$children[0].$children[1].$children[1].uploadFiles;
+				this.isUploading = false;
 			},
 		},
 		watch: {
 			formData(n, o) {
-				this.form = {...n};
-			}
+				this.form = {
+					optional: {...n.optional},
+					...n,
+				};
+				this.fileList = [];
+			},
 		},
 		mounted: function () {
 			this.form = {...this.formData};
