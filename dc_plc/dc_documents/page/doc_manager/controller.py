@@ -186,6 +186,23 @@ def update_document(form_data):
 
 	form_data = frappe.parse_json(form_data)
 
+	existing_meta: DC_Doc_Meta = frappe.get_doc({
+		'name': form_data['id'],
+		'doctype': 'DC_Doc_Meta',
+	})
+
+	date_approve = form_data['optional']['date_approve']
+	date_archive = form_data['optional']['date_archive']
+	existing_meta.title = form_data['name']
+	existing_meta.link_subtype = form_data['subtype']
+	existing_meta.note = form_data['note']
+	existing_meta.ext_num = form_data['optional']['num']
+	existing_meta.int_num = form_data['optional']['int_num']
+	existing_meta.date_approve = date_approve[:10] if date_approve is not None else None
+	existing_meta.date_archive = date_archive[:10] if date_archive is not None else None
+	existing_meta.db_update()   # TODO hack, should use existing_meta.save() -- research the matter
+	# existing_meta.save()
+
 	table = list_tables[form_data['type']]
 	new_links = set([e for e in form_data['products'] if e])
 
@@ -204,7 +221,7 @@ GROUP BY `ml`.`parent`
 	to_add = new_links - existing_links
 
 	res_remove = remove_links([existing_link_ids[link] for link in to_remove], form_data['id'], form_data['type'])
-	res_add = add_links(to_add, form_data['id'], form_data['type'])
+	res_add = add_links(to_add, existing_meta, form_data['type'])
 
 	return [res_remove, res_add]
 
@@ -220,16 +237,15 @@ WHERE `name` in ({','.join([f'"{s}"' for s in link_ids])})"""
 	return frappe.db.sql(sql)
 
 
-def add_links(product_ids, meta_id, meta_type):
-	meta: DC_Doc_Meta = frappe.get_doc('DC_Doc_Meta', meta_id)
-	doc_subype = frappe.get_doc('DC_Doc_Document_Subtype', meta.link_subtype)
+def add_links(product_ids, meta_instsance, meta_type):
+	doc_subype = frappe.get_doc('DC_Doc_Document_Subtype', meta_instsance.link_subtype)
 	doc_type = frappe.get_doc('DC_Doc_Document_Type', doc_subype.link_doc_type)
 
 	for id_ in product_ids:
 		product: DC_PLC_Product_Summary = frappe.get_doc('DC_PLC_Product_Summary', id_)
 
 		product.append(list_child_fields[meta_type], {
-			'link_doc_meta': meta.name,
+			'link_doc_meta': meta_instsance.name,
 			'doc_type': doc_type.title,
 			'doc_subtype': doc_subype.title,
 		})
