@@ -65,8 +65,8 @@ def search_existing_meta(query, table, type_id):
 	FROM `{db_name}`.tabDC_Doc_Meta AS `m`
 	INNER JOIN `{db_name}`.`tabDC_Doc_Document_Subtype` AS `s` ON `m`.`link_subtype` = `s`.`name`
 	INNER JOIN `{db_name}`.`tabDC_Doc_Document_Type` AS `st` ON `st`.`name` = `s`.`link_doc_type`
-	INNER JOIN `{db_name}`.`{table}` AS `l` ON `l`.`link_doc_meta` = `m`.`name`
-	INNER JOIN `{db_name}`.`tabDC_PLC_Product_Summary` AS `p` ON `p`.`name` = `l`.`parent`
+	LEFT JOIN `{db_name}`.`{table}` AS `l` ON `l`.`link_doc_meta` = `m`.`name`
+	LEFT JOIN `{db_name}`.`tabDC_PLC_Product_Summary` AS `p` ON `p`.`name` = `l`.`parent`
 	WHERE
 		`st`.`name` = '{type_id}'
 	AND
@@ -89,7 +89,7 @@ def search_existing_meta(query, table, type_id):
 			'label': d[0],
 			'value': d[1],
 			'note': d[2],
-			'file_url': d[3].replace('\n', '<br>')
+			'file_url': d[3].replace('\n', '<br>') if d[3] else ''
 		}
 		for d in res
 	]
