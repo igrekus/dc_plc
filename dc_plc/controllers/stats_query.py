@@ -170,7 +170,7 @@ def get_dept_head_stats(filters):
 def get_rnd_spec_stats(filters):
 	db_name = frappe.conf.get("db_name")
 
-	sql = """SELECT
+	sql = f"""SELECT
 	`p`.`name` AS `id`
 	, `status`.`title` AS `status`
 	, `proj`.`title` AS `project`
@@ -180,15 +180,15 @@ def get_rnd_spec_stats(filters):
 	, `p`.`int_num`
 	, `p`.`rel_check_rnd_spec`
 	, `p`.`rel_date_rnd_spec`
-	FROM `{}`.tabDC_PLC_Product_Summary AS p
+	FROM `{db_name}`.tabDC_PLC_Product_Summary AS p
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Function` AS `func` ON `p`.`link_function` = `func`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Function` AS `func` ON `p`.`link_function` = `func`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`;""".format(db_name, db_name, db_name, db_name, db_name)
+		`{db_name}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`;"""
 
 	return frappe.db.sql(sql + ";", as_list=1)
 
