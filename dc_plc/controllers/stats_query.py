@@ -180,7 +180,7 @@ def get_rnd_spec_stats(filters):
 	, `p`.`int_num`
 	, `p`.`rel_check_rnd_spec`
 	, `p`.`rel_date_rnd_spec`
-	FROM `{db_name}`.tabDC_PLC_Product_Summary AS p
+	FROM `{db_name}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
 		`{db_name}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
 	LEFT JOIN
