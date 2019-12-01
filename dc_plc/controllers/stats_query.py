@@ -172,7 +172,7 @@ def get_rnd_spec_stats(filters):
 
 	sql = f"""SELECT
 	`p`.`name` AS `id`
-	, `status`.`title` AS `status`
+	, CONCAT(`mile`.`index`, '.', `stage`.`index`, '.', `step`.`index`, ' ', `step`.`title`) AS `step`
 	, `proj`.`title` AS `project`
 	, `letter`.`title` AS `letter`
 	, `func`.`title` AS `function`
@@ -182,14 +182,17 @@ def get_rnd_spec_stats(filters):
 	, `p`.`rel_date_rnd_spec`
 	FROM `{db_name}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
-		`{db_name}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
-	LEFT JOIN
 		`{db_name}`.`tabDC_PLC_Product_Function` AS `func` ON `p`.`link_function` = `func`.`name`
 	LEFT JOIN
 		`{db_name}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
 	LEFT JOIN
-		`{db_name}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`;"""
-
+		`{db_name}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
+	LEFT JOIN
+		`{db_name}`.`tabDC_PLC_Product_Step` AS `step` ON `p`.`link_step` = `step`.`name`
+	LEFT JOIN
+		`{db_name}`.`tabDC_PLC_Product_Stage` AS `stage` ON `step`.`link_stage` = `stage`.`name`
+	LEFT JOIN
+		`{db_name}`.`tabDC_PLC_Product_Milestone` AS `mile` ON `stage`.`link_milestone` = `mile`.`name`;"""
 	return frappe.db.sql(sql + ";", as_list=1)
 
 
