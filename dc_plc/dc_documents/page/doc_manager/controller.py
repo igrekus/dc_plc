@@ -93,6 +93,8 @@ WHERE `m`.`name` = '{id_}'
 GROUP BY `m`.`name`
 ORDER BY `subtype` ASC""", as_dict=1)[0]
 
+	prods = res['prod_links'].strip(',').split(',') if res['prod_links'] else []
+
 	return {
 		'id': res['name'],
 		'name': res['title'],
@@ -105,7 +107,7 @@ ORDER BY `subtype` ASC""", as_dict=1)[0]
 			'date_approve': res['date_approve'],
 			'date_archive': res['date_archive'],
 		},
-		'products': res['prod_links'].strip(',').split(',') if res['prod_links'] else [],
+		'products': [p for p in prods if p]
 	}
 
 
