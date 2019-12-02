@@ -129,8 +129,8 @@
 					optional: {
 						num: '',
 						int_num: '',
-						date_approve: new Date().toISOString().slice(0, 10),
-						date_archive: new Date().toISOString().slice(0, 10),
+						date_approve: new Date(),
+						date_archive: new Date(),
 					},
 					products: [],
 				};
@@ -147,7 +147,11 @@
 						type_id: row_data.type_id,
 					},
 					callback: function (r) {
-						me.formData = r.message;
+						let form = r.message;
+						form.optional.date_approve = new Date(r.message.optional.date_approve);
+						form.optional.date_archive = new Date(r.message.optional.date_archive);
+						me.formData = {...form};
+						me.formData.optional = {...form.optional};
 						me.dialogTableVisible = true;
 					}
 				});
