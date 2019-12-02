@@ -23,7 +23,8 @@
 				:data="tableData"
 				style="width: 100%"
 				height="600"
-				@cell-click="onCellClicked">
+				@cell-click="onCellClicked"
+				@expand-change="onExpandChanged">
 			<div slot="empty">
 				Нет данных
 			</div>
@@ -128,8 +129,8 @@
 					optional: {
 						num: '',
 						int_num: '',
-						date_approve: new Date().toISOString().slice(0, 10),
-						date_archive: new Date().toISOString().slice(0, 10),
+						date_approve: new Date(),
+						date_archive: new Date(),
 					},
 					products: [],
 				};
@@ -146,27 +147,19 @@
 						type_id: row_data.type_id,
 					},
 					callback: function (r) {
-						me.formData = r.message;
+						let form = r.message;
+						form.optional.date_approve = new Date(r.message.optional.date_approve);
+						form.optional.date_archive = new Date(r.message.optional.date_archive);
+						me.formData = {...form};
+						me.formData.optional = {...form.optional};
 						me.dialogTableVisible = true;
 					}
 				});
 			},
 
 			onCellClicked(row, column, cell, event) {
-				if (cell.cellIndex === 6) return;
-				if (!row.prod_links.length) {
-					let me = this;
-					frappe.call({
-						method: "dc_plc.dc_documents.page.doc_manager.controller.get_doc_links",
-						args: {
-							id_: row.id,
-							type_id: row.type_id,
-						},
-						callback: function (r) {
-							row.prod_links = r.message;
-						}
-					});
-				}
+				if (cell.cellIndex === 6)
+					return;
 				this.$refs.tableDocs.toggleRowExpansion(row);
 			},
 
@@ -181,8 +174,14 @@
 			onConfirm(form) {
 				this.dialogTableVisible = false;
 				let me = this;
+
+				let date_approve = this.addHours(form.optional.date_approve, 4);
+				let date_archive = this.addHours(form.optional.date_archive, 4);
+
 				// TODO select correct method on the backend
 				const method  = this.formData.id ? 'update_document' : 'add_new_document';
+				form.optional.date_approve = date_approve;
+				form.optional.date_archive = date_archive;
 				frappe.call({
 					method: `dc_plc.dc_documents.page.doc_manager.controller.${method}`,
 					args: {
@@ -200,6 +199,25 @@
 				done();
 			},
 
+			onExpandChanged(row, rows) {
+				if (rows.indexOf(row) !== 0) {
+					return;
+				}
+				if (!row.prod_links.length) {
+					let me = this;
+					frappe.call({
+						method: "dc_plc.dc_documents.page.doc_manager.controller.get_doc_links",
+						args: {
+							id_: row.id,
+							type_id: row.type_id,
+						},
+						callback: function (r) {
+							row.prod_links = r.message;
+						}
+					});
+				}
+			},
+
 			updateTable(filters={}) {
 				let me = this;
 				frappe.call({
@@ -215,6 +233,12 @@
 
 			filterSubtype(value, row) {
 				return row.subtype === value;
+			},
+
+			addHours(date, hours) {
+				let d = new Date(date);
+				d.setHours(d.getHours() + hours);
+				return d;
 			},
 		},
 		mounted() {
