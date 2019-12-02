@@ -129,8 +129,8 @@
 					optional: {
 						num: '',
 						int_num: '',
-						date_approve: new Date().toISOString().slice(0, 10),
-						date_archive: new Date().toISOString().slice(0, 10),
+						date_approve: new Date(),
+						date_archive: new Date(),
 					},
 					products: [],
 				};
@@ -147,7 +147,11 @@
 						type_id: row_data.type_id,
 					},
 					callback: function (r) {
-						me.formData = r.message;
+						let form = r.message;
+						form.optional.date_approve = new Date(r.message.optional.date_approve);
+						form.optional.date_archive = new Date(r.message.optional.date_archive);
+						me.formData = {...form};
+						me.formData.optional = {...form.optional};
 						me.dialogTableVisible = true;
 					}
 				});
@@ -170,8 +174,14 @@
 			onConfirm(form) {
 				this.dialogTableVisible = false;
 				let me = this;
+
+				let date_approve = this.addHours(form.optional.date_approve, 4);
+				let date_archive = this.addHours(form.optional.date_archive, 4);
+
 				// TODO select correct method on the backend
 				const method  = this.formData.id ? 'update_document' : 'add_new_document';
+				form.optional.date_approve = date_approve;
+				form.optional.date_archive = date_archive;
 				frappe.call({
 					method: `dc_plc.dc_documents.page.doc_manager.controller.${method}`,
 					args: {
@@ -223,6 +233,12 @@
 
 			filterSubtype(value, row) {
 				return row.subtype === value;
+			},
+
+			addHours(date, hours) {
+				let d = new Date(date);
+				d.setHours(d.getHours() + hours);
+				return d;
 			},
 		},
 		mounted() {
