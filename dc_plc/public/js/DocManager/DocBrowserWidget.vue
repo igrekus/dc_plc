@@ -23,7 +23,8 @@
 				:data="tableData"
 				style="width: 100%"
 				height="600"
-				@cell-click="onCellClicked">
+				@cell-click="onCellClicked"
+				@expand-change="onExpandChanged">
 			<div slot="empty">
 				Нет данных
 			</div>
@@ -153,20 +154,8 @@
 			},
 
 			onCellClicked(row, column, cell, event) {
-				if (cell.cellIndex === 6) return;
-				if (!row.prod_links.length) {
-					let me = this;
-					frappe.call({
-						method: "dc_plc.dc_documents.page.doc_manager.controller.get_doc_links",
-						args: {
-							id_: row.id,
-							type_id: row.type_id,
-						},
-						callback: function (r) {
-							row.prod_links = r.message;
-						}
-					});
-				}
+				if (cell.cellIndex === 6)
+					return;
 				this.$refs.tableDocs.toggleRowExpansion(row);
 			},
 
@@ -198,6 +187,25 @@
 			onBeforeClose(done) {
 				this.$refs.documentMetaDialog.removeTempFiles();
 				done();
+			},
+
+			onExpandChanged(row, rows) {
+				if (rows.indexOf(row) !== 0) {
+					return;
+				}
+				if (!row.prod_links.length) {
+					let me = this;
+					frappe.call({
+						method: "dc_plc.dc_documents.page.doc_manager.controller.get_doc_links",
+						args: {
+							id_: row.id,
+							type_id: row.type_id,
+						},
+						callback: function (r) {
+							row.prod_links = r.message;
+						}
+					});
+				}
 			},
 
 			updateTable(filters={}) {
