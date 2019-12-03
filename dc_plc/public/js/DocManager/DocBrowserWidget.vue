@@ -15,13 +15,12 @@
 
 		<el-input
 				placeholder="Фильтр списка докуметов..."
-				v-model="filterText">
+				v-model="search">
 		</el-input>
 
 		<el-table
 				ref="tableDocs"
-				:data="tableData"
-				style="width: 100%"
+    			:data="filteredTableData" style="width: 100%"
 				height="600"
 				@cell-click="onCellClicked"
 				@expand-change="onExpandChanged">
@@ -96,7 +95,7 @@
 			return {
 				title: 'Новый документ',
 				tableData: [],
-				filterText: '',
+				search: '',
 				dialogTableVisible: false,
 				formData: {
 					id: null,
@@ -115,7 +114,19 @@
 				}
 			}
 		},
-
+		computed: {
+			filteredTableData() {
+				let filtered = this.tableData.filter(el => {
+					const s = this.search.toLowerCase();
+					return !this.search
+						|| (el.filename !== null && el.filename.toLowerCase().includes(s))
+						|| (el.subtype !== null && el.subtype.toLowerCase().includes(s))
+						|| (el.int_num !== null && el.int_num.toLowerCase().includes(s))
+						|| (el.ext_num !== null && el.ext_num.toLowerCase().includes(s))
+				});
+				return filtered;
+			}
+		},
 		methods: {
 			newDocument() {
 				this.title = 'Новый документ';
