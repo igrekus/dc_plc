@@ -154,7 +154,7 @@
 			},
 
 			editDocument(row_data) {
-				this.title = 'Редактировать докумет';
+				this.title = 'Редактировать документ';
 				let me = this;
 				frappe.call({
 					method: "dc_plc.dc_documents.page.doc_manager.controller.get_doc_meta",
