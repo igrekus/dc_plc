@@ -76,15 +76,26 @@
 					sortable>
 			</el-table-column>
 			<el-table-column
-					width="100" align="center">
+					width="150" align="center">
 				<template slot-scope="scope">
-					<el-button
-							size="small"
-							type="primary"
-							icon="el-icon-edit"
-							plain
-							@click="onRowEditClicked(scope.$index, scope.row)">
-					</el-button>
+					<el-tooltip class="item" effect="dark" content="Редактировать" placement="left">
+						<el-button
+								size="mini"
+								type="primary"
+								icon="el-icon-edit"
+								plain
+								@click="onRowEditClicked(scope.$index, scope.row)">
+						</el-button>
+					</el-tooltip>
+					<el-tooltip class="item" effect="dark" content="Скачать" placement="right">
+						<el-button
+								size="mini"
+								type="success"
+								icon="el-icon-download"
+								plain
+								@click="onRowDownloadClicked(scope.$index, scope.row)">
+						</el-button>
+					</el-tooltip>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -183,6 +194,10 @@
 				this.editDocument(row_data);
 			},
 
+			onRowDownloadClicked(index, row_data) {
+				this.serve_document(row_data.id);
+			},
+
 			onNewDocClicked() {
 				this.newDocument();
 			},
@@ -255,6 +270,10 @@
 				let d = new Date(date);
 				d.setHours(d.getHours() + hours);
 				return d;
+			},
+
+			serve_document(id) {
+				open_url_post('/api/method/dc_plc.controllers.file_manager.serve_document', { meta_id: id }, false);
 			},
 		},
 		mounted() {
