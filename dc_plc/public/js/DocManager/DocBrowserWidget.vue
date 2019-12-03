@@ -32,7 +32,7 @@
 				<template slot-scope="props">
 					<p>Связан с изделиями:</p>
 					<ul>
-						<li v-for="link in props.row.prod_links">{{ link.ext_num }}</li>
+						<li v-for="link in props.row.prod_links">Номер: {{ link.ext_num }} — внутренний номер: {{ link.int_num }}</li>
 					</ul>
 				</template>
 			</el-table-column>
