@@ -24,7 +24,7 @@
 			</div>
 			<el-table-column property="number" label="№" width="40"></el-table-column>
 			<el-table-column property="ext_num" label="Внешний номер" width="200"></el-table-column>
-			<el-table-column property="int_num" label="Внутрений нормер" width="200"></el-table-column>
+			<el-table-column property="int_num" label="Номер" width="200"></el-table-column>
 			<el-table-column property="rnd_proj" label="ОКР" width="300"></el-table-column>
 			<el-table-column align="center" width="80">
 				<template slot-scope="scope">
