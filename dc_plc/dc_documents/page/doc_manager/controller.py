@@ -177,7 +177,7 @@ def add_new_document(form_data):
 	new_file.insert()
 
 	to_add = set([e for e in form_data['products'] if e])
-	res_add = add_links(to_add, new_meta.name, form_data['type'], form_data['subtype'])
+	res_add = add_links(to_add, new_meta, form_data['type'], form_data['subtype'])
 	return ['', res_add]
 
 

@@ -218,6 +218,28 @@ def get_data():
 					"description": _("Manage Design Center documents"),
 					"onboard": 1
 				},
-			]
+			],
+			"condition": is_allowed
+		},
+		{
+			"label": _("Statistics"),
+			"icon": "octicon octicon-briefcase",
+			"items": [
+				{
+					"type": "page",
+					"label": _("Product dashboard"),
+					"name": "dc_product_dashboard",
+					"description": _("Totals for DC Products"),
+					"onboard": 1
+				},
+				{
+					"type": "page",
+					"label": _("Export tool"),
+					"name": "dc_product_export",
+					"description": _("Export DC product data"),
+					"onboard": 1
+				},
+			],
+			"condition": not is_allowed
 		}
 	]

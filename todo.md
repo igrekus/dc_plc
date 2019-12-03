@@ -4,14 +4,17 @@
 
 - remove standard Child Table 'add row' GUI
 - remove standard commentary form
-- product - file-meta multi-link UI & backend
 - update stat table logic to show reworked attached docs (how?)
 - fix disappearing odd-numbered small field in the report
 
-- document manager
 - product stages
 
+- fix subtype update on type change in the doc manager
+- format product link info into tables in expanding rows in data manager
+
 ### Feats
+- ~~product - file-meta multi-link UI & backend~~
+- ~~document manager~~
 - ~~consultant stats, count dev-completeness and dev-relevance, group by consultants, link to consultant filter~~
 - ~~parse and import new data~~
 - ~~desdoc file manager~~
@@ -84,7 +87,7 @@
 - ~~import all prepared products~~
 - ~~import all employees~~
 - ~~fix devs-cons import error, switch categories~~
-- create users for all employees, use pulsar mail
+- ~~create users for all employees, use pulsar mail~~
 
 ### Low priority
 - write install scripts to create appropriate employee groups, roles and permissions
