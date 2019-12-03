@@ -21,6 +21,7 @@
 		<el-table
 				ref="tableDocs"
     			:data="filteredTableData" style="width: 100%"
+				:default-sort = "{prop: 'subtype', order: 'ascending'}"
 				height="600"
 				@cell-click="onCellClicked"
 				@expand-change="onExpandChanged">
@@ -40,12 +41,14 @@
 			</el-table-column>
 			<el-table-column
 					prop="filename"
-					label="Имя файла">
+					label="Имя файла"
+					sortable>
 			</el-table-column>
 			<el-table-column
 					prop="subtype"
 					label="Подтип"
-					width="150"
+					width="160"
+					sortable
 					:filters="[
 						{ text: 'Отчёт КД', value: 'Отчёт КД' },
 						{ text: 'Комплект КД', value: 'Комплект КД' },
@@ -63,12 +66,14 @@
 			<el-table-column
 					prop="int_num"
 					label="Номер"
-					width="150">
+					width="160"
+					sortable>
 			</el-table-column>
 			<el-table-column
 					prop="ext_num"
 					label="Внешний номер"
-					width="150">
+					width="160"
+					sortable>
 			</el-table-column>
 			<el-table-column
 					width="100" align="center">
