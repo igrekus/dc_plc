@@ -195,8 +195,7 @@
 			},
 
 			onRowDownloadClicked(index, row_data) {
-				console.log(index, row_data);
-				// this.editDocument(row_data);
+				this.serve_document(row_data.id);
 			},
 
 			onNewDocClicked() {
@@ -271,6 +270,10 @@
 				let d = new Date(date);
 				d.setHours(d.getHours() + hours);
 				return d;
+			},
+
+			serve_document(id) {
+				open_url_post('/api/method/dc_plc.controllers.file_manager.serve_document', { meta_id: id }, false);
 			},
 		},
 		mounted() {
