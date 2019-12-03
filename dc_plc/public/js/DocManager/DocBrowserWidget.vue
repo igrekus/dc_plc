@@ -15,7 +15,7 @@
 
 		<el-input
 				placeholder="Фильтр списка докуметов..."
-				v-model="filterText">
+				v-model="search">
 		</el-input>
 
 		<el-table
@@ -96,7 +96,7 @@
 			return {
 				title: 'Новый документ',
 				tableData: [],
-				filterText: '',
+				search: '',
 				dialogTableVisible: false,
 				formData: {
 					id: null,
