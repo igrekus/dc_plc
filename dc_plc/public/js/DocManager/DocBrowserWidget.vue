@@ -76,15 +76,26 @@
 					sortable>
 			</el-table-column>
 			<el-table-column
-					width="100" align="center">
+					width="150" align="center">
 				<template slot-scope="scope">
-					<el-button
-							size="small"
-							type="primary"
-							icon="el-icon-edit"
-							plain
-							@click="onRowEditClicked(scope.$index, scope.row)">
-					</el-button>
+					<el-tooltip class="item" effect="dark" content="Редактировать" placement="left">
+						<el-button
+								size="mini"
+								type="primary"
+								icon="el-icon-edit"
+								plain
+								@click="onRowEditClicked(scope.$index, scope.row)">
+						</el-button>
+					</el-tooltip>
+					<el-tooltip class="item" effect="dark" content="Скачать" placement="right">
+						<el-button
+								size="mini"
+								type="success"
+								icon="el-icon-download"
+								plain
+								@click="onRowDownloadClicked(scope.$index, scope.row)">
+						</el-button>
+					</el-tooltip>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -181,6 +192,11 @@
 
 			onRowEditClicked(index, row_data) {
 				this.editDocument(row_data);
+			},
+
+			onRowDownloadClicked(index, row_data) {
+				console.log(index, row_data);
+				// this.editDocument(row_data);
 			},
 
 			onNewDocClicked() {
