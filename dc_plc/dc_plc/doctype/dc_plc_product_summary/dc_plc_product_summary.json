@@ -524,6 +524,7 @@
    "label": "Step"
   },
   {
+   "default": "PST001",
    "fieldname": "link_step",
    "fieldtype": "Link",
    "label": "Step",
@@ -533,7 +534,7 @@
  ],
  "hide_toolbar": 1,
  "links": [],
- "modified": "2019-12-04 17:41:43.845798",
+ "modified": "2019-12-04 18:37:08.621892",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",
