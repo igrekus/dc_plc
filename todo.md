@@ -8,6 +8,9 @@
 - fix disappearing odd-numbered small field in the report
 
 - product stages
+- ~~db tables~~
+- ~~boilerplate form logic~~
+- product list filter
 
 - fix subtype update on type change in the doc manager
 - format product link info into tables in expanding rows in data manager
