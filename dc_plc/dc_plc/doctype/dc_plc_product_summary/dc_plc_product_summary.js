@@ -8,6 +8,20 @@ let render_info_field = frappe.dc_plc.utils.ui.render_info_field;
 let render_field_title = frappe.dc_plc.utils.ui.render_field_title;
 
 
+let render_step_info = (frm) => {
+	frappe.call({
+		method: 'dc_plc.dc_plc.doctype.dc_plc_product_summary.dc_plc_product_summary.get_step_info',
+		args: {
+			prod_id: frm.doc.name,
+		},
+		callback: r => {
+			console.log(r.message);
+			render_info_field(frm, 'info_step', 'Шаг ЖЦИ', r.message);
+		}
+	});
+};
+
+
 frappe.ui.form.on('DC_PLC_Product_Summary', {
 	refresh: frm => {
 		frm.fields_dict['tab_consultants'].grid.get_field('link_employee').get_query = function (doc, cut, cdn) {
@@ -27,6 +41,7 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
 		set_field_title(frm, 'link_type');
 		set_field_title(frm, 'link_status');
 		set_field_title(frm, 'link_letter');
+		set_field_title(frm, 'link_step');
 
 		set_info_field(frm, 'link_function', 'Функция');
 		set_info_field(frm, 'link_rnd_project', 'Наименование ОКР');
@@ -35,6 +50,7 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
 		render_info_field(frm, 'info_int_num', 'Внутренний номер', value_or_none(frm.get_field('int_num').value));
 		render_info_field(frm, 'info_description', 'Описание', value_or_none(frm.get_field('description').value).split('\n').join('<br>'));
 		render_info_field(frm, 'info_specs', 'Параметры', value_or_none(frm.get_field('specs').value).split('\n').join('<br>'));
+		render_step_info(frm);
 
 		// fields by section: 1 - 3, 2 - 1, 3 - 10, 4 - 2, 5 - 1, 6 - 2, 7 - 2
 		let relevant = 0;
@@ -140,6 +156,12 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
 	},
 	link_status: frm => {
 		let field = 'link_status';
+		frappe.db.get_doc(frm.fields_dict[field].df.options, frm.fields_dict[field].value).then(result => {
+			render_field_title(frm, field, value_or_none(result.title));
+		});
+	},
+	link_step: frm => {
+		let field = 'link_step';
 		frappe.db.get_doc(frm.fields_dict[field].df.options, frm.fields_dict[field].value).then(result => {
 			render_field_title(frm, field, value_or_none(result.title));
 		});
