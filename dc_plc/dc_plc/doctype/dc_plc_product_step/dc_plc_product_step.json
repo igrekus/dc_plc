@@ -25,7 +25,6 @@
   {
    "fieldname": "link_status",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Status",
    "options": "DC_PLC_Product_Step_Status"
   },
@@ -53,7 +52,7 @@
   }
  ],
  "links": [],
- "modified": "2019-12-04 16:57:38.595837",
+ "modified": "2019-12-05 15:15:41.297091",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Step",
