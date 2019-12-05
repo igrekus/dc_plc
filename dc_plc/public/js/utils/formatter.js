@@ -67,7 +67,7 @@ let template_link_formatter = (filter, title_col, value, row, column, row_data, 
 	if (column.colIndex === title_col) {   // Title column
 		value = title;
 	}
-	return `<a href="http://${window.location.host}/desk#query-report/DC%20Product%20Stats/Report?${filter}=${id}">${value}</a>`;
+	return `<a href="http://${window.location.host}/desk#query-report/DC Product Stats/Report?${filter}=${id}">${value}</a>`;
 };
 
 let function_link_formatter = (...args) => {
