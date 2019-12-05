@@ -53,4 +53,4 @@ def get_data(filters):
 	res = [add_newline(row) for row in res]
 
 	# TODO calc stats by appointed fields
-	return res[:3]
+	return res
