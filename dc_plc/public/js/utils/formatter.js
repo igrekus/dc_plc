@@ -93,3 +93,7 @@ let letter_link_formatter = (...args) => {
 let status_link_formatter = (...args) => {
 	return template_link_formatter('link_status', 1, ...args);
 };
+
+let step_link_formatter = (...args) => {
+	return template_link_formatter('link_step', 1, ...args);
+};
