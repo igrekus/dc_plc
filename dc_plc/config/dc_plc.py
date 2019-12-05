@@ -190,6 +190,21 @@ def get_data():
 					"name": "DC_Employee_Group",
 					"label": _("Employee Group"),
 				},
+				{
+					"type": "doctype",
+					"name": "DC_PLC_Product_Milestone",
+					"label": _("Этап ЖЦ"),
+				},
+				{
+					"type": "doctype",
+					"name": "DC_PLC_Product_Stage",
+					"label": _("Стадия ЖЦ"),
+				},
+				{
+					"type": "doctype",
+					"name": "DC_PLC_Product_Step",
+					"label": _("Шаг ЖЦ"),
+				},
 			],
 			"condition": is_allowed,
 		},
