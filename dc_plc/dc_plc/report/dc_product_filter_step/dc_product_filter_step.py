@@ -33,7 +33,8 @@ def get_data():
 	db_name = frappe.conf.get("db_name")
 
 	raw_result = frappe.db.sql(f"""
-SELECT CONCAT(`mil`.`index`, '.', `sg`.`index`, '.', `st`.`index`, ' ', `st`.`title`) AS `step`
+SELECT `st`.`name` 
+, CONCAT(`mil`.`index`, '.', `sg`.`index`, '.', `st`.`index`, ' ', `st`.`title`) AS `step`
 , COUNT(`p`.`name`) AS `prod_num`
 FROM `tabDC_PLC_Product_Step` AS `st`
 LEFT JOIN `tabDC_PLC_Product_Summary` AS `p` ON `p`.`link_step` = `st`.`name`
@@ -43,12 +44,11 @@ GROUP BY `st`.`name`
 ORDER BY `mil`.`index` ASC, `sg`.`index` ASC, `st`.`index` ASC;
 """, as_list=1)
 
-	# result = [prepare_function_filter_row(row) for row in raw_result]
-	result = raw_result
+	result = [prepare_step_filter_row(row) for row in raw_result]
 
 	return result
 
 
-def prepare_function_filter_row(data):
-	id_, title, number, group, ref = data
-	return [group, '{}|{}'.format(title,id_), number, ref]
+def prepare_step_filter_row(data):
+	id_, title, number = data
+	return ['{}|{}'.format(title, id_), number]
