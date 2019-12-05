@@ -125,9 +125,10 @@ GROUP BY t.parent;""".format(db_name, db_name)
 def get_dept_head_stats(filters):
 	db_name = frappe.conf.get("db_name")
 
-	sql = """SELECT
+	sql = f"""SELECT
 	`p`.`name` as `id`
 	, `status`.`title` AS `status`
+	, `step`.`title` AS `step`
 	, `proj`.`title` AS `project`
 	, "stub" AS `cons`
 	, "stub" AS `devs`
@@ -137,13 +138,26 @@ def get_dept_head_stats(filters):
 	, `p`.`int_num` 
 	, `p`.`rel_check_dept_head`
 	, `p`.`rel_date_dept_head`
-	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
+	FROM `{db_name}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
+		`{db_name}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`""".format(db_name, db_name, db_name, db_name)
+		`{db_name}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
+	LEFT JOIN
+		`{db_name}`.`tabDC_PLC_Product_Step` AS `step` ON `p`.`link_step` = `step`.`name`"""
+
+	if filters:
+		step = filters.get('step', '%')
+		step_clause = f"(`step`.`name` LIKE '%' OR `p`.`link_step` IS NULL)" if step == '%' else f"`p`.`link_step` = '{step}'"
+
+		sql += f"""
+		WHERE
+			{step_clause}
+		"""
+
+	sql += "GROUP BY `p`.`name` ORDER BY `id`"
 
 	return frappe.db.sql(sql + ";", as_list=1)
 
