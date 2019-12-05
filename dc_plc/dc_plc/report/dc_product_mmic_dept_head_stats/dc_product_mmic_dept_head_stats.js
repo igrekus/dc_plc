@@ -4,6 +4,19 @@
 
 frappe.query_reports["DC Product MMIC Dept Head Stats"] = {
 	filters: [],
+		"filters": [
+		{
+			label: __("Lifecycle step "),
+			fieldname: "step",
+			fieldtype: "Link",
+			options: "DC_PLC_Product_Step",
+			get_query: (doc, cut, cdn) => {
+				return {
+					query: 'dc_plc.dc_plc.doctype.dc_plc_product_step.dc_plc_product_step.get_lifecycle_step_filter'
+				}
+			}
+		},
+	],
 	formatter: frappe.dc_plc.utils.formatters.mmic_dept_head_formatter,
 	after_datatable_render: table_instance => {
 		let highlight_cols = [4, 6, 7];
