@@ -23,6 +23,7 @@ def get_columns():
 		_("Relevance"),
 		_("Progress"),
 		_("Status"),
+		_("Step"),
 		_("RnD Title"),
 		_("Consultants"),
 		_("Developers"),
@@ -35,8 +36,8 @@ def get_columns():
 
 def get_data(filters):
 	def add_devs_and_cons(row):
-		row[3] = cons.get(row[0], '').replace(',', '<br>')
-		row[4] = devs.get(row[0], '').replace(',', '<br>')
+		row[4] = cons.get(row[0], '').replace(',', '<br>')
+		row[5] = devs.get(row[0], '').replace(',', '<br>')
 		return row
 
 	devs = get_developers_for_product()
@@ -47,9 +48,9 @@ def get_data(filters):
 
 	res = get_dept_head_stats(filters)
 	res = [add_devs_and_cons(row) for row in res]
-	res = [add_completeness(row, [1, 4, 5]) for row in res]
+	res = [add_completeness(row, [1, 2, 5, 6]) for row in res]
 	res = [add_query_relevance(row, has_perms) for row in res]
 	res = [add_newline(row) for row in res]
 
 	# TODO calc stats by appointed fields
-	return res
+	return res[:3]

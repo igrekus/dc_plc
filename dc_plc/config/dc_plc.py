@@ -133,12 +133,13 @@ def get_data():
 					"is_query_report": True,
 					"label": _("By status"),
 				},
-				# {
-				#     "type": "page",
-				#     "label": _("Activity"),
-				#     "name": "activity",
-				#     "description": _("Activity log of all users."),
-				# },
+				{
+					"type": "report",
+					"name": "DC Product Filter Step",
+					"is_query_report": True,
+					"label": _("By step"),
+				},
+
 			]
 		},
 		{
