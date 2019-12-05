@@ -95,3 +95,25 @@ def set_desdoc_relevant(name, relevant):
 	doc.save()
 
 	return {'date': date, 'check': relevant}
+
+
+@frappe.whitelist()
+def get_step_info(prod_id):
+	db_name = frappe.conf.get("db_name")
+
+	res = frappe.db.sql(
+		query=f"""
+SELECT CONCAT(`mil`.`index`, '.', `stg`.`index`, '.', `stp`.`index`, ' ', `stp`.`title`) AS step
+FROM `{db_name}`.`tabDC_PLC_Product_Summary` AS `p`
+INNER JOIN `{db_name}`.`tabDC_PLC_Product_Step` AS `stp` ON `stp`.`name` = `p`.`link_step`
+INNER JOIN `{db_name}`.`tabDC_PLC_Product_Stage` AS `stg` ON `stg`.`name` = `stp`.`link_stage`
+INNER JOIN `{db_name}`.`tabDC_PLC_Product_Milestone` AS `mil` ON `mil`.`name` = `stg`.`link_milestone`
+WHERE `p`.`name` = %(id)s;""",
+		values={
+			'id': f'{prod_id}'
+		})
+	try:
+		res = res[0][0]
+	except IndexError:
+		res = '-'
+	return res
