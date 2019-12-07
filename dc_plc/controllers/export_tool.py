@@ -61,7 +61,7 @@ def export_product_data(ids=""):
 	`p`.`name` as `id`
 	, `p`.`ext_num`
 	, `p`.`int_num`
-	, `status`.`title` AS `status`
+	, CONCAT(`mil`.`index`, '.', `stg`.`index`, '.', `stp`.`index`, ' ', `stp`.`title`) AS `status`
 	, `letter`.`title` AS `letter`
 	, `type`.`title` AS `type`
 	, `proj`.`title` AS `project`
@@ -96,6 +96,12 @@ def export_product_data(ids=""):
 		`{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Step` AS `stp` ON `stp`.`name` = `p`.`link_step`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Stage` AS `stg` ON `stg`.`name` = `stp`.`link_stage`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Milestone` AS `mil` ON `mil`.`name` = `stg`.`link_milestone`
 	LEFT OUTER JOIN
 		`{}`.`tabDC_PLC_Developers_in_Product` AS `dev` ON `p`.`name` = `dev`.`parent`
 	LEFT OUTER JOIN
@@ -103,7 +109,7 @@ def export_product_data(ids=""):
 	WHERE `p`.`name` IN ({})
 	GROUP BY `p`.`name`
 	ORDER BY `p`.`name` ASC""" \
-		.format(db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, id_str)
+		.format(db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, id_str)
 
 	res = frappe.db.sql(sql + ';')
 
