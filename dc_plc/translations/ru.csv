@@ -73,6 +73,7 @@ DC_Employee_Group,Members,Членов
 ,By package,По типу корпуса
 ,By letter,По литерности
 ,By status,По перспективе
+,By status,По шагу ЖЦИ
 ,DC Product Filter RND Project, По наименованию ОКР
 ,DC Product Filter Product Type,По типу устройства
 ,DC Product Filter Function,По функции устройства
@@ -121,6 +122,7 @@ DC_Employee_Group,Members,Членов
 ,Reference,Источник
 ,Process map,Технологическая карта
 ,Final description,Финальное описание
+,Lifecycle step,Шаг ЖЦИ
 
 ,Product info completeness statistics,Статистика заполненности и актуальности
 ,Dept head,Руководитель НО-8
