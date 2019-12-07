@@ -59,7 +59,7 @@ let tech_writer_formatter = (...args) => {
 
 
 // Filter query formatters
-let template_link_formatter = (filter, title_col, value, row, column, row_data, format) => {
+let template_link_formatter = (filter, title_col, report, value, row, column, row_data, format) => {
 	if (!value) {
 		value = '-';
 	}
@@ -67,33 +67,33 @@ let template_link_formatter = (filter, title_col, value, row, column, row_data, 
 	if (column.colIndex === title_col) {   // Title column
 		value = title;
 	}
-	return `<a href="http://${window.location.host}/desk#query-report/DC Product Stats/Report?${filter}=${id}">${value}</a>`;
+	return `<a href="http://${window.location.host}/desk#query-report/${report}/Report?${filter}=${id}">${value}</a>`;
 };
 
 let function_link_formatter = (...args) => {
-	return template_link_formatter('link_function', 2, ...args);
+	return template_link_formatter('link_function', 2, 'DC Product Stats', ...args);
 };
 
 let rnd_project_link_formatter = (...args) => {
-	return template_link_formatter('link_rnd_project', 1, ...args);
+	return template_link_formatter('link_rnd_project', 1, 'DC Product Stats', ...args);
 };
 
 let product_type_link_formatter = (...args) => {
-	return template_link_formatter('link_type', 1, ...args);
+	return template_link_formatter('link_type', 1, 'DC Product Stats', ...args);
 };
 
 let package_link_formatter = (...args) => {
-	return template_link_formatter('link_package', 1, ...args);
+	return template_link_formatter('link_package', 1, 'DC Product Stats', ...args);
 };
 
 let letter_link_formatter = (...args) => {
-	return template_link_formatter('link_letter', 1, ...args);
+	return template_link_formatter('link_letter', 1, 'DC Product Stats', ...args);
 };
 
 let status_link_formatter = (...args) => {
-	return template_link_formatter('link_status', 1, ...args);
+	return template_link_formatter('link_status', 1, 'DC Product Stats', ...args);
 };
 
 let step_link_formatter = (...args) => {
-	return template_link_formatter('link_step', 1, ...args);
+	return template_link_formatter('link_step', 1, 'DC Product MMIC Dept Head Stats', ...args);
 };

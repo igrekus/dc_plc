@@ -35,6 +35,12 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
 			}
 		};
 
+		frm.fields_dict['link_step'].get_query = function(doc, cdt, cdn) {
+			return {
+				query: 'dc_plc.dc_plc.doctype.dc_plc_product_summary.dc_plc_product_summary.step_ddl_query',
+			}
+		};
+
 		set_field_title(frm, 'link_function');
 		set_field_title(frm, 'link_package');
 		set_field_title(frm, 'link_rnd_project');

@@ -154,7 +154,7 @@ def get_dept_head_stats(filters):
 """
 
 	if filters:
-		step = filters.get('step', '%')
+		step = filters.get('link_step', '%')
 		step_clause = f"(`step`.`name` LIKE '%' OR `p`.`link_step` IS NULL)" if step == '%' else f"`p`.`link_step` = '{step}'"
 
 		sql += f"""

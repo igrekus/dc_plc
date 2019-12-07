@@ -117,3 +117,27 @@ WHERE `p`.`name` = %(id)s;""",
 	except IndexError:
 		res = '-'
 	return res
+
+
+@frappe.whitelist()
+def step_ddl_query(doctype, txt, searchfield, start, page_len, filters):
+	db_name = frappe.conf.get('db_name')
+
+	sql = f"""SELECT
+	`step`.`name` as `value`
+	, CONCAT(`mil`.`index`, '.', `stage`.`index`, '.', `step`.`index`, ' ', `step`.`title`) AS `label`
+	FROM `{db_name}`.`tabDC_PLC_Product_Step` AS `step`
+	LEFT JOIN 
+		`{db_name}`.`tabDC_PLC_Product_Stage` AS `stage` ON `stage`.`name` = `step`.`link_stage`
+	LEFT JOIN
+		`{db_name}`.`tabDC_PLC_Product_Milestone` AS `mil` ON `mil`.`name` = `stage`.`link_milestone`
+	WHERE 
+		`step`.`name` LIKE %(search)s
+	OR
+		`step`.`title` LIKE %(search)s
+""" 
+	res = frappe.db.sql(sql, values={
+		'search': f'%{txt}%'
+	}, as_list=1)
+
+	return res
