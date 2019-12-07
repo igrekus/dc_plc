@@ -4,6 +4,6 @@
 
 frappe.query_reports["DC Product Filter Step"] = {
 	"filters": [
-
-	]
+	],
+	formatter: frappe.dc_plc.utils.formatters.step_link_formatter,
 };
