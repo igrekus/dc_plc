@@ -521,20 +521,20 @@
   {
    "fieldname": "info_step",
    "fieldtype": "HTML",
-   "label": "Step"
+   "label": "Lifecycle step"
   },
   {
    "default": "PST001",
    "fieldname": "link_step",
    "fieldtype": "Link",
-   "label": "Step",
+   "label": "Lifecycle step",
    "options": "DC_PLC_Product_Step",
    "permlevel": 1
   }
  ],
  "hide_toolbar": 1,
  "links": [],
- "modified": "2019-12-04 18:37:08.621892",
+ "modified": "2019-12-07 18:03:25.687251",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",

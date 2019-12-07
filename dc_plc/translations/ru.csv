@@ -8,6 +8,7 @@ DocType: DC_PLC_Product_Summary,Employees responsible,Ответственные
 DocType: DC_PLC_Product_Summary,Consultant,Консультанты
 DocType: DC_PLC_Product_Summary,Developers,Разработчики
 DocType: DC_PLC_Product_Summary,Assembly,Сборка
+DocType: DC_PLC_Product_Summary,Lifecycle step,Шаг ЖЦИ
 DocType: DC_PLC_Product_Summary,Chip,Кристалл
 DocType: DC_PLC_Product_Summary,Package,Корпус
 DocType: DC_PLC_Product_Summary,Assembly board,Номер платы в составе модуля
