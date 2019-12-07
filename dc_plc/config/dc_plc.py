@@ -137,9 +137,8 @@ def get_data():
 					"type": "report",
 					"name": "DC Product Filter Step",
 					"is_query_report": True,
-					"label": _("By step"),
+					"label": _("By lifecycle step"),
 				},
-
 			]
 		},
 		{

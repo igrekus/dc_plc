@@ -73,7 +73,7 @@ DC_Employee_Group,Members,Членов
 ,By package,По типу корпуса
 ,By letter,По литерности
 ,By status,По перспективе
-,By status,По шагу ЖЦИ
+,By lifecycle step,По шагу ЖЦИ
 ,DC Product Filter RND Project, По наименованию ОКР
 ,DC Product Filter Product Type,По типу устройства
 ,DC Product Filter Function,По функции устройства
