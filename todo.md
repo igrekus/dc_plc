@@ -11,6 +11,7 @@
 - ~~db tables~~
 - ~~boilerplate form logic~~
 - product list filter
+- add project step advancement controls
 
 - fix subtype update on type change in the doc manager
 - format product link info into tables in expanding rows in data manager
