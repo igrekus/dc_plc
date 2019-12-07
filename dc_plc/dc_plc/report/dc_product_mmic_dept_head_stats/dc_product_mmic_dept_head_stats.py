@@ -23,7 +23,7 @@ def get_columns():
 		_("Relevance"),
 		_("Progress"),
 		_("Status"),
-		_("Step"),
+		_("Lifecycle step"),
 		_("RnD Title"),
 		_("Consultants"),
 		_("Developers"),
