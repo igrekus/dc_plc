@@ -95,5 +95,5 @@ let status_link_formatter = (...args) => {
 };
 
 let step_link_formatter = (...args) => {
-	return template_link_formatter('link_step', 1, ...args);
+	return template_link_formatter('link_step', 1, 'DC Product MMIC Dept Head Stats', ...args);
 };

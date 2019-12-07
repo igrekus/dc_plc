@@ -7,7 +7,7 @@ frappe.query_reports["DC Product MMIC Dept Head Stats"] = {
 		"filters": [
 		{
 			label: __("Lifecycle step "),
-			fieldname: "step",
+			fieldname: "link_step",
 			fieldtype: "Link",
 			options: "DC_PLC_Product_Step",
 			get_query: (doc, cut, cdn) => {
