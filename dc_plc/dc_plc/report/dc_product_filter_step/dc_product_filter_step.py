@@ -36,10 +36,10 @@ def get_data():
 SELECT `st`.`name` 
 , CONCAT(`mil`.`index`, '.', `sg`.`index`, '.', `st`.`index`, ' ', `st`.`title`) AS `step`
 , COUNT(`p`.`name`) AS `prod_num`
-FROM `tabDC_PLC_Product_Step` AS `st`
-LEFT JOIN `tabDC_PLC_Product_Summary` AS `p` ON `p`.`link_step` = `st`.`name`
-INNER JOIN `tabDC_PLC_Product_Stage` AS `sg` ON `sg`.`name` = `st`.`link_stage`
-INNER JOIN `tabDC_PLC_Product_Milestone` AS `mil` ON `mil`.`name` = `sg`.`link_milestone`
+FROM `{db_name}`.`tabDC_PLC_Product_Step` AS `st`
+LEFT JOIN `{db_name}`.`tabDC_PLC_Product_Summary` AS `p` ON `p`.`link_step` = `st`.`name`
+INNER JOIN `{db_name}`.`tabDC_PLC_Product_Stage` AS `sg` ON `sg`.`name` = `st`.`link_stage`
+INNER JOIN `{db_name}`.`tabDC_PLC_Product_Milestone` AS `mil` ON `mil`.`name` = `sg`.`link_milestone`
 GROUP BY `st`.`name`
 ORDER BY `mil`.`index` ASC, `sg`.`index` ASC, `st`.`index` ASC;
 """, as_list=1)

@@ -194,17 +194,17 @@ def get_data():
 				{
 					"type": "doctype",
 					"name": "DC_PLC_Product_Milestone",
-					"label": _("Этап ЖЦ"),
+					"label": _("Lifecycle milestone"),
 				},
 				{
 					"type": "doctype",
 					"name": "DC_PLC_Product_Stage",
-					"label": _("Стадия ЖЦ"),
+					"label": _("Lifecycle stage"),
 				},
 				{
 					"type": "doctype",
 					"name": "DC_PLC_Product_Step",
-					"label": _("Шаг ЖЦ"),
+					"label": _("Lifecycle step"),
 				},
 			],
 			"condition": is_allowed,

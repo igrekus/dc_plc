@@ -31,9 +31,13 @@
 			<el-table-column type="expand">
 				<template slot-scope="props">
 					<p>Связан с изделиями:</p>
-					<ul>
-						<li v-for="link in props.row.prod_links">Номер: {{ link.ext_num }} — внутренний номер: {{ link.int_num }}</li>
-					</ul>
+					<table>
+						<tr><th width="200px">Номер</th><th width ="200px">Внутренний номер</th></tr>
+						<tr v-for="link in props.row.prod_links">
+							<td>{{link.ext_num}}</td>
+							<td>{{link.int_num}}</td>
+						</tr>
+					</table>
 				</template>
 			</el-table-column>
 			<el-table-column

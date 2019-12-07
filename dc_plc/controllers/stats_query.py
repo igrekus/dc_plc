@@ -128,7 +128,7 @@ def get_dept_head_stats(filters):
 	sql = f"""SELECT
 	`p`.`name` as `id`
 	, `status`.`title` AS `status`
-	, `step`.`title` AS `step`
+	, CONCAT(`mil`.`index`, '.', `stage`.`index`, '.', `step`.`index`, ' ', `step`.`title`) AS `step`
 	, `proj`.`title` AS `project`
 	, "stub" AS `cons`
 	, "stub" AS `devs`
@@ -146,7 +146,12 @@ def get_dept_head_stats(filters):
 	LEFT JOIN
 		`{db_name}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
 	LEFT JOIN
-		`{db_name}`.`tabDC_PLC_Product_Step` AS `step` ON `p`.`link_step` = `step`.`name`"""
+		`{db_name}`.`tabDC_PLC_Product_Step` AS `step` ON `p`.`link_step` = `step`.`name`
+	LEFT JOIN 
+		`{db_name}`.`tabDC_PLC_Product_Stage` AS `stage` ON `stage`.`name` = `step`.`link_stage`
+	LEFT JOIN
+		`{db_name}`.`tabDC_PLC_Product_Milestone` AS `mil` ON `mil`.`name` = `stage`.`link_milestone`
+"""
 
 	if filters:
 		step = filters.get('step', '%')
