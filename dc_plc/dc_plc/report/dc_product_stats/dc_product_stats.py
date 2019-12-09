@@ -20,7 +20,7 @@ def get_columns():
 		"ID:Link/DC_PLC_Product_Summary",
 		_("Relevance"),
 		_("Progress"),
-		_("Status"),
+		_("Lifecycle step"),
 		_("External number"),
 		_("Internal number"),
 		_("Letter"),
