@@ -7,7 +7,7 @@ def get_full_stats(filters):
 
 	sql = """SELECT
 	`p`.`name` as `id`
-	, `status`.`title` AS `status`
+	, CONCAT(`mile`.`index`, '.', `stage`.`index`, '.', `step`.`index`, ' ', `step`.`title`) AS `step` 
 	, `p`.`ext_num`
 	, `p`.`int_num`
 	, `letter`.`title` AS `letter`
@@ -38,7 +38,11 @@ def get_full_stats(filters):
 	, `p`.`rel_check_desdoc`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
+		`{}`.`tabDC_PLC_Product_Step` AS `step` ON `p`.`link_step` = `step`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Stage` AS `stage` ON `step`.`link_stage` = `stage`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Milestone` AS `mile` ON `stage`.`link_milestone` = `mile`.`name`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
 	LEFT JOIN
@@ -51,7 +55,7 @@ def get_full_stats(filters):
 		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
 	LEFT OUTER JOIN
 		`{}`.`tabDC_PLC_Developers_in_Product` AS `dev` ON `p`.`name` = `dev`.`parent`""" \
-		.format(db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name)
+		.format(db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name)
 
 	if filters:
 		proj = filters.get('link_rnd_project', '%')
