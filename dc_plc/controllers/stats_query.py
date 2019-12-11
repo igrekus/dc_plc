@@ -5,7 +5,7 @@ import frappe
 def get_full_stats(filters):
 	db_name = frappe.conf.get("db_name")
 
-	sql = """SELECT
+	sql = f"""SELECT
 	`p`.`name` as `id`
 	, CONCAT(`mile`.`index`, '.', `stage`.`index`, '.', `step`.`index`, ' ', `step`.`title`) AS `step` 
 	, `p`.`ext_num`
@@ -36,26 +36,25 @@ def get_full_stats(filters):
 	, `p`.`rel_check_procmap`
 	, `p`.`rel_check_tech_writer`
 	, `p`.`rel_check_desdoc`
-	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
+	FROM `{db_name}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Step` AS `step` ON `p`.`link_step` = `step`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Step` AS `step` ON `p`.`link_step` = `step`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Stage` AS `stage` ON `step`.`link_stage` = `stage`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Stage` AS `stage` ON `step`.`link_stage` = `stage`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Milestone` AS `mile` ON `stage`.`link_milestone` = `mile`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Milestone` AS `mile` ON `stage`.`link_milestone` = `mile`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
+		`{db_name}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
 	LEFt JOIN
-		`{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
+		`{db_name}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
 	LEFT OUTER JOIN
-		`{}`.`tabDC_PLC_Developers_in_Product` AS `dev` ON `p`.`name` = `dev`.`parent`""" \
-		.format(db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name)
+		`{db_name}`.`tabDC_PLC_Developers_in_Product` AS `dev` ON `p`.`name` = `dev`.`parent`"""
 
 	if filters:
 		proj = filters.get('link_rnd_project', '%')
