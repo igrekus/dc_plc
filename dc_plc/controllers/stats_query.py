@@ -58,28 +58,28 @@ def get_full_stats(filters):
 
 	if filters:
 		proj = filters.get('link_rnd_project', '%')
-		proj_clause = "(`proj`.`name` LIKE '%' OR `proj`.`name` IS NULL)" if proj == '%' else "`proj`.`name` LIKE '{}'".format(proj)
+		proj_clause = "(`proj`.`name` LIKE '%' OR `proj`.`name` IS NULL)" if proj == '%' else f"`proj`.`name` LIKE '{proj}'"
 
 		type_ = filters.get('link_type', '%')
-		type_clause = "(`type`.`name` LIKE '%' OR `type`.`name` IS NULL)" if type_ == '%' else "`type`.`name` LIKE '{}'".format(type_)
+		type_clause = "(`type`.`name` LIKE '%' OR `type`.`name` IS NULL)" if type_ == '%' else f"`type`.`name` LIKE '{type_}'"
 
 		letter = filters.get('link_letter', '%')
-		model_clause = "(`p`.`link_letter` LIKE '%' OR `p`.link_letter IS NULL)" if letter == '%' else "`p`.`link_letter` LIKE '{}'".format(letter)
+		model_clause = "(`p`.`link_letter` LIKE '%' OR `p`.link_letter IS NULL)" if letter == '%' else f"`p`.`link_letter` LIKE '{letter}'"
 
 		func = filters.get('link_function', '%')
-		func_clause = "(`fun`.`name` LIKE '%' OR `fun`.`name` IS NULL)" if func == '%' else "`fun`.`name` LIKE '{}'".format(func)
+		func_clause = "(`fun`.`name` LIKE '%' OR `fun`.`name` IS NULL)" if func == '%' else f"`fun`.`name` LIKE '{func}'"
 
 		status = filters.get('link_status', '%')
-		status_clause = "(`p`.`link_status` LIKE '%' OR `p`.link_status IS NULL)" if status == '%' else "`p`.`link_status` LIKE '{}'".format(status)
+		status_clause = "(`p`.`link_status` LIKE '%' OR `p`.link_status IS NULL)" if status == '%' else f"`p`.`link_status` LIKE '{status}'"
 
 		pack = filters.get('link_package', '%')
-		pack_clause = "(`pak`.`name` LIKE '%' OR `pak`.`name` IS NULL)" if pack == '%' else "`pak`.`name` LIKE '{}'".format(pack)
+		pack_clause = "(`pak`.`name` LIKE '%' OR `pak`.`name` IS NULL)" if pack == '%' else f"`pak`.`name` LIKE '{pack}'"
 
 		dev = filters.get('developer', '%')
 		if dev == 'HR-EMP-00094':
 			dev_clause = "`dev`.`link_employee` IS NULL"
 		else:
-			dev_clause = "(`dev`.`link_employee` LIKE '%' OR `dev`.`link_employee` IS NULL)" if dev == '%' else "`dev`.`link_employee` LIKE '{}'".format(dev)
+			dev_clause = "(`dev`.`link_employee` LIKE '%' OR `dev`.`link_employee` IS NULL)" if dev == '%' else f"`dev`.`link_employee` LIKE '{dev}'"
 
 		sql += """
 	WHERE
