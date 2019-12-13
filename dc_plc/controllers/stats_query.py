@@ -81,22 +81,22 @@ def get_full_stats(filters):
 		else:
 			dev_clause = "(`dev`.`link_employee` LIKE '%' OR `dev`.`link_employee` IS NULL)" if dev == '%' else f"`dev`.`link_employee` LIKE '{dev}'"
 
-		sql += """
+		sql += f"""
 	WHERE
-	{}
+	{proj_clause}
 	AND
-	{}
+	{type_clause}
 	AND
-	{}
+	{model_clause}
 	AND
-	{}
+	{func_clause}
 	AND
-	{}
+	{status_clause}
 	AND
-	{}
+	{pack_clause}
 	AND
-	{}
-	""".format(proj_clause, type_clause, model_clause, func_clause, status_clause, pack_clause, dev_clause)
+	{dev_clause}
+	"""
 
 	sql += "GROUP BY `p`.`name` ORDER BY `id`"
 
