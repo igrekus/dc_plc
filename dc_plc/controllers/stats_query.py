@@ -3,7 +3,7 @@ import frappe
 
 # TODO properly escape filter items
 def get_full_stats(filters):
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	sql = f"""SELECT
 	`p`.`name` as `id`
@@ -104,7 +104,7 @@ def get_full_stats(filters):
 
 
 def get_developers_for_product():
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 	sql = """SELECT t.parent,
 GROUP_CONCAT(CONCAT(emp.last_name, " ", emp.first_name, " ", emp.middle_name)) AS developers
 FROM `{}`.`tabDC_PLC_Developers_in_Product` AS t
@@ -115,7 +115,7 @@ GROUP BY t.parent;""".format(db_name, db_name)
 
 
 def get_consultants_for_product():
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 	sql = """SELECT t.parent,
 GROUP_CONCAT(CONCAT(emp.last_name, " ", emp.first_name, " ", emp.middle_name)) AS developers
 FROM `{}`.tabDC_PLC_Consulants_in_Product AS t
@@ -126,7 +126,7 @@ GROUP BY t.parent;""".format(db_name, db_name)
 
 
 def get_dept_head_stats(filters):
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	sql = f"""SELECT
 	`p`.`name` as `id`
@@ -171,7 +171,7 @@ def get_dept_head_stats(filters):
 
 
 def get_rnd_spec_stats(filters):
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	sql = f"""SELECT
 	`p`.`name` AS `id`
@@ -200,7 +200,7 @@ def get_rnd_spec_stats(filters):
 
 
 def get_developer_stats(filters):
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	sql = """SELECT
 	`p`.`name` as `id`
@@ -264,7 +264,7 @@ def get_developer_stats(filters):
 
 
 def get_opcon_stats(filters):
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	sql = """SELECT
 	`p`.`name` as `id`
@@ -293,7 +293,7 @@ def get_opcon_stats(filters):
 
 
 def get_procmap_stats(filters):
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	sql = """SELECT
 	`p`.`name` as `id`
@@ -315,7 +315,7 @@ def get_procmap_stats(filters):
 
 
 def get_tech_writer_stats(filters):
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	sql = """SELECT
 	`p`.`name` AS `id`
@@ -342,7 +342,7 @@ def get_tech_writer_stats(filters):
 
 
 def get_desdoc_stats(filters):
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	sql = """SELECT
 	`p`.`name` AS `id`
