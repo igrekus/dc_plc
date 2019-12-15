@@ -130,7 +130,6 @@ def get_dept_head_stats(filters):
 
 	sql = f"""SELECT
 	`p`.`name` as `id`
-	, `status`.`title` AS `status`
 	, CONCAT(`mil`.`index`, '.', `stage`.`index`, '.', `step`.`index`, ' ', `step`.`title`) AS `step`
 	, `proj`.`title` AS `project`
 	, "stub" AS `cons`
@@ -142,8 +141,6 @@ def get_dept_head_stats(filters):
 	, `p`.`rel_check_dept_head`
 	, `p`.`rel_date_dept_head`
 	FROM `{db_name}`.`tabDC_PLC_Product_Summary` AS `p`
-	LEFT JOIN
-		`{db_name}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
 	LEFT JOIN
 		`{db_name}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
 	LEFT JOIN
