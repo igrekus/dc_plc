@@ -162,9 +162,9 @@ def get_dept_head_stats(filters):
 			{step_clause}
 		"""
 
-	sql += "GROUP BY `p`.`name` ORDER BY `id`"
+	sql += 'GROUP BY `p`.`name` ORDER BY `id`'
 
-	return frappe.db.sql(sql + ";", as_list=1)
+	return frappe.db.sql(sql + ';', as_list=1)
 
 
 def get_rnd_spec_stats(filters):
