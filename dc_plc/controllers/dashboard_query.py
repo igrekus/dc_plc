@@ -19,7 +19,7 @@ def role_completeness_stats():
 	db_name = frappe.conf.get("db_name")
 
 	res = frappe.db.sql("""SELECT 
-	`stat`.`title`
+	CONCAT(`mile`.`index`, '.', `stage`.`index`, '.', `step`.`index`, ' ', `step`.`title`) AS `step`
 	, COUNT(`cons`.`link_employee`) AS `con_num`
 	, COUNT(`devs`.`link_employee`) AS `dev_num`
 	, `proj`.`title`
@@ -50,7 +50,11 @@ def role_completeness_stats():
 	, `p`.`rel_check_desdoc`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Status` AS `stat` ON `p`.`link_status` = `stat`.`name`
+		`{}`.`tabDC_PLC_Product_Step` AS `step` ON `p`.`link_step` = `step`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Stage` AS `stage` ON `step`.`link_stage` = `stage`.`name`
+	LEFT JOIN
+		`{}`.`tabDC_PLC_Product_Milestone` AS `mile` ON `stage`.`link_milestone` = `mile`.`name`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
 	LEFT JOIN
@@ -64,7 +68,7 @@ def role_completeness_stats():
 LEFT JOIN `{}`.`tabDC_PLC_Consulants_in_Product` AS `cons` ON `cons`.parent = `p`.`name`
 LEFT JOIN `{}`.`tabDC_PLC_Developers_in_Product` AS `devs` ON `devs`.parent = `p`.`name`
 GROUP BY `p`.`name`;
-""".format(db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name), as_list=1)
+""".format(db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name), as_list=1)
 
 	total = [count_filled_fields(row, range(len(row))) for row in res]
 	total = [int(round(row[0]/row[1], 2) * 100) for row in total]
