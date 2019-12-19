@@ -16,7 +16,7 @@ from dc_plc.custom.utils import count_filled_fields
 def role_completeness_stats():
 	# TODO refactor this
 	# TODO refactor hardcoded column indexes
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	res = frappe.db.sql("""SELECT 
 	CONCAT(`mile`.`index`, '.', `stage`.`index`, '.', `step`.`index`, ' ', `step`.`title`) AS `step`
@@ -169,7 +169,7 @@ GROUP BY `p`.`name`;
 def developer_completeness_stats():
 	# TODO refactor this
 
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	res = frappe.db.sql("""
 	SELECT 
@@ -235,7 +235,7 @@ ORDER BY `dev` ASC;""".format(db_name, db_name, db_name, db_name, db_name, db_na
 def consultant_completeness_stats():
 	# TODO refactor this
 
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	res = frappe.db.sql(f"""
 		SELECT 
