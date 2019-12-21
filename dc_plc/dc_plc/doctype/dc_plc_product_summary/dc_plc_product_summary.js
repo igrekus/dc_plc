@@ -45,7 +45,6 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
 		set_field_title(frm, 'link_package');
 		set_field_title(frm, 'link_rnd_project');
 		set_field_title(frm, 'link_type');
-		set_field_title(frm, 'link_status');
 		set_field_title(frm, 'link_letter');
 		set_field_title(frm, 'link_step');
 
@@ -156,12 +155,6 @@ frappe.ui.form.on('DC_PLC_Product_Summary', {
 	},
 	link_type: frm => {
 		let field = 'link_type';
-		frappe.db.get_doc(frm.fields_dict[field].df.options, frm.fields_dict[field].value).then(result => {
-			render_field_title(frm, field, value_or_none(result.title));
-		});
-	},
-	link_status: frm => {
-		let field = 'link_status';
 		frappe.db.get_doc(frm.fields_dict[field].df.options, frm.fields_dict[field].value).then(result => {
 			render_field_title(frm, field, value_or_none(result.title));
 		});
