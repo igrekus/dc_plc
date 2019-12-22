@@ -129,12 +129,6 @@ def get_data():
 				},
 				{
 					"type": "report",
-					"name": "DC Product Filter Status",
-					"is_query_report": True,
-					"label": _("By status"),
-				},
-				{
-					"type": "report",
 					"name": "DC Product Filter Step",
 					"is_query_report": True,
 					"label": _("By lifecycle step"),
@@ -174,11 +168,6 @@ def get_data():
 					"type": "doctype",
 					"name": "DC_PLC_RND_Project",
 					"label": _("RND title"),
-				},
-				{
-					"type": "doctype",
-					"name": "DC_PLC_Product_Status",
-					"label": _("Status"),
 				},
 				{
 					"type": "doctype",
