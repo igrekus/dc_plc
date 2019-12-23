@@ -69,9 +69,6 @@ def get_full_stats(filters):
 		func = filters.get('link_function', '%')
 		func_clause = "(`fun`.`name` LIKE '%' OR `fun`.`name` IS NULL)" if func == '%' else f"`fun`.`name` LIKE '{func}'"
 
-		status = filters.get('link_status', '%')
-		status_clause = "(`p`.`link_status` LIKE '%' OR `p`.link_status IS NULL)" if status == '%' else f"`p`.`link_status` LIKE '{status}'"
-
 		pack = filters.get('link_package', '%')
 		pack_clause = "(`pak`.`name` LIKE '%' OR `pak`.`name` IS NULL)" if pack == '%' else f"`pak`.`name` LIKE '{pack}'"
 
@@ -90,8 +87,6 @@ def get_full_stats(filters):
 	{model_clause}
 	AND
 	{func_clause}
-	AND
-	{status_clause}
 	AND
 	{pack_clause}
 	AND
