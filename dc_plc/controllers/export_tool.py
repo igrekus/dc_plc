@@ -79,8 +79,8 @@ def export_product_data(ids=""):
 	, `p`.`report`
 	, `p`.`datasheet`
 	, `p`.`final_description`
-	, GROUP_CONCAT(`con`.`full_name`) AS `devs`
-	, GROUP_CONCAT(`dev`.`full_name`) AS `cons`
+	, GROUP_CONCAT(`con`.`full_name`) AS `cons`
+	, GROUP_CONCAT(`dev`.`full_name`) AS `devs`
 	, `p`.`tech_note`
 	, `p`.`economy_note`
 	FROM `{db_name}`.`tabDC_PLC_Product_Summary` AS `p`
@@ -133,8 +133,8 @@ def export_product_data(ids=""):
 		'reports': row[18],
 		'datasheet': row[19],
 		'final_description': row[20],
-		'devs': row[21],
-		'cons': row[22],
+		'cons': row[21],
+		'devs': row[22],
 		'tech_note': row[23],
 		'economy_note': row[24]
 	} for row in res]
