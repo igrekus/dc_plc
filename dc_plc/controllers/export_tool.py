@@ -85,8 +85,6 @@ def export_product_data(ids=""):
 	, `p`.`economy_note`
 	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
-	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
 	LEFT JOIN
 		`{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
@@ -109,7 +107,7 @@ def export_product_data(ids=""):
 	WHERE `p`.`name` IN ({})
 	GROUP BY `p`.`name`
 	ORDER BY `p`.`name` ASC""" \
-		.format(db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, id_str)
+		.format(db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, id_str)
 
 	res = frappe.db.sql(sql + ';')
 
