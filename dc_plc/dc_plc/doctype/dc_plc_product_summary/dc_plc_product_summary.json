@@ -25,7 +25,6 @@
   "rel_date_dept_head",
   "tab_consultants",
   "tab_developers",
-  "link_status",
   "link_step",
   "sec_rnd_spec",
   "rel_check_rnd_spec",
@@ -457,16 +456,6 @@
    "options": "<br>"
   },
   {
-   "default": "STAT001",
-   "fieldname": "link_status",
-   "fieldtype": "Link",
-   "in_global_search": 1,
-   "in_standard_filter": 1,
-   "label": "Status",
-   "options": "DC_PLC_Product_Status",
-   "permlevel": 1
-  },
-  {
    "default": "LET001",
    "fieldname": "link_letter",
    "fieldtype": "Link",
@@ -534,7 +523,7 @@
  ],
  "hide_toolbar": 1,
  "links": [],
- "modified": "2019-12-07 18:03:25.687251",
+ "modified": "2019-12-24 14:18:30.591573",
  "modified_by": "Administrator",
  "module": "DC PLC",
  "name": "DC_PLC_Product_Summary",
