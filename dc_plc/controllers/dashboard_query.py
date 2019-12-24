@@ -16,10 +16,10 @@ from dc_plc.custom.utils import count_filled_fields
 def role_completeness_stats():
 	# TODO refactor this
 	# TODO refactor hardcoded column indexes
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
-	res = frappe.db.sql("""SELECT 
-	`stat`.`title`
+	res = frappe.db.sql(f"""SELECT 
+	CONCAT(`mile`.`index`, '.', `stage`.`index`, '.', `step`.`index`, ' ', `step`.`title`) AS `step`
 	, COUNT(`cons`.`link_employee`) AS `con_num`
 	, COUNT(`devs`.`link_employee`) AS `dev_num`
 	, `proj`.`title`
@@ -48,23 +48,26 @@ def role_completeness_stats():
 	, `p`.`rel_check_procmap`
 	, `p`.`rel_check_tech_writer`
 	, `p`.`rel_check_desdoc`
-	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
+	FROM `{db_name}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Status` AS `stat` ON `p`.`link_status` = `stat`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Step` AS `step` ON `p`.`link_step` = `step`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Stage` AS `stage` ON `step`.`link_stage` = `stage`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Milestone` AS `mile` ON `stage`.`link_milestone` = `mile`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Function` AS `func` ON `p`.`link_function` = `func`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
+	LEFT JOIN
+		`{db_name}`.`tabDC_PLC_Product_Function` AS `func` ON `p`.`link_function` = `func`.`name`
+	LEFT JOIN
+		`{db_name}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
 	LEFt JOIN
-		`{}`.`tabDC_PLC_Package` AS `pack` ON `p`.`link_package` = `pack`.`name`
-LEFT JOIN `{}`.`tabDC_PLC_Consulants_in_Product` AS `cons` ON `cons`.parent = `p`.`name`
-LEFT JOIN `{}`.`tabDC_PLC_Developers_in_Product` AS `devs` ON `devs`.parent = `p`.`name`
-GROUP BY `p`.`name`;
-""".format(db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name), as_list=1)
+		`{db_name}`.`tabDC_PLC_Package` AS `pack` ON `p`.`link_package` = `pack`.`name`
+	LEFT JOIN `{db_name}`.`tabDC_PLC_Consulants_in_Product` AS `cons` ON `cons`.parent = `p`.`name`
+	LEFT JOIN `{db_name}`.`tabDC_PLC_Developers_in_Product` AS `devs` ON `devs`.parent = `p`.`name`
+	GROUP BY `p`.`name`;""", as_list=1)
 
 	total = [count_filled_fields(row, range(len(row))) for row in res]
 	total = [int(round(row[0]/row[1], 2) * 100) for row in total]
@@ -165,7 +168,7 @@ GROUP BY `p`.`name`;
 def developer_completeness_stats():
 	# TODO refactor this
 
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	res = frappe.db.sql("""
 	SELECT 
@@ -231,7 +234,7 @@ ORDER BY `dev` ASC;""".format(db_name, db_name, db_name, db_name, db_name, db_na
 def consultant_completeness_stats():
 	# TODO refactor this
 
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	res = frappe.db.sql(f"""
 		SELECT 
