@@ -57,7 +57,7 @@ def export_product_data(ids=""):
 	id_array = sorted(set(frappe.parse_json(ids)))
 	id_str = '"' + '","'.join(id_array) + '"'
 
-	sql = """SELECT
+	sql = f"""SELECT
 	`p`.`name` as `id`
 	, `p`.`ext_num`
 	, `p`.`int_num`
@@ -83,33 +83,30 @@ def export_product_data(ids=""):
 	, GROUP_CONCAT(`dev`.`full_name`) AS `cons`
 	, `p`.`tech_note`
 	, `p`.`economy_note`
-	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
+	FROM `{db_name}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
-	LEFT JOIN
-		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
+		`{db_name}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
 	LEFt JOIN
-		`{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
+		`{db_name}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Step` AS `stp` ON `stp`.`name` = `p`.`link_step`
+		`{db_name}`.`tabDC_PLC_Product_Step` AS `stp` ON `stp`.`name` = `p`.`link_step`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Stage` AS `stg` ON `stg`.`name` = `stp`.`link_stage`
+		`{db_name}`.`tabDC_PLC_Product_Stage` AS `stg` ON `stg`.`name` = `stp`.`link_stage`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Milestone` AS `mil` ON `mil`.`name` = `stg`.`link_milestone`
+		`{db_name}`.`tabDC_PLC_Product_Milestone` AS `mil` ON `mil`.`name` = `stg`.`link_milestone`
 	LEFT OUTER JOIN
-		`{}`.`tabDC_PLC_Developers_in_Product` AS `dev` ON `p`.`name` = `dev`.`parent`
+		`{db_name}`.`tabDC_PLC_Developers_in_Product` AS `dev` ON `p`.`name` = `dev`.`parent`
 	LEFT OUTER JOIN
-		`{}`.`tabDC_PLC_Consulants_in_Product` AS `con` ON `p`.`name` = `con`.`parent`
-	WHERE `p`.`name` IN ({})
+		`{db_name}`.`tabDC_PLC_Consulants_in_Product` AS `con` ON `p`.`name` = `con`.`parent`
+	WHERE `p`.`name` IN ({id_str})
 	GROUP BY `p`.`name`
-	ORDER BY `p`.`name` ASC""" \
-		.format(db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name, id_str)
+	ORDER BY `p`.`name` ASC"""
 
 	res = frappe.db.sql(sql + ';')
 
