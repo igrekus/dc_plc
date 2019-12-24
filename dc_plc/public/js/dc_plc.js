@@ -21,7 +21,6 @@
 		frappe.dc_plc.utils.formatters.product_type_link_formatter = product_type_link_formatter;
 		frappe.dc_plc.utils.formatters.package_link_formatter = package_link_formatter;
 		frappe.dc_plc.utils.formatters.letter_link_formatter = letter_link_formatter;
-		frappe.dc_plc.utils.formatters.status_link_formatter = status_link_formatter;
 		frappe.dc_plc.utils.formatters.step_link_formatter = step_link_formatter;
 	});
 
