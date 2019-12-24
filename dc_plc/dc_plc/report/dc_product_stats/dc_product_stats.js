@@ -30,12 +30,6 @@ frappe.query_reports["DC Product Stats"] = {
 			"options": "DC_PLC_Package"
 		},
 		{
-			"label": __("Status"),
-			"fieldname": "link_status",
-			"fieldtype": "Link",
-			"options": "DC_PLC_Product_Status"
-		},
-		{
 			"label": __("Letter"),
 			"fieldname": "link_letter",
 			"fieldtype": "Link",
