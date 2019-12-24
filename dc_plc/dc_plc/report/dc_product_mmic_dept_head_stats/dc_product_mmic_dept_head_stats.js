@@ -19,7 +19,7 @@ frappe.query_reports["DC Product MMIC Dept Head Stats"] = {
 	],
 	formatter: frappe.dc_plc.utils.formatters.mmic_dept_head_formatter,
 	after_datatable_render: table_instance => {
-		let highlight_cols = [4, 7, 8];
+		let highlight_cols = [4, 6, 7];
 		let data = table_instance.datamanager.data;
 		for (let row = 0; row < data.length; ++row) {
 			const [date, check, perms] = data[row][__('Relevance')].split(';');

@@ -45,6 +45,6 @@ def calc_percent(value, total):
 def count_filled_fields(row, indexes):
 	total = 0
 	for index in indexes:
-		if row[index] and row[index] != '-':
+		if row[index] and row[index] != '-' and row[index] != '-1.-1.-1 -':
 			total += 1
 	return total, len(indexes)

@@ -3,11 +3,11 @@ import frappe
 
 # TODO properly escape filter items
 def get_full_stats(filters):
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
-	sql = """SELECT
+	sql = f"""SELECT
 	`p`.`name` as `id`
-	, `status`.`title` AS `status`
+	, CONCAT(`mile`.`index`, '.', `stage`.`index`, '.', `step`.`index`, ' ', `step`.`title`) AS `step` 
 	, `p`.`ext_num`
 	, `p`.`int_num`
 	, `letter`.`title` AS `letter`
@@ -36,64 +36,67 @@ def get_full_stats(filters):
 	, `p`.`rel_check_procmap`
 	, `p`.`rel_check_tech_writer`
 	, `p`.`rel_check_desdoc`
-	FROM `{}`.`tabDC_PLC_Product_Summary` AS `p`
+	FROM `{db_name}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Step` AS `step` ON `p`.`link_step` = `step`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Stage` AS `stage` ON `step`.`link_stage` = `stage`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Milestone` AS `mile` ON `stage`.`link_milestone` = `mile`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
+	LEFT JOIN
+		`{db_name}`.`tabDC_PLC_Product_Type` AS `type` ON `p`.`link_type` = `type`.`name`
+	LEFT JOIN
+		`{db_name}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
 	LEFt JOIN
-		`{}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
+		`{db_name}`.`tabDC_PLC_Package` AS `pak` ON `p`.`link_package` = `pak`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Function` AS `fun` ON `p`.`link_function` = `fun`.`name`
 	LEFT OUTER JOIN
-		`{}`.`tabDC_PLC_Developers_in_Product` AS `dev` ON `p`.`name` = `dev`.`parent`""" \
-		.format(db_name, db_name, db_name, db_name, db_name, db_name, db_name, db_name)
+		`{db_name}`.`tabDC_PLC_Developers_in_Product` AS `dev` ON `p`.`name` = `dev`.`parent`"""
 
 	if filters:
 		proj = filters.get('link_rnd_project', '%')
-		proj_clause = "(`proj`.`name` LIKE '%' OR `proj`.`name` IS NULL)" if proj == '%' else "`proj`.`name` LIKE '{}'".format(proj)
+		proj_clause = "(`proj`.`name` LIKE '%' OR `proj`.`name` IS NULL)" if proj == '%' else f"`proj`.`name` LIKE '{proj}'"
 
 		type_ = filters.get('link_type', '%')
-		type_clause = "(`type`.`name` LIKE '%' OR `type`.`name` IS NULL)" if type_ == '%' else "`type`.`name` LIKE '{}'".format(type_)
+		type_clause = "(`type`.`name` LIKE '%' OR `type`.`name` IS NULL)" if type_ == '%' else f"`type`.`name` LIKE '{type_}'"
 
 		letter = filters.get('link_letter', '%')
-		model_clause = "(`p`.`link_letter` LIKE '%' OR `p`.link_letter IS NULL)" if letter == '%' else "`p`.`link_letter` LIKE '{}'".format(letter)
+		model_clause = "(`p`.`link_letter` LIKE '%' OR `p`.link_letter IS NULL)" if letter == '%' else f"`p`.`link_letter` LIKE '{letter}'"
 
 		func = filters.get('link_function', '%')
-		func_clause = "(`fun`.`name` LIKE '%' OR `fun`.`name` IS NULL)" if func == '%' else "`fun`.`name` LIKE '{}'".format(func)
+		func_clause = "(`fun`.`name` LIKE '%' OR `fun`.`name` IS NULL)" if func == '%' else f"`fun`.`name` LIKE '{func}'"
 
 		status = filters.get('link_status', '%')
-		status_clause = "(`p`.`link_status` LIKE '%' OR `p`.link_status IS NULL)" if status == '%' else "`p`.`link_status` LIKE '{}'".format(status)
+		status_clause = "(`p`.`link_status` LIKE '%' OR `p`.link_status IS NULL)" if status == '%' else f"`p`.`link_status` LIKE '{status}'"
 
 		pack = filters.get('link_package', '%')
-		pack_clause = "(`pak`.`name` LIKE '%' OR `pak`.`name` IS NULL)" if pack == '%' else "`pak`.`name` LIKE '{}'".format(pack)
+		pack_clause = "(`pak`.`name` LIKE '%' OR `pak`.`name` IS NULL)" if pack == '%' else f"`pak`.`name` LIKE '{pack}'"
 
 		dev = filters.get('developer', '%')
 		if dev == 'HR-EMP-00094':
 			dev_clause = "`dev`.`link_employee` IS NULL"
 		else:
-			dev_clause = "(`dev`.`link_employee` LIKE '%' OR `dev`.`link_employee` IS NULL)" if dev == '%' else "`dev`.`link_employee` LIKE '{}'".format(dev)
+			dev_clause = "(`dev`.`link_employee` LIKE '%' OR `dev`.`link_employee` IS NULL)" if dev == '%' else f"`dev`.`link_employee` LIKE '{dev}'"
 
-		sql += """
+		sql += f"""
 	WHERE
-	{}
+	{proj_clause}
 	AND
-	{}
+	{type_clause}
 	AND
-	{}
+	{model_clause}
 	AND
-	{}
+	{func_clause}
 	AND
-	{}
+	{status_clause}
 	AND
-	{}
+	{pack_clause}
 	AND
-	{}
-	""".format(proj_clause, type_clause, model_clause, func_clause, status_clause, pack_clause, dev_clause)
+	{dev_clause}
+	"""
 
 	sql += "GROUP BY `p`.`name` ORDER BY `id`"
 
@@ -101,7 +104,7 @@ def get_full_stats(filters):
 
 
 def get_developers_for_product():
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 	sql = """SELECT t.parent,
 GROUP_CONCAT(CONCAT(emp.last_name, " ", emp.first_name, " ", emp.middle_name)) AS developers
 FROM `{}`.`tabDC_PLC_Developers_in_Product` AS t
@@ -112,7 +115,7 @@ GROUP BY t.parent;""".format(db_name, db_name)
 
 
 def get_consultants_for_product():
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 	sql = """SELECT t.parent,
 GROUP_CONCAT(CONCAT(emp.last_name, " ", emp.first_name, " ", emp.middle_name)) AS developers
 FROM `{}`.tabDC_PLC_Consulants_in_Product AS t
@@ -123,11 +126,10 @@ GROUP BY t.parent;""".format(db_name, db_name)
 
 
 def get_dept_head_stats(filters):
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	sql = f"""SELECT
 	`p`.`name` as `id`
-	, `status`.`title` AS `status`
 	, CONCAT(`mil`.`index`, '.', `stage`.`index`, '.', `step`.`index`, ' ', `step`.`title`) AS `step`
 	, `proj`.`title` AS `project`
 	, "stub" AS `cons`
@@ -139,8 +141,6 @@ def get_dept_head_stats(filters):
 	, `p`.`rel_check_dept_head`
 	, `p`.`rel_date_dept_head`
 	FROM `{db_name}`.`tabDC_PLC_Product_Summary` AS `p`
-	LEFT JOIN
-		`{db_name}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
 	LEFT JOIN
 		`{db_name}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
 	LEFT JOIN
@@ -162,17 +162,17 @@ def get_dept_head_stats(filters):
 			{step_clause}
 		"""
 
-	sql += "GROUP BY `p`.`name` ORDER BY `id`"
+	sql += 'GROUP BY `p`.`name` ORDER BY `id`'
 
-	return frappe.db.sql(sql + ";", as_list=1)
+	return frappe.db.sql(sql + ';', as_list=1)
 
 
 def get_rnd_spec_stats(filters):
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
-	sql = """SELECT
+	sql = f"""SELECT
 	`p`.`name` AS `id`
-	, `status`.`title` AS `status`
+	, CONCAT(`mile`.`index`, '.', `stage`.`index`, '.', `step`.`index`, ' ', `step`.`title`) AS `step`
 	, `proj`.`title` AS `project`
 	, `letter`.`title` AS `letter`
 	, `func`.`title` AS `function`
@@ -180,21 +180,24 @@ def get_rnd_spec_stats(filters):
 	, `p`.`int_num`
 	, `p`.`rel_check_rnd_spec`
 	, `p`.`rel_date_rnd_spec`
-	FROM `{}`.tabDC_PLC_Product_Summary AS p
+	FROM `{db_name}`.`tabDC_PLC_Product_Summary` AS `p`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Status` AS `status` ON `p`.`link_status` = `status`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Function` AS `func` ON `p`.`link_function` = `func`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Function` AS `func` ON `p`.`link_function` = `func`.`name`
+		`{db_name}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_Product_Letter` AS `letter` ON `p`.`link_letter` = `letter`.`name`
+		`{db_name}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`
 	LEFT JOIN
-		`{}`.`tabDC_PLC_RND_Project` AS `proj` ON `p`.link_rnd_project = `proj`.`name`;""".format(db_name, db_name, db_name, db_name, db_name)
-
+		`{db_name}`.`tabDC_PLC_Product_Step` AS `step` ON `p`.`link_step` = `step`.`name`
+	LEFT JOIN
+		`{db_name}`.`tabDC_PLC_Product_Stage` AS `stage` ON `step`.`link_stage` = `stage`.`name`
+	LEFT JOIN
+		`{db_name}`.`tabDC_PLC_Product_Milestone` AS `mile` ON `stage`.`link_milestone` = `mile`.`name`;"""
 	return frappe.db.sql(sql + ";", as_list=1)
 
 
 def get_developer_stats(filters):
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	sql = """SELECT
 	`p`.`name` as `id`
@@ -258,7 +261,7 @@ def get_developer_stats(filters):
 
 
 def get_opcon_stats(filters):
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	sql = """SELECT
 	`p`.`name` as `id`
@@ -287,7 +290,7 @@ def get_opcon_stats(filters):
 
 
 def get_procmap_stats(filters):
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	sql = """SELECT
 	`p`.`name` as `id`
@@ -309,7 +312,7 @@ def get_procmap_stats(filters):
 
 
 def get_tech_writer_stats(filters):
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	sql = """SELECT
 	`p`.`name` AS `id`
@@ -336,7 +339,7 @@ def get_tech_writer_stats(filters):
 
 
 def get_desdoc_stats(filters):
-	db_name = frappe.conf.get("db_name")
+	db_name = frappe.conf.get('db_name')
 
 	sql = """SELECT
 	`p`.`name` AS `id`
