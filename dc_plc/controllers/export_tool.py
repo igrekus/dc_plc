@@ -133,8 +133,8 @@ def export_product_data(ids=""):
 		'reports': row[18],
 		'datasheet': row[19],
 		'final_description': row[20],
-		'cons': row[21],
-		'devs': row[22],
+		'cons': ', '.join(set(row[21].split(','))) if row[21] else None,
+		'devs': ', '.join(set(row[22].split(','))) if row[22] else None,
 		'tech_note': row[23],
 		'economy_note': row[24]
 	} for row in res]
