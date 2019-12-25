@@ -15,7 +15,6 @@ let render_step_info = (frm) => {
 			prod_id: frm.doc.name,
 		},
 		callback: r => {
-			console.log(r.message);
 			render_info_field(frm, 'info_step', 'Шаг ЖЦИ', r.message);
 		}
 	});
