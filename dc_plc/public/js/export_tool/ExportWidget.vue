@@ -61,7 +61,7 @@
 						visible: false
 					},
 					{
-						label: 'Развитие',
+						label: 'Шаг ЖЦИ',
 						propName: 'status',
 						width: 'auto',
 						visible: false
